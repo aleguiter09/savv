@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import AuthProvider from "@/context/authContext";
 import SupabaseProvider from "@/context/supabaseContext";
 import { createClient } from "@/utils/supabase-server";
+export const dynamic = "force-dynamic";
 
 const inter = Inter({ subsets: ["latin"] });
 
