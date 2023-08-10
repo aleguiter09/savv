@@ -11,11 +11,8 @@ import {
   TabPanel,
   NumberInput,
   TextInput,
-  Select,
-  SelectItem,
 } from "@tremor/react";
-import Button from "./common/CustomButton";
-import Input from "./common/CustomInput";
+import { CurrencyDollarIcon } from "@heroicons/react/outline";
 
 export default function MovementsModal({ closeModal }) {
   const { supabase } = useSupabase();
@@ -39,10 +36,15 @@ export default function MovementsModal({ closeModal }) {
   };
 
   const saveCategory = async (movement) => {
-    console.log(movement);
-    const response = await supabase.from("movement").insert(movement);
-    console.log(response);
-    return;
+    try {
+      const response = await supabase.from("movement").insert(movement);
+      console.log(response);
+      if (response.error) {
+        throw new Error(response.error);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleConfirm = async () => {
@@ -53,7 +55,8 @@ export default function MovementsModal({ closeModal }) {
       paid_with: paidWith,
       comment: comment,
     };
-    await saveCategory(newMovement);
+    console.log(newMovement);
+    // await saveCategory(newMovement);
     handleClose();
   };
 
@@ -69,8 +72,8 @@ export default function MovementsModal({ closeModal }) {
   });
 
   return (
-    <div class="fixed top-0 right-0 left-0 bg-gray-600 bg-opacity-50 h-full w-full z-50">
-      <div class="flex mx-5 mt-10 max-w-sm sm:mx-auto">
+    <div class="fixed left-0 right-0 top-0 z-50 h-full w-full bg-gray-600 bg-opacity-50">
+      <div class="mx-5 mt-10 flex max-w-sm sm:mx-auto">
         <Card className="p-3">
           <TabGroup className="mb-3" onIndexChange={(value) => setType(value)}>
             <TabList variant="solid" className="mb-2 w-full">
@@ -86,7 +89,7 @@ export default function MovementsModal({ closeModal }) {
                         <Icon
                           className={`bg-${
                             cat.color
-                          } rounded-full p-1.5 mx-auto ${
+                          } mx-auto rounded-full p-1.5 ${
                             cat.id === selectedCategory
                               ? "border-2 border-slate-600"
                               : ""
@@ -96,7 +99,7 @@ export default function MovementsModal({ closeModal }) {
                           color="white"
                           onClick={() => setSelectedCategory(cat.id)}
                         />
-                        <p className="text-xs m-0 mt-2 truncate">{cat.title}</p>
+                        <p className="m-0 mt-2 truncate text-xs">{cat.title}</p>
                       </div>
                     );
                   })}
@@ -110,7 +113,7 @@ export default function MovementsModal({ closeModal }) {
                         <Icon
                           className={`bg-${
                             cat.color
-                          } rounded-full p-1.5 mx-auto ${
+                          } mx-auto rounded-full p-1.5 ${
                             cat.id === selectedCategory
                               ? "border-2 border-slate-600"
                               : ""
@@ -120,7 +123,7 @@ export default function MovementsModal({ closeModal }) {
                           color="white"
                           onClick={() => setSelectedCategory(cat.id)}
                         />
-                        <p className="text-xs m-0 mt-2 truncate">{cat.title}</p>
+                        <p className="m-0 mt-2 truncate text-xs">{cat.title}</p>
                       </div>
                     );
                   })}
@@ -129,40 +132,39 @@ export default function MovementsModal({ closeModal }) {
             </TabPanels>
           </TabGroup>
           <NumberInput
+            icon={CurrencyDollarIcon}
             className="mb-3"
             placeholder="Amount..."
             step="10"
             min="0"
-            onValueChange={(value) => setAmount(value)}
+            onValueChange={(a) => setAmount(a)}
           />
           <TextInput
-            type="text"
             placeholder="Comment..."
             className="mb-3"
-            onChange={(value) => setComment(value)}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
           />
-          <div class="flex flex-row gap-2 mx-1">
-            <div class="flex items-center w-full">
+          <div class="mx-1 flex flex-row gap-2">
+            <div class="flex w-full items-center">
               <input
-                id="cash"
                 type="radio"
                 value="cash"
                 checked={paidWith === "cash"}
                 onChange={() => setPaidWith("cash")}
-                class="w-4 h-4 text-blue-600 bg-gray-100  focus:ring-blue-500"
+                class="h-4 w-4 bg-gray-100 text-blue-600  focus:ring-blue-500"
               />
               <label for="cash" class="ml-2 text-sm font-medium text-gray-700">
                 Debit / Cash
               </label>
             </div>
-            <div class="flex items-center w-full">
+            <div class="flex w-full items-center">
               <input
-                id="credit"
                 type="radio"
                 value="credit"
                 checked={paidWith === "credit"}
                 onChange={() => setPaidWith("credit")}
-                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
+                class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-blue-500"
               />
               <label
                 for="radio-2"
@@ -172,9 +174,20 @@ export default function MovementsModal({ closeModal }) {
               </label>
             </div>
           </div>
-          <div className="flex flex-row gap-2 mt-3">
-            <Button label="Close" onClick={handleClose} />
-            <Button label="Confirm" onClick={handleConfirm} disabled={false} />
+          <div className="mt-3 flex flex-row gap-2">
+            <button
+              className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white disabled:opacity-60"
+              onClick={handleClose}
+            >
+              Close
+            </button>
+            <button
+              className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white disabled:opacity-60"
+              onClick={handleConfirm}
+              disabled={true}
+            >
+              Confirm
+            </button>
           </div>
         </Card>
       </div>

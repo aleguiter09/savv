@@ -19,6 +19,7 @@ export default async function RootLayout({ children }) {
   const {
     data: { session },
   } = await supabase.auth.getSession();
+
   return (
     <html lang="en">
       <body className={inter.className}>

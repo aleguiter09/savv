@@ -25,7 +25,7 @@ export const deleteAccount = async (accId) => {
   if (expenses) {
     expenses.forEach((exp) => {
       promises.push(
-        supabase.from("expense").update({ account: null }).eq("id", exp.id)
+        supabase.from("expense").update({ account: null }).eq("id", exp.id),
       );
     });
   }
@@ -33,7 +33,7 @@ export const deleteAccount = async (accId) => {
   if (incomes) {
     incomes.forEach((inc) => {
       promises.push(
-        supabase.from("income").update({ account: null }).eq("id", inc.id)
+        supabase.from("income").update({ account: null }).eq("id", inc.id),
       );
     });
   }
@@ -67,7 +67,7 @@ export const deleteCategory = async (catId) => {
   if (expenses) {
     expenses.forEach((exp) => {
       promises.push(
-        supabase.from("expense").update({ category: null }).eq("id", exp.id)
+        supabase.from("expense").update({ category: null }).eq("id", exp.id),
       );
     });
   }

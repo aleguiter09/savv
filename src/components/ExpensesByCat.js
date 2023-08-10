@@ -31,8 +31,8 @@ const categories = [
 
 export default function Expense() {
   return (
-    <Card className="py-2 px-3">
-      <h5 className="text-sm font-medium mb-3">Expenses by category</h5>
+    <Card className="px-3 py-2">
+      <h5 className="mb-3 text-sm font-medium">Expenses by category</h5>
       <DonutChart
         data={categories}
         category="sales"

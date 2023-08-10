@@ -1,5 +1,4 @@
 "use client";
-import Button from "@/components/common/CustomButton";
 import { useAuth } from "@/context/authContext";
 import {
   PlusIcon,
@@ -17,19 +16,28 @@ export default function MainPage() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="max-w-lg h-screen my-5 mx-5 sm:mx-auto">
+    <div className="mx-5 my-5 h-screen max-w-lg sm:mx-auto">
       {showModal && <MovementsModal closeModal={() => setShowModal(false)} />}
-      <Card className="mb-4 flex justify-between py-2 px-3">
+      <Card className="mb-4 flex justify-between px-3 py-2">
         <TremorIcon color="blue" size="sm" icon={ArrowLeftIcon} />
-        <h5 className="text-lg mt-1 font-semibold">June 2023</h5>
+        <h5 className="mt-1 text-lg font-semibold">June 2023</h5>
         <TremorIcon color="blue" size="sm" icon={ArrowRightIcon} />
       </Card>
+
       <Finances />
       <ExpensesByCat />
-      {/*<Button label="Log out" onClick={signOut} />*/}
-      <div className="flex justify-center mt-6 fixed bottom-0 left-0 right-0">
+      {/*
+      <button
+      className=
+        "rounded-md w-full py-2 font-semibold text-sm text-white bg-blue-600 disabled:opacity-60"
+      
+      onClick={signOut}
+    >
+      Log out
+    </button>*/}
+      <div className="fixed bottom-0 left-0 right-0 mt-6 flex justify-center">
         <button
-          className="w-12 h-12 p-3 bg-blue-600 rounded-full text-white mb-2"
+          className="mb-2 h-12 w-12 rounded-full bg-blue-600 p-3 text-white"
           onClick={() => setShowModal(true)}
         >
           <PlusIcon />

@@ -16,8 +16,8 @@ const value = "8000";
 
 export default function Finances() {
   return (
-    <Card className="py-2 mb-4 px-3">
-      <h5 className="text-sm font-medium mb-3">Movements</h5>
+    <Card className="mb-4 px-3 py-2">
+      <h5 className="mb-3 text-sm font-medium">Movements</h5>
       <BarChart
         data={chartdata}
         index="name"
