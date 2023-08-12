@@ -11,6 +11,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -20,17 +21,25 @@ export default function Login() {
 
   async function handleSignIn(e) {
     e.preventDefault();
-    setError(null);
+    setLoading(true);
+    setError("");
     if (email && password) {
       try {
         const error = await signInWithEmail(email, password);
         if (error) {
-          console.error("Error:", e);
+          console.error("Error:", error);
           setError(error);
         }
       } catch (e) {
-        console.error("Error:", e);
+        console.error("Error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
       }
+    } else {
+      console.error("Error: Fill out both fields to login");
+      setError("Fill out both fields to login");
+      setLoading(false);
     }
   }
 
@@ -39,39 +48,48 @@ export default function Login() {
       <Image src="/finance.png" height={160} width={250} alt="My finances" />
       <h2 className="mt-4 text-3xl font-extrabold">Sign in to your account</h2>
       <div className="mt-8 w-full max-w-md">
-        <form className="flex flex-col gap-3">
-          <div className="flex flex-col">
-            <label htmlFor="email" className="mb-2 text-sm font-medium">
-              Email address
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.currentTarget.value)}
-              className="rounded-md p-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="password" className="mb-2 text-sm font-medium">
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.currentTarget.value)}
-              className="rounded-md p-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600"
-            />
-          </div>
-          <button
-            className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white disabled:opacity-60"
-            onClick={handleSignIn}
-          >
-            Sign in
-          </button>
+        <form className="flex flex-col gap-2">
+          <label htmlFor="email" className="text-sm font-medium">
+            Email address
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.currentTarget.value)}
+            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
+            ${error !== "" ? "border-red-500" : ""}`}
+          />
+          <label htmlFor="password" className="text-sm font-medium">
+            Password
+          </label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.currentTarget.value)}
+            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
+              ${error !== "" ? "border-red-500" : ""}`}
+          />
+          {error && <p className="text-xs text-red-500">{error}</p>}
+          {loading ? (
+            <div className="mt-2 flex w-full justify-center rounded-md bg-blue-600 py-2">
+              <div
+                class="h-5 w-5 animate-spin rounded-full border-[3px] border-current border-t-transparent text-white"
+                role="status"
+                aria-label="loading"
+              ></div>
+            </div>
+          ) : (
+            <button
+              className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white"
+              onClick={handleSignIn}
+            >
+              Sign in
+            </button>
+          )}
           <p className="text-center text-sm">
             {"Don't have an account? "}
             <Link href="/register" className="font-semibold text-blue-600">
