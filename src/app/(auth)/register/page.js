@@ -14,17 +14,30 @@ export default function Register() {
 
   async function handleSignUp(e) {
     e.preventDefault();
-    setError(null);
+    setLoading(true);
+    setError("");
     if (email && password && confirmPassword) {
+      if (password !== confirmPassword) {
+        setError("Passwords do not match");
+        setLoading(false);
+        return;
+      }
       try {
         const error = await signUp(email, password);
         if (error) {
-          console.error("Error:", e);
-          console.log(error);
+          console.error("Error:", error);
+          setError(error);
         }
-      } catch (e) {
-        console.error("Error:", e);
+      } catch (error) {
+        console.error("Error:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
       }
+    } else {
+      console.error("Error: Fill out all fields to register");
+      setError("Fill out all fields to register");
+      setLoading(false);
     }
   }
 
@@ -42,7 +55,8 @@ export default function Register() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.currentTarget.value)}
-            className="rounded-md p-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600"
+            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
+            ${error !== "" ? "border-red-500" : ""}`}
           />
           <label htmlFor="password" className="text-sm font-medium">
             Password
@@ -52,7 +66,8 @@ export default function Register() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.currentTarget.value)}
-            className="rounded-md p-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600"
+            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
+            ${error !== "" ? "border-red-500" : ""}`}
           />
           <label htmlFor="confirmPassword" className="text-sm font-medium">
             Confirm Password
@@ -62,14 +77,26 @@ export default function Register() {
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.currentTarget.value)}
-            className="rounded-md p-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600"
+            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
+            ${error !== "" ? "border-red-500" : ""}`}
           />
-          <button
-            className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white disabled:opacity-60"
-            onClick={handleSignUp}
-          >
-            Register
-          </button>
+          {error && <p className="text-xs text-red-500">{error}</p>}
+          {loading ? (
+            <div className="mt-2 flex w-full justify-center rounded-md bg-blue-600 py-2">
+              <div
+                className="h-5 w-5 animate-spin rounded-full border-[3px] border-current border-t-transparent text-white"
+                role="status"
+                aria-label="loading"
+              ></div>
+            </div>
+          ) : (
+            <button
+              className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white disabled:opacity-60"
+              onClick={handleSignUp}
+            >
+              Register
+            </button>
+          )}
           <p className="text-center text-sm">
             {"Already have an account? "}
             <Link href="/" className="font-semibold text-blue-600">

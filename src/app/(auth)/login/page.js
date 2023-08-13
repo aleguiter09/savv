@@ -30,7 +30,7 @@ export default function Login() {
           console.error("Error:", error);
           setError(error);
         }
-      } catch (e) {
+      } catch (error) {
         console.error("Error:", error);
         setError(error);
       } finally {
@@ -77,10 +77,10 @@ export default function Login() {
           {loading ? (
             <div className="mt-2 flex w-full justify-center rounded-md bg-blue-600 py-2">
               <div
-                class="h-5 w-5 animate-spin rounded-full border-[3px] border-current border-t-transparent text-white"
+                className="h-5 w-5 animate-spin rounded-full border-[3px] border-current border-t-transparent text-white"
                 role="status"
                 aria-label="loading"
-              ></div>
+              />
             </div>
           ) : (
             <button

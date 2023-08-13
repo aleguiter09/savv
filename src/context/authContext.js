@@ -41,12 +41,17 @@ export default function AuthProvider({ serverSession, children }) {
   };
 
   const signUp = async (email, password) => {
-    await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email: email,
       password: password,
     });
 
+    if (error) {
+      return error.message;
+    }
+
     router.push("/");
+    return null;
   };
 
   const signOut = async () => {

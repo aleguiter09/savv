@@ -72,8 +72,8 @@ export default function MovementsModal({ closeModal }) {
   });
 
   return (
-    <div class="fixed left-0 right-0 top-0 z-50 h-full w-full bg-gray-600 bg-opacity-50">
-      <div class="mx-5 mt-10 flex max-w-sm sm:mx-auto">
+    <div className="fixed left-0 right-0 top-0 z-50 h-full w-full bg-gray-600 bg-opacity-50">
+      <div className="mx-5 mt-10 flex max-w-sm sm:mx-auto">
         <Card className="p-3">
           <TabGroup className="mb-3" onIndexChange={(value) => setType(value)}>
             <TabList variant="solid" className="mb-2 w-full">
@@ -145,30 +145,33 @@ export default function MovementsModal({ closeModal }) {
             value={comment}
             onChange={(e) => setComment(e.target.value)}
           />
-          <div class="mx-1 flex flex-row gap-2">
-            <div class="flex w-full items-center">
+          <div className="mx-1 flex flex-row gap-2">
+            <div className="flex w-full items-center">
               <input
                 type="radio"
                 value="cash"
                 checked={paidWith === "cash"}
                 onChange={() => setPaidWith("cash")}
-                class="h-4 w-4 bg-gray-100 text-blue-600  focus:ring-blue-500"
+                className="h-4 w-4 bg-gray-100 text-blue-600  focus:ring-blue-500"
               />
-              <label for="cash" class="ml-2 text-sm font-medium text-gray-700">
+              <label
+                for="cash"
+                className="ml-2 text-sm font-medium text-gray-700"
+              >
                 Debit / Cash
               </label>
             </div>
-            <div class="flex w-full items-center">
+            <div className="flex w-full items-center">
               <input
                 type="radio"
                 value="credit"
                 checked={paidWith === "credit"}
                 onChange={() => setPaidWith("credit")}
-                class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-blue-500"
+                className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-blue-500"
               />
               <label
                 for="radio-2"
-                class="ml-2 text-sm font-medium text-gray-700"
+                className="ml-2 text-sm font-medium text-gray-700"
               >
                 Credit
               </label>
