@@ -13,6 +13,7 @@ import {
   TextInput,
 } from "@tremor/react";
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
+import { getCategories } from "@/services/database";
 
 export default function MovementsModal({ closeModal }) {
   const { supabase } = useSupabase();
@@ -24,10 +25,8 @@ export default function MovementsModal({ closeModal }) {
   const [paidWith, setPaidWith] = useState("cash");
   const [comment, setComment] = useState("");
 
-  const getCategories = async () => {
-    let { data } = await supabase
-      .from("category")
-      .select("id, color, title, icon, for");
+  const getCategoriesFromDb = async () => {
+    const data = await getCategories(supabase);
 
     const expCategories = data.filter((c) => c.for === "expense");
     const incCategories = data.filter((c) => c.for === "income");
@@ -38,7 +37,6 @@ export default function MovementsModal({ closeModal }) {
   const saveCategory = async (movement) => {
     try {
       const response = await supabase.from("movement").insert(movement);
-      console.log(response);
       if (response.error) {
         throw new Error(response.error);
       }
@@ -68,7 +66,7 @@ export default function MovementsModal({ closeModal }) {
   };
 
   useEffect(() => {
-    getCategories();
+    getCategoriesFromDb();
   });
 
   return (
