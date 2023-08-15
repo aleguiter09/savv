@@ -13,7 +13,7 @@ import {
   TextInput,
 } from "@tremor/react";
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
-import { getCategories } from "@/services/database";
+import { getCategories, insertMovement } from "@/services/database";
 
 export default function MovementsModal({ closeModal }) {
   const { supabase } = useSupabase();
@@ -34,28 +34,21 @@ export default function MovementsModal({ closeModal }) {
     setExpenseCategories(expCategories);
   };
 
-  const saveCategory = async (movement) => {
+  const handleConfirm = async () => {
     try {
-      const response = await supabase.from("movement").insert(movement);
-      if (response.error) {
-        throw new Error(response.error);
-      }
+      const newMovement = {
+        category: selectedCategory,
+        amount: amount,
+        type: type === 0 ? "expense" : "income",
+        paid_with: paidWith,
+        comment: comment,
+      };
+      await insertMovement(supabase, newMovement);
     } catch (err) {
       console.error(err);
+    } finally {
+      handleClose();
     }
-  };
-
-  const handleConfirm = async () => {
-    const newMovement = {
-      category: selectedCategory,
-      amount: amount,
-      type: type === 0 ? "expense" : "income",
-      paid_with: paidWith,
-      comment: comment,
-    };
-    console.log(newMovement);
-    // await saveCategory(newMovement);
-    handleClose();
   };
 
   const handleClose = () => {
@@ -152,10 +145,7 @@ export default function MovementsModal({ closeModal }) {
                 onChange={() => setPaidWith("cash")}
                 className="h-4 w-4 bg-gray-100 text-blue-600  focus:ring-blue-500"
               />
-              <label
-                for="cash"
-                className="ml-2 text-sm font-medium text-gray-700"
-              >
+              <label for="cash" className="ml-2 text-sm font-medium text-black">
                 Debit / Cash
               </label>
             </div>
@@ -168,8 +158,8 @@ export default function MovementsModal({ closeModal }) {
                 className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-blue-500"
               />
               <label
-                for="radio-2"
-                className="ml-2 text-sm font-medium text-gray-700"
+                for="credit"
+                className="ml-2 text-sm font-medium text-black"
               >
                 Credit
               </label>
@@ -185,7 +175,6 @@ export default function MovementsModal({ closeModal }) {
             <button
               className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white disabled:opacity-60"
               onClick={handleConfirm}
-              disabled={true}
             >
               Confirm
             </button>

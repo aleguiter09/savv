@@ -1,6 +1,17 @@
 export const getMovements = async (supabase) => {
-  const response = await supabase.from("movement").select();
-  return response.data ? response.data : [];
+  const { data } = await supabase.from("movement").select();
+  if (data) {
+    const movements = [];
+    for (const d of data) {
+      const mov = await getCategorieById(supabase, d.category);
+
+      d.fullCategory = mov;
+      movements.push(d);
+    }
+
+    return data;
+  }
+  return [];
 };
 
 export const insertMovement = async (supabase, movement) => {
@@ -19,6 +30,16 @@ export const getCategories = async (supabase) => {
   const { data } = await supabase
     .from("category")
     .select("id, color, title, icon, for");
+
+  return data;
+};
+
+export const getCategorieById = async (supabase, id) => {
+  const { data } = await supabase
+    .from("category")
+    .select("id, color, title, icon, for")
+    .eq("id", id)
+    .single();
 
   return data;
 };
