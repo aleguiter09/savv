@@ -17,16 +17,16 @@ export default function MainPage() {
   return (
     <>
       <Navbar />
-      <div className="mx-5 mb-5 h-screen max-w-lg sm:mx-auto">
+      <main className="mx-5 mb-5 h-screen max-w-lg sm:mx-auto">
         {showModal && <MovementsModal closeModal={() => setShowModal(false)} />}
-        <Card className="mb-4 flex justify-between px-3 py-2">
-          <Icon color="blue" size="sm" icon={ArrowLeftIcon} />
-          <h5 className="mt-1 text-lg font-semibold">June 2023</h5>
-          <Icon color="blue" size="sm" icon={ArrowRightIcon} />
-        </Card>
-
+        <section>
+          <Card className="mb-4 flex justify-between px-3 py-2">
+            <Icon color="blue" size="sm" icon={ArrowLeftIcon} />
+            <h5 className="mt-1 text-lg font-semibold">August 2023</h5>
+            <Icon color="blue" size="sm" icon={ArrowRightIcon} />
+          </Card>
+        </section>
         <Finances />
-        <ExpensesByCat />
 
         <div className="fixed bottom-0 left-0 right-0 mt-6 flex justify-center">
           <button
@@ -36,7 +36,7 @@ export default function MainPage() {
             <PlusIcon />
           </button>
         </div>
-      </div>
+      </main>
     </>
   );
 }

@@ -1,10 +1,9 @@
 import { useSupabase } from "@/context/supabaseContext";
 import { getMovements } from "@/services/database";
-import { CATEGORY_ICONS } from "@/utils/constants";
-import { Card, ProgressBar, List, ListItem } from "@tremor/react";
+import { Card, ProgressBar, List } from "@tremor/react";
 import { useEffect, useState } from "react";
-import Icon from "@mdi/react";
-import { calculatePercentage } from "@/utils/common";
+import { calculatePercentage, getMovementsByDay } from "@/utils/common";
+import FinanceItem from "./FinanceItem";
 
 export default function Finances() {
   const [movements, setMovements] = useState([]);
@@ -21,7 +20,8 @@ export default function Finances() {
     const totalInc = incomes.reduce((a, b) => a + b.amount, 0);
     const totalExp = expenses.reduce((a, b) => a + b.amount, 0);
 
-    setMovements(data);
+    const items = getMovementsByDay(data);
+    setMovements(items);
     setTotalIncomes(totalInc);
     setTotalExpenses(totalExp);
   };
@@ -49,23 +49,12 @@ export default function Finances() {
       />
       <List>
         {movements.map((item) => (
-          <ListItem key={item.id} className="text-black">
-            <div className="flex items-center gap-2">
-              <div className="flex flex-col text-center">
-                <Icon
-                  className={`bg-${item.fullCategory.color} mx-auto rounded-full p-1.5`}
-                  path={CATEGORY_ICONS[item.fullCategory.icon]}
-                  size={"30px"}
-                  color="white"
-                />
-              </div>
-              <span>{item.comment}</span>
-            </div>
-            <span>
-              {`${item.type === "expense" ? "-" : ""}
-              $${item.amount}`}
-            </span>
-          </ListItem>
+          <FinanceItem
+            key={item.date}
+            items={item.movements}
+            date={item.date}
+            amount={item.total}
+          />
         ))}
       </List>
     </Card>
