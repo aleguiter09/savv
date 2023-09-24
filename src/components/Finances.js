@@ -1,18 +1,18 @@
 import { useSupabase } from "@/context/supabaseContext";
-import { getMovements } from "@/services/database";
+import { getMovementsByMonthAndYear } from "@/services/database";
 import { Card, ProgressBar, List } from "@tremor/react";
 import { useEffect, useState } from "react";
 import { calculatePercentage, getMovementsByDay } from "@/utils/common";
 import FinanceItem from "./FinanceItem";
 
-export default function Finances() {
+export default function Finances({ year, month }) {
   const [movements, setMovements] = useState([]);
-  const [totalIncomes, setTotalIncomes] = useState(1);
-  const [totalExpenses, setTotalExpenses] = useState(1);
+  const [totalIncomes, setTotalIncomes] = useState(0);
+  const [totalExpenses, setTotalExpenses] = useState(0);
   const { supabase } = useSupabase();
 
   const getMovs = async () => {
-    const data = await getMovements(supabase);
+    const data = await getMovementsByMonthAndYear(supabase, year, month);
 
     const expenses = data.filter((c) => c.type === "expense");
     const incomes = data.filter((c) => c.type === "income");
@@ -28,7 +28,7 @@ export default function Finances() {
 
   useEffect(() => {
     getMovs();
-  }, []);
+  }, [year, month]);
 
   return (
     <Card className="mb-4 px-3 py-2">

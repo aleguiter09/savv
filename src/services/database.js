@@ -3,7 +3,31 @@ export const getMovements = async (supabase) => {
   if (data) {
     const movements = [];
     for (const d of data) {
-      const mov = await getCategorieById(supabase, d.category);
+      const mov = await getCategoryById(supabase, d.category);
+
+      d.fullCategory = mov;
+      movements.push(d);
+    }
+
+    return data;
+  }
+  return [];
+};
+
+export const getMovementsByMonthAndYear = async (supabase, year, month) => {
+  const initialDate = new Date(year, month).toISOString();
+  const partialDate = new Date(year, month + 1, 1);
+  const finishDate = new Date(partialDate - 1).toISOString();
+  const { data } = await supabase
+    .from("movement")
+    .select()
+    .gte("done_at", initialDate)
+    .lte("done_at", finishDate);
+
+  if (data) {
+    const movements = [];
+    for (const d of data) {
+      const mov = await getCategoryById(supabase, d.category);
 
       d.fullCategory = mov;
       movements.push(d);
@@ -34,7 +58,7 @@ export const getCategories = async (supabase) => {
   return data;
 };
 
-export const getCategorieById = async (supabase, id) => {
+export const getCategoryById = async (supabase, id) => {
   const { data } = await supabase
     .from("category")
     .select("id, color, title, icon, for")

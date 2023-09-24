@@ -10,9 +10,26 @@ import Navbar from "@/components/Navbar";
 import Finances from "@/components/Finances";
 import ExpensesByCat from "@/components/ExpensesByCat";
 import MovementsModal from "@/components/MovementsModal";
+import { MONTHS } from "@/utils/constants";
 
 export default function MainPage() {
   const [showModal, setShowModal] = useState(false);
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [month, setMonth] = useState(new Date().getMonth());
+
+  const handleArrowClick = (increase) => {
+    if (increase) {
+      if (month === 11) {
+        setMonth(0);
+        setYear(year + 1);
+      } else setMonth(month + 1);
+    } else {
+      if (month === 0) {
+        setMonth(11);
+        setYear(year - 1);
+      } else setMonth(month - 1);
+    }
+  };
 
   return (
     <>
@@ -21,12 +38,24 @@ export default function MainPage() {
         {showModal && <MovementsModal closeModal={() => setShowModal(false)} />}
         <section>
           <Card className="mb-4 flex justify-between px-3 py-2">
-            <Icon color="blue" size="sm" icon={ArrowLeftIcon} />
-            <h5 className="mt-1 text-lg font-semibold">August 2023</h5>
-            <Icon color="blue" size="sm" icon={ArrowRightIcon} />
+            <Icon
+              color="blue"
+              size="sm"
+              icon={ArrowLeftIcon}
+              onClick={() => handleArrowClick(false)}
+            />
+            <h5 className="mt-1 text-lg font-semibold">
+              {MONTHS[month]} {year}
+            </h5>
+            <Icon
+              color="blue"
+              size="sm"
+              icon={ArrowRightIcon}
+              onClick={() => handleArrowClick(true)}
+            />
           </Card>
         </section>
-        <Finances />
+        <Finances year={year} month={month} />
 
         <div className="fixed bottom-0 left-0 right-0 mt-6 flex justify-center">
           <button

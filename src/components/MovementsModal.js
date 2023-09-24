@@ -11,6 +11,7 @@ import {
   TabPanel,
   NumberInput,
   TextInput,
+  DatePicker,
 } from "@tremor/react";
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
 import { getCategories, insertMovement } from "@/services/database";
@@ -20,6 +21,7 @@ export default function MovementsModal({ closeModal }) {
   const [expenseCategories, setExpenseCategories] = useState([]);
   const [incomeCategories, setIncomeCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [date, setDate] = useState(new Date());
   const [amount, setAmount] = useState(0);
   const [type, setType] = useState(0);
   const [paidWith, setPaidWith] = useState("cash");
@@ -42,6 +44,7 @@ export default function MovementsModal({ closeModal }) {
         type: type === 0 ? "expense" : "income",
         paid_with: paidWith,
         comment: comment,
+        done_at: date.toISOString(),
       };
       await insertMovement(supabase, newMovement);
     } catch (err) {
@@ -55,6 +58,7 @@ export default function MovementsModal({ closeModal }) {
     setSelectedCategory(null);
     setAmount(0);
     setType(0);
+    setDate(new Date());
     closeModal();
   };
 
@@ -122,6 +126,11 @@ export default function MovementsModal({ closeModal }) {
               </TabPanel>
             </TabPanels>
           </TabGroup>
+          <DatePicker
+            className="mb-3"
+            value={date}
+            onValueChange={(d) => setDate(d)}
+          />
           <NumberInput
             icon={CurrencyDollarIcon}
             className="mb-3"

@@ -2,14 +2,17 @@ export const valueFormatter = (number) =>
   `$ ${Intl.NumberFormat("us").format(number).toString()}`;
 
 export const calculatePercentage = (a, b) => {
-  return Math.floor((a / (a + b)) * 100);
+  if (a > 0 && b > 0) {
+    return Math.floor((a / (a + b)) * 100);
+  }
+  return 0;
 };
 
 export const getMovementsByDay = (movements) => {
   const items = [];
   movements.forEach((m) => {
     const currentDate = items.find(
-      (item) => item.date.slice(0, 10) === m.created_at.slice(0, 10),
+      (item) => item.date.slice(0, 10) === m.done_at.slice(0, 10),
     );
     if (currentDate) {
       currentDate.movements.push(m);
@@ -20,7 +23,7 @@ export const getMovementsByDay = (movements) => {
       }
     } else {
       items.push({
-        date: m.created_at.slice(0, 10),
+        date: m.done_at.slice(0, 10),
         movements: [m],
         total: m.type === "expense" ? -m.amount : m.amount,
       });

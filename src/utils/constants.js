@@ -51,3 +51,18 @@ export const CATEGORY_ICONS = {
   investments: mdiPiggyBankOutline,
   sales: mdiSale,
 };
+
+export const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
