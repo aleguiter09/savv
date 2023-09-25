@@ -12,7 +12,8 @@ export const getMovementsByDay = (movements) => {
   const items = [];
   movements.forEach((m) => {
     const currentDate = items.find(
-      (item) => item.date.slice(0, 10) === m.done_at.slice(0, 10),
+      (item) =>
+        item.date.slice(0, 10) === m.done_at.slice(0, 10).replace(/-/g, "/"),
     );
     if (currentDate) {
       currentDate.movements.push(m);
@@ -23,12 +24,14 @@ export const getMovementsByDay = (movements) => {
       }
     } else {
       items.push({
-        date: m.done_at.slice(0, 10),
+        date: m.done_at.slice(0, 10).replace(/-/g, "/"),
         movements: [m],
         total: m.type === "expense" ? -m.amount : m.amount,
       });
     }
   });
 
-  return items;
+  return items.sort(
+    (a, b) => parseInt(b.date.slice(8, 10)) - parseInt(a.date.slice(8, 10)),
+  );
 };
