@@ -70,6 +70,11 @@ export default function MovementsModal({ closeModal }) {
     <div className="fixed left-0 right-0 top-0 z-50 h-full w-full bg-gray-600 bg-opacity-50">
       <div className="mx-5 mt-10 flex max-w-sm sm:mx-auto">
         <Card className="p-3">
+          <DatePicker
+            className="mb-3"
+            value={date}
+            onValueChange={(d) => setDate(d)}
+          />
           <TabGroup className="mb-3" onIndexChange={(value) => setType(value)}>
             <TabList variant="solid" className="mb-2 w-full">
               <Tab className="w-full place-content-center">Expenses</Tab>
@@ -126,11 +131,6 @@ export default function MovementsModal({ closeModal }) {
               </TabPanel>
             </TabPanels>
           </TabGroup>
-          <DatePicker
-            className="mb-3"
-            value={date}
-            onValueChange={(d) => setDate(d)}
-          />
           <NumberInput
             icon={CurrencyDollarIcon}
             className="mb-3"

@@ -35,11 +35,11 @@ export default function Finances({ year, month }) {
       <div className="flex justify-between">
         <div className="flex flex-col">
           <p className="mb-1 text-sm font-semibold">Incomes</p>
-          <p>${totalIncomes}</p>
+          <p>${totalIncomes.toFixed(2)}</p>
         </div>
         <div className="flex flex-col text-right">
           <p className="mb-1 text-sm font-semibold">Expenses</p>
-          <p>${totalExpenses}</p>
+          <p>${totalExpenses.toFixed(2)}</p>
         </div>
       </div>
       <ProgressBar
