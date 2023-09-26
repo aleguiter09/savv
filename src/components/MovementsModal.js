@@ -26,6 +26,7 @@ export default function MovementsModal({ closeModal }) {
   const [type, setType] = useState(0);
   const [paidWith, setPaidWith] = useState("cash");
   const [comment, setComment] = useState("");
+  const [error, setError] = useState("");
 
   const getCategoriesFromDb = async () => {
     const data = await getCategories(supabase);
@@ -37,19 +38,27 @@ export default function MovementsModal({ closeModal }) {
   };
 
   const handleConfirm = async () => {
-    try {
-      const newMovement = {
-        category: selectedCategory,
-        amount: amount,
-        type: type === 0 ? "expense" : "income",
-        paid_with: paidWith,
-        comment: comment,
-        done_at: date.toISOString(),
-      };
-      await insertMovement(supabase, newMovement);
-    } catch (err) {
-      console.error(err);
-    } finally {
+    setError("");
+    if (selectedCategory && amount && paidWith && comment && date) {
+      try {
+        const newMovement = {
+          category: selectedCategory,
+          amount: amount,
+          type: type === 0 ? "expense" : "income",
+          paid_with: paidWith,
+          comment: comment,
+          done_at: date.toISOString(),
+        };
+        await insertMovement(supabase, newMovement);
+      } catch (err) {
+        setError(err);
+        console.error(err);
+      } finally {
+        handleClose();
+      }
+    } else {
+      console.error("Error: Fill out all fields to register");
+      setError("Fill out all fields to register");
       handleClose();
     }
   };
@@ -184,6 +193,9 @@ export default function MovementsModal({ closeModal }) {
             <button
               className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white disabled:opacity-60"
               onClick={handleConfirm}
+              disabled={
+                !selectedCategory || !amount || !paidWith || !comment || !date
+              }
             >
               Confirm
             </button>
