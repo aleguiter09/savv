@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { CATEGORY_ICONS } from "@/utils/constants";
 import Icon from "@mdi/react";
@@ -15,9 +16,11 @@ import {
 } from "@tremor/react";
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
 import { getCategories, insertMovement } from "@/services/database";
+import { useRouter } from "next/navigation";
 
-export default function MovementsModal({ closeModal }) {
+export default function MovementsModal({}) {
   const { supabase } = useSupabase();
+  const router = useRouter();
   const [expenseCategories, setExpenseCategories] = useState([]);
   const [incomeCategories, setIncomeCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -68,7 +71,7 @@ export default function MovementsModal({ closeModal }) {
     setAmount(0);
     setType(0);
     setDate(new Date());
-    closeModal();
+    router.back();
   };
 
   useEffect(() => {

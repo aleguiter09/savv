@@ -2,7 +2,7 @@ export const valueFormatter = (number) =>
   `$ ${Intl.NumberFormat("us").format(number).toString()}`;
 
 export const calculatePercentage = (a, b) => {
-  if (a > 0 && b > 0) {
+  if (b > 0) {
     return Math.floor((a / (a + b)) * 100);
   }
   return 0;

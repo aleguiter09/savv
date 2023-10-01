@@ -1,3 +1,4 @@
+"use client";
 import { useSupabase } from "@/context/supabaseContext";
 import { getMovementsByMonthAndYear } from "@/services/database";
 import { Card, ProgressBar, List } from "@tremor/react";
