@@ -1,7 +1,7 @@
 export default function Loading() {
   return (
     <div className="text-center">
-      <h3 className="text-blue">Loading..</h3>
+      <h2 className="text-blue">Loading..</h2>
     </div>
   );
 }

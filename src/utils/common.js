@@ -35,3 +35,15 @@ export const getMovementsByDay = (movements) => {
     (a, b) => parseInt(b.date.slice(8, 10)) - parseInt(a.date.slice(8, 10)),
   );
 };
+
+export const processMovements = (data) => {
+  const expenses = data.filter((c) => c.type === "expense");
+  const incomes = data.filter((c) => c.type === "income");
+
+  const totalIncomes = incomes.reduce((a, b) => a + b.amount, 0);
+  const totalExpenses = expenses.reduce((a, b) => a + b.amount, 0);
+
+  const movements = getMovementsByDay(data);
+
+  return { totalIncomes, totalExpenses, movements };
+};

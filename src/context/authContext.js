@@ -37,6 +37,8 @@ export default function AuthProvider({ serverSession, children }) {
     if (error) {
       return error.message;
     }
+
+    router.push("/");
     return null;
   };
 

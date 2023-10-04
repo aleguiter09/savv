@@ -1,35 +1,14 @@
-"use client";
-import { useSupabase } from "@/context/supabaseContext";
-import { getMovementsByMonthAndYear } from "@/services/database";
 import { Card, ProgressBar, List } from "@tremor/react";
-import { useEffect, useState } from "react";
-import { calculatePercentage, getMovementsByDay } from "@/utils/common";
+import { calculatePercentage, processMovements } from "@/utils/common";
+import { getMovementsByMonthAndYear } from "@/services/database";
+import { createClient } from "@/utils/supabase-server";
 import FinanceItem from "./FinanceItem";
 
-export default function Finances({ year, month }) {
-  const [movements, setMovements] = useState([]);
-  const [totalIncomes, setTotalIncomes] = useState(0);
-  const [totalExpenses, setTotalExpenses] = useState(0);
-  const { supabase } = useSupabase();
+export default async function Finances({ year, month }) {
+  const supabase = createClient();
 
-  const getMovs = async () => {
-    const data = await getMovementsByMonthAndYear(supabase, year, month);
-
-    const expenses = data.filter((c) => c.type === "expense");
-    const incomes = data.filter((c) => c.type === "income");
-
-    const totalInc = incomes.reduce((a, b) => a + b.amount, 0);
-    const totalExp = expenses.reduce((a, b) => a + b.amount, 0);
-
-    const items = getMovementsByDay(data);
-    setMovements(items);
-    setTotalIncomes(totalInc);
-    setTotalExpenses(totalExp);
-  };
-
-  useEffect(() => {
-    getMovs();
-  }, [year, month]);
+  const data = await getMovementsByMonthAndYear(supabase, year, month);
+  const { totalIncomes, totalExpenses, movements } = processMovements(data);
 
   return (
     <Card className="mb-4 px-3 py-2">

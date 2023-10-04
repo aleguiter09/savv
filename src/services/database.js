@@ -1,19 +1,3 @@
-export const getMovements = async (supabase) => {
-  const { data } = await supabase.from("movement").select();
-  if (data) {
-    const movements = [];
-    for (const d of data) {
-      const mov = await getCategoryById(supabase, d.category);
-
-      d.fullCategory = mov;
-      movements.push(d);
-    }
-
-    return data;
-  }
-  return [];
-};
-
 export const getMovementsByMonthAndYear = async (supabase, year, month) => {
   const initialDate = new Date(year, month).toISOString();
   const partialDate = new Date(year, month + 1, 1);
@@ -55,7 +39,10 @@ export const getCategories = async (supabase) => {
     .from("category")
     .select("id, color, title, icon, for");
 
-  return data;
+  const expCategories = data.filter((c) => c.for === "expense");
+  const incCategories = data.filter((c) => c.for === "income");
+
+  return { expCategories, incCategories };
 };
 
 export const getCategoryById = async (supabase, id) => {

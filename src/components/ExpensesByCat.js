@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, List, ListItem, DonutChart, Icon } from "@tremor/react";
 import { valueFormatter } from "@/utils/common";
 
