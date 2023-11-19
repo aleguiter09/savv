@@ -1,6 +1,6 @@
 import Finances from "@/components/Finances/Finances";
 import Balance from "@/components/Balance/Balance";
-import ExpensesByCat from "@/components/ExpensesByCat";
+// import ExpensesByCat from "@/components/ExpensesByCat";
 import MovementsModal from "@/components/MovementsModal/MovementsModal";
 import DateSlider from "@/components/Finances/DateSlider";
 import AddMovementButton from "@/components/AddMovementButton";
