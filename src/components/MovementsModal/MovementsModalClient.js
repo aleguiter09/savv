@@ -15,15 +15,24 @@ import {
   DatePicker,
 } from "@tremor/react";
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
-import { insertMovement } from "@/services/database";
+import { insertMovement, upsertBalanceByMonthYear } from "@/services/database";
 import { useRouter } from "next/navigation";
 
 export default function MovementsModalClient({
   expenseCategories,
   incomeCategories,
+  currentPage,
 }) {
   const { supabase } = useSupabase();
   const router = useRouter();
+  const [movement, setMovement] = useState({
+    category: null,
+    amount: 0,
+    type: 0,
+    paid_with: "cash",
+    comment: "",
+    done_at: new Date(),
+  });
   const [category, setCategory] = useState(null);
   const [date, setDate] = useState(new Date());
   const [amount, setAmount] = useState(0);
@@ -32,7 +41,6 @@ export default function MovementsModalClient({
   const [comment, setComment] = useState("");
 
   const handleConfirm = async () => {
-    console.log(router.pathname);
     if (category && amount && paidWith && comment && date) {
       try {
         const newMovement = {
@@ -44,14 +52,21 @@ export default function MovementsModalClient({
           done_at: date.toISOString(),
         };
         await insertMovement(supabase, newMovement);
+        await upsertBalanceByMonthYear(
+          supabase,
+          date.getMonth(),
+          date.getFullYear(),
+          amount,
+          type,
+        );
       } catch (err) {
         console.error(err);
       } finally {
-        router.back();
+        router.push(`/?year=${currentPage.year}&month=${currentPage.month}`);
       }
     } else {
       console.error("Error: Fill out all fields to register");
-      router.back();
+      router.push(`/?year=${currentPage.year}&month=${currentPage.month}`);
     }
   };
 
