@@ -1,4 +1,3 @@
-"use client";
 import { Title } from "@tremor/react";
 import NavbarClient from "./NavbarClient";
 
