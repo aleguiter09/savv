@@ -51,7 +51,8 @@ export default function MovementsModalClient({
     }
   };
 
-  const handleChange = ({ field, value }) => {
+  const handleChange = (field, value) => {
+    console.log(field, value, movement);
     switch (field) {
       case "done_at":
         setMovement((prevData) => ({
@@ -87,8 +88,8 @@ export default function MovementsModalClient({
         <Card className="p-3">
           <DatePicker
             className="mb-3"
-            value={date}
-            onValueChange={(d) => handleChange("date", d)}
+            value={movement.done_at}
+            onValueChange={(d) => handleChange("done_at", d)}
           />
           <TabGroup
             className="mb-3"
@@ -160,7 +161,7 @@ export default function MovementsModalClient({
           <TextInput
             placeholder="Comment..."
             className="mb-3"
-            value={comment}
+            value={movement.comment}
             onChange={(e) => handleChange("comment", e.target.value)}
           />
           <div className="mx-1 flex flex-row gap-2">

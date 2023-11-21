@@ -7,8 +7,8 @@ export default function AddMovementButton({ year, month }) {
       <Link
         className="mb-2 h-12 w-12 rounded-full bg-blue-600 p-3 text-white"
         href={{
-          pathname: "/",
-          query: { year: year, month: month, modal: true },
+          pathname: "/add-movement",
+          /*query: { year: year, month: month, modal: true },*/
         }}
       >
         <PlusIcon />

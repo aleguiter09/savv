@@ -81,7 +81,7 @@ export const upsertBalanceByMonthYear = async (
 
   if (data.length > 0) {
     const balance = data[0];
-    if (type === 0) {
+    if (type === "expense") {
       balance.total_expenses += amount;
       balance.current_total -= amount;
     } else {
@@ -95,11 +95,9 @@ export const upsertBalanceByMonthYear = async (
     }
     return;
   } else {
-    const total_expenses = type === 0 ? amount : 0;
-    const total_incomes = type === 1 ? amount : 0;
+    const total_expenses = type === "expense" ? amount : 0;
+    const total_incomes = type === "income" ? amount : 0;
     let current_total = total_incomes - total_expenses;
-
-    console.log(amount, type, total_expenses, total_incomes, current_total);
 
     let previousMonthBalance;
     if (month === 0) {
@@ -175,7 +173,7 @@ export const updateForwardBalance = async (
 
     if (data.length > 0) {
       const balance = data[0];
-      if (type === 0) {
+      if (type === "expense") {
         balance.current_total -= amount;
       } else {
         balance.current_total += amount;
