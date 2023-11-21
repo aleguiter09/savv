@@ -38,10 +38,10 @@ export default function Loading() {
               <input
                 type="radio"
                 value="cash"
-                checked
+                defaultChecked={true}
                 className="h-4 w-4 bg-gray-100 text-blue-600  focus:ring-blue-500"
               />
-              <label for="cash" className="ml-2 text-sm font-medium text-black">
+              <label htmlFor="cash" className="ml-2 text-sm font-medium text-black">
                 Debit / Cash
               </label>
             </div>
@@ -52,7 +52,7 @@ export default function Loading() {
                 className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-blue-500"
               />
               <label
-                for="credit"
+                htmlFor="credit"
                 className="ml-2 text-sm font-medium text-black"
               >
                 Credit
