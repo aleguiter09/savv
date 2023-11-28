@@ -47,7 +47,7 @@ export default function MovementsModalClient({
     } catch (err) {
       console.error(err);
     } finally {
-      router.push(`/?year=${currentPage.year}&month=${currentPage.month}`);
+      router.back();
     }
   };
 
