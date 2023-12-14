@@ -21,7 +21,6 @@ import { useRouter } from "next/navigation";
 export default function MovementsModalClient({
   expenseCategories,
   incomeCategories,
-  currentPage,
 }) {
   const { supabase } = useSupabase();
   const router = useRouter();
@@ -47,7 +46,8 @@ export default function MovementsModalClient({
     } catch (err) {
       console.error(err);
     } finally {
-      router.back();
+      router.refresh();
+      router.push("/");
     }
   };
 

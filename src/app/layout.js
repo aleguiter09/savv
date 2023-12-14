@@ -14,7 +14,7 @@ export const metadata = {
   description: "Web application where you can track your finances",
 };
 
-export default async function RootLayout(props) {
+export default async function RootLayout({ children }) {
   const supabase = createClient();
 
   const {
@@ -27,8 +27,7 @@ export default async function RootLayout(props) {
         <SupabaseProvider>
           <AuthProvider serverSession={session}>
             {session && <Navbar />}
-            {props.children}
-            {props.addMovement}
+            {children}
           </AuthProvider>
         </SupabaseProvider>
       </body>
