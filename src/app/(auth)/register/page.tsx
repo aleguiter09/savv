@@ -2,43 +2,43 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/context/authContext";
-import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-export default function Login() {
-  const router = useRouter();
-  const { signInWithEmail, user } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+export default function Register() {
+  const { signUp } = useAuth();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
-  useEffect(() => {
-    if (user) {
-      router.push("/");
-    }
-  });
-
-  async function handleSignIn(e) {
+  async function handleSignUp(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) {
     e.preventDefault();
     setLoading(true);
     setError("");
-    if (email && password) {
+    if (email && password && confirmPassword) {
+      if (password !== confirmPassword) {
+        setError("Passwords do not match");
+        setLoading(false);
+        return;
+      }
       try {
-        const error = await signInWithEmail(email, password);
+        const error = await signUp(email, password);
         if (error) {
           console.error("Error:", error);
           setError(error);
         }
-      } catch (error) {
-        console.error("Error:", error);
-        setError(error);
+      } catch (e) {
+        console.error("Error:", (e as Error).message);
+        setError((e as Error).message);
       } finally {
         setLoading(false);
       }
     } else {
-      console.error("Error: Fill out both fields to login");
-      setError("Fill out both fields to login");
+      console.error("Error: Fill out all fields to register");
+      setError("Fill out all fields to register");
       setLoading(false);
     }
   }
@@ -46,7 +46,7 @@ export default function Login() {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-12">
       <Image src="/finance.png" height={160} width={250} alt="My finances" />
-      <h2 className="mt-4 text-3xl font-extrabold">Sign in to your account</h2>
+      <h2 className="mt-4 text-3xl font-extrabold">Sign up</h2>
       <div className="mt-8 w-full max-w-md">
         <form className="flex flex-col gap-2">
           <label htmlFor="email" className="text-sm font-medium">
@@ -54,7 +54,6 @@ export default function Login() {
           </label>
           <input
             id="email"
-            name="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.currentTarget.value)}
@@ -66,34 +65,43 @@ export default function Login() {
           </label>
           <input
             id="password"
-            name="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.currentTarget.value)}
             className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
-              ${error !== "" ? "border-red-500" : ""}`}
+            ${error !== "" ? "border-red-500" : ""}`}
+          />
+          <label htmlFor="confirmPassword" className="text-sm font-medium">
+            Confirm Password
+          </label>
+          <input
+            id="confirmPassword"
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.currentTarget.value)}
+            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
+            ${error !== "" ? "border-red-500" : ""}`}
           />
           {error && <p className="text-xs text-red-500">{error}</p>}
           {loading ? (
             <div className="mt-2 flex w-full justify-center rounded-md bg-blue-600 py-2">
-              <div
+              <output
                 className="h-5 w-5 animate-spin rounded-full border-[3px] border-current border-t-transparent text-white"
-                role="status"
                 aria-label="loading"
-              />
+              ></output>
             </div>
           ) : (
             <button
-              className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white"
-              onClick={handleSignIn}
+              className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white disabled:opacity-60"
+              onClick={handleSignUp}
             >
-              Sign in
+              Register
             </button>
           )}
           <p className="text-center text-sm">
-            {"Don't have an account? "}
-            <Link href="/register" className="font-semibold text-blue-600">
-              Sign up
+            {"Already have an account? "}
+            <Link href="/" className="font-semibold text-blue-600">
+              Log in
             </Link>
           </p>
         </form>

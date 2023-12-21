@@ -3,8 +3,9 @@ import { calculatePercentage, processMovements } from "@/utils/common";
 import { getMovementsByMonthAndYear } from "@/services/database";
 import { createClient } from "@/utils/supabase-server";
 import FinanceItem from "./FinanceItem";
+import { YearMonth } from "@/types/general";
 
-export default async function Finances({ year, month }) {
+export default async function Finances({ year, month }: Readonly<YearMonth>) {
   const supabase = createClient();
 
   const data = await getMovementsByMonthAndYear(supabase, year, month);

@@ -38,7 +38,7 @@ export default function Expense() {
         index="name"
         valueFormatter={valueFormatter}
         colors={["slate", "blue", "indigo", "rose", "cyan", "amber"]}
-        showAnimation="false"
+        showAnimation={false}
       />
       <List>
         {categories.slice(0, 3).map((item) => (

@@ -1,9 +1,10 @@
 import { getBalanceByMonthYear } from "@/services/database";
+import { YearMonth } from "@/types/general";
 import { createClient } from "@/utils/supabase-server";
+import { SupabaseClient } from "@supabase/supabase-js";
 import { Card } from "@tremor/react";
 
-export default async function Balance({ currentPage }) {
-  const { year, month } = currentPage;
+export default async function Balance({ year, month }: Readonly<YearMonth>) {
   const supabase = createClient();
 
   const {
@@ -12,7 +13,11 @@ export default async function Balance({ currentPage }) {
     total_incomes,
   } = await getBalanceByMonthYear(supabase, month, year);
 
-  const getPreviousMonth = async (supabase, month, year) => {
+  const getPreviousMonth = async (
+    supabase: SupabaseClient,
+    month: number,
+    year: number,
+  ) => {
     if (month === 0) {
       return await getBalanceByMonthYear(supabase, 11, year - 1);
     } else {
