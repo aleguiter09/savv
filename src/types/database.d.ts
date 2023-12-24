@@ -1,11 +1,18 @@
-export type Movement = {
+import { PaidWith, Type } from "./general";
+
+export interface Movement {
+  category: string | null;
+  amount: number;
+  type: Type;
+  paid_with: PaidWith;
+  comment: string;
+  done_at: string;
+}
+
+export interface MovementDB extends Movement {
   id: number;
   fullCategory: Category;
-  comment: string;
-  amount: number;
-  type: string;
-  category: string;
-};
+}
 
 export type Category = {
   id: number;

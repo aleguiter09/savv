@@ -1,8 +1,8 @@
-import { Movement } from "./database";
+import { MovementDB } from "./database";
 
 export type FinanceItemProps = {
   date: string;
-  items: Movement[];
+  items: MovementDB[];
   amount: number;
 };
 

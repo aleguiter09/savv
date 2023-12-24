@@ -1,6 +1,6 @@
+import Icon from "@mdi/react";
 import { CATEGORY_ICONS } from "@/utils/constants";
 import { BadgeDelta, ListItem } from "@tremor/react";
-import Icon from "@mdi/react";
 import { FinanceItemProps } from "@/types/components";
 
 export default function FinanceItem({

@@ -18,6 +18,8 @@ import { CurrencyDollarIcon } from "@heroicons/react/outline";
 import { insertMovement, upsertBalanceByMonthYear } from "@/services/database";
 import { useRouter } from "next/navigation";
 import { MovementsModalProps } from "@/types/components";
+import { Movement } from "@/types/database";
+import { MovementFormFields } from "@/types/general";
 
 export default function MovementsModalClient({
   expenseCategories,
@@ -25,25 +27,27 @@ export default function MovementsModalClient({
 }: Readonly<MovementsModalProps>) {
   const { supabase } = useSupabase();
   const router = useRouter();
-  const [movement, setMovement] = useState({
+  const [movement, setMovement] = useState<Movement>({
     category: null,
     amount: 0,
     type: "expense",
     paid_with: "cash",
     comment: "",
-    done_at: new Date(),
+    done_at: new Date().toISOString(),
   });
 
   const handleConfirm = async () => {
     try {
-      await insertMovement(supabase, movement);
-      await upsertBalanceByMonthYear(
-        supabase,
-        movement.done_at.getMonth(),
-        movement.done_at.getFullYear(),
-        movement.amount,
-        movement.type,
-      );
+      if (supabase) {
+        await insertMovement(supabase, movement);
+        await upsertBalanceByMonthYear(
+          supabase,
+          new Date(movement.done_at).getMonth(),
+          new Date(movement.done_at).getFullYear(),
+          movement.amount,
+          movement.type,
+        );
+      }
     } catch (err) {
       console.error(err);
     } finally {
@@ -52,12 +56,15 @@ export default function MovementsModalClient({
     }
   };
 
-  const handleChange = (field, value) => {
+  const handleChange = (
+    field: MovementFormFields,
+    value: string | number | Date | undefined,
+  ) => {
     switch (field) {
       case "done_at":
         setMovement((prevData) => ({
           ...prevData,
-          [field]: value.toISOString(),
+          [field]: (value as Date).toISOString(),
         }));
         break;
       case "type":
@@ -88,7 +95,7 @@ export default function MovementsModalClient({
         <Card className="p-3">
           <DatePicker
             className="mb-3"
-            value={movement.done_at}
+            value={new Date(movement.done_at)}
             onValueChange={(d) => handleChange("done_at", d)}
           />
           <TabGroup
@@ -104,7 +111,11 @@ export default function MovementsModalClient({
                 <div className="grid grid-cols-4 gap-2">
                   {expenseCategories.map((cat) => {
                     return (
-                      <div key={cat.id} className="flex flex-col text-center">
+                      <button
+                        key={cat.id}
+                        className="flex flex-col text-center"
+                        onClick={() => handleChange("category", cat.id)}
+                      >
                         <Icon
                           className={`bg-${
                             cat.color
@@ -116,10 +127,9 @@ export default function MovementsModalClient({
                           path={CATEGORY_ICONS[cat.icon]}
                           size={"35px"}
                           color="white"
-                          onClick={() => handleChange("category", cat.id)}
                         />
                         <p className="m-0 mt-2 truncate text-xs">{cat.title}</p>
-                      </div>
+                      </button>
                     );
                   })}
                 </div>
@@ -128,7 +138,11 @@ export default function MovementsModalClient({
                 <div className="grid grid-cols-4 gap-2">
                   {incomeCategories.map((cat) => {
                     return (
-                      <div key={cat.id} className="flex flex-col text-center">
+                      <button
+                        key={cat.id}
+                        className="flex flex-col text-center"
+                        onClick={() => handleChange("category", cat.id)}
+                      >
                         <Icon
                           className={`bg-${
                             cat.color
@@ -140,10 +154,9 @@ export default function MovementsModalClient({
                           path={CATEGORY_ICONS[cat.icon]}
                           size={"40px"}
                           color="white"
-                          onClick={() => handleChange("category", cat.id)}
                         />
                         <p className="m-0 mt-2 truncate text-xs">{cat.title}</p>
-                      </div>
+                      </button>
                     );
                   })}
                 </div>
