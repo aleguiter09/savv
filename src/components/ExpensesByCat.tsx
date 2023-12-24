@@ -1,4 +1,4 @@
-import { Card, List, ListItem, DonutChart, Icon } from "@tremor/react";
+import { Card, List, ListItem, DonutChart } from "@tremor/react";
 import { valueFormatter } from "@/utils/common";
 
 const categories = [
@@ -42,7 +42,7 @@ export default function Expense() {
       />
       <List>
         {categories.slice(0, 3).map((item) => (
-          <ListItem key={item.city} className="">
+          <ListItem key={item.name} className="">
             <span>{item.name}</span>
             <span>{item.sales}</span>
           </ListItem>

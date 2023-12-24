@@ -1,8 +1,13 @@
 import { CATEGORY_ICONS } from "@/utils/constants";
 import { BadgeDelta, ListItem } from "@tremor/react";
 import Icon from "@mdi/react";
+import { FinanceItemProps } from "@/types/components";
 
-export default function FinanceItem({ date, items = [], amount }) {
+export default function FinanceItem({
+  date,
+  items = [],
+  amount,
+}: Readonly<FinanceItemProps>) {
   return (
     <div className="rounded px-2 pb-1 pt-2">
       <div className="flex justify-between">

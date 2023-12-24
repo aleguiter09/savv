@@ -17,11 +17,12 @@ import {
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
 import { insertMovement, upsertBalanceByMonthYear } from "@/services/database";
 import { useRouter } from "next/navigation";
+import { MovementsModalProps } from "@/types/components";
 
 export default function MovementsModalClient({
   expenseCategories,
   incomeCategories,
-}) {
+}: Readonly<MovementsModalProps>) {
   const { supabase } = useSupabase();
   const router = useRouter();
   const [movement, setMovement] = useState({

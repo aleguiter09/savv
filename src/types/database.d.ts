@@ -1,6 +1,7 @@
 export type Movement = {
   id: number;
-  description: string;
+  fullCategory: Category;
+  comment: string;
   amount: number;
   type: string;
   category: string;
