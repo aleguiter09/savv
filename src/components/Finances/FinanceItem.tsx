@@ -15,7 +15,7 @@ export default function FinanceItem({
         <BadgeDelta
           deltaType={amount > 0 ? "increase" : "decrease"}
           size="xs"
-        ></BadgeDelta>
+        />
       </div>
       {items.map((item) => (
         <ListItem key={item.id} className="text-black">
@@ -24,7 +24,7 @@ export default function FinanceItem({
               <Icon
                 className={`bg-${item.fullCategory.color} mx-auto rounded-full p-1.5`}
                 path={CATEGORY_ICONS[item.fullCategory.icon]}
-                size={"25px"}
+                size="25px"
                 color="white"
               />
             </span>

@@ -3,6 +3,8 @@ import { YearMonth } from "@/types/general";
 import { createClient } from "@/utils/supabase-server";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { Card } from "@tremor/react";
+import { mdiSquareEditOutline } from "@mdi/js";
+import Icon from "@mdi/react";
 
 export default async function Balance({ year, month }: Readonly<YearMonth>) {
   const supabase = createClient();
@@ -16,7 +18,7 @@ export default async function Balance({ year, month }: Readonly<YearMonth>) {
   const getPreviousMonth = async (
     supabase: SupabaseClient,
     month: number,
-    year: number,
+    year: number
   ) => {
     if (month === 0) {
       return await getBalanceByMonthYear(supabase, 11, year - 1);
@@ -28,24 +30,27 @@ export default async function Balance({ year, month }: Readonly<YearMonth>) {
   const { current_total: currentTotalLm } = await getPreviousMonth(
     supabase,
     month,
-    year,
+    year
   );
+
+  const thisMonth = total_incomes - total_expenses;
 
   return (
     <Card className="mb-4 px-3 py-2">
       <div className="grid grid-cols-3 text-center">
         <div>
-          <p className="font-semibold">Balance</p>
+          <div className="flex gap-2 items-center justify-center">
+            <p className="font-semibold">Balance</p>
+            <Icon path={mdiSquareEditOutline} size="15px" />
+          </div>
           <p className={currentTotal < 0 ? "text-red-600" : ""}>
             {currentTotal.toFixed(2)}
           </p>
         </div>
         <div>
           <p className="font-semibold">This month</p>
-          <p
-            className={total_incomes - total_expenses < 0 ? "text-red-600" : ""}
-          >
-            {(total_incomes - total_expenses).toFixed(2)}
+          <p className={thisMonth < 0 ? "text-red-600" : ""}>
+            {thisMonth.toFixed(2)}
           </p>
         </div>
         <div>
