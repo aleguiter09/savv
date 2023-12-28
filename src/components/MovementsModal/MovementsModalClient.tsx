@@ -113,7 +113,7 @@ export default function MovementsModalClient({
                     return (
                       <button
                         key={cat.id}
-                        className="flex flex-col text-center"
+                        className="flex flex-col items-center"
                         onClick={() => handleChange("category", cat.id)}
                       >
                         <Icon
