@@ -2,9 +2,10 @@ import { Card, ProgressBar, List } from "@tremor/react";
 import { calculatePercentage, processMovements } from "@/utils/common";
 import { getMovementsByMonthAndYear } from "@/services/database";
 import { createClient } from "@/utils/supabase-server";
+import { YearMonth } from "@/types/general";
 import FinanceItem from "./FinanceItem";
 
-export default async function Finances({ year, month }) {
+export default async function Finances({ year, month }: Readonly<YearMonth>) {
   const supabase = createClient();
 
   const data = await getMovementsByMonthAndYear(supabase, year, month);

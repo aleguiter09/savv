@@ -2,8 +2,9 @@ import { Card } from "@tremor/react";
 import { MONTHS } from "@/utils/constants";
 import Link from "next/link";
 import ArrowIcon from "./ArrowIcon";
+import { YearMonth } from "@/types/general";
 
-export default function DateSlider({ year, month }) {
+export default function DateSlider({ year, month }: Readonly<YearMonth>) {
   const rightArrow =
     month === 11
       ? `/?year=${year + 1}&month=${0}`

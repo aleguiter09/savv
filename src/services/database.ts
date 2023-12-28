@@ -1,7 +1,16 @@
-export const getMovementsByMonthAndYear = async (supabase, year, month) => {
+import { BalanceByDate, Movement } from "@/types/database";
+import { SupabaseClient } from "@supabase/supabase-js";
+
+export const getMovementsByMonthAndYear = async (
+  supabase: SupabaseClient,
+  year: number,
+  month: number,
+) => {
   const initialDate = new Date(year, month).toISOString();
   const partialDate = new Date(year, month + 1, 1);
-  const finishDate = new Date(partialDate - 1).toISOString();
+  const finishDate = new Date(
+    partialDate.getTime() - 24 * 60 * 60 * 1000,
+  ).toISOString();
   const { data } = await supabase
     .from("movement")
     .select()
@@ -9,12 +18,9 @@ export const getMovementsByMonthAndYear = async (supabase, year, month) => {
     .lte("done_at", finishDate);
 
   if (data) {
-    const movements = [];
     for (const d of data) {
       const mov = await getCategoryById(supabase, d.category);
-
       d.fullCategory = mov;
-      movements.push(d);
     }
 
     return data;
@@ -22,30 +28,40 @@ export const getMovementsByMonthAndYear = async (supabase, year, month) => {
   return [];
 };
 
-export const insertMovement = async (supabase, movement) => {
+export const insertMovement = async (
+  supabase: SupabaseClient,
+  movement: Movement,
+) => {
   return await supabase.from("movement").insert(movement);
 };
 
-export const deleteMovement = async (supabase, movementId) => {
+export const deleteMovement = async (
+  supabase: SupabaseClient,
+  movementId: string,
+) => {
   return await supabase.from("movement").delete().eq("id", movementId);
 };
 
-export const updateMovement = async (supabase, movement, movementId) => {
+export const updateMovement = async (
+  supabase: SupabaseClient,
+  movement: Movement,
+  movementId: string,
+) => {
   return await supabase.from("movement").update(movement).eq("id", movementId);
 };
 
-export const getCategories = async (supabase) => {
+export const getCategories = async (supabase: SupabaseClient) => {
   const { data } = await supabase
     .from("category")
     .select("id, color, title, icon, for");
 
-  const expCategories = data.filter((c) => c.for === "expense");
-  const incCategories = data.filter((c) => c.for === "income");
+  const expCategories = data ? data.filter((c) => c.for === "expense") : [];
+  const incCategories = data ? data.filter((c) => c.for === "income") : [];
 
   return { expCategories, incCategories };
 };
 
-export const getCategoryById = async (supabase, id) => {
+export const getCategoryById = async (supabase: SupabaseClient, id: string) => {
   const { data } = await supabase
     .from("category")
     .select("id, color, title, icon, for")
@@ -55,7 +71,11 @@ export const getCategoryById = async (supabase, id) => {
   return data;
 };
 
-export const getBalanceByMonthYear = async (supabase, month, year) => {
+export const getBalanceByMonthYear = async (
+  supabase: SupabaseClient,
+  month: number,
+  year: number,
+) => {
   const { data } = await supabase
     .from("balance_by_month")
     .select("total_incomes, total_expenses, current_total")
@@ -67,11 +87,11 @@ export const getBalanceByMonthYear = async (supabase, month, year) => {
 };
 
 export const upsertBalanceByMonthYear = async (
-  supabase,
-  month,
-  year,
-  amount,
-  type,
+  supabase: SupabaseClient,
+  month: number,
+  year: number,
+  amount: number,
+  type: "expense" | "income",
 ) => {
   const { data } = await supabase
     .from("balance_by_month")
@@ -79,7 +99,7 @@ export const upsertBalanceByMonthYear = async (
     .eq("month", month)
     .eq("year", year);
 
-  if (data.length > 0) {
+  if (data && data.length > 0) {
     const balance = data[0];
     if (type === "expense") {
       balance.total_expenses += amount;
@@ -93,11 +113,10 @@ export const upsertBalanceByMonthYear = async (
     if (year !== new Date().getFullYear() || month !== new Date().getMonth()) {
       await updateForwardBalance(supabase, month, year, amount, type);
     }
-    return;
   } else {
     const total_expenses = type === "expense" ? amount : 0;
     const total_incomes = type === "income" ? amount : 0;
-    let current_total = total_incomes - total_expenses;
+    const current_total = total_incomes - total_expenses;
 
     let previousMonthBalance;
     if (month === 0) {
@@ -129,14 +148,17 @@ export const upsertBalanceByMonthYear = async (
   }
 };
 
-export const insertBalanceByMonthYear = async (supabase, newBalance) => {
+export const insertBalanceByMonthYear = async (
+  supabase: SupabaseClient,
+  newBalance: BalanceByDate,
+) => {
   return await supabase.from("balance_by_month").insert(newBalance);
 };
 
 export const updateBalanceByMonthYear = async (
-  supabase,
-  balance,
-  balanceId,
+  supabase: SupabaseClient,
+  balance: BalanceByDate,
+  balanceId: string,
 ) => {
   return await supabase
     .from("balance_by_month")
@@ -145,11 +167,11 @@ export const updateBalanceByMonthYear = async (
 };
 
 export const updateForwardBalance = async (
-  supabase,
-  month,
-  year,
-  amount,
-  type,
+  supabase: SupabaseClient,
+  month: number,
+  year: number,
+  amount: number,
+  type: "expense" | "income",
 ) => {
   const monthsDiff =
     Math.abs(year - new Date().getFullYear()) * 12 +
@@ -171,7 +193,7 @@ export const updateForwardBalance = async (
       .eq("month", currentMonth)
       .eq("year", currentYear);
 
-    if (data.length > 0) {
+    if (data && data.length > 0) {
       const balance = data[0];
       if (type === "expense") {
         balance.current_total -= amount;
