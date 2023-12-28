@@ -14,7 +14,9 @@ export const metadata = {
   description: "Web application where you can track your finances",
 };
 
-export default async function RootLayout({ children }) {
+export default async function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   const supabase = createClient();
 
   const {

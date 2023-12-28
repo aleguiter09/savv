@@ -1,19 +1,21 @@
-export const valueFormatter = (number) =>
+import { MovementDB } from "@/types/database";
+
+export const valueFormatter = (number: number) =>
   `$ ${Intl.NumberFormat("us").format(number).toString()}`;
 
-export const calculatePercentage = (a, b) => {
+export const calculatePercentage = (a: number, b: number) => {
   if (b > 0) {
     return Math.floor((a / (a + b)) * 100);
   }
   return 0;
 };
 
-export const getMovementsByDay = (movements) => {
-  const items = [];
+export const getMovementsByDay = (movements: MovementDB[]) => {
+  type Items = { date: string; movements: MovementDB[]; total: number }[];
+  const items: Items = [];
   movements.forEach((m) => {
-    const currentDate = items.find(
-      (item) =>
-        item.date.slice(0, 10) === m.done_at.slice(0, 10).replace(/-/g, "/"),
+    const currentDate = items.find((item) =>
+      item.date.startsWith(m.done_at.slice(0, 10).replace(/-/g, "/")),
     );
     if (currentDate) {
       currentDate.movements.push(m);
@@ -36,7 +38,7 @@ export const getMovementsByDay = (movements) => {
   );
 };
 
-export const processMovements = (data) => {
+export const processMovements = (data: MovementDB[]) => {
   const expenses = data.filter((c) => c.type === "expense");
   const incomes = data.filter((c) => c.type === "income");
 

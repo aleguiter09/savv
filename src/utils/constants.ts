@@ -1,3 +1,4 @@
+import { CategoryIcons } from "@/types/general";
 import {
   mdiFoodOutline,
   mdiReceiptOutline,
@@ -8,7 +9,6 @@ import {
   mdiHomeOutline,
   mdiFileAlertOutline,
   mdiHanger,
-  mdiChartLine,
   mdiAppleKeyboardCommand,
   mdiHandCoinOutline,
   mdiHospital,
@@ -25,7 +25,7 @@ import {
   mdiSale,
 } from "@mdi/js";
 
-export const CATEGORY_ICONS = {
+export const CATEGORY_ICONS: CategoryIcons = {
   food: mdiFoodOutline,
   comissions: mdiReceiptOutline,
   services: mdiFileOutline,
@@ -36,7 +36,6 @@ export const CATEGORY_ICONS = {
   taxes: mdiFileAlertOutline,
   clothing: mdiHanger,
   pets: mdiPaw,
-  investments: mdiChartLine,
   other: mdiAppleKeyboardCommand,
   loans: mdiHandCoinOutline,
   healthcare: mdiHospital,

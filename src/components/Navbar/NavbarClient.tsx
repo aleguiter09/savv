@@ -10,8 +10,11 @@ export default function NavbarClient() {
 
   useEffect(() => {
     if (!showMenu) return;
-    function handleClick(event) {
-      if (menu.current && !menu.current.contains(event.target)) {
+    function handleClick(event: MouseEvent) {
+      if (
+        menu.current &&
+        (menu.current as HTMLElement).contains(event.target as Node)
+      ) {
         setShowMenu(false);
       }
     }
