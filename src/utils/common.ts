@@ -14,8 +14,14 @@ export const getMovementsByDay = (movements: MovementDB[]) => {
   type Items = { date: string; movements: MovementDB[]; total: number }[];
   const items: Items = [];
   movements.forEach((m) => {
-    const currentDate = items.find((item) =>
-      item.date.startsWith(m.done_at.slice(0, 10).replace(/-/g, "/")),
+    const currentDate = items.find(
+      (item) =>
+        item.date ===
+        new Date(m.done_at).toLocaleDateString("es-ES", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        })
     );
     if (currentDate) {
       currentDate.movements.push(m);
@@ -26,7 +32,11 @@ export const getMovementsByDay = (movements: MovementDB[]) => {
       }
     } else {
       items.push({
-        date: m.done_at.slice(0, 10).replace(/-/g, "/"),
+        date: new Date(m.done_at).toLocaleDateString("es-ES", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        }),
         movements: [m],
         total: m.type === "expense" ? -m.amount : m.amount,
       });
@@ -34,7 +44,8 @@ export const getMovementsByDay = (movements: MovementDB[]) => {
   });
 
   return items.sort(
-    (a, b) => parseInt(b.date.slice(8, 10)) - parseInt(a.date.slice(8, 10)),
+    (a, b) =>
+      new Date(b.date).getMilliseconds() - new Date(a.date).getMilliseconds()
   );
 };
 
