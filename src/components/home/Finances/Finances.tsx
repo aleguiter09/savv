@@ -1,14 +1,14 @@
 import { Card, ProgressBar, List } from "@tremor/react";
 import { calculatePercentage, processMovements } from "@/utils/common";
-import { getMovementsByMonthAndYear } from "@/services/database";
+import { getLastMovements } from "@/services/movements";
 import { createClient } from "@/utils/supabase-server";
-import { YearMonth } from "@/types/general";
 import FinanceItem from "./FinanceItem";
+import Link from "next/link";
 
-export default async function Finances({ year, month }: Readonly<YearMonth>) {
+export default async function Finances() {
   const supabase = createClient();
 
-  const data = await getMovementsByMonthAndYear(supabase, year, month);
+  const data = await getLastMovements(supabase);
   const { totalIncomes, totalExpenses, movements } = processMovements(data);
 
   return (
@@ -38,6 +38,11 @@ export default async function Finances({ year, month }: Readonly<YearMonth>) {
           />
         ))}
       </List>
+      <Link href="/movements">
+        <p className="text-blue-500 font-semibold text-center pb-1 pt-3">
+          See all
+        </p>
+      </Link>
     </Card>
   );
 }

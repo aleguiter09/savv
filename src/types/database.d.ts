@@ -1,12 +1,14 @@
 import { PaidWith, Type } from "./general";
 
 export interface Movement {
-  category: string | null;
+  from: number;
   amount: number;
+  comment: string;
+  category?: number;
   type: Type;
   paid_with: PaidWith;
-  comment: string;
   done_at: string;
+  where?: number;
 }
 
 export interface MovementDB extends Movement {
@@ -30,8 +32,11 @@ export type Category = {
   for: "income" | "expense";
 };
 
-export type BalanceByDate = {
-  total_expenses: number;
-  total_incomes: number;
-  current_total: number;
-};
+export interface Account {
+  name: string;
+  balance: number;
+}
+
+export interface AccountDB extends Account {
+  id: number;
+}
