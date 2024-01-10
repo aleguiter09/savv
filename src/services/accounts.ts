@@ -3,7 +3,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import { unstable_noStore as noStore } from "next/cache";
 
 export const getAccounts = async (supabase: SupabaseClient) => {
-  // await new Promise((resolve) => setTimeout(resolve, 4000));
+  // await new Promise((resolve) => setTimeout(resolve, 5000));
   noStore();
   try {
     const { data } = await supabase.from("account").select("id, name, balance");
@@ -31,7 +31,7 @@ export const getAccountBalanceById = async (
   } else {
     const { data } = await supabase.from("account").select("balance");
 
-    return data?.reduce((a, b) => a + b.balance, 0) || 0;
+    return data?.reduce((a, b) => a + b.balance, 0) ?? 0;
   }
 };
 

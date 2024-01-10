@@ -68,7 +68,7 @@ export const getMonthIncomes = async (supabase: SupabaseClient) => {
     .gte("done_at", initialDate)
     .lte("done_at", finishDate);
 
-  return data?.reduce((a, b) => a + b.amount, 0) || 0;
+  return data?.reduce((a, b) => a + b.amount, 0) ?? 0;
 };
 
 export const getMonthExpenses = async (supabase: SupabaseClient) => {
@@ -92,7 +92,7 @@ export const getMonthExpenses = async (supabase: SupabaseClient) => {
     .gte("done_at", initialDate)
     .lte("done_at", finishDate);
 
-  return data?.reduce((a, b) => a + b.amount, 0) || 0;
+  return data?.reduce((a, b) => a + b.amount, 0) ?? 0;
 };
 
 export const insertMovement = async (

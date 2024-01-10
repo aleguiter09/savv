@@ -1,5 +1,5 @@
-import { Card, ProgressBar, List } from "@tremor/react";
-import { calculatePercentage, processMovements } from "@/utils/common";
+import { Card, List } from "@tremor/react";
+import { processMovements } from "@/utils/common";
 import { getLastMovements } from "@/services/movements";
 import { createClient } from "@/utils/supabase-server";
 import FinanceItem from "./FinanceItem";
@@ -9,25 +9,13 @@ export default async function Finances() {
   const supabase = createClient();
 
   const data = await getLastMovements(supabase);
-  const { totalIncomes, totalExpenses, movements } = processMovements(data);
+  const { movements } = processMovements(data);
 
   return (
-    <Card className="mb-4 px-3 py-2">
-      <div className="flex justify-between">
-        <div className="flex flex-col">
-          <p className="mb-1 text-sm font-semibold">Incomes</p>
-          <p>${totalIncomes.toFixed(2)}</p>
-        </div>
-        <div className="flex flex-col text-right">
-          <p className="mb-1 text-sm font-semibold">Expenses</p>
-          <p>${totalExpenses.toFixed(2)}</p>
-        </div>
-      </div>
-      <ProgressBar
-        value={calculatePercentage(totalIncomes, totalExpenses)}
-        color="blue"
-        className="mb-2 mt-3"
-      />
+    <Card decoration="bottom" className="mb-4 px-3 py-2">
+      <p className="font-medium ml-2 mb-1">
+        <i>Last movements</i>
+      </p>
       <List>
         {movements.map((item) => (
           <FinanceItem

@@ -5,7 +5,9 @@ import { Suspense } from "react";
 import ActionBar from "@/components/home/ActionBar";
 import { MainPageParams } from "@/types/pages";
 
-export default async function MainPage({ searchParams }: MainPageParams) {
+export default async function MainPage({
+  searchParams,
+}: Readonly<MainPageParams>) {
   const account = Number(searchParams.account) || 0;
 
   return (

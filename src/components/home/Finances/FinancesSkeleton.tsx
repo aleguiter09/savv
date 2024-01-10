@@ -1,10 +1,10 @@
-import { Card, List, ProgressBar } from "@tremor/react";
+import { Card, List } from "@tremor/react";
 
 export default function FinancesSkeleton() {
   return (
     <Card className="mb-4 animate-pulse px-3 py-2">
-      <div className="flex justify-between">
-        <div className="flex flex-col">
+      {/* <div className="flex justify-between">
+      <div className="flex flex-col">
           <p className="mb-1 text-sm font-semibold text-slate-500">Incomes</p>
           <div className="h-6 w-24 rounded bg-slate-300" />
         </div>
@@ -13,7 +13,7 @@ export default function FinancesSkeleton() {
           <div className="h-6 w-24 rounded bg-slate-300" />
         </div>
       </div>
-      <ProgressBar value={0} color="blue" className="mb-2 mt-3" />
+      <ProgressBar value={0} color="blue" className="mb-2 mt-3" />*/}
       <List>
         <div className="">
           <div className="flex justify-between">

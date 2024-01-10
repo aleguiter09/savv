@@ -11,7 +11,7 @@ export default async function Balance({ account }: Readonly<BalanceProps>) {
   const expenses = await getMonthExpenses(supabase);
 
   return (
-    <Card className="mb-4 px-3 py-2">
+    <Card decoration="bottom" className="mb-4 px-3 py-2">
       <div className="grid grid-cols-3 text-center">
         <div>
           <div className="flex gap-2 items-center justify-center">

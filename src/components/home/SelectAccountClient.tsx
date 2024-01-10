@@ -4,7 +4,9 @@ import { AccountDB } from "@/types/database";
 import { Select, SelectItem } from "@tremor/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export default function SelectAccountClient({ accounts }: SelectAccountProps) {
+export default function SelectAccountClient({
+  accounts,
+}: Readonly<SelectAccountProps>) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -18,7 +20,7 @@ export default function SelectAccountClient({ accounts }: SelectAccountProps) {
   return (
     <Select
       className="max-w-[11rem]"
-      defaultValue={searchParams.get("account")?.toString() || "0"}
+      defaultValue={searchParams.get("account")?.toString() ?? "0"}
       onValueChange={handleSelect}
       enableClear={false}
     >

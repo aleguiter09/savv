@@ -5,7 +5,7 @@ export const getExpenseCategories = async (supabase: SupabaseClient) => {
     .from("category")
     .select("id, color, title, icon, for")
     .filter("for", "eq", "expense");
-  return data || [];
+  return data ?? [];
 };
 
 export const getIncomeCategories = async (supabase: SupabaseClient) => {
@@ -13,7 +13,7 @@ export const getIncomeCategories = async (supabase: SupabaseClient) => {
     .from("category")
     .select("id, color, title, icon, for")
     .filter("for", "eq", "income");
-  return data || [];
+  return data ?? [];
 };
 
 export const getCategoryById = async (supabase: SupabaseClient, id: string) => {

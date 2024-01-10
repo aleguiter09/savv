@@ -145,10 +145,12 @@ export default function AddMovementForm({
           Enter an amount
         </label>
         <NumberInput
+          id="amount"
           name="amount"
           icon={CurrencyDollarIcon}
           placeholder="Amount..."
-          step={0.5}
+          enableStepper={false}
+          step="0.01"
           min="0"
           error={!!state.errors?.amount}
           errorMessage={state.errors?.amount?.at(0)}
