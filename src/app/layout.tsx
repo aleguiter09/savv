@@ -33,10 +33,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body
-        className={`pt-4 
-       ${inter.className} antialiased flex flex-col h-screen justify-between gap-3`}
-      >
+      <body className={`pt-4 pb-12 ${inter.className} antialiased`}>
         <SupabaseProvider>
           <AuthProvider serverSession={session}>
             {children}

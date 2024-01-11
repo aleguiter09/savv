@@ -22,7 +22,7 @@ export default function NavLinks() {
           <Link
             key={link.name}
             href={link.href}
-            className="flex h-[48px] grow items-center justify-center"
+            className="flex h-12 grow items-center justify-center"
           >
             <LinkIcon className="w-6" />
           </Link>

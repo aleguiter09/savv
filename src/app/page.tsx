@@ -11,7 +11,7 @@ export default async function MainPage({
   const account = Number(searchParams.account) || 0;
 
   return (
-    <main className="mx-5 sm:w-[32rem] sm:self-center">
+    <main className="mx-5 sm:w-[32rem] sm:mx-auto">
       <ActionBar />
       <Suspense key={searchParams.account} fallback={<h3>Loading...</h3>}>
         <Balance account={account} />
@@ -19,6 +19,10 @@ export default async function MainPage({
       <Suspense fallback={<FinancesSkeleton />}>
         <Finances />
       </Suspense>
+      <FinancesSkeleton />
+      <FinancesSkeleton />
+      <FinancesSkeleton />
+      <FinancesSkeleton />
     </main>
   );
 }
