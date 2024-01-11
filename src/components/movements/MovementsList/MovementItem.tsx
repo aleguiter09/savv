@@ -3,7 +3,7 @@ import { CATEGORY_ICONS } from "@/utils/constants";
 import { BadgeDelta, ListItem } from "@tremor/react";
 import { FinanceItemProps } from "@/types/components";
 
-export default function FinanceItem({
+export default function MovementItem({
   date,
   items = [],
   amount,

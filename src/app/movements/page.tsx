@@ -1,4 +1,5 @@
-import DateSlider from "@/components/home/Finances/DateSlider";
+import DateSlider from "@/components/movements/MovementsList/DateSlider";
+import MovementsByDate from "@/components/movements/MovementsList/MovementsByDate";
 import { MovementsPageParams } from "@/types/pages";
 import React from "react";
 
@@ -12,5 +13,10 @@ export default function MovementsPage({
     ? parseInt(searchParams.month)
     : new Date().getMonth();
 
-  return <DateSlider year={year} month={month} />;
+  return (
+    <>
+      <DateSlider year={year} month={month} />
+      <MovementsByDate />
+    </>
+  );
 }

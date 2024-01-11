@@ -7,13 +7,13 @@ import { YearMonth } from "@/types/general";
 export default function DateSlider({ year, month }: Readonly<YearMonth>) {
   const rightArrow =
     month === 11
-      ? `/?year=${year + 1}&month=${0}`
-      : `/?year=${year}&month=${month + 1}`;
+      ? `/movements?year=${year + 1}&month=${0}`
+      : `/movements?year=${year}&month=${month + 1}`;
 
   const leftArrow =
     month === 0
-      ? `/?year=${year - 1}&month=${11}`
-      : `/?year=${year}&month=${month - 1}`;
+      ? `/movements?year=${year - 1}&month=${11}`
+      : `/movements?year=${year}&month=${month - 1}`;
 
   return (
     <Card className="mb-4 flex justify-between px-3 py-2">

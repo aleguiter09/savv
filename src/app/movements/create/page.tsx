@@ -1,4 +1,4 @@
-import AddMovementForm from "@/components/movements/AddMovementForm";
+import AddMovementForm from "@/components/movements/AddMovement/AddMovementForm";
 import { getAccounts } from "@/services/accounts";
 import {
   getExpenseCategories,
