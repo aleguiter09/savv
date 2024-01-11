@@ -8,7 +8,7 @@ export default function SettingsPage() {
   ];
 
   return (
-    <main className="mx-5 sm:w-[32rem] sm:self-center">
+    <>
       <h3 className="font-semibold mb-4">Settings</h3>
       <ul className="text-sm flex flex-col gap-2">
         {links.map((link) => (
@@ -23,6 +23,6 @@ export default function SettingsPage() {
           </li>
         ))}
       </ul>
-    </main>
+    </>
   );
 }

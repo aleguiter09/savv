@@ -6,9 +6,11 @@ import { Card } from "@tremor/react";
 
 export default async function Balance({ account }: Readonly<BalanceProps>) {
   const supabase = createClient();
-  const accountBalance = await getAccountBalanceById(supabase, account);
-  const incomes = await getMonthIncomes(supabase);
-  const expenses = await getMonthExpenses(supabase);
+  const [accountBalance, incomes, expenses] = await Promise.all([
+    getAccountBalanceById(supabase, account),
+    getMonthIncomes(supabase),
+    getMonthExpenses(supabase),
+  ]);
 
   return (
     <Card decoration="bottom" className="mb-4 px-3 py-2">

@@ -16,9 +16,5 @@ export default async function EditAccountPage({
     notFound();
   }
 
-  return (
-    <main className="mx-5 sm:w-[32rem] sm:self-center">
-      <EditAccountForm id={id} account={account} />
-    </main>
-  );
+  return <EditAccountForm id={id} account={account} />;
 }

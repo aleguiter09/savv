@@ -36,7 +36,7 @@ export default async function RootLayout({
       <body className={`pt-4 pb-12 ${inter.className} antialiased`}>
         <SupabaseProvider>
           <AuthProvider serverSession={session}>
-            {children}
+            <main className="mx-5 sm:w-[32rem] sm:mx-auto">{children}</main>
             {session && <Navbar />}
           </AuthProvider>
         </SupabaseProvider>

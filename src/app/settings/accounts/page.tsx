@@ -1,4 +1,4 @@
-import AddButton from "@/components/home/AddButton";
+import AddButton from "@/components/home/ActionBar/AddButton";
 import { getAccounts } from "@/services/accounts";
 import { AccountDB } from "@/types/database";
 import { createClient } from "@/utils/supabase-server";
@@ -11,7 +11,7 @@ export default async function AccountsPage() {
   const accounts = await getAccounts(supabase);
 
   return (
-    <main className="mx-5 sm:w-[32rem] sm:self-center">
+    <>
       <div className="mb-4 flex justify-between items-center">
         <h3 className="font-semibold">Settings / Accounts</h3>
         <AddButton href="/settings/accounts/create" />
@@ -32,6 +32,6 @@ export default async function AccountsPage() {
           </li>
         ))}
       </ul>
-    </main>
+    </>
   );
 }

@@ -12,9 +12,5 @@ export default function MovementsPage({
     ? parseInt(searchParams.month)
     : new Date().getMonth();
 
-  return (
-    <main className="mx-5 sm:w-[32rem] sm:self-center">
-      <DateSlider year={year} month={month} />
-    </main>
-  );
+  return <DateSlider year={year} month={month} />;
 }
