@@ -1,33 +1,56 @@
-import React from "react";
+"use client";
 import Link from "next/link";
-import { CogIcon, HomeIcon } from "@heroicons/react/outline";
-// import { usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
+import Icon from "@mdi/react";
+import {
+  mdiCog,
+  mdiCogOutline,
+  mdiHome,
+  mdiHomeOutline,
+  mdiLogout,
+} from "@mdi/js";
+import { useAuth } from "@/context/authContext";
 
 const links = [
-  { name: "Home", href: "/", icon: HomeIcon },
+  { name: "Home", href: "/", icon: mdiHomeOutline, activeIcon: mdiHome },
   {
     name: "Settings",
     href: "/settings",
-    icon: CogIcon,
+    icon: mdiCogOutline,
+    activeIcon: mdiCog,
   },
 ];
 
 export default function NavLinks() {
-  // const pathname = usePathname();
+  const { signOut } = useAuth();
+  const pathname = usePathname();
+  const activeLink = links.find((link) => link.href === pathname);
   return (
     <>
       {links.map((link) => {
-        const LinkIcon = link.icon;
         return (
           <Link
             key={link.name}
             href={link.href}
-            className="flex h-12 grow items-center justify-center"
+            className={`flex h-12 grow items-center justify-center ${
+              activeLink?.href === link.href ? "text-blue-500" : ""
+            }`}
           >
-            <LinkIcon className="w-6" />
+            <Icon
+              path={
+                activeLink?.href === link.href ? link.activeIcon : link.icon
+              }
+              size="24px"
+            />
           </Link>
         );
       })}
+      <button
+        className="flex h-[48px] grow items-center justify-center"
+        onClick={signOut}
+      >
+        <Icon path={mdiLogout} size="24px" />
+      </button>
     </>
   );
 }

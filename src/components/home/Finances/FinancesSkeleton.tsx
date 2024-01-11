@@ -3,7 +3,7 @@ import { List } from "@tremor/react";
 export default function FinancesSkeleton() {
   return (
     <List>
-      <div className="">
+      <div className="animate-pulse">
         <div className="flex justify-between">
           <div className="my-2 ms-1.5 h-3 w-24 rounded bg-slate-300" />
           <div className="my-2 me-2 h-4 w-8 rounded-full bg-slate-300" />
