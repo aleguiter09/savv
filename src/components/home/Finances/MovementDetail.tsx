@@ -34,7 +34,7 @@ export default function MovementDetail({
       </div>
       <div className="flex flex-col gap-1 text-right">
         <span
-          className={`font-semibold ${
+          className={`font-medium ${
             type === "expense" ? "text-red-500" : "text-green-600"
           }`}
         >{`${type === "expense" ? "-" : ""} $${amount.toFixed(2)}`}</span>

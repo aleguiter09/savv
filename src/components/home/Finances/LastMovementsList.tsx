@@ -2,9 +2,11 @@ import { getLastMovements } from "@/services/movements";
 import { createClient } from "@/utils/supabase-server";
 import MovementDetail from "./MovementDetail";
 
-export default async function LastMovementsList() {
+export default async function LastMovementsList({
+  account,
+}: Readonly<{ account: number }>) {
   const supabase = createClient();
-  const movements = await getLastMovements(supabase);
+  const movements = await getLastMovements(supabase, account);
 
   return (
     <div className="flex flex-col gap-2 mt-3">

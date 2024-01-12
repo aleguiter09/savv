@@ -1,6 +1,7 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { getCategoryById } from "./categories";
 import { Movement } from "@/types/database";
+import { unstable_noStore as noStore } from "next/cache";
 
 export const getMovementsByMonthAndYear = async (
   supabase: SupabaseClient,
@@ -29,21 +30,39 @@ export const getMovementsByMonthAndYear = async (
   return [];
 };
 
-export const getLastMovements = async (supabase: SupabaseClient) => {
-  const { data } = await supabase
-    .from("movement")
-    .select()
-    .order("done_at", { ascending: false })
-    .limit(5);
+export const getLastMovements = async (
+  supabase: SupabaseClient,
+  accountId: number
+) => {
+  noStore();
+  let movements;
+  if (accountId !== 0) {
+    const { data } = await supabase
+      .from("movement")
+      .select()
+      .eq("from", accountId)
+      .order("done_at", { ascending: false })
+      .limit(5);
 
-  if (data) {
-    for (const d of data) {
-      const mov = await getCategoryById(supabase, d.category);
-      d.fullCategory = mov;
-    }
+    movements = data;
+  } else {
+    const { data } = await supabase
+      .from("movement")
+      .select()
+      .order("done_at", { ascending: false })
+      .limit(5);
 
-    return data;
+    movements = data;
   }
+
+  if (movements) {
+    for (const m of movements) {
+      const mov = await getCategoryById(supabase, m.category);
+      m.fullCategory = mov;
+    }
+    return movements;
+  }
+
   return [];
 };
 

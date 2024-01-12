@@ -13,10 +13,10 @@ export default async function MainPage({
   return (
     <>
       <ActionBar />
-      <Suspense key={searchParams.account} fallback={<BalanceSkeleton />}>
+      <Suspense key={account} fallback={<BalanceSkeleton />}>
         <Balance account={account} />
       </Suspense>
-      <Finances />
+      <Finances account={account} />
     </>
   );
 }
