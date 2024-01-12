@@ -1,4 +1,4 @@
-import FinancesSkeleton from "@/components/home/Finances/FinancesSkeleton";
+import FinancesSkeleton from "@/components/home/LastMovements/LastMovementsSkeleton";
 import { Card } from "@tremor/react";
 import { Suspense } from "react";
 import MovementsList from "./MovementsList";

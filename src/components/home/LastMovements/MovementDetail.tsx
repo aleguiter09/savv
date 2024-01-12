@@ -24,7 +24,7 @@ export default function MovementDetail({
         <Icon
           className={`bg-${fullCategory.color} mx-auto rounded-full p-1.5`}
           path={CATEGORY_ICONS[fullCategory.icon]}
-          size="35px"
+          size="36px"
           color="white"
         />
         <div className="flex flex-col">

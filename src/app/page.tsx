@@ -1,9 +1,7 @@
-import Finances from "@/components/home/Finances/Finances";
+import LastMovements from "@/components/home/LastMovements/LastMovements";
 import Balance from "@/components/home/Balance/Balance";
-import { Suspense } from "react";
 import ActionBar from "@/components/home/ActionBar/ActionBar";
 import { MainPageParams } from "@/types/pages";
-import BalanceSkeleton from "@/components/home/Balance/BalanceSkeleton";
 
 export default async function MainPage({
   searchParams,
@@ -13,10 +11,8 @@ export default async function MainPage({
   return (
     <>
       <ActionBar />
-      <Suspense key={account} fallback={<BalanceSkeleton />}>
-        <Balance account={account} />
-      </Suspense>
-      <Finances account={account} />
+      <Balance account={account} />
+      <LastMovements account={account} />
     </>
   );
 }

@@ -1,16 +1,16 @@
 import { Card } from "@tremor/react";
 import Link from "next/link";
 import { Suspense } from "react";
-import FinancesSkeleton from "./FinancesSkeleton";
+import LastMovementsSkeleton from "./LastMovementsSkeleton";
 import LastMovementsList from "./LastMovementsList";
 
-export default async function Finances({
+export default async function LastMovements({
   account,
 }: Readonly<{ account: number }>) {
   return (
     <Card decoration="bottom" className="mb-4 pl-4 pr-3 py-2">
       <p className="font-semibold mb-2">Last Movements</p>
-      <Suspense key={account} fallback={<FinancesSkeleton />}>
+      <Suspense key={account} fallback={<LastMovementsSkeleton />}>
         <LastMovementsList account={account} />
       </Suspense>
       <Link href="/movements">
