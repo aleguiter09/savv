@@ -7,7 +7,7 @@ import FinanceItem from "@/components/movements/MovementsList/MovementItem";
 export default async function MovementsList() {
   const supabase = createClient();
 
-  const data = await getLastMovements(supabase);
+  const data = await getLastMovements(supabase, 0);
   const { movements } = processMovements(data);
 
   return (
