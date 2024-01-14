@@ -1,18 +1,17 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { getCategoryById } from "./categories";
 import { Movement } from "@/types/database";
+import { getInitialAndFinalDate } from "@/utils/common";
 import { unstable_noStore as noStore } from "next/cache";
+import { getAccountById } from "./accounts";
 
 export const getMovementsByMonthAndYear = async (
   supabase: SupabaseClient,
   year: number,
   month: number
 ) => {
-  const initialDate = new Date(year, month).toISOString();
-  const partialDate = new Date(year, month + 1, 1);
-  const finishDate = new Date(
-    partialDate.getTime() - 24 * 60 * 60 * 1000
-  ).toISOString();
+  const { initialDate, finishDate } = getInitialAndFinalDate(year, month);
+
   const { data } = await supabase
     .from("movement")
     .select()
@@ -67,18 +66,7 @@ export const getLastMovements = async (
 };
 
 export const getMonthIncomes = async (supabase: SupabaseClient) => {
-  const initialDate = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth()
-  ).toISOString();
-  const partialDate = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth() + 1,
-    1
-  );
-  const finishDate = new Date(
-    partialDate.getTime() - 24 * 60 * 60 * 1000
-  ).toISOString();
+  const { initialDate, finishDate } = getInitialAndFinalDate();
 
   const { data } = await supabase
     .from("movement")
@@ -91,18 +79,7 @@ export const getMonthIncomes = async (supabase: SupabaseClient) => {
 };
 
 export const getMonthExpenses = async (supabase: SupabaseClient) => {
-  const initialDate = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth()
-  ).toISOString();
-  const partialDate = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth() + 1,
-    1
-  );
-  const finishDate = new Date(
-    partialDate.getTime() - 24 * 60 * 60 * 1000
-  ).toISOString();
+  const { initialDate, finishDate } = getInitialAndFinalDate();
 
   const { data } = await supabase
     .from("movement")
@@ -112,6 +89,23 @@ export const getMonthExpenses = async (supabase: SupabaseClient) => {
     .lte("done_at", finishDate);
 
   return data?.reduce((a, b) => a + b.amount, 0) ?? 0;
+};
+
+export const getMovementById = async (supabase: SupabaseClient, id: number) => {
+  const { data } = await supabase
+    .from("movement")
+    .select()
+    .eq("id", id)
+    .single();
+
+  if (data) {
+    const category = await getCategoryById(supabase, data.category);
+    const account = await getAccountById(supabase, data.from);
+    data.fullCategory = category;
+    data.fullAccount = account;
+  }
+
+  return data;
 };
 
 export const insertMovement = async (

@@ -1,12 +1,14 @@
 import { MovementDB } from "@/types/database";
 import { CATEGORY_ICONS } from "@/utils/constants";
 import Icon from "@mdi/react";
+import Link from "next/link";
 
 interface MovementDetailProps extends MovementDB {
   border: boolean;
 }
 
-export default function MovementDetail({
+export default function LastMovementDetail({
+  id,
   done_at,
   amount,
   comment,
@@ -15,7 +17,8 @@ export default function MovementDetail({
   border,
 }: Readonly<MovementDetailProps>) {
   return (
-    <div
+    <Link
+      href={`/movements/${id}`}
       className={`flex items-center justify-between pb-2 ${
         border && "border-b border-gray-300"
       }`}
@@ -46,6 +49,6 @@ export default function MovementDetail({
           })}
         </span>
       </div>
-    </div>
+    </Link>
   );
 }

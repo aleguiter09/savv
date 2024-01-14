@@ -1,6 +1,6 @@
 import { getLastMovements } from "@/services/movements";
 import { createClient } from "@/utils/supabase-server";
-import MovementDetail from "./MovementDetail";
+import LastMovementDetail from "./LastMovementDetail";
 
 export default async function LastMovementsList({
   account,
@@ -11,7 +11,7 @@ export default async function LastMovementsList({
   return (
     <div className="flex flex-col gap-2 mt-3">
       {movements.map((item, i) => (
-        <MovementDetail
+        <LastMovementDetail
           key={item.id}
           border={i !== movements.length - 1}
           {...item}

@@ -10,6 +10,23 @@ export const calculatePercentage = (a: number, b: number) => {
   return 0;
 };
 
+export const getInitialAndFinalDate = (year?: number, month?:number) => {
+  const initialDate = new Date(
+    year ? year : new Date().getFullYear(),
+    month ? month : new Date().getMonth()
+  ).toISOString();
+  const partialDate = new Date(
+    year ? year : new Date().getFullYear(),
+    month ? month : new Date().getMonth() + 1,
+    1
+  );
+  const finishDate = new Date(
+    partialDate.getTime() - 24 * 60 * 60 * 1000
+  ).toISOString();
+
+  return { initialDate, finishDate }
+}
+
 export const getMovementsByDay = (movements: MovementDB[]) => {
   type Items = { date: string; movements: MovementDB[]; total: number }[];
   const items: Items = [];

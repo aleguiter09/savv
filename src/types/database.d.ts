@@ -14,6 +14,7 @@ export interface Movement {
 export interface MovementDB extends Movement {
   id: number;
   fullCategory: Category;
+  fullAccount: Account
 }
 
 export type Category = {
