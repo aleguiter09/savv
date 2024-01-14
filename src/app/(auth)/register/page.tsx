@@ -13,7 +13,7 @@ export default function Register() {
   const [error, setError] = useState<string>("");
 
   async function handleSignUp(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
     e.preventDefault();
     setLoading(true);
@@ -44,7 +44,7 @@ export default function Register() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center px-6 py-12">
+    <div className="flex flex-col items-center justify-center py-12">
       <Image src="/finance.png" height={160} width={250} alt="My finances" />
       <h2 className="mt-4 text-3xl font-extrabold">Sign up</h2>
       <div className="mt-8 w-full max-w-md">

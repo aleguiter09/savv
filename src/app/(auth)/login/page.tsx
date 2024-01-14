@@ -22,7 +22,7 @@ export default function Login() {
   async function handleSignIn(
     e:
       | React.MouseEvent<HTMLButtonElement, MouseEvent>
-      | React.FormEvent<HTMLFormElement>,
+      | React.FormEvent<HTMLFormElement>
   ) {
     e.preventDefault();
     setLoading(true);
@@ -48,7 +48,7 @@ export default function Login() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center px-6 py-12">
+    <div className="flex flex-col items-center justify-center py-12">
       <Image src="/finance.png" height={160} width={250} alt="My finances" />
       <h2 className="mt-4 text-3xl font-extrabold">Sign in to your account</h2>
       <div className="mt-8 w-full max-w-md">
