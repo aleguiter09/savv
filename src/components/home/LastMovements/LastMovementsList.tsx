@@ -10,12 +10,8 @@ export default async function LastMovementsList({
 
   return (
     <div className="flex flex-col gap-2 mt-3">
-      {movements.map((item, i) => (
-        <LastMovementDetail
-          key={item.id}
-          border={i !== movements.length - 1}
-          {...item}
-        />
+      {movements.map((item) => (
+        <LastMovementDetail key={item.id} {...item} />
       ))}
     </div>
   );

@@ -3,10 +3,6 @@ import { CATEGORY_ICONS } from "@/utils/constants";
 import Icon from "@mdi/react";
 import Link from "next/link";
 
-interface MovementDetailProps extends MovementDB {
-  border: boolean;
-}
-
 export default function LastMovementDetail({
   id,
   done_at,
@@ -14,14 +10,11 @@ export default function LastMovementDetail({
   comment,
   type,
   fullCategory,
-  border,
-}: Readonly<MovementDetailProps>) {
+}: Readonly<MovementDB>) {
   return (
     <Link
       href={`/movements/${id}`}
-      className={`flex items-center justify-between pb-2 ${
-        border && "border-b border-gray-300"
-      }`}
+      className="flex items-center justify-between pb-2 border-b border-gray-300 last:border-b-0"
     >
       <div className="flex gap-3">
         <Icon

@@ -7,11 +7,12 @@ import {
   TextInput,
   DatePicker,
   NumberInput,
+  Card,
 } from "@tremor/react";
 
 export default function AddMovementsSkeleton() {
   return (
-    <div className="rounded-md bg-gray-100 p-4">
+    <Card className="rounded-md bg-slate-50 p-4">
       <label htmlFor="amount" className="mb-2 block text-sm font-medium">
         Enter a date
       </label>
@@ -88,13 +89,13 @@ export default function AddMovementsSkeleton() {
         </div>
       </fieldset>
       <div className="mt-3 flex flex-row gap-2">
-        <button className="w-full rounded-md bg-gray-500 py-2 text-sm font-semibold text-white disabled:opacity-60">
+        <button className="w-full rounded-md bg-gray-400 py-2 text-sm font-semibold text-white disabled:opacity-60">
           Close
         </button>
         <button className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white disabled:opacity-60">
           Confirm
         </button>
       </div>
-    </div>
+    </Card>
   );
 }
