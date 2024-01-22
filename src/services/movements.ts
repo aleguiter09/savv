@@ -1,6 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { getCategoryById } from "./categories";
-import { Movement } from "@/types/database";
+import { Category, Movement } from "@/types/database";
 import { getInitialAndFinalDate } from "@/utils/common";
 import { unstable_noStore as noStore } from "next/cache";
 import { getAccountById } from "./accounts";
@@ -128,4 +128,52 @@ export const updateMovement = async (
   movementId: string
 ) => {
   return await supabase.from("movement").update(movement).eq("id", movementId);
+};
+
+export const getExpenses = async (
+  supabase: SupabaseClient,
+  accountId: number,
+  year?: number,
+  month?: number
+) => {
+  const { initialDate, finishDate } = getInitialAndFinalDate(year, month);
+
+  let movements:
+    | {
+        amount: number;
+        category: string;
+        fullCategory?: Category | null;
+      }[]
+    | null;
+
+  if (accountId !== 0) {
+    const { data } = await supabase
+      .from("movement")
+      .select("amount, category")
+      .eq("type", "expense")
+      .eq("from", accountId)
+      .gte("done_at", initialDate)
+      .lte("done_at", finishDate);
+
+    movements = data;
+  } else {
+    const { data } = await supabase
+      .from("movement")
+      .select("amount, category")
+      .eq("type", "expense")
+      .gte("done_at", initialDate)
+      .lte("done_at", finishDate);
+
+    movements = data;
+  }
+
+  if (movements) {
+    for (const d of movements) {
+      const mov = await getCategoryById(supabase, d.category);
+      d.fullCategory = mov;
+    }
+
+    return movements;
+  }
+  return [];
 };
