@@ -5,9 +5,9 @@ import { notFound } from "next/navigation";
 
 export default async function MovementDetailPage({
   params,
-}: {
+}: Readonly<{
   params: { id: string };
-}) {
+}>) {
   const id = params.id;
   const supabase = createClient();
   const movement = await getMovementById(supabase, Number(id));
@@ -16,10 +16,5 @@ export default async function MovementDetailPage({
     notFound();
   }
 
-  return (
-    <>
-      <h2 className="font-medium mb-4">Details</h2>
-      <MovementDetail {...movement} />
-    </>
-  );
+  return <MovementDetail {...movement} />;
 }
