@@ -25,7 +25,7 @@ export default async function ExpenseByCatChart({
           amount: amount,
           color: fullCategory?.color ?? "gray-500",
         });
-        colors.push(fullCategory?.color ?? "gray");
+        colors.push(fullCategory?.color ?? "gray-500");
       } else {
         dataItem.amount += amount;
       }
@@ -41,7 +41,7 @@ export default async function ExpenseByCatChart({
   return (
     <div className="flex gap-3 items-center">
       <DonutChart
-        data={data}
+        data={data.slice(0, 6)}
         category="amount"
         index="title"
         colors={colors}
@@ -56,17 +56,17 @@ export default async function ExpenseByCatChart({
               key={item.title}
               className="rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border"
             >
-              <div className="flex space-x-2.5">
+              <div className="flex space-x-2">
                 <div
-                  className={`w-1.5 flex flex-col bg-${item?.color} rounded`}
+                  className={`w-1 flex flex-col bg-${item?.color} rounded`}
                 />
                 <div className="w-full">
-                  <div className="flex items-center justify-between space-x-8">
+                  <div className="flex items-center justify-between space-x-2">
                     <p className="text-right text-slate-500 whitespace-nowrap">
                       {item.title}
                     </p>
                     <p className="font-medium text-right whitespace-nowrap">
-                      ${item.amount}
+                      ${item.amount.toFixed(2)}
                     </p>
                   </div>
                 </div>
