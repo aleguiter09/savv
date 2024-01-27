@@ -39,7 +39,7 @@ export default async function ExpenseByCatChart({
   // const total = data.reduce((acc, item) => acc + item.amount, 0);
 
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex items-center justify-between">
       {/*<DonutChart
         data={data.slice(0, 6)}
         category="amount"
@@ -58,7 +58,7 @@ export default async function ExpenseByCatChart({
             >
               <div className="flex gap-2">
                 <div
-                  className={`w-0.5 flex flex-col bg-${item?.color} rounded`}
+                  className={`w-1 flex flex-col bg-${item?.color} rounded`}
                 />
                 <div className="w-full">
                   <div className="flex items-center justify-between space-x-1.5">
@@ -85,7 +85,7 @@ export default async function ExpenseByCatChart({
             >
               <div className="flex gap-2">
                 <div
-                  className={`w-0.5 flex flex-col bg-${item?.color} rounded`}
+                  className={`w-1 flex flex-col bg-${item?.color} rounded`}
                 />
                 <div className="w-full">
                   <div className="flex items-center justify-between space-x-1.5">
