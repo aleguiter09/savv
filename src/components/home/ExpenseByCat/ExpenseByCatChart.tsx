@@ -1,6 +1,6 @@
 import { getExpenses } from "@/services/movements";
 import { createClient } from "@/utils/supabase-server";
-import { DonutChart } from "@tremor/react";
+// import { DonutChart } from "@tremor/react";
 
 export default async function ExpenseByCatChart({
   account,
@@ -35,8 +35,8 @@ export default async function ExpenseByCatChart({
 
   const supabase = createClient();
   const movements = await getExpenses(supabase, account);
-  const { result: data, colors } = parseMovements(movements);
-  const total = data.reduce((acc, item) => acc + item.amount, 0);
+  const { result: data /*,colors*/ } = parseMovements(movements);
+  // const total = data.reduce((acc, item) => acc + item.amount, 0);
 
   return (
     <div className="flex gap-2 items-center">
@@ -54,7 +54,7 @@ export default async function ExpenseByCatChart({
           .map((item) => (
             <div
               key={item.title}
-              className="text-sm bg-tremor-background p-1.5 py-2 shadow-tremor-dropdown border border-tremor-border"
+              className="text-sm rounded-md bg-tremor-background p-1.5 py-2 shadow-tremor-dropdown border border-tremor-border"
             >
               <div className="flex gap-2">
                 <div
@@ -81,7 +81,7 @@ export default async function ExpenseByCatChart({
           .map((item) => (
             <div
               key={item.title}
-              className="text-sm bg-tremor-background p-1.5 py-2 shadow-tremor-dropdown border border-tremor-border"
+              className="text-sm rounded-md bg-tremor-background p-1.5 py-2 shadow-tremor-dropdown border border-tremor-border"
             >
               <div className="flex gap-2">
                 <div
