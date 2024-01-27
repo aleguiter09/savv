@@ -39,7 +39,7 @@ export default async function ExpenseByCatChart({
   const total = data.reduce((acc, item) => acc + item.amount, 0);
 
   return (
-    <div className="flex items-center">
+    <div className="flex gap-2 items-center">
       {/*<DonutChart
         data={data.slice(0, 6)}
         category="amount"
@@ -54,14 +54,14 @@ export default async function ExpenseByCatChart({
           .map((item) => (
             <div
               key={item.title}
-              className="rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border"
+              className="text-sm bg-tremor-background p-1.5 py-2 shadow-tremor-dropdown border border-tremor-border"
             >
-              <div className="flex space-x-2">
+              <div className="flex gap-2">
                 <div
-                  className={`w-1 flex flex-col bg-${item?.color} rounded`}
+                  className={`w-0.5 flex flex-col bg-${item?.color} rounded`}
                 />
                 <div className="w-full">
-                  <div className="flex items-center justify-between space-x-2">
+                  <div className="flex items-center justify-between space-x-1.5">
                     <p className="text-right text-slate-500 whitespace-nowrap">
                       {item.title}
                     </p>
@@ -81,14 +81,14 @@ export default async function ExpenseByCatChart({
           .map((item) => (
             <div
               key={item.title}
-              className="rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border"
+              className="text-sm bg-tremor-background p-1.5 py-2 shadow-tremor-dropdown border border-tremor-border"
             >
-              <div className="flex space-x-2">
+              <div className="flex gap-2">
                 <div
-                  className={`w-1 flex flex-col bg-${item?.color} rounded`}
+                  className={`w-0.5 flex flex-col bg-${item?.color} rounded`}
                 />
                 <div className="w-full">
-                  <div className="flex items-center justify-between space-x-2">
+                  <div className="flex items-center justify-between space-x-1.5">
                     <p className="text-right text-slate-500 whitespace-nowrap">
                       {item.title}
                     </p>
