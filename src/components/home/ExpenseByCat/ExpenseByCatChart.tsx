@@ -49,8 +49,35 @@ export default async function ExpenseByCatChart({
       />
       <div className="space-y-2">
         {data
-          .toSorted((a, b) => b.amount - a.amount)
+          .sort((a, b) => b.amount - a.amount)
           .slice(0, 3)
+          .map((item) => (
+            <div
+              key={item.title}
+              className="rounded-tremor-default text-tremor-default bg-tremor-background p-2 shadow-tremor-dropdown border border-tremor-border"
+            >
+              <div className="flex space-x-2">
+                <div
+                  className={`w-1 flex flex-col bg-${item?.color} rounded`}
+                />
+                <div className="w-full">
+                  <div className="flex items-center justify-between space-x-2">
+                    <p className="text-right text-slate-500 whitespace-nowrap">
+                      {item.title}
+                    </p>
+                    <p className="font-medium text-right whitespace-nowrap">
+                      ${item.amount.toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+      </div>
+      <div className="space-y-2">
+        {data
+          .sort((a, b) => b.amount - a.amount)
+          .slice(3, 6)
           .map((item) => (
             <div
               key={item.title}
