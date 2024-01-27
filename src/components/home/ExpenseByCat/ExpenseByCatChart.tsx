@@ -39,14 +39,14 @@ export default async function ExpenseByCatChart({
   const total = data.reduce((acc, item) => acc + item.amount, 0);
 
   return (
-    <div className="flex gap-3 items-center">
-      <DonutChart
+    <div className="flex items-center">
+      {/*<DonutChart
         data={data.slice(0, 6)}
         category="amount"
         index="title"
         colors={colors}
         label={`$${total.toFixed(2)}`}
-      />
+  />*/}
       <div className="space-y-2">
         {data
           .sort((a, b) => b.amount - a.amount)
