@@ -18,7 +18,7 @@ export default function LastMovementDetail({
     >
       <div className="flex gap-3">
         <Icon
-          className={`bg-${fullCategory.color} mx-auto rounded-full p-1.5`}
+          className={`bg-${fullCategory.color} mx-auto rounded-full p-1.5 shadow-md`}
           path={CATEGORY_ICONS[fullCategory.icon]}
           size="36px"
           color="white"
