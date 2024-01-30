@@ -16,7 +16,8 @@ export const getMovementsByMonthAndYear = async (
     .from("movement")
     .select()
     .gte("done_at", initialDate)
-    .lte("done_at", finishDate);
+    .lte("done_at", finishDate)
+    .order("done_at", { ascending: false });
 
   if (data) {
     for (const d of data) {

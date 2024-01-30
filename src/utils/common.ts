@@ -10,22 +10,23 @@ export const calculatePercentage = (a: number, b: number) => {
   return 0;
 };
 
-export const getInitialAndFinalDate = (year?: number, month?:number) => {
+export const getInitialAndFinalDate = (year?: number, month?: number) => {
   const initialDate = new Date(
-    year ? year : new Date().getFullYear(),
-    month ? month : new Date().getMonth()
+    year ?? new Date().getFullYear(),
+    month ?? new Date().getMonth()
   ).toISOString();
   const partialDate = new Date(
-    year ? year : new Date().getFullYear(),
-    month ? month : new Date().getMonth() + 1,
+    year ?? new Date().getFullYear(),
+    month ? month + 1 : new Date().getMonth() + 1,
     1
   );
+
   const finishDate = new Date(
     partialDate.getTime() - 24 * 60 * 60 * 1000
   ).toISOString();
 
-  return { initialDate, finishDate }
-}
+  return { initialDate, finishDate };
+};
 
 export const getMovementsByDay = (movements: MovementDB[]) => {
   type Items = { date: string; movements: MovementDB[]; total: number }[];
@@ -64,16 +65,4 @@ export const getMovementsByDay = (movements: MovementDB[]) => {
     (a, b) =>
       new Date(b.date).getMilliseconds() - new Date(a.date).getMilliseconds()
   );
-};
-
-export const processMovements = (data: MovementDB[]) => {
-  const expenses = data.filter((c) => c.type === "expense");
-  const incomes = data.filter((c) => c.type === "income");
-
-  const totalIncomes = incomes.reduce((a, b) => a + b.amount, 0);
-  const totalExpenses = expenses.reduce((a, b) => a + b.amount, 0);
-
-  const movements = getMovementsByDay(data);
-
-  return { totalIncomes, totalExpenses, movements };
 };

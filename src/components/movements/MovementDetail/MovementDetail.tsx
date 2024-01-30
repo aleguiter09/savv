@@ -13,7 +13,7 @@ export default function MovementDetail({
   fullAccount,
 }: Readonly<MovementDB>) {
   return (
-    <div className="rounded-md bg-slate-50 p-4 border shadow-md">
+    <div className="rounded-md p-4 border bg-white">
       <div className="flex justify-between items-center mb-4">
         <div className="flex gap-3 items-center">
           <Icon
@@ -30,11 +30,11 @@ export default function MovementDetail({
           }`}
         >{`${type === "expense" ? "-" : ""} $${amount.toFixed(2)}`}</span>
       </div>
-      <div className="shadow-md rounded-md border bg-slate-100 py-2 px-3 flex flex-col gap-1 mb-3">
+      <div className="rounded-md border  py-2 px-3 flex flex-col gap-1 mb-3">
         <span className=" text-gray-500 text-sm">Account</span>
         <span>{fullAccount.name}</span>
       </div>
-      <div className="shadow-md rounded-md border bg-slate-100 py-2 px-3 flex flex-col gap-1 mb-3">
+      <div className="rounded-md border py-2 px-3 flex flex-col gap-1 mb-3">
         <span className="text-gray-500 text-sm">Done at</span>
         <span>
           {new Date(done_at).toLocaleDateString("en-EN", {
@@ -44,7 +44,7 @@ export default function MovementDetail({
           })}
         </span>
       </div>
-      <div className="shadow-md rounded-md border bg-slate-100 py-2 px-3 flex flex-col gap-1">
+      <div className="rounded-md border py-2 px-3 flex flex-col gap-1">
         <span className=" text-gray-500 text-sm">Comment</span>
         <span>{comment}</span>
       </div>

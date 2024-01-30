@@ -33,7 +33,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`pt-4 pb-12 ${inter.className} antialiased`}>
+      <body className={`pt-4 pb-12 ${inter.className} antialiased bg-slate-50`}>
         <SupabaseProvider>
           <AuthProvider serverSession={session}>
             <main className="mx-5 sm:w-[32rem] sm:mx-auto">{children}</main>

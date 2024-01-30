@@ -65,7 +65,7 @@ export default function AddMovementForm({
 
   return (
     <form action={submit}>
-      <Card className="rounded-md bg-slate-50 p-4">
+      <Card className="rounded-md p-4">
         {/* Movement done_at */}
         <label htmlFor="amount" className="mb-2 block text-sm font-medium">
           Enter a date
@@ -222,7 +222,7 @@ export default function AddMovementForm({
               e.preventDefault();
               router.back();
             }}
-            className="w-full rounded-md bg-gray-400 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-300"
+            className="w-full rounded-md bg-slate-500 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-300"
           >
             Close
           </button>

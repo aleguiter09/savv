@@ -16,7 +16,7 @@ export default function MovementsPage({
   return (
     <>
       <DateSlider year={year} month={month} />
-      <MovementsByDate />
+      <MovementsByDate year={year} month={month} />
     </>
   );
 }

@@ -1,14 +1,16 @@
 import { List } from "@tremor/react";
-import { processMovements } from "@/utils/common";
-import { getLastMovements } from "@/services/movements";
+import { getMovementsByDay } from "@/utils/common";
+import { getMovementsByMonthAndYear } from "@/services/movements";
 import { createClient } from "@/utils/supabase-server";
 import FinanceItem from "@/components/movements/MovementsList/MovementItem";
 
-export default async function MovementsList() {
+export default async function MovementsList({
+  year,
+  month,
+}: Readonly<{ year: number; month: number }>) {
   const supabase = createClient();
-
-  const data = await getLastMovements(supabase, 0);
-  const { movements } = processMovements(data);
+  const data = await getMovementsByMonthAndYear(supabase, year, month);
+  const movements = getMovementsByDay(data);
 
   return (
     <List>
