@@ -8,7 +8,7 @@ export default async function LastMovements({
   account,
 }: Readonly<{ account: number }>) {
   return (
-    <Card decoration="bottom" className="mb-4 pl-4 pr-3 py-2">
+    <Card className="shadow-sm mb-4 pl-4 pr-3 py-2">
       <p className="font-semibold mb-2">Last Movements</p>
       <Suspense key={account} fallback={<LastMovementsSkeleton />}>
         <LastMovementsList account={account} />

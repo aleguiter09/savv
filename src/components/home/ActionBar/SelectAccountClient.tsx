@@ -19,7 +19,7 @@ export default function SelectAccountClient({
 
   return (
     <Select
-      className="max-w-[11rem]"
+      className="max-w-[11rem] shadow-sm"
       defaultValue={searchParams.get("account")?.toString() ?? "0"}
       onValueChange={handleSelect}
       enableClear={false}
