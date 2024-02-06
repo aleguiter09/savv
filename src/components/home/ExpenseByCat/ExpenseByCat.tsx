@@ -7,7 +7,7 @@ export default async function ExpenseByCat({
   account,
 }: Readonly<{ account: number }>) {
   return (
-    <Card decoration="bottom" className="mb-4 pl-4 pr-3 py-2">
+    <Card className="mb-4 pl-4 pr-3 py-2 shadow-md">
       <p className="font-semibold mb-2">Expenses by category</p>
       <Suspense key={account} fallback={<ExpenseByCatSkeleton />}>
         <ExpenseByCatChart account={account} />
