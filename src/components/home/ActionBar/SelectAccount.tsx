@@ -2,9 +2,11 @@ import SelectAccountClient from "./SelectAccountClient";
 import { getAccounts } from "@/services/accounts";
 import { createClient } from "@/utils/supabase-server";
 
-export default async function SelectAccount() {
+export default async function SelectAccount({
+  defaultAcc,
+}: Readonly<{ defaultAcc: number }>) {
   const supabase = createClient();
   const accounts = await getAccounts(supabase);
 
-  return <SelectAccountClient accounts={accounts} />;
+  return <SelectAccountClient accounts={accounts} defaultAcc={defaultAcc} />;
 }

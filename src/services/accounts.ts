@@ -45,6 +45,16 @@ export const getAccountById = async (supabase: SupabaseClient, id: number) => {
   return data;
 };
 
+export const getDefaultAccountId = async (supabase: SupabaseClient) => {
+  const { data } = await supabase
+    .from("account")
+    .select("id")
+    .eq("default", true)
+    .single();
+
+  return data?.id ?? 0;
+};
+
 export const createAccount = async (
   supabase: SupabaseClient,
   account: Account

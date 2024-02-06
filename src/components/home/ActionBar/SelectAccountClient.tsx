@@ -6,6 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function SelectAccountClient({
   accounts,
+  defaultAcc,
 }: Readonly<SelectAccountProps>) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -20,7 +21,9 @@ export default function SelectAccountClient({
   return (
     <Select
       className="max-w-[11rem]"
-      defaultValue={searchParams.get("account")?.toString() ?? "0"}
+      defaultValue={
+        searchParams.get("account")?.toString() ?? defaultAcc.toString()
+      }
       onValueChange={handleSelect}
       enableClear={false}
     >

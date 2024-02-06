@@ -14,6 +14,7 @@ export type AddMovementFormProps = {
 
 export type SelectAccountProps = {
   accounts: AccountDB[];
+  defaultAcc: number;
 };
 
 export type BalanceProps = {
