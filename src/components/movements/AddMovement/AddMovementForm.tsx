@@ -27,6 +27,7 @@ export default function AddMovementForm({
   accounts,
   expenseCategories,
   incomeCategories,
+  defaultAcc,
 }: Readonly<AddMovementFormProps>) {
   const router = useRouter();
   const initialState = { message: null, errors: {} };
@@ -34,7 +35,7 @@ export default function AddMovementForm({
   const [date, setDate] = useState<DatePickerValue>(new Date());
   const [type, setType] = useState<Type>("expense");
   const [category, setCategory] = useState<string>("");
-  const [from, setFrom] = useState<string>("");
+  const [from, setFrom] = useState<string>(defaultAcc?.toString() ?? "");
   const [where, setWhere] = useState<string>("");
 
   const handleTypeChange = (i: number) => {

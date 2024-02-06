@@ -10,6 +10,7 @@ export type AddMovementFormProps = {
   accounts: AccountDB[];
   expenseCategories: Category[];
   incomeCategories: Category[];
+  defaultAcc: number;
 };
 
 export type SelectAccountProps = {
