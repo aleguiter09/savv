@@ -5,9 +5,9 @@ import { notFound } from "next/navigation";
 
 export default async function EditAccountPage({
   params,
-}: {
+}: Readonly<{
   params: { id: string };
-}) {
+}>) {
   const id = params.id;
   const supabase = createClient();
   const account = await getAccountById(supabase, Number(id));

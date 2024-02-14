@@ -42,7 +42,8 @@ export default function CreateAccountForm() {
                 icon={CurrencyDollarIcon}
                 className="mb-3"
                 placeholder="Enter an amount..."
-                step={0.5}
+                enableStepper={false}
+                step="0.01"
                 error={!!state.errors?.balance}
                 errorMessage={state.errors?.balance?.at(0)}
               />

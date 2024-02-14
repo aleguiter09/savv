@@ -9,10 +9,10 @@ import { useFormState } from "react-dom";
 export default function EditAccountForm({
   id,
   account,
-}: {
+}: Readonly<{
   id: string;
   account: AccountDB;
-}) {
+}>) {
   const initialState = { message: null, errors: {} };
   const [state, dispatch] = useFormState(
     (prevState: FormAccountState, formData: FormData) =>
@@ -55,7 +55,8 @@ export default function EditAccountForm({
                 icon={CurrencyDollarIcon}
                 className="mb-3"
                 placeholder="Enter an amount..."
-                step={0.5}
+                enableStepper={false}
+                step="0.01"
                 defaultValue={account.balance}
                 error={!!state.errors?.balance}
                 errorMessage={state.errors?.balance?.at(0)}

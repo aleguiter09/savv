@@ -16,11 +16,9 @@ const AccountSchema = z.object({
     .min(1, {
       message: "Please choose a name for the account",
     }),
-  balance: z.coerce
-    .number({
-      invalid_type_error: "The balance amount should be a number.",
-    })
-    .positive({ message: "Please enter an amount greater than $0." }),
+  balance: z.coerce.number({
+    invalid_type_error: "The balance amount should be a number.",
+  }),
 });
 
 const CreateAccountSchema = AccountSchema.omit({ id: true });
@@ -74,7 +72,7 @@ export async function updateAccountForm(
     await updateAccount(supabase, validatedData.data, id);
   } catch (error) {
     return {
-      message: "Database error: failed to create account",
+      message: "Database error: failed to update account",
     };
   }
 
