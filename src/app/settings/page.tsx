@@ -15,7 +15,8 @@ export default function SettingsPage() {
           <li key={link.href}>
             <Link
               href={link.href}
-              className="w-full px-4 py-2 border border-gray-200 bg-white active:ring-2 active:ring-blue-500 active:text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:text-blue-500 rounded-lg flex justify-between"
+              tabIndex={0}
+              className="w-full px-4 py-2 border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:text-blue-500 rounded-lg flex justify-between"
             >
               <p>{link.name}</p>
               <ArrowRightIcon className="w-4" />
