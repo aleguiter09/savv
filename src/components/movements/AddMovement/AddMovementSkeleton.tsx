@@ -62,6 +62,7 @@ export default function AddMovementsSkeleton() {
               name="paid_with"
               type="radio"
               value="cash"
+              tabIndex={0}
               className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-blue-50"
             />
             <label
@@ -77,6 +78,7 @@ export default function AddMovementsSkeleton() {
               name="paid_with"
               type="radio"
               value="credit"
+              tabIndex={0}
               className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-blue-50"
             />
             <label

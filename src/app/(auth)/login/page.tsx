@@ -62,6 +62,7 @@ export default function Login() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.currentTarget.value)}
+            tabIndex={0}
             className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
             ${error !== "" ? "border-red-500" : ""}`}
           />
@@ -74,6 +75,7 @@ export default function Login() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.currentTarget.value)}
+            tabIndex={0}
             className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
               ${error !== "" ? "border-red-500" : ""}`}
           />
@@ -95,6 +97,7 @@ export default function Login() {
           )}
           <p className="text-center text-sm">
             {"Don't have an account? "}
+
             <Link href="/register" className="font-semibold text-blue-600">
               Sign up
             </Link>

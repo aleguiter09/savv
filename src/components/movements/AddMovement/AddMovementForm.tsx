@@ -182,6 +182,7 @@ export default function AddMovementForm({
                 id="cash"
                 name="paid_with"
                 type="radio"
+                tabIndex={0}
                 value="cash"
                 className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-blue-50"
               />
@@ -197,6 +198,7 @@ export default function AddMovementForm({
                 id="credit"
                 name="paid_with"
                 type="radio"
+                tabIndex={0}
                 value="credit"
                 className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-blue-50"
               />
@@ -219,6 +221,7 @@ export default function AddMovementForm({
         {/* Actions */}
         <div className="mt-3 flex flex-row gap-2">
           <button
+            tabIndex={0}
             onClick={(e) => {
               e.preventDefault();
               router.back();
@@ -228,6 +231,7 @@ export default function AddMovementForm({
             Close
           </button>
           <button
+            tabIndex={0}
             className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
             type="submit"
           >
