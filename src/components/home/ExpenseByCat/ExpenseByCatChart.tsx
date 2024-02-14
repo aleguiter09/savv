@@ -53,6 +53,11 @@ export default async function ExpenseByCatChart({
           </div>
         </div>
       ))}
+      {data.length === 0 && (
+        <p className="pt-2 text-sm text-slate-500 text-center col-span-3">
+          No expenses this month
+        </p>
+      )}
     </div>
   );
 }
