@@ -4,7 +4,7 @@ import { BalanceProps } from "@/types/components";
 import { createClient } from "@/utils/supabase-server";
 
 export default async function BalanceInfo({ account }: Readonly<BalanceProps>) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const [accountBalance, incomes, expenses] = await Promise.all([
     getAccountBalanceById(supabase, account),
     getMonthIncomes(supabase),

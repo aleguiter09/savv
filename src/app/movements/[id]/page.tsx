@@ -9,7 +9,7 @@ export default async function MovementDetailPage({
   params: { id: string };
 }>) {
   const id = params.id;
-  const supabase = createClient();
+  const supabase = await createClient();
   const movement = await getMovementById(supabase, Number(id));
 
   if (!movement) {

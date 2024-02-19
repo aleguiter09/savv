@@ -9,7 +9,7 @@ export default async function EditAccountPage({
   params: { id: string };
 }>) {
   const id = params.id;
-  const supabase = createClient();
+  const supabase = await createClient();
   const account = await getAccountById(supabase, Number(id));
 
   if (!account) {

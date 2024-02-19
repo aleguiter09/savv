@@ -8,7 +8,7 @@ export default async function MovementsList({
   year,
   month,
 }: Readonly<{ year: number; month: number }>) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const data = await getMovementsByMonthAndYear(supabase, year, month);
   const movements = getMovementsByDay(data);
 

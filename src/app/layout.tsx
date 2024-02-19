@@ -1,8 +1,6 @@
 import "server-only";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import AuthProvider from "@/context/authContext";
-import SupabaseProvider from "@/context/supabaseContext";
 import { createClient } from "@/utils/supabase-server";
 import Navbar from "@/components/Navbar/Navbar";
 export const dynamic = "force-dynamic";
@@ -12,7 +10,6 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Finance tracker",
   description: "Web application where you can track your finances",
-  // viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
 };
 
 export const viewport = {
@@ -25,23 +22,19 @@ export const viewport = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user },
+  } = await supabase.auth.getUser();
 
   return (
     <html lang="en">
       <body
         className={`pt-4 pb-12 ${inter.className} antialiased bg-gray-100 text-gray-900`}
       >
-        <SupabaseProvider>
-          <AuthProvider serverSession={session}>
-            <main className="mx-5 sm:w-[32rem] sm:mx-auto">{children}</main>
-            {session && <Navbar />}
-          </AuthProvider>
-        </SupabaseProvider>
+        <main className="mx-5 sm:w-[32rem] sm:mx-auto">{children}</main>
+        {user && <Navbar />}
       </body>
     </html>
   );

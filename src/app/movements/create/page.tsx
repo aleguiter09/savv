@@ -7,7 +7,7 @@ import {
 import { createClient } from "@/utils/supabase-server";
 
 export default async function AddMovementPage() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const [accounts, expCategories, incCategories, defaultAcc] =
     await Promise.all([
       getAccounts(supabase),

@@ -7,7 +7,7 @@ import Icon from "@mdi/react";
 import Link from "next/link";
 
 export default async function AccountsPage() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const accounts = await getAccounts(supabase);
 
   return (

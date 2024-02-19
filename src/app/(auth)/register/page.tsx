@@ -1,92 +1,78 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
-import { useAuth } from "@/context/authContext";
-import { useState } from "react";
+import { useTransition } from "react";
+import { useFormState } from "react-dom";
+import { createUserForm } from "@/utils/user-action";
 
 export default function Register() {
-  const { signUp } = useAuth();
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
+  const [pending, startTransition] = useTransition();
 
-  async function handleSignUp(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-    if (email && password && confirmPassword) {
-      if (password !== confirmPassword) {
-        setError("Passwords do not match");
-        setLoading(false);
-        return;
-      }
-      try {
-        const error = await signUp(email, password);
-        if (error) {
-          console.error("Error:", error);
-          setError(error);
-        }
-      } catch (e) {
-        console.error("Error:", (e as Error).message);
-        setError((e as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    } else {
-      console.error("Error: Fill out all fields to register");
-      setError("Fill out all fields to register");
-      setLoading(false);
-    }
-  }
+  const initialState = { message: null, errors: {} };
+  const [state, dispatch] = useFormState(createUserForm, initialState);
+
+  const submit = (e: FormData) => {
+    startTransition(() => {
+      dispatch(e);
+    });
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center py-12">
-      <Image src="/finance.png" height={160} width={250} alt="My finances" />
+    <>
       <h2 className="mt-4 text-3xl font-extrabold">Sign up</h2>
       <div className="mt-8 w-full max-w-md">
-        <form className="flex flex-col gap-2">
+        <form className="flex flex-col gap-1" action={submit}>
           <label htmlFor="email" className="text-sm font-medium">
             Email address
           </label>
           <input
             id="email"
+            name="email"
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.currentTarget.value)}
             tabIndex={0}
-            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
-            ${error !== "" ? "border-red-500" : ""}`}
+            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 ${state.errors?.email ? "border-red-500" : ""}`}
           />
-          <label htmlFor="password" className="text-sm font-medium">
+          {state.errors?.email && (
+            <div id="email-error" aria-live="polite" aria-atomic="true">
+              <p className="text-sm text-red-500">{state.errors.email.at(0)}</p>
+            </div>
+          )}
+          <label htmlFor="password" className="text-sm font-medium mt-2">
             Password
           </label>
           <input
             id="password"
+            name="password"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.currentTarget.value)}
             tabIndex={0}
-            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
-            ${error !== "" ? "border-red-500" : ""}`}
+            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 ${state.errors?.password ? "border-red-500" : ""}`}
           />
-          <label htmlFor="confirmPassword" className="text-sm font-medium">
+          {state.errors?.password && (
+            <div id="password-error" aria-live="polite" aria-atomic="true">
+              <p className="text-sm text-red-500">
+                {state.errors.password.at(0)}
+              </p>
+            </div>
+          )}
+          <label htmlFor="confirmPassword" className="text-sm font-medium mt-2">
             Confirm Password
           </label>
           <input
             id="confirmPassword"
+            name="confirmPassword"
             type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.currentTarget.value)}
             tabIndex={0}
             className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
-            ${error !== "" ? "border-red-500" : ""}`}
+            ${state.errors?.confirmPassword ? "border-red-500" : ""}`}
           />
-          {error && <p className="text-xs text-red-500">{error}</p>}
-          {loading ? (
+
+          {state.errors?.confirmPassword && (
+            <div id="password-error" aria-live="polite" aria-atomic="true">
+              <p className="text-sm text-red-500">
+                {state.errors.confirmPassword.at(0)}
+              </p>
+            </div>
+          )}
+          {pending ? (
             <div className="mt-2 flex w-full justify-center rounded-md bg-blue-600 py-2">
               <output
                 className="h-5 w-5 animate-spin rounded-full border-[3px] border-current border-t-transparent text-white"
@@ -95,20 +81,21 @@ export default function Register() {
             </div>
           ) : (
             <button
-              className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white disabled:opacity-60"
-              onClick={handleSignUp}
+              tabIndex={0}
+              type="submit"
+              className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
             >
               Register
             </button>
           )}
           <p className="text-center text-sm">
-            {"Already have an account? "}
+            Already have an account?{" "}
             <Link href="/" className="font-semibold text-blue-600">
               Log in
             </Link>
           </p>
         </form>
       </div>
-    </div>
+    </>
   );
 }

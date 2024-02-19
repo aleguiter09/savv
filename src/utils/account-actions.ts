@@ -38,7 +38,7 @@ export async function createAccountForm(
   }
 
   try {
-    const supabase = createClient();
+    const supabase = await createClient();
     await createAccount(supabase, validatedData.data);
   } catch (error) {
     return {
@@ -68,7 +68,7 @@ export async function updateAccountForm(
   }
 
   try {
-    const supabase = createClient();
+    const supabase = await createClient();
     await updateAccount(supabase, validatedData.data, id);
   } catch (error) {
     return {

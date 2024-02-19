@@ -39,3 +39,20 @@ export type FormMovementState = {
   };
   message?: string | null;
 };
+
+export type FormUserState = {
+  errors?: {
+    email?: string[];
+    password?: string[];
+    confirmPassword?: string[];
+  };
+  message?: string | null;
+};
+
+export type LoginFormUserState = {
+  errors?: {
+    email?: string[];
+    password?: string[];
+  };
+  message?: string | null;
+}

@@ -5,7 +5,7 @@ import LastMovementDetail from "./LastMovementDetail";
 export default async function LastMovementsList({
   account,
 }: Readonly<{ account: number }>) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const movements = await getLastMovements(supabase, account);
 
   return (

@@ -104,7 +104,7 @@ export const addMovementForm = async (
   }
 
   try {
-    const supabase = createClient();
+    const supabase = await createClient();
     await insertMovement(supabase, validatedData.data);
     if (validatedData.data.type === "transfer") {
       await Promise.all([

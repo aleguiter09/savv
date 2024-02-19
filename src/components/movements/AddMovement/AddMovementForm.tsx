@@ -204,7 +204,7 @@ export default function AddMovementForm({
               />
               <label
                 htmlFor="credit"
-                className="ml-2 cursor-pointer gap-1.5 rounded-full py-1.5 text-sm "
+                className="ml-2 cursor-pointer gap-1.5 rounded-full py-1.5 text-sm"
               >
                 Credit
               </label>

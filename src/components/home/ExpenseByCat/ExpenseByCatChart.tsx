@@ -30,7 +30,7 @@ export default async function ExpenseByCatChart({
     return result.sort((a, b) => b.amount - a.amount);
   };
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const movements = await getExpenses(supabase, account);
   const data = parseMovements(movements);
 

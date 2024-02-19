@@ -9,7 +9,7 @@ import { createClient } from "@/utils/supabase-server";
 export default async function MainPage({
   searchParams,
 }: Readonly<MainPageParams>) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const defaultAcc = await getDefaultAccountId(supabase);
   const account =
     Number(searchParams.account) === 0

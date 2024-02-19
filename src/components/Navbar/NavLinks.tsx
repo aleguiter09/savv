@@ -1,6 +1,4 @@
-"use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import Icon from "@mdi/react";
 import {
   mdiCog,
@@ -9,7 +7,7 @@ import {
   mdiHomeOutline,
   mdiLogout,
 } from "@mdi/js";
-import { useAuth } from "@/context/authContext";
+import { logout } from "@/utils/user-action";
 
 const links = [
   { name: "Home", href: "/", icon: mdiHomeOutline, activeIcon: mdiHome },
@@ -22,9 +20,8 @@ const links = [
 ];
 
 export default function NavLinks() {
-  const { signOut } = useAuth();
-  const pathname = usePathname();
-  const activeLink = links.find((link) => link.href === pathname);
+  // const pathname = usePathname();
+  // const activeLink = links.find((link) => link.href === pathname);
   return (
     <>
       {links.map((link) => {
@@ -33,24 +30,26 @@ export default function NavLinks() {
             key={link.name}
             href={link.href}
             className={`flex h-12 grow items-center justify-center ${
-              activeLink?.href === link.href ? "text-blue-500" : ""
+              /*activeLink?.href === link.href ? "text-blue-500" : */ ""
             }`}
           >
             <Icon
               path={
-                activeLink?.href === link.href ? link.activeIcon : link.icon
+                /*activeLink?.href === link.href ? link.activeIcon : */ link.icon
               }
               size="24px"
             />
           </Link>
         );
       })}
-      <button
+      <form
+        action={logout}
         className="flex h-[48px] grow items-center justify-center"
-        onClick={signOut}
       >
-        <Icon path={mdiLogout} size="24px" />
-      </button>
+        <button type="submit">
+          <Icon path={mdiLogout} size="24px" />
+        </button>
+      </form>
     </>
   );
 }
