@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import Icon from "@mdi/react";
 import {
@@ -8,6 +9,7 @@ import {
   mdiLogout,
 } from "@mdi/js";
 import { logout } from "@/utils/user-action";
+import { usePathname } from "next/navigation";
 
 const links = [
   { name: "Home", href: "/", icon: mdiHomeOutline, activeIcon: mdiHome },
@@ -20,8 +22,8 @@ const links = [
 ];
 
 export default function NavLinks() {
-  // const pathname = usePathname();
-  // const activeLink = links.find((link) => link.href === pathname);
+  const pathname = usePathname();
+  const activeLink = links.find((link) => link.href === pathname);
   return (
     <>
       {links.map((link) => {
@@ -29,13 +31,14 @@ export default function NavLinks() {
           <Link
             key={link.name}
             href={link.href}
-            className={`flex h-12 grow items-center justify-center ${
-              /*activeLink?.href === link.href ? "text-blue-500" : */ ""
+            tabIndex={0}
+            className={`flex h-12 grow items-center justify-center focus:ring-2 focus:ring-inset focus:ring-blue-600 ${
+              activeLink?.href === link.href ? "text-blue-500" : ""
             }`}
           >
             <Icon
               path={
-                /*activeLink?.href === link.href ? link.activeIcon : */ link.icon
+                activeLink?.href === link.href ? link.activeIcon : link.icon
               }
               size="24px"
             />
@@ -46,7 +49,11 @@ export default function NavLinks() {
         action={logout}
         className="flex h-[48px] grow items-center justify-center"
       >
-        <button type="submit">
+        <button
+          type="submit"
+          tabIndex={0}
+          className="grow h-full flex items-center justify-center focus:ring-2 focus:ring-inset focus:ring-blue-600"
+        >
           <Icon path={mdiLogout} size="24px" />
         </button>
       </form>
