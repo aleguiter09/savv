@@ -13,8 +13,9 @@ export default function LastMovementDetail({
 }: Readonly<MovementDB>) {
   return (
     <Link
+      tabIndex={0}
       href={`/movements/${id}`}
-      className="flex items-center justify-between pb-2 border-b border-gray-300 last:border-b-0"
+      className="flex items-center justify-between px-1 pb-2 border-b border-gray-300 last:border-b-0 focus:ring-2 focus:ring-inset focus:ring-blue-600"
     >
       <div className="flex gap-3">
         <Icon

@@ -9,9 +9,9 @@ export default function Login() {
   const [pending, startTransition] = useTransition();
   const [state, dispatch] = useFormState(loginUserForm, initialState);
 
-  const submit = (e: FormData) => {
+  const submit = (formData: FormData) => {
     startTransition(() => {
-      dispatch(e);
+      dispatch(formData);
     });
   };
 

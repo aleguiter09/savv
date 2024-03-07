@@ -15,13 +15,11 @@ import { CurrencyDollarIcon } from "@heroicons/react/outline";
 import { AddMovementFormProps } from "@/types/components";
 import { useFormState } from "react-dom";
 import { addMovementForm } from "@/utils/movement-action";
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
 import { Type } from "@/types/general";
 import CategorySelect from "./CategorySelect";
 import AccountSelect from "./AccountSelect";
 import { useRouter } from "next/navigation";
-
-type SafeDispatch = (formData: FormData) => void;
 
 export default function AddMovementForm({
   accounts,
@@ -37,6 +35,7 @@ export default function AddMovementForm({
   const [category, setCategory] = useState<string>("");
   const [from, setFrom] = useState<string>(defaultAcc?.toString() ?? "");
   const [where, setWhere] = useState<string>("");
+  const [pending, startTransition] = useTransition();
 
   const handleTypeChange = (i: number) => {
     switch (i) {
@@ -53,15 +52,17 @@ export default function AddMovementForm({
   };
 
   const submit = (formData: FormData) => {
-    formData.set("done_at", date ? date.toISOString() : "");
-    formData.set("type", type);
-    formData.set("from", from);
-    formData.set("category", category);
-    if (type === "transfer") {
-      formData.set("where", where);
-      formData.delete("category");
-    }
-    (dispatch as SafeDispatch)(formData);
+    startTransition(() => {
+      formData.set("done_at", date ? date.toISOString() : "");
+      formData.set("type", type);
+      formData.set("from", from);
+      formData.set("category", category);
+      if (type === "transfer") {
+        formData.set("where", where);
+        formData.delete("category");
+      }
+      dispatch(formData);
+    });
   };
 
   return (
@@ -230,13 +231,22 @@ export default function AddMovementForm({
           >
             Close
           </button>
-          <button
-            tabIndex={0}
-            className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
-            type="submit"
-          >
-            Confirm
-          </button>
+          {pending ? (
+            <div className="flex w-full justify-center rounded-md bg-blue-600 py-2">
+              <output
+                className="h-5 w-5 animate-spin rounded-full border-[3px] border-current border-t-transparent text-white"
+                aria-live="polite"
+              />
+            </div>
+          ) : (
+            <button
+              tabIndex={0}
+              className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
+              type="submit"
+            >
+              Confirm
+            </button>
+          )}
         </div>
       </Card>
     </form>
