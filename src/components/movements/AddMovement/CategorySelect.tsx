@@ -9,17 +9,20 @@ export default function CategorySelect({
   setCategory,
   error,
   errorMessage,
-}: {
+}: Readonly<{
   categories: Category[];
   category: string;
   setCategory: (v: string) => void;
   error: boolean;
   errorMessage?: string;
-}) {
+}>) {
   return (
     <div className="flex flex-col gap-1 mb-2">
-      <label className="block text-sm font-medium">Choose a category</label>
+      <label htmlFor="category-select" className="block text-sm font-medium">
+        Choose a category
+      </label>
       <Select
+        id="category-select"
         placeholder="Select a category"
         enableClear={false}
         value={category}

@@ -3,9 +3,10 @@ import { FormMovementState } from "@/types/general";
 import { z } from "zod";
 import { createClient } from "./supabase-server";
 import { revalidatePath } from "next/cache";
-import { insertMovement } from "@/services/movements";
+import { deleteMovement, insertMovement } from "@/services/movements";
 import { redirect } from "next/navigation";
 import { updateAccountBalance } from "@/services/accounts";
+import { MovementDB } from "@/types/database";
 
 const IncomeExpenseSchema = z.object({
   amount: z.coerce
@@ -140,6 +141,29 @@ export const addMovementForm = async (
     return {
       message: "Database error: failed to create account",
     };
+  }
+
+  revalidatePath("/");
+  redirect("/");
+};
+
+export const deleteMovementForm = async (movement: MovementDB) => {
+  const supabase = await createClient();
+  await deleteMovement(supabase, movement.id.toString());
+  if (movement.type === "transfer") {
+    await Promise.all([
+      updateAccountBalance(supabase, movement.from, movement.amount, true),
+      updateAccountBalance(
+        supabase,
+        movement.where as number,
+        movement.amount,
+        false
+      ),
+    ]);
+  } else if (movement.type === "expense") {
+    await updateAccountBalance(supabase, movement.from, movement.amount, true);
+  } else if (movement.type === "income") {
+    await updateAccountBalance(supabase, movement.from, movement.amount, false);
   }
 
   revalidatePath("/");

@@ -48,13 +48,7 @@ export default function MovementDetail({
         <span className=" text-gray-500 text-sm">Comment</span>
         <span>{comment}</span>
       </div>
-      <div className="mt-3 flex flex-row gap-2">
-        <Link
-          href="/"
-          className="w-full text-center rounded-md bg-slate-500 py-2 text-sm font-semibold text-white"
-        >
-          Close
-        </Link>
+      <div className="mt-3 flex gap-2">
         <Link
           href={`/movements/${id}/edit`}
           className="w-full text-center rounded-md bg-blue-600 py-2 text-sm font-semibold text-white"

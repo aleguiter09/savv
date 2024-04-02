@@ -14,10 +14,7 @@ export default async function LastMovements({
         <LastMovementsList account={account} />
       </Suspense>
       <Link href="/movements">
-        <p
-          tabIndex={0}
-          className="text-blue-500 font-semibold text-center mb-1 mt-3 focus:ring-2 focus:ring-inset focus:ring-blue-600"
-        >
+        <p className="text-blue-500 font-semibold text-center mb-1 mt-3">
           See all
         </p>
       </Link>

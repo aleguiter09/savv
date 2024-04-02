@@ -33,7 +33,7 @@ export default async function RootLayout({
       <body
         className={`pt-4 pb-12 ${inter.className} antialiased bg-gray-100 text-gray-900`}
       >
-        <main className="mx-5 sm:w-[32rem] sm:mx-auto">{children}</main>
+        <main className="mx-6 sm:w-[32rem] sm:mx-auto">{children}</main>
         {user && <Navbar />}
       </body>
     </html>
