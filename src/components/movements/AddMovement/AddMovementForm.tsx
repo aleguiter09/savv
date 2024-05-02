@@ -172,53 +172,6 @@ export default function AddMovementForm({
           error={!!state.errors?.comment}
           errorMessage={state.errors?.comment?.at(0)}
         />
-        {/* Movement paid_with */}
-        <fieldset className="mt-2">
-          <legend className="block text-sm font-medium">
-            Choose an option
-          </legend>
-          <div className="flex gap-4">
-            <div className="flex items-center">
-              <input
-                id="cash"
-                name="paid_with"
-                type="radio"
-                tabIndex={0}
-                value="cash"
-                className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-blue-50"
-              />
-              <label
-                htmlFor="cash"
-                className="ml-2 cursor-pointer gap-1.5 rounded-full py-1.5 text-sm"
-              >
-                Debit/Cash
-              </label>
-            </div>
-            <div className="flex items-center">
-              <input
-                id="credit"
-                name="paid_with"
-                type="radio"
-                tabIndex={0}
-                value="credit"
-                className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-blue-50"
-              />
-              <label
-                htmlFor="credit"
-                className="ml-2 cursor-pointer gap-1.5 rounded-full py-1.5 text-sm"
-              >
-                Credit
-              </label>
-            </div>
-          </div>
-          {state.errors?.paid_with && (
-            <div id="paid-error" aria-live="polite" aria-atomic="true">
-              <p className="text-sm text-red-500">
-                {state.errors.paid_with.at(0)}
-              </p>
-            </div>
-          )}
-        </fieldset>
         {/* Actions */}
         <div className="mt-3 flex flex-row gap-2">
           <button

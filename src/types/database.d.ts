@@ -1,4 +1,4 @@
-import { PaidWith, Type } from "./general";
+import { Type } from "./general";
 
 export interface Movement {
   from: number;
@@ -6,7 +6,6 @@ export interface Movement {
   comment: string;
   category?: number;
   type: Type;
-  paid_with: PaidWith;
   done_at: string;
   where?: number;
 }
@@ -14,7 +13,7 @@ export interface Movement {
 export interface MovementDB extends Movement {
   id: number;
   fullCategory: Category;
-  fullAccount: Account
+  fullAccount: Account;
 }
 
 export type Category = {

@@ -22,9 +22,6 @@ const IncomeExpenseSchema = z.object({
       message: "Please enter a comment",
     }),
   type: z.enum(["expense", "income"]),
-  paid_with: z.enum(["cash", "credit"], {
-    required_error: "Please select an option",
-  }),
   category: z.coerce
     .number({
       required_error: "Please choose a category",
@@ -60,9 +57,6 @@ const TransferSchema = z.object({
       message: "Please enter a comment",
     }),
   type: z.enum(["transfer"]),
-  paid_with: z.enum(["cash", "credit"], {
-    invalid_type_error: "Please select an option",
-  }),
   from: z.coerce
     .number({
       required_error: "Please choose an account",

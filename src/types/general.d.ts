@@ -9,13 +9,10 @@ export type CategoryIcons = {
 
 export type Type = "income" | "expense" | "transfer";
 
-export type PaidWith = "cash" | "credit";
-
 export type MovementFormFields =
   | "done_at"
   | "amount"
   | "type"
-  | "paid_with"
   | "category"
   | "comment";
 
@@ -32,7 +29,6 @@ export type FormMovementState = {
     amount?: string[];
     comment?: string[];
     done_at?: string[];
-    paid_with?: string[];
     category?: string[];
     from?: string[];
     where?: string[];
@@ -55,4 +51,4 @@ export type LoginFormUserState = {
     password?: string[];
   };
   message?: string | null;
-}
+};
