@@ -12,7 +12,7 @@ import {
 
 export default function AddMovementsSkeleton() {
   return (
-    <Card className="rounded-md bg-slate-50 p-4">
+    <Card className="rounded-md p-4">
       <label htmlFor="amount" className="mb-2 block text-sm font-medium">
         Enter a date
       </label>
@@ -54,9 +54,6 @@ export default function AddMovementsSkeleton() {
       </label>
       <TextInput id="comment" name="comment" placeholder="Comment..." />
       <div className="mt-3 flex flex-row gap-2">
-        <button className="w-full rounded-md bg-gray-400 py-2 text-sm font-semibold text-white disabled:opacity-60">
-          Close
-        </button>
         <button className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white disabled:opacity-60">
           Confirm
         </button>

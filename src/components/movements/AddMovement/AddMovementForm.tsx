@@ -19,7 +19,6 @@ import React, { useState, useTransition } from "react";
 import { Type } from "@/types/general";
 import CategorySelect from "./CategorySelect";
 import AccountSelect from "./AccountSelect";
-import { useRouter } from "next/navigation";
 
 export default function AddMovementForm({
   accounts,
@@ -27,7 +26,6 @@ export default function AddMovementForm({
   incomeCategories,
   defaultAcc,
 }: Readonly<AddMovementFormProps>) {
-  const router = useRouter();
   const initialState = { message: null, errors: {} };
   const [state, dispatch] = useFormState(addMovementForm, initialState);
   const [date, setDate] = useState<DatePickerValue>(new Date());
@@ -174,15 +172,6 @@ export default function AddMovementForm({
         />
         {/* Actions */}
         <div className="mt-3 flex flex-row gap-2">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              router.back();
-            }}
-            className="w-full rounded-md bg-slate-500 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-300"
-          >
-            Close
-          </button>
           {pending ? (
             <div className="flex w-full justify-center rounded-md bg-blue-600 py-2">
               <output

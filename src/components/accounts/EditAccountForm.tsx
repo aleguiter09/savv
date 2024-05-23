@@ -30,7 +30,7 @@ export default function EditAccountForm({
 
   return (
     <form action={submit}>
-      <Card className="rounded-md p-4 md:p-6">
+      <Card className="rounded-md p-4">
         {/* Account name */}
         <div className="mb-4">
           <label htmlFor="name" className="mb-2 block text-sm font-medium">

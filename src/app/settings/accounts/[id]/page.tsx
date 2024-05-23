@@ -1,6 +1,8 @@
 import EditAccountForm from "@/components/accounts/EditAccountForm";
+import Icon from "@/components/common/Icon";
 import { getAccountById } from "@/services/accounts";
 import { createClient } from "@/utils/supabase-server";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default async function EditAccountPage({
@@ -16,5 +18,16 @@ export default async function EditAccountPage({
     notFound();
   }
 
-  return <EditAccountForm id={id} account={account} />;
+  return (
+    <>
+      <div className="flex justify-between items-center mb-3">
+        <Link href="/settings/accounts">
+          <Icon color="stone" icon={"arrow-left"} />
+        </Link>
+        <h4 className="font-medium">Account Details</h4>
+        <span></span>
+      </div>
+      <EditAccountForm id={id} account={account} />
+    </>
+  );
 }
