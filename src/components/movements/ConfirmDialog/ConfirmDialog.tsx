@@ -1,7 +1,7 @@
 "use client";
 import { Dialog, DialogPanel } from "@tremor/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ReactNode } from "react";
+import { ReactNode, useTransition } from "react";
 import { deleteMovementForm } from "@/utils/movement-action";
 import { MovementDB } from "@/types/database";
 
@@ -16,6 +16,7 @@ export default function ConfirmDialog({
   button: ReactNode;
   movement: MovementDB;
 }>) {
+  const [pending, startTransition] = useTransition();
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -33,7 +34,9 @@ export default function ConfirmDialog({
   };
 
   const handleConfirm = async () => {
-    await deleteMovementForm(movement);
+    startTransition(async () => {
+      await deleteMovementForm(movement);
+    });
   };
 
   return (
@@ -43,19 +46,26 @@ export default function ConfirmDialog({
           {children}
           <div className="flex gap-2 mt-3">
             <button
-              tabIndex={0}
               onClick={handleClose}
               className="w-full rounded-md bg-gray-300 py-2 text-sm font-semibold text-gray-800 focus:outline-none focus:ring focus:ring-gray-blue"
             >
               Close
             </button>
-            <button
-              tabIndex={0}
-              onClick={handleConfirm}
-              className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
-            >
-              Confirm
-            </button>
+            {pending ? (
+              <div className="flex w-full justify-center rounded-md bg-blue-600 py-2">
+                <output
+                  className="h-5 w-5 animate-spin rounded-full border-[3px] border-current border-t-transparent text-white"
+                  aria-live="polite"
+                />
+              </div>
+            ) : (
+              <button
+                onClick={handleConfirm}
+                className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
+              >
+                Confirm
+              </button>
+            )}
           </div>
         </DialogPanel>
       </Dialog>

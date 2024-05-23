@@ -3,7 +3,8 @@ import { AccountDB } from "@/types/database";
 import { FormAccountState } from "@/types/general";
 import { updateAccountForm } from "@/utils/account-actions";
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
-import { NumberInput, TextInput } from "@tremor/react";
+import { Card, NumberInput, TextInput } from "@tremor/react";
+import { useTransition } from "react";
 import { useFormState } from "react-dom";
 
 export default function EditAccountForm({
@@ -14,15 +15,22 @@ export default function EditAccountForm({
   account: AccountDB;
 }>) {
   const initialState = { message: null, errors: {} };
+  const [pending, startTransition] = useTransition();
   const [state, dispatch] = useFormState(
     (prevState: FormAccountState, formData: FormData) =>
       updateAccountForm(prevState, formData, id),
     initialState
   );
 
+  const submit = (formData: FormData) => {
+    startTransition(() => {
+      dispatch(formData);
+    });
+  };
+
   return (
-    <form action={dispatch}>
-      <div className="rounded-md bg-gray-50 p-4 md:p-6">
+    <form action={submit}>
+      <Card className="rounded-md p-4 md:p-6">
         {/* Account name */}
         <div className="mb-4">
           <label htmlFor="name" className="mb-2 block text-sm font-medium">
@@ -64,13 +72,22 @@ export default function EditAccountForm({
             </div>
           </div>
         </div>
-        <button
-          className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white disabled:opacity-60"
-          type="submit"
-        >
-          Edit account
-        </button>
-      </div>
+        {pending ? (
+          <div className="flex w-full justify-center rounded-md bg-blue-600 py-2">
+            <output
+              className="h-5 w-5 animate-spin rounded-full border-[3px] border-current border-t-transparent text-white"
+              aria-live="polite"
+            />
+          </div>
+        ) : (
+          <button
+            className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
+            type="submit"
+          >
+            Edit account
+          </button>
+        )}
+      </Card>
     </form>
   );
 }

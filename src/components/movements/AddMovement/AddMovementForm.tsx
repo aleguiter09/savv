@@ -175,7 +175,6 @@ export default function AddMovementForm({
         {/* Actions */}
         <div className="mt-3 flex flex-row gap-2">
           <button
-            tabIndex={0}
             onClick={(e) => {
               e.preventDefault();
               router.back();
@@ -193,7 +192,6 @@ export default function AddMovementForm({
             </div>
           ) : (
             <button
-              tabIndex={0}
               className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
               type="submit"
             >
