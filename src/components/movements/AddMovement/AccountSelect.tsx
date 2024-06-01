@@ -1,6 +1,14 @@
 import { AccountDB } from "@/types/database";
 import { Select, SelectItem } from "@tremor/react";
-import React from "react";
+
+type AccountSelectProps = {
+  label: string;
+  accounts: AccountDB[];
+  from: string;
+  setFrom: (v: string) => void;
+  error: boolean;
+  errorMessage?: string;
+};
 
 export default function AccountSelect({
   label,
@@ -9,14 +17,7 @@ export default function AccountSelect({
   setFrom,
   error,
   errorMessage,
-}: Readonly<{
-  label: string;
-  accounts: AccountDB[];
-  from: string;
-  setFrom: (v: string) => void;
-  error: boolean;
-  errorMessage?: string;
-}>) {
+}: Readonly<AccountSelectProps>) {
   return (
     <div className="flex flex-col gap-1 mb-2">
       <label className="block text-sm font-medium">{label}</label>

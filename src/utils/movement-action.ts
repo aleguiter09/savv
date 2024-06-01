@@ -133,7 +133,7 @@ export const addMovementForm = async (
     }
   } catch (error) {
     return {
-      message: "Database error: failed to create account",
+      message: "Database error: failed to create movement",
     };
   }
 
@@ -158,6 +158,118 @@ export const deleteMovementForm = async (movement: MovementDB) => {
     await updateAccountBalance(supabase, movement.from, movement.amount, true);
   } else if (movement.type === "income") {
     await updateAccountBalance(supabase, movement.from, movement.amount, false);
+  }
+
+  revalidatePath("/");
+  redirect("/");
+};
+
+export const updateMovementForm = async (
+  prevState: FormMovementState,
+  formData: FormData
+) => {
+  const rawFormData = Object.fromEntries(formData.entries());
+
+  const previousMovement = {
+    id: rawFormData.id as string,
+    amount: parseFloat(rawFormData.previousAmount as string),
+    from: parseInt(rawFormData.previousFrom as string),
+    where: parseInt(rawFormData.previousWhere as string),
+    type: rawFormData.previousType,
+  };
+
+  delete rawFormData.id;
+  delete rawFormData.previousAmount;
+  delete rawFormData.previousFrom;
+  delete rawFormData.previousWhere;
+  delete rawFormData.previousType;
+
+  let validatedData;
+  if (rawFormData.type === "transfer") {
+    validatedData = TransferSchema.safeParse(rawFormData);
+  } else {
+    validatedData = IncomeExpenseSchema.safeParse(rawFormData);
+  }
+
+  if (!validatedData.success) {
+    return {
+      errors: validatedData.error.flatten().fieldErrors,
+      message: "Missing fields. Failed to create the movement",
+    };
+  }
+
+  try {
+    const supabase = await createClient();
+
+    // Insertion of new Movement
+    await insertMovement(supabase, validatedData.data);
+    if (validatedData.data.type === "transfer") {
+      await Promise.all([
+        updateAccountBalance(
+          supabase,
+          validatedData.data.from,
+          validatedData.data.amount,
+          false
+        ),
+        updateAccountBalance(
+          supabase,
+          validatedData.data.where,
+          validatedData.data.amount,
+          true
+        ),
+      ]);
+    } else if (validatedData.data.type === "expense") {
+      await updateAccountBalance(
+        supabase,
+        validatedData.data.from,
+        validatedData.data.amount,
+        false
+      );
+    } else if (validatedData.data.type === "income") {
+      await updateAccountBalance(
+        supabase,
+        validatedData.data.from,
+        validatedData.data.amount,
+        true
+      );
+    }
+
+    // Deletion of previous Movement
+    await deleteMovement(supabase, previousMovement.id);
+    if (previousMovement.type === "transfer") {
+      await Promise.all([
+        updateAccountBalance(
+          supabase,
+          previousMovement.from,
+          previousMovement.amount,
+          true
+        ),
+        updateAccountBalance(
+          supabase,
+          previousMovement.where,
+          previousMovement.amount,
+          false
+        ),
+      ]);
+    } else if (previousMovement.type === "expense") {
+      await updateAccountBalance(
+        supabase,
+        previousMovement.from,
+        previousMovement.amount,
+        true
+      );
+    } else if (previousMovement.type === "income") {
+      await updateAccountBalance(
+        supabase,
+        previousMovement.from,
+        previousMovement.amount,
+        false
+      );
+    }
+  } catch (error) {
+    return {
+      message: "Database error: failed to update movement",
+    };
   }
 
   revalidatePath("/");

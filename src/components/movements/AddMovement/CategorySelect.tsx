@@ -3,19 +3,21 @@ import { CATEGORY_ICONS } from "@/utils/constants";
 import Icon from "@mdi/react";
 import { Select, SelectItem } from "@tremor/react";
 
+type CategorySelectProps = {
+  categories: Category[];
+  category: string;
+  setCategory: (v: string) => void;
+  error: boolean;
+  errorMessage?: string;
+};
+
 export default function CategorySelect({
   categories,
   category,
   setCategory,
   error,
   errorMessage,
-}: Readonly<{
-  categories: Category[];
-  category: string;
-  setCategory: (v: string) => void;
-  error: boolean;
-  errorMessage?: string;
-}>) {
+}: Readonly<CategorySelectProps>) {
   return (
     <div className="flex flex-col gap-1 mb-2">
       <label htmlFor="category-select" className="block text-sm font-medium">
