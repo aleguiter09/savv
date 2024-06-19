@@ -27,6 +27,7 @@ export default function Login() {
             id="email"
             name="email"
             type="email"
+            autoComplete="email"
             tabIndex={0}
             className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
             ${state?.errors?.email ? "border-red-500" : ""}`}
@@ -44,6 +45,7 @@ export default function Login() {
             id="password"
             name="password"
             type="password"
+            autoComplete="current-password"
             tabIndex={0}
             className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
               ${state?.errors?.password ? "border-red-500" : ""}`}

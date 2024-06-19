@@ -5,7 +5,13 @@ export default function AuthLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div className="flex flex-col items-center justify-center py-12">
-      <Image src="/finance.png" height={160} width={250} alt="My finances" />
+      <Image
+        src="/finance.png"
+        height={160}
+        width={250}
+        alt="My finances"
+        priority
+      />
       {children}
     </div>
   );

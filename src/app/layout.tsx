@@ -11,6 +11,10 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Finance tracker",
   description: "Web application where you can track your finances",
+  icons: {
+    icon: "/favicon.ico",
+    appleIcon: "/static/apple-touch-icon.png",
+  },
 };
 
 export const viewport = {
