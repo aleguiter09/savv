@@ -12,8 +12,8 @@ export const metadata = {
   title: "Finance tracker",
   description: "Web application where you can track your finances",
   icons: {
-    icon: "/favicon.ico",
-    appleIcon: "/static/apple-touch-icon.png",
+    icon: ["/favicon.ico"],
+    apple: ["/apple-touch-icon.png"],
   },
 };
 
