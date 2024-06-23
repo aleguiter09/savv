@@ -8,15 +8,17 @@ import { getAccountById } from "./accounts";
 export const getMovementsByMonthAndYear = async (
   supabase: SupabaseClient,
   year: number,
-  month: number
+  month: number,
+  page: number
 ) => {
   const { initialDate, finishDate } = getInitialAndFinalDate(year, month);
 
-  const { data } = await supabase
+  const { data, count } = await supabase
     .from("movement")
-    .select()
+    .select("*", { count: "exact" })
     .gte("done_at", initialDate)
     .lte("done_at", finishDate)
+    .range(0, (page + 1) * 5 - 1)
     .order("done_at", { ascending: false });
 
   if (data) {
@@ -25,9 +27,9 @@ export const getMovementsByMonthAndYear = async (
       d.fullCategory = mov;
     }
 
-    return data;
+    return { data, count: count ?? 0 };
   }
-  return [];
+  return { data: [], count: 0 };
 };
 
 export const getLastMovements = async (

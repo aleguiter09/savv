@@ -12,17 +12,23 @@ export const calculatePercentage = (a: number, b: number) => {
 
 export const getInitialAndFinalDate = (year?: number, month?: number) => {
   const initialDate = new Date(
-    year ?? new Date().getFullYear(),
-    month ?? new Date().getMonth()
+    Date.UTC(
+      year ?? new Date().getFullYear(),
+      month || month === 0 ? month : new Date().getMonth(),
+      1
+    )
   ).toISOString();
-  const partialDate = new Date(
-    year ?? new Date().getFullYear(),
-    month ? month + 1 : new Date().getMonth() + 1,
-    1
-  );
 
   const finishDate = new Date(
-    partialDate.getTime() - 24 * 60 * 60 * 1000
+    Date.UTC(
+      year ?? new Date().getFullYear(),
+      month || month === 0 ? month + 1 : new Date().getMonth() + 1,
+      0,
+      23,
+      59,
+      59,
+      999
+    )
   ).toISOString();
 
   return { initialDate, finishDate };

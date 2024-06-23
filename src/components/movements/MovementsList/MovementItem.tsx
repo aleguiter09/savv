@@ -1,7 +1,6 @@
-import Icon from "@mdi/react";
-import { CATEGORY_ICONS } from "@/utils/constants";
-import { BadgeDelta, ListItem } from "@tremor/react";
+import { BadgeDelta } from "@tremor/react";
 import { FinanceItemProps } from "@/types/components";
+import LastMovementDetail from "@/components/home/LastMovements/LastMovementDetail";
 
 export default function MovementItem({
   date,
@@ -9,7 +8,7 @@ export default function MovementItem({
   amount,
 }: Readonly<FinanceItemProps>) {
   return (
-    <div className="rounded px-2 pb-1 pt-2">
+    <div className="px-2 pb-1 pt-2 flex flex-col gap-2 text-gray-900">
       <div className="flex justify-between">
         <h2 className="text-xs">{date}</h2>
         <BadgeDelta
@@ -18,23 +17,7 @@ export default function MovementItem({
         />
       </div>
       {items.map((item) => (
-        <ListItem key={item.id} className="text-black">
-          <div className="flex items-center gap-2">
-            <span className="flex flex-col text-center">
-              <Icon
-                className={`bg-${item.fullCategory.color} mx-auto rounded-full p-1.5`}
-                path={CATEGORY_ICONS[item.fullCategory.icon]}
-                size="25px"
-                color="white"
-              />
-            </span>
-            <span>{item.comment}</span>
-          </div>
-          <span>
-            {`${item.type === "expense" ? "-" : ""}
-              $${item.amount}`}
-          </span>
-        </ListItem>
+        <LastMovementDetail key={item.id} {...item} />
       ))}
     </div>
   );

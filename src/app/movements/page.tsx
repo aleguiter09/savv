@@ -12,11 +12,12 @@ export default function MovementsPage({
   const month: number = searchParams?.month
     ? parseInt(searchParams.month)
     : new Date().getMonth();
+  const page: number = searchParams?.page ? parseInt(searchParams.page) : 0;
 
   return (
     <>
       <DateSlider year={year} month={month} />
-      <MovementsByDate year={year} month={month} />
+      <MovementsByDate year={year} month={month} page={page} />
     </>
   );
 }
