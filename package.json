@@ -1,5 +1,5 @@
 {
-  "name": "myfinances",
+  "name": "savv",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -15,6 +15,7 @@
     "@supabase/ssr": "^0.1.0",
     "@supabase/supabase-js": "^2.2.2",
     "@tremor/react": "^3.11.1",
+    "@vercel/speed-insights": "^1.0.12",
     "next": "^14.0.2",
     "nextjs-toploader": "^1.6.12",
     "postcss": "^8.4.27",

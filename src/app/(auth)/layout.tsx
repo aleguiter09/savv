@@ -9,7 +9,7 @@ export default function AuthLayout({
         src="/finance.png"
         height={160}
         width={250}
-        alt="My finances"
+        alt="Savv Finances"
         priority
       />
       {children}

@@ -5,11 +5,12 @@ import { createClient } from "@/utils/supabase-server";
 import Navbar from "@/components/Navbar/Navbar";
 import NextTopLoader from "nextjs-toploader";
 export const dynamic = "force-dynamic";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Finance tracker",
+  title: "Savv - Finance tracker",
   description: "Web application where you can track your finances",
   icons: {
     icon: ["/favicon.ico"],
@@ -49,6 +50,7 @@ export default async function RootLayout({
         />
         <main className="mx-6 sm:w-[32rem] sm:mx-auto">{children}</main>
         {user && <Navbar />}
+        <SpeedInsights />
       </body>
     </html>
   );
