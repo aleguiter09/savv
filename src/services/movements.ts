@@ -18,7 +18,7 @@ export const getMovementsByMonthAndYear = async (
     .select("*", { count: "exact" })
     .gte("done_at", initialDate)
     .lte("done_at", finishDate)
-    .range(0, (page + 1) * 5 - 1)
+    .range(0, (page + 1) * 10 - 1)
     .order("done_at", { ascending: false });
 
   if (data) {
@@ -68,30 +68,65 @@ export const getLastMovements = async (
   return [];
 };
 
-export const getMonthIncomes = async (supabase: SupabaseClient) => {
+export const getMonthIncomes = async (
+  supabase: SupabaseClient,
+  accountId: number
+) => {
   const { initialDate, finishDate } = getInitialAndFinalDate();
 
-  const { data } = await supabase
-    .from("movement")
-    .select("amount")
-    .eq("type", "income")
-    .gte("done_at", initialDate)
-    .lte("done_at", finishDate);
+  let incomes;
+  if (accountId !== 0) {
+    const { data } = await supabase
+      .from("movement")
+      .select("amount")
+      .eq("type", "income")
+      .eq("from", accountId)
+      .gte("done_at", initialDate)
+      .lte("done_at", finishDate);
 
-  return data?.reduce((a, b) => a + b.amount, 0) ?? 0;
+    incomes = data;
+  } else {
+    const { data } = await supabase
+      .from("movement")
+      .select("amount")
+      .eq("type", "income")
+      .gte("done_at", initialDate)
+      .lte("done_at", finishDate);
+
+    incomes = data;
+  }
+  return incomes?.reduce((a, b) => a + b.amount, 0) ?? 0;
 };
 
-export const getMonthExpenses = async (supabase: SupabaseClient) => {
+export const getMonthExpenses = async (
+  supabase: SupabaseClient,
+  accountId: number
+) => {
   const { initialDate, finishDate } = getInitialAndFinalDate();
+  let expenses;
 
-  const { data } = await supabase
-    .from("movement")
-    .select("amount")
-    .eq("type", "expense")
-    .gte("done_at", initialDate)
-    .lte("done_at", finishDate);
+  if (accountId !== 0) {
+    const { data } = await supabase
+      .from("movement")
+      .select("amount")
+      .eq("type", "expense")
+      .eq("from", accountId)
+      .gte("done_at", initialDate)
+      .lte("done_at", finishDate);
 
-  return data?.reduce((a, b) => a + b.amount, 0) ?? 0;
+    expenses = data;
+  } else {
+    const { data } = await supabase
+      .from("movement")
+      .select("amount")
+      .eq("type", "expense")
+      .gte("done_at", initialDate)
+      .lte("done_at", finishDate);
+
+    expenses = data;
+  }
+
+  return expenses?.reduce((a, b) => a + b.amount, 0) ?? 0;
 };
 
 export const getMovementById = async (supabase: SupabaseClient, id: number) => {

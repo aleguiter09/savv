@@ -7,8 +7,8 @@ export default async function BalanceInfo({ account }: Readonly<BalanceProps>) {
   const supabase = await createClient();
   const [accountBalance, incomes, expenses] = await Promise.all([
     getAccountBalanceById(supabase, account),
-    getMonthIncomes(supabase),
-    getMonthExpenses(supabase),
+    getMonthIncomes(supabase, account),
+    getMonthExpenses(supabase, account),
   ]);
 
   return (

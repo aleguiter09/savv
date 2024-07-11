@@ -35,6 +35,7 @@ export type Category = {
 export interface Account {
   name: string;
   balance: number;
+  default?: boolean;
 }
 
 export interface AccountDB extends Account {

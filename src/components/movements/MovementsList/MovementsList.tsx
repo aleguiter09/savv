@@ -30,6 +30,11 @@ export default async function MovementsList({
         />
       ))}
       {data.length < count && <LoadMore currentPage={page} />}
+      {data.length === 0 && (
+        <p className="py-2 text-sm text-slate-500 text-center">
+          No expenses this month
+        </p>
+      )}
     </List>
   );
 }

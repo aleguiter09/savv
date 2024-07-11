@@ -3,74 +3,95 @@ import { FormUserState, LoginFormUserState } from "@/types/general";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { createClient } from "./supabase-server";
+import { createAccount } from "@/services/accounts";
 
-const UserSchema = z.object({
+const UserSchema = z
+  .object({
     email: z.string().email({ message: "Provide a valid email" }),
-    password: z.string().min(8, { message: "Password must be at least 8 characters" }),
-    confirmPassword: z.string().min(8, { message: "Password must be at least 8 characters" }),
-}).superRefine(({ password, confirmPassword }, ctx) => {
+    password: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters" }),
+    confirmPassword: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters" }),
+  })
+  .superRefine(({ password, confirmPassword }, ctx) => {
     if (password !== confirmPassword) {
-        ctx.addIssue({
-            code: "custom",
-            message: "Passwords do not match",
-            path: ["confirmPassword"],
-        });
+      ctx.addIssue({
+        code: "custom",
+        message: "Passwords do not match",
+        path: ["confirmPassword"],
+      });
     }
-});
+  });
 
 const LoginUserSchema = z.object({
-    email: z.string().email({ message: "Provide a valid email" }),
-    password: z.string().min(8, { message: "Password must be at least 8 characters" }),
+  email: z.string().email({ message: "Provide a valid email" }),
+  password: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters" }),
 });
 
-export const createUserForm = async (prevState: FormUserState, formData: FormData) => {
-    const rawFormData = Object.fromEntries(formData.entries());
-    
-    const validatedData = UserSchema.safeParse(rawFormData);
-    if (!validatedData.success) {
-        return {
-          errors: validatedData.error.flatten().fieldErrors,
-          message: "Missing fields. Failed to create the user",
-        };
-    }
+export const createUserForm = async (
+  prevState: FormUserState,
+  formData: FormData
+) => {
+  const rawFormData = Object.fromEntries(formData.entries());
 
-    const { email, password } = validatedData.data;
+  const validatedData = UserSchema.safeParse(rawFormData);
+  if (!validatedData.success) {
+    return {
+      errors: validatedData.error.flatten().fieldErrors,
+      message: "Missing fields. Failed to create the user",
+    };
+  }
 
-    const supabase = await createClient();
-    const { error } = await supabase.auth.signUp({ email, password });
+  const { email, password } = validatedData.data;
 
-    if (error) {
-        return { ...prevState, errors: { email: [error.message] } };
-    }
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signUp({ email, password });
 
-    redirect("/")
+  if (error) {
+    return { ...prevState, errors: { email: [error.message] } };
+  }
+
+  const res = await createAccount(supabase, {
+    name: "Cash",
+    balance: 0,
+    default: true,
+  });
+  console.log("res", JSON.stringify(res, null, 2));
+
+  redirect("/");
 };
 
-export const loginUserForm = async (prevState: LoginFormUserState, formData: FormData) => {
-    const rawFormData = Object.fromEntries(formData.entries());
-    const validatedData = LoginUserSchema.safeParse(rawFormData);
-    if (!validatedData.success) {
-        return {
-          errors: validatedData.error.flatten().fieldErrors,
-          message: "Missing fields. Failed to login",
-        };
-    }
+export const loginUserForm = async (
+  prevState: LoginFormUserState,
+  formData: FormData
+) => {
+  const rawFormData = Object.fromEntries(formData.entries());
+  const validatedData = LoginUserSchema.safeParse(rawFormData);
+  if (!validatedData.success) {
+    return {
+      errors: validatedData.error.flatten().fieldErrors,
+      message: "Missing fields. Failed to login",
+    };
+  }
 
-    const { email, password } = validatedData.data;
+  const { email, password } = validatedData.data;
 
-    const supabase = await createClient();
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
 
-    if (error) {
-        return { ...prevState, errors: { email: [error.message] } };
-    }
+  if (error) {
+    return { ...prevState, errors: { email: [error.message] } };
+  }
 
-    redirect("/");
-}
+  redirect("/");
+};
 
 export const logout = async () => {
-    "use server";
-    const supabase = await createClient();
-    await supabase.auth.signOut();
-    redirect("/login");
-}
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  redirect("/login");
+};

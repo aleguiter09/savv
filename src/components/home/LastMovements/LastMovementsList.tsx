@@ -13,6 +13,11 @@ export default async function LastMovementsList({
       {movements.map((item) => (
         <LastMovementDetail key={item.id} {...item} />
       ))}
+      {movements.length === 0 && (
+        <p className="pt-2 text-sm text-slate-500 text-center col-span-3">
+          No transactions uploaded so far
+        </p>
+      )}
     </div>
   );
 }
