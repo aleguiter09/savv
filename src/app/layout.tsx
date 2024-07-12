@@ -10,12 +10,14 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Savv - Finance tracker",
-  description: "Web application where you can track your finances",
+  title: "Savv Finances",
+  description:
+    "Savv allows users to record & categorize their transactions and monitor their accounts to facilitate money management. Take control and start saving today!",
   icons: {
     icon: ["/favicon.ico"],
     apple: ["/apple-touch-icon.png"],
   },
+  metadataBase: new URL("https://savv-finances.vercel.app/"),
 };
 
 export const viewport = {
