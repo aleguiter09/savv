@@ -1,9 +1,10 @@
 import { getAccountBalanceById } from "@/services/accounts";
 import { getMonthIncomes, getMonthExpenses } from "@/services/movements";
-import { BalanceProps } from "@/types/components";
 import { createClient } from "@/utils/supabase-server";
 
-export default async function BalanceInfo({ account }: Readonly<BalanceProps>) {
+export default async function BalanceInfo({
+  account,
+}: Readonly<{ account: number }>) {
   const supabase = await createClient();
   const [accountBalance, incomes, expenses] = await Promise.all([
     getAccountBalanceById(supabase, account),
