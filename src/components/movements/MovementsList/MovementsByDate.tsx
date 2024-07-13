@@ -4,14 +4,23 @@ import { Suspense } from "react";
 import MovementsList from "./MovementsList";
 
 export default async function MovementsByDate({
-  year,
-  month,
-  page,
-}: Readonly<{ year: number; month: number; page: number }>) {
+  from,
+  to,
+  accountId,
+  categoryId,
+}: Readonly<{ from: Date; to: Date; accountId: number; categoryId: number }>) {
   return (
     <Card decoration="bottom" className="mb-4 px-3 py-2">
-      <Suspense key={page + month + year} fallback={<FinancesSkeleton />}>
-        <MovementsList year={year} month={month} page={page} />
+      <Suspense
+        key={from.toString() + to.toString() + accountId + categoryId}
+        fallback={<FinancesSkeleton />}
+      >
+        <MovementsList
+          from={from}
+          to={to}
+          accountId={accountId}
+          categoryId={categoryId}
+        />
       </Suspense>
     </Card>
   );

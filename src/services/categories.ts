@@ -16,6 +16,13 @@ export const getIncomeCategories = async (supabase: SupabaseClient) => {
   return data ?? [];
 };
 
+export const getAllCategories = async (supabase: SupabaseClient) => {
+  const { data } = await supabase
+    .from("category")
+    .select("id, color, title, icon, for");
+  return data ?? [];
+};
+
 export const getCategoryById = async (supabase: SupabaseClient, id: string) => {
   if (id) {
     const { data } = await supabase

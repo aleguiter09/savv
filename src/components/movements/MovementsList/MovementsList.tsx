@@ -1,21 +1,22 @@
 import { List } from "@tremor/react";
 import { getMovementsByDay } from "@/utils/common";
-import { getMovementsByMonthAndYear } from "@/services/movements";
 import { createClient } from "@/utils/supabase-server";
 import MovementItem from "@/components/movements/MovementsList/MovementItem";
-import LoadMore from "./LoadMore";
+import { getMovementsByFilters } from "@/services/movements";
 
 export default async function MovementsList({
-  year,
-  month,
-  page,
-}: Readonly<{ year: number; month: number; page: number }>) {
+  from,
+  to,
+  accountId,
+  categoryId,
+}: Readonly<{ from: Date; to: Date; accountId: number; categoryId: number }>) {
   const supabase = await createClient();
-  const { data, count } = await getMovementsByMonthAndYear(
+  const { data } = await getMovementsByFilters(
     supabase,
-    year,
-    month,
-    page
+    from,
+    to,
+    accountId,
+    categoryId
   );
   const movements = getMovementsByDay(data);
 
@@ -29,10 +30,9 @@ export default async function MovementsList({
           amount={item.total}
         />
       ))}
-      {data.length < count && <LoadMore currentPage={page} />}
       {data.length === 0 && (
         <p className="py-2 text-sm text-slate-500 text-center">
-          No expenses this month
+          No expenses recored in this period.
         </p>
       )}
     </List>

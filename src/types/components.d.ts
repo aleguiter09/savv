@@ -1,4 +1,4 @@
-import { AccountDB, MovementDB } from "./database";
+import { AccountDB, Category, MovementDB } from "./database";
 
 export type FinanceItemProps = {
   date: string;
@@ -23,6 +23,7 @@ export type EditMovementFormProps = {
 export type SelectAccountProps = {
   accounts: AccountDB[];
   defaultAcc: number;
+  containerClassName?: string;
 };
 
 export type BalanceProps = {

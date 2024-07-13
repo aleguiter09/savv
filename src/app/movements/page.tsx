@@ -1,23 +1,39 @@
-import DateSlider from "@/components/movements/MovementsList/DateSlider";
 import MovementsByDate from "@/components/movements/MovementsList/MovementsByDate";
-import { MovementsPageParams } from "@/types/pages";
-import React from "react";
+import MovementsFilter from "@/components/movements/MovementsFilter/MovementsFilter";
 
-export default function MovementsPage({
+type MovementsPageParams = {
+  searchParams: {
+    from?: string;
+    to?: string;
+    account?: string;
+    category?: string;
+  };
+};
+
+export default async function MovementsPage({
   searchParams,
 }: Readonly<MovementsPageParams>) {
-  const year: number = searchParams?.year
-    ? parseInt(searchParams.year)
-    : new Date().getFullYear();
-  const month: number = searchParams?.month
-    ? parseInt(searchParams.month)
-    : new Date().getMonth();
-  const page: number = searchParams?.page ? parseInt(searchParams.page) : 0;
+  const from = searchParams.from
+    ? new Date(searchParams.from)
+    : new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+  const to = searchParams.to ? new Date(searchParams.to) : new Date();
+  const account = Number(searchParams.account) || 0;
+  const category = Number(searchParams.category) || 0;
 
   return (
     <>
-      <DateSlider year={year} month={month} />
-      <MovementsByDate year={year} month={month} page={page} />
+      <MovementsFilter
+        from={from}
+        to={to}
+        accountId={account}
+        categoryId={category}
+      />
+      <MovementsByDate
+        from={from}
+        to={to}
+        accountId={account}
+        categoryId={category}
+      />
     </>
   );
 }

@@ -1,21 +1,26 @@
 "use client";
-import { SelectAccountProps } from "@/types/components";
-import { AccountDB } from "@/types/database";
+import { Category } from "@/types/database";
 import { Select, SelectItem } from "@tremor/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export default function SelectAccountClient({
-  accounts,
-  defaultAcc,
+type SelectCategoryProps = {
+  categoryId: number;
+  categories: Category[];
+  containerClassName?: string;
+};
+
+export default function SelectCategoryClient({
+  categoryId,
+  categories,
   containerClassName = "",
-}: Readonly<SelectAccountProps>) {
+}: Readonly<SelectCategoryProps>) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
   const handleSelect = (value: string) => {
     const params = new URLSearchParams(searchParams);
-    params.set("account", value);
+    params.set("category", value);
     replace(`${pathname}?${params.toString()}`);
   };
 
@@ -23,14 +28,14 @@ export default function SelectAccountClient({
     <div className={containerClassName}>
       <Select
         className={containerClassName}
-        defaultValue={defaultAcc.toString()}
+        defaultValue={categoryId.toString()}
         onValueChange={handleSelect}
         enableClear={false}
       >
-        <SelectItem value="0">All accounts</SelectItem>
-        {accounts.map((account: AccountDB) => (
-          <SelectItem key={account.id} value={account.id.toString()}>
-            {account.name}
+        <SelectItem value="0">All categories</SelectItem>
+        {categories.map((category: Category) => (
+          <SelectItem key={category.id} value={category.id.toString()}>
+            {category.title}
           </SelectItem>
         ))}
       </Select>

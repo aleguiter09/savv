@@ -5,31 +5,41 @@ import { getInitialAndFinalDate } from "@/utils/common";
 import { unstable_noStore as noStore } from "next/cache";
 import { getAccountById } from "./accounts";
 
-export const getMovementsByMonthAndYear = async (
+export const getMovementsByFilters = async (
   supabase: SupabaseClient,
-  year: number,
-  month: number,
-  page: number
+  from: Date,
+  to: Date,
+  accountId: number,
+  categoryId: number
 ) => {
-  const { initialDate, finishDate } = getInitialAndFinalDate(year, month);
+  const initialDate = from.toISOString();
+  const finishDate = to.toISOString();
 
-  const { data, count } = await supabase
+  let query = supabase
     .from("movement")
-    .select("*", { count: "exact" })
+    .select("*")
     .gte("done_at", initialDate)
     .lte("done_at", finishDate)
-    .range(0, (page + 1) * 10 - 1)
     .order("done_at", { ascending: false });
+
+  if (accountId !== 0) {
+    query = query.eq("from", accountId);
+  }
+
+  if (categoryId !== 0) {
+    query = query.eq("category", categoryId);
+  }
+
+  const { data } = await query;
 
   if (data) {
     for (const d of data) {
       const mov = await getCategoryById(supabase, d.category);
       d.fullCategory = mov;
     }
-
-    return { data, count: count ?? 0 };
+    return { data };
   }
-  return { data: [], count: 0 };
+  return { data: [] };
 };
 
 export const getLastMovements = async (
