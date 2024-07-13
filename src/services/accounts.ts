@@ -7,8 +7,7 @@ export const getAccounts = async (supabase: SupabaseClient) => {
   try {
     const { data } = await supabase.from("account").select("id, name, balance");
 
-    if (data) return data;
-    return [];
+    return data || [];
   } catch (error) {
     console.log("Database error", error);
     return [];
@@ -19,19 +18,12 @@ export const getAccountBalanceById = async (
   supabase: SupabaseClient,
   id: number
 ) => {
+  let query = supabase.from("account").select("balance");
   if (id !== 0) {
-    const { data } = await supabase
-      .from("account")
-      .select("balance")
-      .eq("id", id)
-      .single();
-
-    return data?.balance || 0;
-  } else {
-    const { data } = await supabase.from("account").select("balance");
-
-    return data?.reduce((a, b) => a + b.balance, 0) ?? 0;
+    query = query.eq("id", id);
   }
+  const { data } = await query;
+  return data?.reduce((a, b) => a + b.balance, 0) ?? 0;
 };
 
 export const getAccountById = async (supabase: SupabaseClient, id: number) => {

@@ -25,7 +25,3 @@ export type SelectAccountProps = {
   defaultAcc: number;
   containerClassName?: string;
 };
-
-export type BalanceProps = {
-  account: number;
-};

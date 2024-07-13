@@ -1,6 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { getCategoryById } from "./categories";
-import { Category, Movement } from "@/types/database";
+import { Movement } from "@/types/database";
 import { getInitialAndFinalDate } from "@/utils/common";
 import { unstable_noStore as noStore } from "next/cache";
 import { getAccountById } from "./accounts";
@@ -47,32 +47,24 @@ export const getLastMovements = async (
   accountId: number
 ) => {
   noStore();
-  let movements;
+  let query = supabase
+    .from("movement")
+    .select()
+    .order("done_at", { ascending: false })
+    .limit(5);
+
   if (accountId !== 0) {
-    const { data } = await supabase
-      .from("movement")
-      .select()
-      .eq("from", accountId)
-      .order("done_at", { ascending: false })
-      .limit(5);
-
-    movements = data;
-  } else {
-    const { data } = await supabase
-      .from("movement")
-      .select()
-      .order("done_at", { ascending: false })
-      .limit(5);
-
-    movements = data;
+    query = query.eq("from", accountId);
   }
 
-  if (movements) {
-    for (const m of movements) {
+  const { data } = await query;
+
+  if (data) {
+    for (const m of data) {
       const mov = await getCategoryById(supabase, m.category);
       m.fullCategory = mov;
     }
-    return movements;
+    return data;
   }
 
   return [];
@@ -83,29 +75,18 @@ export const getMonthIncomes = async (
   accountId: number
 ) => {
   const { initialDate, finishDate } = getInitialAndFinalDate();
+  let query = supabase
+    .from("movement")
+    .select("amount")
+    .eq("type", "income")
+    .gte("done_at", initialDate)
+    .lte("done_at", finishDate);
 
-  let incomes;
   if (accountId !== 0) {
-    const { data } = await supabase
-      .from("movement")
-      .select("amount")
-      .eq("type", "income")
-      .eq("from", accountId)
-      .gte("done_at", initialDate)
-      .lte("done_at", finishDate);
-
-    incomes = data;
-  } else {
-    const { data } = await supabase
-      .from("movement")
-      .select("amount")
-      .eq("type", "income")
-      .gte("done_at", initialDate)
-      .lte("done_at", finishDate);
-
-    incomes = data;
+    query = query.eq("from", accountId);
   }
-  return incomes?.reduce((a, b) => a + b.amount, 0) ?? 0;
+  const { data } = await query;
+  return data?.reduce((a, b) => a + b.amount, 0) ?? 0;
 };
 
 export const getMonthExpenses = async (
@@ -113,30 +94,19 @@ export const getMonthExpenses = async (
   accountId: number
 ) => {
   const { initialDate, finishDate } = getInitialAndFinalDate();
-  let expenses;
+  let query = supabase
+    .from("movement")
+    .select("amount")
+    .eq("type", "expense")
+    .gte("done_at", initialDate)
+    .lte("done_at", finishDate);
 
   if (accountId !== 0) {
-    const { data } = await supabase
-      .from("movement")
-      .select("amount")
-      .eq("type", "expense")
-      .eq("from", accountId)
-      .gte("done_at", initialDate)
-      .lte("done_at", finishDate);
-
-    expenses = data;
-  } else {
-    const { data } = await supabase
-      .from("movement")
-      .select("amount")
-      .eq("type", "expense")
-      .gte("done_at", initialDate)
-      .lte("done_at", finishDate);
-
-    expenses = data;
+    query = query.eq("type", "expense");
   }
+  const { data } = await query;
 
-  return expenses?.reduce((a, b) => a + b.amount, 0) ?? 0;
+  return data?.reduce((a, b) => a + b.amount, 0) ?? 0;
 };
 
 export const getMovementById = async (supabase: SupabaseClient, id: number) => {
@@ -186,42 +156,27 @@ export const getExpenses = async (
 ) => {
   const { initialDate, finishDate } = getInitialAndFinalDate(year, month);
 
-  let movements:
-    | {
-        amount: number;
-        category: string;
-        fullCategory?: Category | null;
-      }[]
-    | null;
+  let query = supabase
+    .from("movement")
+    .select("amount, category")
+    .eq("type", "expense")
+    .gte("done_at", initialDate)
+    .lte("done_at", finishDate);
 
   if (accountId !== 0) {
-    const { data } = await supabase
-      .from("movement")
-      .select("amount, category")
-      .eq("type", "expense")
-      .eq("from", accountId)
-      .gte("done_at", initialDate)
-      .lte("done_at", finishDate);
-
-    movements = data;
-  } else {
-    const { data } = await supabase
-      .from("movement")
-      .select("amount, category")
-      .eq("type", "expense")
-      .gte("done_at", initialDate)
-      .lte("done_at", finishDate);
-
-    movements = data;
+    query = query.eq("from", accountId);
   }
+  const { data } = await query;
 
-  if (movements) {
-    for (const d of movements) {
+  if (data) {
+    const dataWithCategory = [];
+    for (const d of data) {
       const mov = await getCategoryById(supabase, d.category);
-      d.fullCategory = mov;
+      const movWithCategory = { ...d, fullCategory: mov };
+      dataWithCategory.push(movWithCategory);
     }
 
-    return movements;
+    return dataWithCategory;
   }
   return [];
 };
