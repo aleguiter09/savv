@@ -72,3 +72,33 @@ export const getMovementsByDay = (movements: MovementDB[]) => {
       new Date(b.date).getMilliseconds() - new Date(a.date).getMilliseconds()
   );
 };
+
+export const parseMovementsForChart = (
+  movements: {
+    amount: number;
+    category: string;
+    fullCategory?: { title: string; color: string } | null;
+  }[]
+) => {
+  const result: {
+    title: string;
+    amount: number;
+    color: string;
+    category: string;
+  }[] = [];
+  for (const movement of movements) {
+    const { amount, fullCategory, category } = movement;
+    const dataItem = result.find((item) => item.title === fullCategory?.title);
+    if (!dataItem) {
+      result.push({
+        title: fullCategory?.title ?? "Uncategorized",
+        color: fullCategory?.color ?? "gray-500",
+        category: category,
+        amount: amount,
+      });
+    } else {
+      dataItem.amount += amount;
+    }
+  }
+  return result.sort((a, b) => b.amount - a.amount);
+};
