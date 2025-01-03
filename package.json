@@ -9,10 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/tailwindcss": "^0.2.1",
     "@heroicons/react": "^1.0.6",
     "@mdi/js": "^7.2.96",
     "@mdi/react": "^1.6.1",
-    "@supabase/ssr": "^0.1.0",
+    "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.2.2",
     "@tremor/react": "^3.11.1",
     "@vercel/speed-insights": "^1.0.12",
