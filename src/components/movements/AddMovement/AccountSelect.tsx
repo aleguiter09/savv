@@ -30,7 +30,7 @@ export default function AccountSelect({
       >
         {accounts.map((account: AccountDB) => (
           <SelectItem key={account.id} value={account.id.toString()}>
-            {account.name}
+            {account.name}: ${account.balance}
           </SelectItem>
         ))}
       </Select>

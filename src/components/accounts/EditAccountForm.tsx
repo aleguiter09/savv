@@ -62,7 +62,7 @@ export default function EditAccountForm({
                 name="balance"
                 icon={CurrencyDollarIcon}
                 className="mb-3"
-                placeholder="Enter an amount..."
+                placeholder="Enter amount..."
                 enableStepper={false}
                 step="0.01"
                 defaultValue={account.balance}

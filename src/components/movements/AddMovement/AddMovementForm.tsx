@@ -143,7 +143,7 @@ export default function AddMovementForm({
 
         {/* Movement amount */}
         <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-          Enter an amount
+          Enter amount
         </label>
         <NumberInput
           id="amount"
