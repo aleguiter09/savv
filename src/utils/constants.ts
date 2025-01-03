@@ -24,6 +24,7 @@ import {
   mdiWallet,
   mdiSale,
   mdiTransfer,
+  mdiDumbbell,
 } from "@mdi/js";
 
 export const CATEGORY_ICONS: CategoryIcons = {
@@ -51,6 +52,7 @@ export const CATEGORY_ICONS: CategoryIcons = {
   investments: mdiPiggyBankOutline,
   sales: mdiSale,
   transfer: mdiTransfer,
+  sports: mdiDumbbell,
 };
 
 export const MONTHS = [
