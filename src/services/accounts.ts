@@ -29,7 +29,7 @@ export const getAccountBalanceById = async (
 export const getAccountById = async (supabase: SupabaseClient, id: number) => {
   const { data } = await supabase
     .from("account")
-    .select("id, name, balance")
+    .select("id, name, balance, default")
     .eq("id", id)
     .single();
 

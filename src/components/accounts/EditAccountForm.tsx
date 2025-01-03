@@ -30,9 +30,9 @@ export default function EditAccountForm({
 
   return (
     <form action={submit}>
-      <Card className="rounded-md p-4">
+      <Card className="rounded-md p-4 flex flex-col gap-4">
         {/* Account name */}
-        <div className="mb-4">
+        <div>
           <label htmlFor="name" className="mb-2 block text-sm font-medium">
             Enter a name
           </label>
@@ -51,7 +51,7 @@ export default function EditAccountForm({
         </div>
 
         {/* Account balance */}
-        <div className="mb-4">
+        <div>
           <label htmlFor="balance" className="mb-2 block text-sm font-medium">
             Current balance
           </label>
@@ -72,6 +72,20 @@ export default function EditAccountForm({
             </div>
           </div>
         </div>
+
+        {/* Default account */}
+        <div className="flex items-center gap-3">
+          <label htmlFor="default" className="text-sm font-medium">
+            Default account
+          </label>
+          <input
+            type="checkbox"
+            id="default"
+            name="default"
+            defaultChecked={account.default}
+          />
+        </div>
+
         {pending ? (
           <div className="flex w-full justify-center rounded-md bg-blue-600 py-2">
             <output

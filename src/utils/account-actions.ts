@@ -19,6 +19,7 @@ const AccountSchema = z.object({
   balance: z.coerce.number({
     invalid_type_error: "The balance amount should be a number.",
   }),
+  default: z.enum(["true", "false"]).transform((value) => value === "true"),
 });
 
 const CreateAccountSchema = AccountSchema.omit({ id: true });
@@ -57,13 +58,16 @@ export async function updateAccountForm(
   formData: FormData,
   id: string
 ) {
+  formData.get("default") === "on"
+    ? formData.set("default", "true")
+    : formData.set("default", "false");
   const rawFormData = Object.fromEntries(formData.entries());
   const validatedData = UpdateAccountSchema.safeParse(rawFormData);
 
   if (!validatedData.success) {
     return {
       errors: validatedData.error.flatten().fieldErrors,
-      message: "Missing fields. Failed to create an account.",
+      message: "Missing fields. Failed to update the account.",
     };
   }
 
