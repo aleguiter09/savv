@@ -166,6 +166,7 @@ export const getExpenses = async (
   if (accountId !== 0) {
     query = query.eq("from", accountId);
   }
+
   const { data } = await query;
 
   if (data) {
@@ -178,5 +179,6 @@ export const getExpenses = async (
 
     return dataWithCategory;
   }
+
   return [];
 };

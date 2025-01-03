@@ -21,7 +21,11 @@ export default async function MainPage({
       <ActionBar defaultAcc={defaultAcc} />
       <Balance account={account} />
       <LastMovements account={account} />
-      <ExpenseByCat account={account} />
+      <ExpenseByCat
+        account={account}
+        year={new Date().getFullYear()}
+        month={new Date().getMonth()}
+      />
     </>
   );
 }

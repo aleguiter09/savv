@@ -7,6 +7,8 @@ const icons = {
   "arrow-right": ArrowRightIcon,
 };
 
+type TremorSizes = "xs" | "sm" | "md" | "lg" | "xl";
+type IconType = "arrow-left" | "arrow-right";
 type TremorColors =
   | "slate"
   | "gray"
@@ -30,8 +32,6 @@ type TremorColors =
   | "fuchsia"
   | "pink"
   | "rose";
-type TremorSizes = "xs" | "sm" | "md" | "lg" | "xl";
-type IconType = "arrow-left" | "arrow-right";
 
 export default function Icon({
   color,

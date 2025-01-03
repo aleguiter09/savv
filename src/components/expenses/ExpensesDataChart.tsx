@@ -3,7 +3,7 @@ import { parseMovementsForChart } from "@/utils/common";
 import { createClient } from "@/utils/supabase-server";
 import Link from "next/link";
 
-export default async function ExpenseByCatChart({
+export default async function ExpensesDataChart({
   account,
   year,
   month,
@@ -11,6 +11,7 @@ export default async function ExpenseByCatChart({
   const supabase = await createClient();
   const movements = await getExpenses(supabase, account, year, month);
   const data = parseMovementsForChart(movements);
+  const total = data.reduce((acc, item) => acc + item.amount, 0);
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-2 pb-1">
@@ -32,6 +33,9 @@ export default async function ExpenseByCatChart({
           </div>
         </Link>
       ))}
+      <div className="flex mt-2 ml-auto col-span-2 md:col-span-3">
+        <p className="text-sm">Total expenses: ${total.toFixed(0)}</p>
+      </div>
       {data.length === 0 && (
         <p className="pt-2 text-sm text-slate-500 text-center col-span-3">
           No expenses this month
