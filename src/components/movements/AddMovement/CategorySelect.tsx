@@ -1,7 +1,8 @@
+import "./CategorySelect.css";
 import { Category } from "@/types/database";
 import { CATEGORY_ICONS } from "@/utils/constants";
-import Icon from "@mdi/react";
 import { Select, SelectItem } from "@tremor/react";
+import Icon from "@mdi/react";
 
 type CategorySelectProps = {
   categories: Category[];
@@ -18,14 +19,25 @@ export default function CategorySelect({
   error,
   errorMessage,
 }: Readonly<CategorySelectProps>) {
+  const renderIcon = (color: string, icon: string) => {
+    return (
+      <Icon
+        className={`bg-${color} rounded-full p-1`}
+        path={CATEGORY_ICONS[icon]}
+        size="25px"
+        color="white"
+      />
+    );
+  };
+
   return (
-    <div className="flex flex-col gap-1 mb-2">
+    <div className="flex flex-col gap-2 mb-2">
       <label htmlFor="category-select" className="block text-sm font-medium">
-        Choose a category
+        Choose category
       </label>
       <Select
         id="category-select"
-        placeholder="Select a category"
+        placeholder="Category..."
         enableClear={false}
         value={category}
         onValueChange={(v) => setCategory(v)}
@@ -35,14 +47,7 @@ export default function CategorySelect({
           <SelectItem
             key={category.id}
             value={category.id.toString()}
-            icon={() => (
-              <Icon
-                className={`bg-${category.color} rounded-full p-1`}
-                path={CATEGORY_ICONS[category.icon]}
-                size={"25px"}
-                color="white"
-              />
-            )}
+            icon={() => renderIcon(category.color, category.icon)}
           >
             <p className="ml-2">{category.title}</p>
           </SelectItem>

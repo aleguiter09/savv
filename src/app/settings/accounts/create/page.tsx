@@ -7,7 +7,7 @@ export default function CreateAccountPage() {
     <>
       <div className="flex justify-between items-center mb-3">
         <Link href="/settings/accounts">
-          <Icon color="stone" icon={"arrow-left"} />
+          <Icon color="stone" icon="arrow-left" />
         </Link>
         <h4 className="font-medium">Create Account</h4>
         <span></span>

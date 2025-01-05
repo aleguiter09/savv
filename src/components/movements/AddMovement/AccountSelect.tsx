@@ -19,10 +19,10 @@ export default function AccountSelect({
   errorMessage,
 }: Readonly<AccountSelectProps>) {
   return (
-    <div className="flex flex-col gap-1 mb-2">
+    <div className="flex flex-col gap-2 mb-2">
       <label className="block text-sm font-medium">{label}</label>
       <Select
-        placeholder="Select an account"
+        placeholder="Account..."
         enableClear={false}
         value={from}
         onValueChange={(v) => setFrom(v)}

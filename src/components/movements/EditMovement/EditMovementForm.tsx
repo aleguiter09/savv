@@ -85,7 +85,7 @@ export default function EditMovementForm({
       <Card className="rounded-md p-4">
         {/* Movement done_at */}
         <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-          Enter a date
+          Enter date
         </label>
         <DatePicker
           className="mb-3"
@@ -108,7 +108,7 @@ export default function EditMovementForm({
             <TabPanels className="mt-3">
               <TabPanel>
                 <AccountSelect
-                  label="Choose an account"
+                  label="Choose account"
                   accounts={accounts}
                   from={from}
                   setFrom={setFrom}
@@ -125,7 +125,7 @@ export default function EditMovementForm({
               </TabPanel>
               <TabPanel>
                 <AccountSelect
-                  label="Choose an account"
+                  label="Choose account"
                   accounts={accounts}
                   from={from}
                   setFrom={setFrom}
@@ -183,7 +183,7 @@ export default function EditMovementForm({
           htmlFor="comment"
           className="mt-2 mb-2 block text-sm font-medium"
         >
-          Enter a comment
+          Enter comment
         </label>
         <TextInput
           id="comment"

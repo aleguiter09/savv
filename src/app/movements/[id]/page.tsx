@@ -48,7 +48,7 @@ export default async function MovementDetailPage({
     <>
       <div className="flex justify-between items-center mb-3">
         <Link href="/">
-          <Icon color="stone" icon={"arrow-left"} />
+          <Icon color="stone" icon="arrow-left" />
         </Link>
         <h4 className="font-medium">Details</h4>
         {alertDialog()}

@@ -10,7 +10,7 @@ export default function ExpensesFilter({
       <Suspense fallback={<SelectAccountSkeleton />}>
         <SelectAccount
           defaultAcc={accountId}
-          containerClassName={"w-full max-w-none"}
+          containerClassName="w-full max-w-none"
         />
       </Suspense>
     </div>
