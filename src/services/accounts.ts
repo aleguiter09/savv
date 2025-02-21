@@ -5,7 +5,10 @@ import { unstable_noStore as noStore } from "next/cache";
 export const getAccounts = async (supabase: SupabaseClient) => {
   noStore();
   try {
-    const { data } = await supabase.from("account").select("id, name, balance");
+    const { data } = await supabase
+      .from("account")
+      .select("id, name, balance, default")
+      .order("balance", { ascending: false });
 
     return data || [];
   } catch (error) {

@@ -5,6 +5,8 @@ import { MainPageParams } from "@/types/pages";
 import ExpenseByCat from "@/components/home/ExpenseByCat/ExpenseByCat";
 import { getDefaultAccountId } from "@/services/accounts";
 import { createClient } from "@/utils/supabase-server";
+import { Suspense } from "react";
+import TotalWealth from "@/components/home/TotalWealth/TotalWealth";
 
 export default async function MainPage({
   searchParams,
@@ -26,6 +28,9 @@ export default async function MainPage({
         year={new Date().getFullYear()}
         month={new Date().getMonth()}
       />
+      <Suspense fallback={null}>
+        <TotalWealth />
+      </Suspense>
     </>
   );
 }
