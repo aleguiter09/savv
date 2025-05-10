@@ -1,13 +1,11 @@
 import AddButton from "@/components/home/ActionBar/AddButton";
 import { getAccounts } from "@/services/accounts";
-import { createClient } from "@/utils/supabase-server";
 import { mdiCreditCardEditOutline } from "@mdi/js";
 import Icon from "@mdi/react";
 import Link from "next/link";
 
 export default async function AccountsPage() {
-  const supabase = await createClient();
-  const accounts = await getAccounts(supabase);
+  const accounts = await getAccounts();
 
   return (
     <>

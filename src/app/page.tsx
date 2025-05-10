@@ -16,7 +16,7 @@ export default async function MainPage({
   searchParams,
 }: Readonly<MainPageParams>) {
   const supabase = await createClient();
-  const accounts = await getAccounts(supabase);
+  const accounts = await getAccounts();
   const defaultAcc = await getDefaultAccountId(supabase);
   const account =
     Number(searchParams.account) === 0

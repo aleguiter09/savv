@@ -1,6 +1,7 @@
 import DateSlider from "@/components/common/DateSlider";
 import ExpensesData from "@/components/expenses/ExpensesData";
 import ExpensesFilter from "@/components/expenses/ExpensesFilter";
+import { getAccounts } from "@/services/accounts";
 
 type ExpensesPageParams = {
   searchParams: {
@@ -20,11 +21,12 @@ export default async function ExpensesPage({
     ? Number(searchParams.month)
     : new Date().getMonth();
   const account = Number(searchParams.account) || 0;
+  const accounts = await getAccounts();
 
   return (
     <>
       <DateSlider year={year} month={month} />
-      <ExpensesFilter accountId={account} />
+      <ExpensesFilter accounts={accounts} accountId={account} />
       <ExpensesData account={account} year={year} month={month} />
     </>
   );

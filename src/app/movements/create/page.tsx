@@ -12,7 +12,7 @@ export default async function AddMovementPage() {
   const supabase = await createClient();
   const [accounts, expCategories, incCategories, defaultAcc] =
     await Promise.all([
-      getAccounts(supabase),
+      getAccounts(),
       getExpenseCategories(supabase),
       getIncomeCategories(supabase),
       getDefaultAccountId(supabase),

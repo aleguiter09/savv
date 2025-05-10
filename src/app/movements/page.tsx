@@ -1,5 +1,6 @@
 import MovementsByDate from "@/components/movements/MovementsList/MovementsByDate";
 import MovementsFilter from "@/components/movements/MovementsFilter/MovementsFilter";
+import { getAccounts } from "@/services/accounts";
 
 type MovementsPageParams = {
   searchParams: {
@@ -19,10 +20,12 @@ export default async function MovementsPage({
   const to = searchParams.to ? new Date(searchParams.to) : new Date();
   const account = Number(searchParams.account) || 0;
   const category = Number(searchParams.category) || 0;
+  const accounts = await getAccounts();
 
   return (
     <>
       <MovementsFilter
+        accounts={accounts}
         from={from}
         to={to}
         accountId={account}

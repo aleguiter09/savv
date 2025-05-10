@@ -24,7 +24,7 @@ export default async function EditMovementPage({
   }
 
   const [accounts, expCategories, incCategories] = await Promise.all([
-    getAccounts(supabase),
+    getAccounts(),
     getExpenseCategories(supabase),
     getIncomeCategories(supabase),
   ]);
