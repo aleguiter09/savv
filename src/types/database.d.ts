@@ -1,6 +1,7 @@
 import { Type } from "./general";
 
 export interface Movement {
+  id?: number;
   from: number;
   amount: number;
   comment: string;
@@ -8,12 +9,8 @@ export interface Movement {
   type: Type;
   done_at: string;
   where?: number;
-}
-
-export interface MovementDB extends Movement {
-  id: number;
-  fullCategory: Category;
-  fullAccount: Account;
+  fullCategory?: Category;
+  fullAccount?: Account;
 }
 
 export type Category = {
@@ -33,11 +30,8 @@ export type Category = {
 };
 
 export interface Account {
+  id?: number;
   name: string;
   balance: number;
   default?: boolean;
-}
-
-export interface AccountDB extends Account {
-  id: number;
 }

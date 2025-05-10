@@ -1,9 +1,9 @@
-import { AccountDB } from "@/types/database";
+import { Account } from "@/types/database";
 import { Select, SelectItem } from "@tremor/react";
 
 type AccountSelectProps = {
   label: string;
-  accounts: AccountDB[];
+  accounts: Account[];
   from: string;
   setFrom: (v: string) => void;
   error: boolean;
@@ -28,8 +28,8 @@ export default function AccountSelect({
         onValueChange={(v) => setFrom(v)}
         className={`${error && "border border-rose-500 rounded-lg"}`}
       >
-        {accounts.map((account: AccountDB) => (
-          <SelectItem key={account.id} value={account.id.toString()}>
+        {accounts.map((account: Account) => (
+          <SelectItem key={account.id} value={account.id?.toString() ?? ""}>
             {account.name}: ${account.balance}
           </SelectItem>
         ))}

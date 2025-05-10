@@ -1,17 +1,22 @@
 import LastMovements from "@/components/home/LastMovements/LastMovements";
 import Balance from "@/components/home/Balance/Balance";
 import ActionBar from "@/components/home/ActionBar/ActionBar";
-import { MainPageParams } from "@/types/pages";
 import ExpenseByCat from "@/components/home/ExpenseByCat/ExpenseByCat";
-import { getDefaultAccountId } from "@/services/accounts";
+import { getAccounts, getDefaultAccountId } from "@/services/accounts";
 import { createClient } from "@/utils/supabase-server";
-import { Suspense } from "react";
 import TotalWealth from "@/components/home/TotalWealth/TotalWealth";
+
+export type MainPageParams = {
+  searchParams: {
+    account: string;
+  };
+};
 
 export default async function MainPage({
   searchParams,
 }: Readonly<MainPageParams>) {
   const supabase = await createClient();
+  const accounts = await getAccounts(supabase);
   const defaultAcc = await getDefaultAccountId(supabase);
   const account =
     Number(searchParams.account) === 0
@@ -20,7 +25,7 @@ export default async function MainPage({
 
   return (
     <>
-      <ActionBar defaultAcc={defaultAcc} />
+      <ActionBar accounts={accounts} defaultAcc={defaultAcc} />
       <Balance account={account} />
       <LastMovements account={account} />
       <ExpenseByCat
@@ -28,9 +33,7 @@ export default async function MainPage({
         year={new Date().getFullYear()}
         month={new Date().getMonth()}
       />
-      <Suspense fallback={null}>
-        <TotalWealth />
-      </Suspense>
+      <TotalWealth accounts={accounts} />
     </>
   );
 }

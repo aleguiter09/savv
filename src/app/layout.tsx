@@ -1,7 +1,6 @@
 import "server-only";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { createClient } from "@/utils/supabase-server";
 import Navbar from "@/components/Navbar/Navbar";
 import NextTopLoader from "nextjs-toploader";
 export const dynamic = "force-dynamic";
@@ -30,12 +29,6 @@ export const viewport = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
   return (
     <html lang="en">
       <body
@@ -51,7 +44,7 @@ export default async function RootLayout({
           showSpinner={false}
         />
         <main className="mx-6 sm:w-[32rem] sm:mx-auto">{children}</main>
-        {user && <Navbar />}
+        <Navbar />
         <SpeedInsights />
       </body>
     </html>

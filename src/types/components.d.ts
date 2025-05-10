@@ -1,27 +1,27 @@
-import { AccountDB, Category, MovementDB } from "./database";
+import { Account, Category, Movement } from "./database";
 
 export type FinanceItemProps = {
   date: string;
-  items: MovementDB[];
+  items: Movement[];
   amount: number;
 };
 
 export type AddMovementFormProps = {
-  accounts: AccountDB[];
+  accounts: Account[];
   expenseCategories: Category[];
   incomeCategories: Category[];
   defaultAcc: number;
 };
 
 export type EditMovementFormProps = {
-  accounts: AccountDB[];
+  accounts: Account[];
   expenseCategories: Category[];
   incomeCategories: Category[];
-  movement: MovementDB;
+  movement: Movement;
 };
 
 export type SelectAccountProps = {
-  accounts: AccountDB[];
+  accounts: Account[];
   defaultAcc: number;
   containerClassName?: string;
 };

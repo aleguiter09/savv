@@ -1,5 +1,5 @@
 "use client";
-import { AccountDB } from "@/types/database";
+import { Account } from "@/types/database";
 import { FormAccountState } from "@/types/general";
 import { updateAccountForm } from "@/utils/account-actions";
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
@@ -12,7 +12,7 @@ export default function EditAccountForm({
   account,
 }: Readonly<{
   id: string;
-  account: AccountDB;
+  account: Account;
 }>) {
   const initialState = { message: null, errors: {} };
   const [pending, startTransition] = useTransition();

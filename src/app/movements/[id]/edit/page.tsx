@@ -14,7 +14,6 @@ export default async function EditMovementPage({
   params,
 }: Readonly<{
   params: { id: string };
-  searchParams: { confirm: string };
 }>) {
   const id = params.id;
   const supabase = await createClient();

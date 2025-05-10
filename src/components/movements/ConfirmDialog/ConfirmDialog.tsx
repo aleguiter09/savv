@@ -3,7 +3,7 @@ import { Dialog, DialogPanel } from "@tremor/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ReactNode, useTransition } from "react";
 import { deleteMovementForm } from "@/utils/movement-action";
-import { MovementDB } from "@/types/database";
+import { Movement } from "@/types/database";
 
 export default function ConfirmDialog({
   children,
@@ -14,7 +14,7 @@ export default function ConfirmDialog({
   children: ReactNode;
   isOpen: boolean;
   button: ReactNode;
-  movement: MovementDB;
+  movement: Movement;
 }>) {
   const [pending, startTransition] = useTransition();
   const searchParams = useSearchParams();

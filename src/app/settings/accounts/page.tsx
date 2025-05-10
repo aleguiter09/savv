@@ -1,6 +1,5 @@
 import AddButton from "@/components/home/ActionBar/AddButton";
 import { getAccounts } from "@/services/accounts";
-import { AccountDB } from "@/types/database";
 import { createClient } from "@/utils/supabase-server";
 import { mdiCreditCardEditOutline } from "@mdi/js";
 import Icon from "@mdi/react";
@@ -17,7 +16,7 @@ export default async function AccountsPage() {
         <AddButton href="/settings/accounts/create" />
       </div>
       <ul className="text-sm flex flex-col gap-2">
-        {accounts.map((account: AccountDB) => (
+        {accounts.map((account) => (
           <li key={account.id}>
             <Link
               href={`/settings/accounts/${account.id}`}

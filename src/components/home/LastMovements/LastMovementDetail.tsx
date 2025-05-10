@@ -1,4 +1,4 @@
-import { MovementDB } from "@/types/database";
+import { Movement } from "@/types/database";
 import { CATEGORY_ICONS } from "@/utils/constants";
 import Icon from "@mdi/react";
 import Link from "next/link";
@@ -10,7 +10,7 @@ export default function LastMovementDetail({
   comment,
   type,
   fullCategory,
-}: Readonly<MovementDB>) {
+}: Readonly<Movement>) {
   return (
     <Link
       tabIndex={0}
@@ -19,14 +19,14 @@ export default function LastMovementDetail({
     >
       <div className="flex gap-3">
         <Icon
-          className={`bg-${fullCategory.color} mx-auto rounded-full p-1.5 shadow-md`}
-          path={CATEGORY_ICONS[fullCategory.icon]}
+          className={`bg-${fullCategory?.color} mx-auto rounded-full p-1.5 shadow-md`}
+          path={CATEGORY_ICONS[fullCategory?.icon ?? "other"]}
           size="36px"
           color="white"
         />
         <div className="flex flex-col">
           <span className="font-medium text-sm">{comment}</span>
-          <span className="text-xs text-gray-500">{fullCategory.title}</span>
+          <span className="text-xs text-gray-500">{fullCategory?.title}</span>
         </div>
       </div>
       <div className="flex flex-col gap-1 text-right">

@@ -1,9 +1,9 @@
 import { Account } from "@/types/database";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { unstable_noStore as noStore } from "next/cache";
 
-export const getAccounts = async (supabase: SupabaseClient) => {
-  noStore();
+export const getAccounts = async (
+  supabase: SupabaseClient
+): Promise<Account[]> => {
   try {
     const { data } = await supabase
       .from("account")

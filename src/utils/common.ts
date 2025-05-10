@@ -1,4 +1,4 @@
-import { MovementDB } from "@/types/database";
+import { Movement } from "@/types/database";
 
 export const valueFormatter = (number: number) =>
   `$ ${Intl.NumberFormat("us").format(number).toString()}`;
@@ -34,8 +34,8 @@ export const getInitialAndFinalDate = (year?: number, month?: number) => {
   return { initialDate, finishDate };
 };
 
-export const getMovementsByDay = (movements: MovementDB[]) => {
-  type Items = { date: string; movements: MovementDB[]; total: number }[];
+export const getMovementsByDay = (movements: Movement[]) => {
+  type Items = { date: string; movements: Movement[]; total: number }[];
   const items: Items = [];
   movements.forEach((m) => {
     const currentDate = items.find(

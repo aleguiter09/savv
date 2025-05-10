@@ -1,18 +1,17 @@
 import SelectAccount from "@/components/home/ActionBar/SelectAccount";
-import SelectAccountSkeleton from "@/components/home/ActionBar/SelectAccountSkeleton";
-import React, { Suspense } from "react";
+import { Account } from "@/types/database";
 
 export default function ExpensesFilter({
+  accounts,
   accountId,
-}: Readonly<{ accountId: number }>) {
+}: Readonly<{ accounts: Account[]; accountId: number }>) {
   return (
     <div className="flex items-center gap-2 mb-4">
-      <Suspense fallback={<SelectAccountSkeleton />}>
-        <SelectAccount
-          defaultAcc={accountId}
-          containerClassName="w-full max-w-none"
-        />
-      </Suspense>
+      <SelectAccount
+        accounts={accounts}
+        defaultAcc={accountId}
+        containerClassName="w-full max-w-none"
+      />
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import { deleteMovement, insertMovement } from "@/services/movements";
 import { redirect } from "next/navigation";
 import { updateAccountBalance } from "@/services/accounts";
-import { MovementDB } from "@/types/database";
+import { Movement } from "@/types/database";
 
 const IncomeExpenseSchema = z.object({
   amount: z.coerce
@@ -141,9 +141,9 @@ export const addMovementForm = async (
   redirect("/");
 };
 
-export const deleteMovementForm = async (movement: MovementDB) => {
+export const deleteMovementForm = async (movement: Movement) => {
   const supabase = await createClient();
-  await deleteMovement(supabase, movement.id.toString());
+  await deleteMovement(supabase, movement.id?.toString() ?? "");
   if (movement.type === "transfer") {
     await Promise.all([
       updateAccountBalance(supabase, movement.from, movement.amount, true),

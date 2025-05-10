@@ -1,16 +1,14 @@
-import SelectAccountSkeleton from "./SelectAccountSkeleton";
 import SelectAccount from "./SelectAccount";
 import AddButton from "./AddButton";
-import { Suspense } from "react";
+import { Account } from "@/types/database";
 
 export default async function ActionBar({
+  accounts,
   defaultAcc,
-}: Readonly<{ defaultAcc: number }>) {
+}: Readonly<{ accounts: Account[]; defaultAcc: number }>) {
   return (
     <div className="mb-4 flex justify-between items-center">
-      <Suspense fallback={<SelectAccountSkeleton />}>
-        <SelectAccount defaultAcc={defaultAcc} />
-      </Suspense>
+      <SelectAccount accounts={accounts} defaultAcc={defaultAcc} />
       <AddButton href="/movements/create" />
     </div>
   );

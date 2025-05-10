@@ -63,7 +63,7 @@ export default function EditMovementForm({
 
   const submit = (formData: FormData) => {
     startTransition(() => {
-      formData.set("id", movement.id.toString());
+      formData.set("id", movement.id?.toString() ?? "");
       formData.set("previousAmount", movement.amount.toString());
       formData.set("previousFrom", movement.from.toString());
       formData.set("previousWhere", movement.where?.toString() ?? "");

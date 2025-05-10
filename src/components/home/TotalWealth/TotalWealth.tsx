@@ -1,12 +1,12 @@
-import { getAccounts } from "@/services/accounts";
-import { createClient } from "@/utils/supabase-server";
+import { Account } from "@/types/database";
 import { Card } from "@tremor/react";
 import React from "react";
 
-export default async function TotalWealth() {
-  const supabase = await createClient();
-  const accounts = await getAccounts(supabase);
-
+export default async function TotalWealth({
+  accounts,
+}: Readonly<{
+  accounts: Account[];
+}>) {
   const totalWealth = accounts.reduce((acc, account) => {
     return acc + account.balance;
   }, 0);

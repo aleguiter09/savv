@@ -1,6 +1,6 @@
 "use client";
 import { SelectAccountProps } from "@/types/components";
-import { AccountDB } from "@/types/database";
+import { Account } from "@/types/database";
 import { Select, SelectItem } from "@tremor/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
@@ -28,8 +28,8 @@ export default function SelectAccountClient({
         enableClear={false}
       >
         <SelectItem value="0">All accounts</SelectItem>
-        {accounts.map((account: AccountDB) => (
-          <SelectItem key={account.id} value={account.id.toString()}>
+        {accounts.map((account: Account) => (
+          <SelectItem key={account.id} value={account.id?.toString() ?? ""}>
             {account.name}
           </SelectItem>
         ))}

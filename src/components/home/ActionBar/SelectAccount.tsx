@@ -1,14 +1,15 @@
+import { Account } from "@/types/database";
 import SelectAccountClient from "./SelectAccountClient";
-import { getAccounts } from "@/services/accounts";
-import { createClient } from "@/utils/supabase-server";
 
 export default async function SelectAccount({
+  accounts,
   defaultAcc,
   containerClassName,
-}: Readonly<{ defaultAcc: number; containerClassName?: string }>) {
-  const supabase = await createClient();
-  const accounts = await getAccounts(supabase);
-
+}: Readonly<{
+  accounts: Account[];
+  defaultAcc: number;
+  containerClassName?: string;
+}>) {
   return (
     <SelectAccountClient
       accounts={accounts}
