@@ -1,8 +1,13 @@
 "use client";
-import { SelectAccountProps } from "@/types/components";
 import { Account } from "@/types/database";
 import { Select, SelectItem } from "@tremor/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+type SelectAccountProps = {
+  accounts: Account[];
+  defaultAcc: number;
+  containerClassName?: string;
+};
 
 export default function SelectAccountClient({
   accounts,

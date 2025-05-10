@@ -12,13 +12,20 @@ import {
   Card,
 } from "@tremor/react";
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
-import { EditMovementFormProps } from "@/types/components";
 import { useFormState } from "react-dom";
 import { updateMovementForm } from "@/utils/movement-action";
 import React, { useState, useTransition } from "react";
 import { Type } from "@/types/general";
 import AccountSelect from "../AddMovement/AccountSelect";
 import CategorySelect from "../AddMovement/CategorySelect";
+import { Account, Category, Movement } from "@/types/database";
+
+type EditMovementFormProps = {
+  accounts: Account[];
+  expenseCategories: Category[];
+  incomeCategories: Category[];
+  movement: Movement;
+};
 
 export default function EditMovementForm({
   accounts,
