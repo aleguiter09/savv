@@ -3,3 +3,6 @@
 [] Review getAccounts in settings.
 [] Transfers related accounts and color.
 [X] Move types to each file
+[] Loans Widget
+[] Credit cards or quotas widget
+[] Expenses historic chart

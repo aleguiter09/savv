@@ -1,9 +1,18 @@
 import { Account } from "@/types/database";
 import { createClient } from "@/utils/supabase-server";
 import { SupabaseClient } from "@supabase/supabase-js";
+import { cache } from "react";
 
-export const getAccounts = async (): Promise<Account[]> => {
-  const supabase = await createClient();
+let supabaseClient: SupabaseClient | null = null;
+
+async function getOrCreateClient(): Promise<SupabaseClient> {
+  supabaseClient ??= await createClient();
+  return supabaseClient;
+}
+
+export const getAccounts = cache(async (): Promise<Account[]> => {
+  const supabase = await getOrCreateClient();
+  console.log("ACCOUNT GT");
 
   try {
     const { data } = await supabase
@@ -16,7 +25,7 @@ export const getAccounts = async (): Promise<Account[]> => {
     console.log("Database error", error);
     return [];
   }
-};
+});
 
 export const getAccountBalanceById = async (
   supabase: SupabaseClient,
