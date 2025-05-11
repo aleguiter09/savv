@@ -5,6 +5,8 @@ import Navbar from "@/components/Navbar/Navbar";
 import NextTopLoader from "nextjs-toploader";
 export const dynamic = "force-dynamic";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { DataProvider } from "@/providers/DataProvider";
+import { getAccounts } from "@/services/accounts";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +31,8 @@ export const viewport = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const accounts = await getAccounts();
+
   return (
     <html lang="en">
       <body
@@ -43,7 +47,9 @@ export default async function RootLayout({
           speed={200}
           showSpinner={false}
         />
-        <main className="mx-6 sm:w-[32rem] sm:mx-auto">{children}</main>
+        <main className="mx-6 sm:w-[32rem] sm:mx-auto">
+          <DataProvider accounts={accounts}>{children}</DataProvider>
+        </main>
         <Navbar />
         <SpeedInsights />
       </body>

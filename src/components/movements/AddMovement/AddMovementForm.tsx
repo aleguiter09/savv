@@ -18,21 +18,21 @@ import React, { useState, useTransition } from "react";
 import { Type } from "@/types/general";
 import CategorySelect from "./CategorySelect";
 import AccountSelect from "./AccountSelect";
-import { Account, Category } from "@/types/database";
+import { Category } from "@/types/database";
+import { useData } from "@/providers/DataProvider";
 
 type AddMovementFormProps = {
-  accounts: Account[];
   expenseCategories: Category[];
   incomeCategories: Category[];
   defaultAcc: number;
 };
 
 export default function AddMovementForm({
-  accounts,
   expenseCategories,
   incomeCategories,
   defaultAcc,
 }: Readonly<AddMovementFormProps>) {
+  const accounts = useData();
   const initialState = { message: null, errors: {} };
   const [state, dispatch] = useFormState(addMovementForm, initialState);
   const [date, setDate] = useState<DatePickerValue>(new Date());
@@ -129,7 +129,7 @@ export default function AddMovementForm({
               <TabPanel>
                 <AccountSelect
                   label="Choose from where you will transfer"
-                  accounts={accounts}
+                  accounts={accounts.filter((a) => a.id !== Number(where))}
                   from={from}
                   setFrom={setFrom}
                   error={!!state.errors?.from}
@@ -137,7 +137,7 @@ export default function AddMovementForm({
                 />
                 <AccountSelect
                   label="Choose where you will transfer"
-                  accounts={accounts}
+                  accounts={accounts.filter((a) => a.id !== Number(from))}
                   from={where}
                   setFrom={setWhere}
                   error={!!state.errors?.where}

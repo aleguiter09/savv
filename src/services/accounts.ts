@@ -1,10 +1,8 @@
 import { Account } from "@/types/database";
 import { createClient } from "@/utils/supabase-server";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { cache } from "react";
 
-export const getAccounts = cache(async (): Promise<Account[]> => {
-  console.log("Fetching accounts");
+export const getAccounts = async (): Promise<Account[]> => {
   const supabase = await createClient();
 
   try {
@@ -18,7 +16,7 @@ export const getAccounts = cache(async (): Promise<Account[]> => {
     console.log("Database error", error);
     return [];
   }
-});
+};
 
 export const getAccountBalanceById = async (
   supabase: SupabaseClient,

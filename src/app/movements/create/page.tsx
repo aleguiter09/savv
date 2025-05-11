@@ -1,6 +1,6 @@
 import Icon from "@/components/common/Icon";
 import AddMovementForm from "@/components/movements/AddMovement/AddMovementForm";
-import { getAccounts, getDefaultAccountId } from "@/services/accounts";
+import { getDefaultAccountId } from "@/services/accounts";
 import {
   getExpenseCategories,
   getIncomeCategories,
@@ -10,13 +10,11 @@ import Link from "next/link";
 
 export default async function AddMovementPage() {
   const supabase = await createClient();
-  const [accounts, expCategories, incCategories, defaultAcc] =
-    await Promise.all([
-      getAccounts(),
-      getExpenseCategories(supabase),
-      getIncomeCategories(supabase),
-      getDefaultAccountId(supabase),
-    ]);
+  const [expCategories, incCategories, defaultAcc] = await Promise.all([
+    getExpenseCategories(supabase),
+    getIncomeCategories(supabase),
+    getDefaultAccountId(supabase),
+  ]);
 
   return (
     <>
@@ -28,7 +26,6 @@ export default async function AddMovementPage() {
         <span></span>
       </div>
       <AddMovementForm
-        accounts={accounts}
         expenseCategories={expCategories}
         incomeCategories={incCategories}
         defaultAcc={defaultAcc}

@@ -23,14 +23,13 @@ export default function AccountSelect({
       <label className="block text-sm font-medium">{label}</label>
       <Select
         placeholder="Account..."
-        enableClear={false}
         value={from}
         onValueChange={(v) => setFrom(v)}
         className={`${error && "border border-rose-500 rounded-lg"}`}
       >
         {accounts.map((account: Account) => (
           <SelectItem key={account.id} value={account.id?.toString() ?? ""}>
-            {account.name}: ${account.balance}
+            {account.name}: ${account.balance.toFixed(2)}
           </SelectItem>
         ))}
       </Select>

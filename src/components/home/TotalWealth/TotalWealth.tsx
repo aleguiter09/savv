@@ -1,12 +1,10 @@
-import { Account } from "@/types/database";
+"use client";
+import { useData } from "@/providers/DataProvider";
 import { Card } from "@tremor/react";
-import React from "react";
 
-export default async function TotalWealth({
-  accounts,
-}: Readonly<{
-  accounts: Account[];
-}>) {
+export default function TotalWealth() {
+  const accounts = useData();
+
   const totalWealth = accounts.reduce((acc, account) => {
     return acc + account.balance;
   }, 0);

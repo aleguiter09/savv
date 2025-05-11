@@ -1,16 +1,13 @@
 import SelectAccount from "@/components/home/ActionBar/SelectAccount";
 import SelectCategory from "./SelectCategory";
 import SelectDateClient from "./SelectDateClient";
-import { Account } from "@/types/database";
 
 export default function MovementsFilter({
-  accounts,
   from,
   to,
   accountId,
   categoryId,
 }: Readonly<{
-  accounts: Account[];
   from: Date;
   to: Date;
   accountId: number;
@@ -21,7 +18,6 @@ export default function MovementsFilter({
       <SelectDateClient from={from} to={to} />
       <div className="flex items-center gap-2">
         <SelectAccount
-          accounts={accounts}
           defaultAcc={accountId}
           containerClassName="w-full max-w-none"
         />

@@ -1,6 +1,5 @@
 import Icon from "@/components/common/Icon";
 import EditMovementForm from "@/components/movements/EditMovement/EditMovementForm";
-import { getAccounts } from "@/services/accounts";
 import {
   getExpenseCategories,
   getIncomeCategories,
@@ -23,8 +22,7 @@ export default async function EditMovementPage({
     notFound();
   }
 
-  const [accounts, expCategories, incCategories] = await Promise.all([
-    getAccounts(),
+  const [expCategories, incCategories] = await Promise.all([
     getExpenseCategories(supabase),
     getIncomeCategories(supabase),
   ]);
@@ -39,7 +37,6 @@ export default async function EditMovementPage({
         <span></span>
       </div>
       <EditMovementForm
-        accounts={accounts}
         expenseCategories={expCategories}
         incomeCategories={incCategories}
         movement={movement}

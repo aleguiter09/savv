@@ -14,21 +14,20 @@ import {
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
 import { useFormState } from "react-dom";
 import { updateMovementForm } from "@/utils/movement-action";
-import React, { useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { Type } from "@/types/general";
 import AccountSelect from "../AddMovement/AccountSelect";
 import CategorySelect from "../AddMovement/CategorySelect";
-import { Account, Category, Movement } from "@/types/database";
+import { Category, Movement } from "@/types/database";
+import { useData } from "@/providers/DataProvider";
 
 type EditMovementFormProps = {
-  accounts: Account[];
   expenseCategories: Category[];
   incomeCategories: Category[];
   movement: Movement;
 };
 
 export default function EditMovementForm({
-  accounts,
   expenseCategories,
   incomeCategories,
   movement,
@@ -43,6 +42,7 @@ export default function EditMovementForm({
   const [from, setFrom] = useState<string>(movement.from.toString());
   const [where, setWhere] = useState<string>(movement.where?.toString() ?? "");
   const [pending, startTransition] = useTransition();
+  const accounts = useData();
 
   const currentIndex = () => {
     if (type === "expense") {
