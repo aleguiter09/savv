@@ -5,15 +5,15 @@ import { Select, SelectItem } from "@tremor/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type SelectAccountProps = {
-  defaultAcc: number;
   containerClassName?: string;
 };
 
 export default function SelectAccount({
-  defaultAcc,
   containerClassName = "",
 }: Readonly<SelectAccountProps>) {
-  const accounts = useData();
+  const { accounts } = useData();
+  const defaultAcc = accounts.find((a) => a.default);
+
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -28,7 +28,7 @@ export default function SelectAccount({
     <div className={containerClassName}>
       <Select
         className={containerClassName}
-        defaultValue={defaultAcc.toString()}
+        defaultValue={defaultAcc?.id?.toString()}
         onValueChange={handleSelect}
         enableClear={false}
       >

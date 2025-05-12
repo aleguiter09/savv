@@ -24,7 +24,7 @@ export default async function MainPage({
 
   return (
     <>
-      <ActionBar defaultAcc={defaultAcc} />
+      <ActionBar />
       <Balance account={account} />
       <LastMovements account={account} />
       <ExpenseByCat

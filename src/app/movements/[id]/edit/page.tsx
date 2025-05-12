@@ -1,9 +1,5 @@
 import Icon from "@/components/common/Icon";
 import EditMovementForm from "@/components/movements/EditMovement/EditMovementForm";
-import {
-  getExpenseCategories,
-  getIncomeCategories,
-} from "@/services/categories";
 import { getMovementById } from "@/services/movements";
 import { createClient } from "@/utils/supabase-server";
 import Link from "next/link";
@@ -22,11 +18,6 @@ export default async function EditMovementPage({
     notFound();
   }
 
-  const [expCategories, incCategories] = await Promise.all([
-    getExpenseCategories(supabase),
-    getIncomeCategories(supabase),
-  ]);
-
   return (
     <>
       <div className="flex justify-between items-center mb-3">
@@ -36,11 +27,7 @@ export default async function EditMovementPage({
         <h4 className="font-medium">Edit Movement</h4>
         <span></span>
       </div>
-      <EditMovementForm
-        expenseCategories={expCategories}
-        incomeCategories={incCategories}
-        movement={movement}
-      />
+      <EditMovementForm movement={movement} />
     </>
   );
 }

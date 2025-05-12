@@ -24,7 +24,7 @@ export default async function ExpensesPage({
   return (
     <>
       <DateSlider year={year} month={month} />
-      <ExpensesFilter accountId={account} />
+      <ExpensesFilter />
       <ExpensesData account={account} year={year} month={month} />
     </>
   );

@@ -3,7 +3,7 @@ import { useData } from "@/providers/DataProvider";
 import { Card } from "@tremor/react";
 
 export default function TotalWealth() {
-  const accounts = useData();
+  const { accounts } = useData();
 
   const totalWealth = accounts.reduce((acc, account) => {
     return acc + account.balance;

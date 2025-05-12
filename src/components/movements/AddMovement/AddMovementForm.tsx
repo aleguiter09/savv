@@ -18,27 +18,18 @@ import React, { useState, useTransition } from "react";
 import { Type } from "@/types/general";
 import CategorySelect from "./CategorySelect";
 import AccountSelect from "./AccountSelect";
-import { Category } from "@/types/database";
 import { useData } from "@/providers/DataProvider";
 
-type AddMovementFormProps = {
-  expenseCategories: Category[];
-  incomeCategories: Category[];
-  defaultAcc: number;
-};
+export default function AddMovementForm() {
+  const { accounts, incomeCategories, expenseCategories } = useData();
+  const defaultAcc = accounts.find((a) => a.default);
 
-export default function AddMovementForm({
-  expenseCategories,
-  incomeCategories,
-  defaultAcc,
-}: Readonly<AddMovementFormProps>) {
-  const accounts = useData();
   const initialState = { message: null, errors: {} };
   const [state, dispatch] = useFormState(addMovementForm, initialState);
   const [date, setDate] = useState<DatePickerValue>(new Date());
   const [type, setType] = useState<Type>("expense");
   const [category, setCategory] = useState<string>("");
-  const [from, setFrom] = useState<string>(defaultAcc?.toString() ?? "");
+  const [from, setFrom] = useState<string>(defaultAcc?.id?.toString() ?? "");
   const [where, setWhere] = useState<string>("");
   const [pending, startTransition] = useTransition();
 

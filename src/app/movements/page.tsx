@@ -22,12 +22,7 @@ export default async function MovementsPage({
 
   return (
     <>
-      <MovementsFilter
-        from={from}
-        to={to}
-        accountId={account}
-        categoryId={category}
-      />
+      <MovementsFilter from={from} to={to} categoryId={category} />
       <MovementsByDate
         from={from}
         to={to}

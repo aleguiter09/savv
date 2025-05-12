@@ -18,18 +18,14 @@ import { useState, useTransition } from "react";
 import { Type } from "@/types/general";
 import AccountSelect from "../AddMovement/AccountSelect";
 import CategorySelect from "../AddMovement/CategorySelect";
-import { Category, Movement } from "@/types/database";
+import { Movement } from "@/types/database";
 import { useData } from "@/providers/DataProvider";
 
 type EditMovementFormProps = {
-  expenseCategories: Category[];
-  incomeCategories: Category[];
   movement: Movement;
 };
 
 export default function EditMovementForm({
-  expenseCategories,
-  incomeCategories,
   movement,
 }: Readonly<EditMovementFormProps>) {
   const initialState = { message: null, errors: {} };
@@ -42,7 +38,7 @@ export default function EditMovementForm({
   const [from, setFrom] = useState<string>(movement.from.toString());
   const [where, setWhere] = useState<string>(movement.where?.toString() ?? "");
   const [pending, startTransition] = useTransition();
-  const accounts = useData();
+  const { accounts, incomeCategories, expenseCategories } = useData();
 
   const currentIndex = () => {
     if (type === "expense") {

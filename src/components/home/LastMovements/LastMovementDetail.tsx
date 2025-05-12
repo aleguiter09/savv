@@ -11,6 +11,15 @@ export default function LastMovementDetail({
   type,
   fullCategory,
 }: Readonly<Movement>) {
+  const isExpense = type === "expense";
+  const isIncome = type === "income";
+
+  const color = isExpense
+    ? "text-red-500"
+    : isIncome
+      ? "text-green-500"
+      : "text-gray-500";
+
   return (
     <Link
       tabIndex={0}
@@ -31,9 +40,7 @@ export default function LastMovementDetail({
       </div>
       <div className="flex flex-col gap-1 text-right">
         <span
-          className={`font-medium ${
-            type === "expense" ? "text-red-500" : "text-green-600"
-          }`}
+          className={`font-medium ${color}`}
         >{`${type === "expense" ? "-" : ""} $${amount.toFixed(2)}`}</span>
         <span className="text-xs text-gray-500">
           {new Date(done_at).toLocaleDateString("en-EN", {

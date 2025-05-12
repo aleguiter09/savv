@@ -7,6 +7,7 @@ export const dynamic = "force-dynamic";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DataProvider } from "@/providers/DataProvider";
 import { getAccounts } from "@/services/accounts";
+import { getCategories } from "@/services/categories";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,7 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const accounts = await getAccounts();
+  const categories = await getCategories();
 
   return (
     <html lang="en">
@@ -48,7 +50,9 @@ export default async function RootLayout({
           showSpinner={false}
         />
         <main className="mx-6 sm:w-[32rem] sm:mx-auto">
-          <DataProvider accounts={accounts}>{children}</DataProvider>
+          <DataProvider accounts={accounts} categories={categories}>
+            {children}
+          </DataProvider>
         </main>
         <Navbar />
         <SpeedInsights />

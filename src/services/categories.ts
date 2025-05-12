@@ -1,22 +1,9 @@
+import { createClient } from "@/utils/supabase-server";
 import { SupabaseClient } from "@supabase/supabase-js";
 
-export const getExpenseCategories = async (supabase: SupabaseClient) => {
-  const { data } = await supabase
-    .from("category")
-    .select("id, color, title, icon, for")
-    .filter("for", "eq", "expense");
-  return data ?? [];
-};
+export const getCategories = async () => {
+  const supabase = await createClient();
 
-export const getIncomeCategories = async (supabase: SupabaseClient) => {
-  const { data } = await supabase
-    .from("category")
-    .select("id, color, title, icon, for")
-    .filter("for", "eq", "income");
-  return data ?? [];
-};
-
-export const getAllCategories = async (supabase: SupabaseClient) => {
   const { data } = await supabase
     .from("category")
     .select("id, color, title, icon, for");
