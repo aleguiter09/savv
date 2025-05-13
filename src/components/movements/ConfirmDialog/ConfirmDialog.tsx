@@ -1,7 +1,7 @@
 "use client";
 import { Dialog, DialogPanel } from "@tremor/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ReactNode, useTransition } from "react";
+import { ReactNode, useState } from "react";
 import { deleteMovementForm } from "@/utils/movement-action";
 import { Movement } from "@/types/database";
 
@@ -16,7 +16,7 @@ export default function ConfirmDialog({
   button: ReactNode;
   movement: Movement;
 }>) {
-  const [pending, startTransition] = useTransition();
+  const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -34,9 +34,9 @@ export default function ConfirmDialog({
   };
 
   const handleConfirm = async () => {
-    startTransition(async () => {
-      await deleteMovementForm(movement);
-    });
+    setLoading(true);
+    await deleteMovementForm(movement);
+    setLoading(false);
   };
 
   return (
@@ -51,7 +51,7 @@ export default function ConfirmDialog({
             >
               Close
             </button>
-            {pending ? (
+            {loading ? (
               <div className="flex w-full justify-center rounded-md bg-blue-600 py-2">
                 <output
                   className="h-5 w-5 animate-spin rounded-full border-[3px] border-current border-t-transparent text-white"

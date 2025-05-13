@@ -1,4 +1,3 @@
-import "./CategorySelect.css";
 import { Category } from "@/types/database";
 import { CATEGORY_ICONS } from "@/utils/constants";
 import { Select, SelectItem } from "@tremor/react";

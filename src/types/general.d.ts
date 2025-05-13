@@ -20,6 +20,7 @@ export type FormAccountState = {
   errors?: {
     name?: string[];
     balance?: string[];
+    default?: string[];
   };
   message?: string | null;
 };

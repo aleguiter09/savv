@@ -132,9 +132,9 @@ export const addMovementForm = async (
       );
     }
   } catch (error) {
-    return {
-      message: "Database error: failed to create movement",
-    };
+    console.error("Database error: failed to insert movement", error);
+
+    throw new Error("Database error: failed to insert movement");
   }
 
   revalidatePath("/");
@@ -267,9 +267,9 @@ export const updateMovementForm = async (
       );
     }
   } catch (error) {
-    return {
-      message: "Database error: failed to update movement",
-    };
+    console.error("Database error: failed to insert movement", error);
+
+    throw new Error("Database error: failed to insert movement");
   }
 
   revalidatePath("/");

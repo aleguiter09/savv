@@ -28,6 +28,9 @@ export async function createAccountForm(
   prevState: FormAccountState,
   formData: FormData
 ) {
+  formData.get("default") === "on"
+    ? formData.set("default", "true")
+    : formData.set("default", "false");
   const rawFormData = Object.fromEntries(formData.entries());
   const validatedData = CreateAccountSchema.safeParse(rawFormData);
 
@@ -42,9 +45,8 @@ export async function createAccountForm(
     const supabase = await createClient();
     await createAccount(supabase, validatedData.data);
   } catch (error) {
-    return {
-      message: "Database error: failed to create account",
-    };
+    console.error("Error creating account:", error);
+    throw error;
   }
 
   revalidatePath("/settings/accounts");
@@ -75,9 +77,8 @@ export async function updateAccountForm(
     const supabase = await createClient();
     await updateAccount(supabase, validatedData.data, id);
   } catch (error) {
-    return {
-      message: "Database error: failed to update account",
-    };
+    console.error("Error updating account:", error);
+    throw error;
   }
 
   revalidatePath("/settings/accounts");

@@ -6,8 +6,14 @@
 [X] Move types to each file
 [] Loans Widget
 [] Credit cards or quotas widget
-[] Expenses historic chart
+[] Expenses, incomes 6month Bar Chart
 [] Multiple Language
 [] Admin Categories
 [] Multiple Money types on expense
 [] Dark theme
+
+# Errors
+
+[X] Create account process after sign up
+[X] Error on create movement its not ending transition.
+[] Select Category overlaped by navbar
