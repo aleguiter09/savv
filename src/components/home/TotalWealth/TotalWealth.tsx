@@ -1,9 +1,10 @@
-"use client";
-import { useData } from "@/providers/DataProvider";
+import { getAccounts } from "@/services/accounts";
 import { Card } from "@tremor/react";
+import { getTranslations } from "next-intl/server";
 
-export default function TotalWealth() {
-  const { accounts } = useData();
+export default async function TotalWealth() {
+  const t = await getTranslations("home");
+  const accounts = await getAccounts();
 
   const totalWealth = accounts.reduce((acc, account) => {
     return acc + account.balance;
@@ -11,7 +12,7 @@ export default function TotalWealth() {
 
   return (
     <Card className="mb-4 pl-4 pr-3 py-2 shadow-md flex flex-col gap-1">
-      <h5 className="font-medium text-xs">Total wealth:</h5>
+      <h5 className="font-medium text-xs">{t("totalWealth")}:</h5>
       <p className="text-2xl font-semibold">${totalWealth.toFixed(2)}</p>
       <div className="flex flex-col gap-1 mt-2">
         {accounts.map((account) => (

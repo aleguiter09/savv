@@ -1,9 +1,10 @@
-import { Movement } from "@/types/database";
-import { CATEGORY_ICONS } from "@/utils/constants";
-import Icon from "@mdi/react";
 import Link from "next/link";
+import Icon from "@mdi/react";
+import { Category, Movement } from "@/types/database";
+import { CATEGORY_ICONS } from "@/utils/constants";
+import { getTranslations } from "next-intl/server";
 
-export default function LastMovementDetail({
+export default async function LastMovementDetail({
   id,
   done_at,
   amount,
@@ -11,14 +12,12 @@ export default function LastMovementDetail({
   type,
   fullCategory,
 }: Readonly<Movement>) {
+  const t = await getTranslations("categories");
   const isExpense = type === "expense";
   const isIncome = type === "income";
 
-  const color = isExpense
-    ? "text-red-500"
-    : isIncome
-      ? "text-green-500"
-      : "text-gray-500";
+  const auxColor = isIncome ? "text-green-500" : "text-gray-500";
+  const color = isExpense ? "text-red-500" : auxColor;
 
   return (
     <Link
@@ -28,20 +27,22 @@ export default function LastMovementDetail({
     >
       <div className="flex gap-3">
         <Icon
-          className={`bg-${fullCategory?.color} mx-auto rounded-full p-1.5 shadow-md`}
-          path={CATEGORY_ICONS[fullCategory?.icon ?? "other"]}
+          className={`bg-${(fullCategory as Category).color} mx-auto rounded-full p-1.5 shadow-md`}
+          path={CATEGORY_ICONS[(fullCategory as Category).icon ?? "other"]}
           size="36px"
           color="white"
         />
         <div className="flex flex-col">
           <span className="font-medium text-sm">{comment}</span>
-          <span className="text-xs text-gray-500">{fullCategory?.title}</span>
+          <span className="text-xs text-gray-500">
+            {t((fullCategory as Category).title ?? "")}
+          </span>
         </div>
       </div>
       <div className="flex flex-col gap-1 text-right">
         <span
           className={`font-medium ${color}`}
-        >{`${type === "expense" ? "-" : ""} $${amount.toFixed(2)}`}</span>
+        >{`${isExpense ? "-" : ""} $${amount.toFixed(2)}`}</span>
         <span className="text-xs text-gray-500">
           {new Date(done_at).toLocaleDateString("en-EN", {
             year: "numeric",

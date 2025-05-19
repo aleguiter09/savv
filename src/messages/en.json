@@ -7,6 +7,34 @@
     "expenses": "Expenses",
     "lastMovements": "Last transactions",
     "seeAll": "See all",
-    "noMovements": "No transactions uploaded so far"
+    "noMovements": "No transactions uploaded so far",
+    "totalWealth": "Total wealth"
+  },
+  "categories": {
+    "Food": "Food",
+    "Comissions": "Commissions",
+    "Services": "Services",
+    "Education": "Education",
+    "Technology": "Technology",
+    "Entertainment": "Entertainment",
+    "Home": "Home",
+    "Taxes": "Taxes",
+    "Clothing": "Clothing",
+    "Pets": "Pets",
+    "Other": "Other",
+    "Loans": "Loans",
+    "Healthcare": "Healthcare",
+    "Party": "Party",
+    "Market": "Supermarket",
+    "Subscription": "Subscriptions",
+    "Transport": "Transport",
+    "Travels": "Travels",
+    "Telephone": "Telephone",
+    "Salary": "Salary",
+    "Awards": "Awards",
+    "Investments": "Investments",
+    "Sales": "Sales",
+    "Transfer": "Transfers",
+    "Sports": "Sports"
   }
 }

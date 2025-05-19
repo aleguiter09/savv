@@ -7,6 +7,34 @@
     "expenses": "Gastos",
     "lastMovements": "Últimos movimientos",
     "seeAll": "Ver todos",
-    "noMovements": "No se han subido transacciones hasta ahora"
+    "noMovements": "No se han subido transacciones hasta ahora",
+    "totalWealth": "Riqueza total"
+  },
+  "categories": {
+    "Food": "Comida",
+    "Comissions": "Comisiones",
+    "Services": "Servicios",
+    "Education": "Educación",
+    "Technology": "Tecnología",
+    "Entertainment": "Entretenimiento",
+    "Home": "Hogar",
+    "Taxes": "Impuestos",
+    "Clothing": "Ropa",
+    "Pets": "Mascotas",
+    "Other": "Otros",
+    "Loans": "Préstamos",
+    "Healthcare": "Salud",
+    "Party": "Fiesta",
+    "Market": "Supermercado",
+    "Subscription": "Suscripciones",
+    "Transport": "Transporte",
+    "Travels": "Viajes",
+    "Telephone": "Teléfono",
+    "Salary": "Salario",
+    "Awards": "Premios",
+    "Investments": "Inversiones",
+    "Sales": "Ventas",
+    "Transfer": "Transferencias",
+    "Sports": "Deportes"
   }
 }
