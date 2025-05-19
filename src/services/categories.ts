@@ -1,7 +1,7 @@
+import { Category } from "@/types/database";
 import { createClient } from "@/utils/supabase-server";
-import { SupabaseClient } from "@supabase/supabase-js";
 
-export const getCategories = async () => {
+export const getCategories = async (): Promise<Category[]> => {
   const supabase = await createClient();
 
   const { data } = await supabase
@@ -10,7 +10,9 @@ export const getCategories = async () => {
   return data ?? [];
 };
 
-export const getCategoryById = async (supabase: SupabaseClient, id: string) => {
+export const getCategoryById = async (id: string) => {
+  const supabase = await createClient();
+
   if (id) {
     const { data } = await supabase
       .from("category")

@@ -1,7 +1,6 @@
 "use server";
 import { FormMovementState } from "@/types/general";
 import { z } from "zod";
-import { createClient } from "./supabase-server";
 import { revalidatePath } from "next/cache";
 import { deleteMovement, insertMovement } from "@/services/movements";
 import { redirect } from "next/navigation";
@@ -99,41 +98,20 @@ export const addMovementForm = async (
   }
 
   try {
-    const supabase = await createClient();
-    await insertMovement(supabase, validatedData.data);
-    if (validatedData.data.type === "transfer") {
+    const data = validatedData.data;
+    await insertMovement(data);
+    if (data.type === "transfer") {
       await Promise.all([
-        updateAccountBalance(
-          supabase,
-          validatedData.data.from,
-          validatedData.data.amount,
-          false
-        ),
-        updateAccountBalance(
-          supabase,
-          validatedData.data.where,
-          validatedData.data.amount,
-          true
-        ),
+        updateAccountBalance(data.from, data.amount, false),
+        updateAccountBalance(data.where, data.amount, true),
       ]);
-    } else if (validatedData.data.type === "expense") {
-      await updateAccountBalance(
-        supabase,
-        validatedData.data.from,
-        validatedData.data.amount,
-        false
-      );
-    } else if (validatedData.data.type === "income") {
-      await updateAccountBalance(
-        supabase,
-        validatedData.data.from,
-        validatedData.data.amount,
-        true
-      );
+    } else if (data.type === "expense") {
+      await updateAccountBalance(data.from, data.amount, false);
+    } else if (data.type === "income") {
+      await updateAccountBalance(data.from, data.amount, true);
     }
   } catch (error) {
     console.error("Database error: failed to insert movement", error);
-
     throw new Error("Database error: failed to insert movement");
   }
 
@@ -142,22 +120,16 @@ export const addMovementForm = async (
 };
 
 export const deleteMovementForm = async (movement: Movement) => {
-  const supabase = await createClient();
-  await deleteMovement(supabase, movement.id?.toString() ?? "");
+  await deleteMovement(movement.id?.toString() ?? "");
   if (movement.type === "transfer") {
     await Promise.all([
-      updateAccountBalance(supabase, movement.from, movement.amount, true),
-      updateAccountBalance(
-        supabase,
-        movement.where as number,
-        movement.amount,
-        false
-      ),
+      updateAccountBalance(movement.from, movement.amount, true),
+      updateAccountBalance(movement.where as number, movement.amount, false),
     ]);
   } else if (movement.type === "expense") {
-    await updateAccountBalance(supabase, movement.from, movement.amount, true);
+    await updateAccountBalance(movement.from, movement.amount, true);
   } else if (movement.type === "income") {
-    await updateAccountBalance(supabase, movement.from, movement.amount, false);
+    await updateAccountBalance(movement.from, movement.amount, false);
   }
 
   revalidatePath("/");
@@ -170,7 +142,7 @@ export const updateMovementForm = async (
 ) => {
   const rawFormData = Object.fromEntries(formData.entries());
 
-  const previousMovement = {
+  const previous = {
     id: rawFormData.id as string,
     amount: parseFloat(rawFormData.previousAmount as string),
     from: parseInt(rawFormData.previousFrom as string),
@@ -199,76 +171,32 @@ export const updateMovementForm = async (
   }
 
   try {
-    const supabase = await createClient();
-
-    // Insertion of new Movement
-    await insertMovement(supabase, validatedData.data);
-    if (validatedData.data.type === "transfer") {
+    const data = validatedData.data;
+    await insertMovement(data);
+    if (data.type === "transfer") {
       await Promise.all([
-        updateAccountBalance(
-          supabase,
-          validatedData.data.from,
-          validatedData.data.amount,
-          false
-        ),
-        updateAccountBalance(
-          supabase,
-          validatedData.data.where,
-          validatedData.data.amount,
-          true
-        ),
+        updateAccountBalance(data.from, data.amount, false),
+        updateAccountBalance(data.where, data.amount, true),
       ]);
-    } else if (validatedData.data.type === "expense") {
-      await updateAccountBalance(
-        supabase,
-        validatedData.data.from,
-        validatedData.data.amount,
-        false
-      );
-    } else if (validatedData.data.type === "income") {
-      await updateAccountBalance(
-        supabase,
-        validatedData.data.from,
-        validatedData.data.amount,
-        true
-      );
+    } else if (data.type === "expense") {
+      await updateAccountBalance(data.from, data.amount, false);
+    } else if (data.type === "income") {
+      await updateAccountBalance(data.from, data.amount, true);
     }
 
-    // Deletion of previous Movement
-    await deleteMovement(supabase, previousMovement.id);
-    if (previousMovement.type === "transfer") {
+    await deleteMovement(previous.id);
+    if (previous.type === "transfer") {
       await Promise.all([
-        updateAccountBalance(
-          supabase,
-          previousMovement.from,
-          previousMovement.amount,
-          true
-        ),
-        updateAccountBalance(
-          supabase,
-          previousMovement.where,
-          previousMovement.amount,
-          false
-        ),
+        updateAccountBalance(previous.from, previous.amount, true),
+        updateAccountBalance(previous.where, previous.amount, false),
       ]);
-    } else if (previousMovement.type === "expense") {
-      await updateAccountBalance(
-        supabase,
-        previousMovement.from,
-        previousMovement.amount,
-        true
-      );
-    } else if (previousMovement.type === "income") {
-      await updateAccountBalance(
-        supabase,
-        previousMovement.from,
-        previousMovement.amount,
-        false
-      );
+    } else if (previous.type === "expense") {
+      await updateAccountBalance(previous.from, previous.amount, true);
+    } else if (previous.type === "income") {
+      await updateAccountBalance(previous.from, previous.amount, false);
     }
   } catch (error) {
     console.error("Database error: failed to insert movement", error);
-
     throw new Error("Database error: failed to insert movement");
   }
 

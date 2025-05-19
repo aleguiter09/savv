@@ -2,8 +2,8 @@
 import { FormUserState, LoginFormUserState } from "@/types/general";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { createClient } from "./supabase-server";
 import { createAccount } from "@/services/accounts";
+import { createClient } from "./supabase-server";
 
 const UserSchema = z
   .object({
@@ -55,7 +55,7 @@ export const createUserForm = async (
     return { ...prevState, errors: { email: [error.message] } };
   }
 
-  const res = await createAccount(supabase, {
+  const res = await createAccount({
     name: "Cash",
     balance: 0,
     default: true,

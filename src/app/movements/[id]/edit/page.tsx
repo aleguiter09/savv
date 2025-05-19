@@ -1,7 +1,6 @@
 import Icon from "@/components/common/Icon";
 import EditMovementForm from "@/components/movements/EditMovement/EditMovementForm";
 import { getMovementById } from "@/services/movements";
-import { createClient } from "@/utils/supabase-server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -11,8 +10,7 @@ export default async function EditMovementPage({
   params: { id: string };
 }>) {
   const id = params.id;
-  const supabase = await createClient();
-  const movement = await getMovementById(supabase, Number(id));
+  const movement = await getMovementById(Number(id));
 
   if (!movement) {
     notFound();

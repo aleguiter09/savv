@@ -1,6 +1,5 @@
 import { getExpenses } from "@/services/movements";
 import { parseMovementsForChart } from "@/utils/common";
-import { createClient } from "@/utils/supabase-server";
 import Link from "next/link";
 
 export default async function ExpenseByCatChart({
@@ -8,8 +7,7 @@ export default async function ExpenseByCatChart({
   year,
   month,
 }: Readonly<{ account: number; year?: number; month?: number }>) {
-  const supabase = await createClient();
-  const movements = await getExpenses(supabase, account, year, month);
+  const movements = await getExpenses(account, year, month);
   const data = parseMovementsForChart(movements);
 
   return (

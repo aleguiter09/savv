@@ -2,6 +2,7 @@
 import { useData } from "@/providers/DataProvider";
 import { Account } from "@/types/database";
 import { Select, SelectItem } from "@tremor/react";
+import { useTranslations } from "next-intl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type SelectAccountProps = {
@@ -12,6 +13,7 @@ export default function SelectAccount({
   containerClassName = "",
 }: Readonly<SelectAccountProps>) {
   const { accounts } = useData();
+  const t = useTranslations("home");
   const defaultAcc = accounts.find((a) => a.default);
 
   const searchParams = useSearchParams();
@@ -27,12 +29,13 @@ export default function SelectAccount({
   return (
     <div className={containerClassName}>
       <Select
+        placeholder={t("selectAccount")}
         className={containerClassName}
-        defaultValue={defaultAcc?.id?.toString()}
+        defaultValue={defaultAcc?.id?.toString() ?? "0"}
         onValueChange={handleSelect}
         enableClear={false}
       >
-        <SelectItem value="0">All accounts</SelectItem>
+        <SelectItem value="0">{t("allAccounts")}</SelectItem>
         {accounts.map((account: Account) => (
           <SelectItem key={account.id} value={account.id?.toString() ?? ""}>
             {account.name}

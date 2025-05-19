@@ -1,17 +1,9 @@
 import { Account } from "@/types/database";
 import { createClient } from "@/utils/supabase-server";
-import { SupabaseClient } from "@supabase/supabase-js";
 import { cache } from "react";
 
-let supabaseClient: SupabaseClient | null = null;
-
-async function getOrCreateClient(): Promise<SupabaseClient> {
-  supabaseClient ??= await createClient();
-  return supabaseClient;
-}
-
 export const getAccounts = cache(async (): Promise<Account[]> => {
-  const supabase = await getOrCreateClient();
+  const supabase = await createClient();
   console.log("ACCOUNT GT");
 
   try {
@@ -27,10 +19,8 @@ export const getAccounts = cache(async (): Promise<Account[]> => {
   }
 });
 
-export const getAccountBalanceById = async (
-  supabase: SupabaseClient,
-  id: number
-) => {
+export const getAccountBalanceById = async (id: number) => {
+  const supabase = await createClient();
   let query = supabase.from("account").select("balance");
   if (id !== 0) {
     query = query.eq("id", id);
@@ -39,7 +29,9 @@ export const getAccountBalanceById = async (
   return data?.reduce((a, b) => a + b.balance, 0) ?? 0;
 };
 
-export const getAccountById = async (supabase: SupabaseClient, id: number) => {
+export const getAccountById = async (id: number) => {
+  const supabase = await createClient();
+
   const { data } = await supabase
     .from("account")
     .select("id, name, balance, default")
@@ -49,7 +41,9 @@ export const getAccountById = async (supabase: SupabaseClient, id: number) => {
   return data;
 };
 
-export const getDefaultAccountId = async (supabase: SupabaseClient) => {
+export const getDefaultAccountId = async () => {
+  const supabase = await createClient();
+
   const { data } = await supabase
     .from("account")
     .select("id")
@@ -59,35 +53,28 @@ export const getDefaultAccountId = async (supabase: SupabaseClient) => {
   return data?.id ?? 0;
 };
 
-export const createAccount = async (
-  supabase: SupabaseClient,
-  account: Account
-) => {
+export const createAccount = async (account: Account) => {
+  const supabase = await createClient();
   return await supabase.from("account").insert(account);
 };
 
-export const deleteAccount = async (
-  supabase: SupabaseClient,
-  accountId: string
-) => {
+export const deleteAccount = async (accountId: string) => {
+  const supabase = await createClient();
   return await supabase.from("account").delete().eq("id", accountId);
 };
 
-export const updateAccount = async (
-  supabase: SupabaseClient,
-  account: Account,
-  accountId: string
-) => {
+export const updateAccount = async (account: Account, accountId: string) => {
+  const supabase = await createClient();
   return await supabase.from("account").update(account).eq("id", accountId);
 };
 
 export const updateAccountBalance = async (
-  supabase: SupabaseClient,
   accountId: number,
   amount: number,
   positive: boolean
 ) => {
-  const currentBalance = await getAccountBalanceById(supabase, accountId);
+  const supabase = await createClient();
+  const currentBalance = await getAccountBalanceById(accountId);
 
   if (positive) {
     const { error } = await supabase

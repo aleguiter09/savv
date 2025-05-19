@@ -1,7 +1,6 @@
 import EditAccountForm from "@/components/accounts/EditAccountForm";
 import Icon from "@/components/common/Icon";
 import { getAccountById } from "@/services/accounts";
-import { createClient } from "@/utils/supabase-server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -11,8 +10,7 @@ export default async function EditAccountPage({
   params: { id: string };
 }>) {
   const id = params.id;
-  const supabase = await createClient();
-  const account = await getAccountById(supabase, Number(id));
+  const account = await getAccountById(Number(id));
 
   if (!account) {
     notFound();

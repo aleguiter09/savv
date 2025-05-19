@@ -1,0 +1,12 @@
+{
+  "home": {
+    "allAccounts": "All Accounts",
+    "selectAccount": "Select...",
+    "balance": "Balance",
+    "incomes": "Incomes",
+    "expenses": "Expenses",
+    "lastMovements": "Last transactions",
+    "seeAll": "See all",
+    "noMovements": "No transactions uploaded so far"
+  }
+}

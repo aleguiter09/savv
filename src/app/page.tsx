@@ -2,9 +2,8 @@ import LastMovements from "@/components/home/LastMovements/LastMovements";
 import Balance from "@/components/home/Balance/Balance";
 import ActionBar from "@/components/home/ActionBar/ActionBar";
 import ExpenseByCat from "@/components/home/ExpenseByCat/ExpenseByCat";
-import { getDefaultAccountId } from "@/services/accounts";
-import { createClient } from "@/utils/supabase-server";
 import TotalWealth from "@/components/home/TotalWealth/TotalWealth";
+import { getDefaultAccountId } from "@/services/accounts";
 
 export type MainPageParams = {
   searchParams: {
@@ -15,8 +14,7 @@ export type MainPageParams = {
 export default async function MainPage({
   searchParams,
 }: Readonly<MainPageParams>) {
-  const supabase = await createClient();
-  const defaultAcc = await getDefaultAccountId(supabase);
+  const defaultAcc = await getDefaultAccountId();
   const account =
     Number(searchParams.account) === 0
       ? 0

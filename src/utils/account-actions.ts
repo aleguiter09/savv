@@ -5,7 +5,6 @@ import { FormAccountState } from "@/types/general";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { createClient } from "./supabase-server";
 
 const AccountSchema = z.object({
   id: z.string(),
@@ -42,8 +41,7 @@ export async function createAccountForm(
   }
 
   try {
-    const supabase = await createClient();
-    await createAccount(supabase, validatedData.data);
+    await createAccount(validatedData.data);
   } catch (error) {
     console.error("Error creating account:", error);
     throw error;
@@ -74,8 +72,7 @@ export async function updateAccountForm(
   }
 
   try {
-    const supabase = await createClient();
-    await updateAccount(supabase, validatedData.data, id);
+    await updateAccount(validatedData.data, id);
   } catch (error) {
     console.error("Error updating account:", error);
     throw error;

@@ -7,13 +7,16 @@
 [] Loans Widget
 [] Credit cards or quotas widget
 [] Expenses, incomes 6month Bar Chart
-[] Multiple Language
+[] Config I18n, add user config table
+[] Add ALL translations (check Skeletons)
 [] Admin Categories
 [] Multiple Money types on expense
 [] Dark theme
+[X] Removed unnecesary supabase client logic
 
 # Errors
 
 [X] Create account process after sign up
 [X] Error on create movement its not ending transition.
+[] Accounts & Categories not always being setted.
 [] Select Category overlaped by navbar

@@ -1,6 +1,5 @@
 import { List } from "@tremor/react";
 import { getMovementsByDay } from "@/utils/common";
-import { createClient } from "@/utils/supabase-server";
 import MovementItem from "@/components/movements/MovementsList/MovementItem";
 import { getMovementsByFilters } from "@/services/movements";
 
@@ -10,14 +9,7 @@ export default async function MovementsList({
   accountId,
   categoryId,
 }: Readonly<{ from: Date; to: Date; accountId: number; categoryId: number }>) {
-  const supabase = await createClient();
-  const { data } = await getMovementsByFilters(
-    supabase,
-    from,
-    to,
-    accountId,
-    categoryId
-  );
+  const { data } = await getMovementsByFilters(from, to, accountId, categoryId);
   const movements = getMovementsByDay(data);
 
   return (

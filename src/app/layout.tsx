@@ -8,6 +8,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DataProvider } from "@/providers/DataProvider";
 import { getAccounts } from "@/services/accounts";
 import { getCategories } from "@/services/categories";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale } from "next-intl/server";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,11 +34,14 @@ export const viewport = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const accounts = await getAccounts();
-  const categories = await getCategories();
+  const [locale, accounts, categories] = await Promise.all([
+    getLocale(),
+    getAccounts(),
+    getCategories(),
+  ]);
 
   return (
-    <html lang="en">
+    <html lang={locale} className="scroll-smooth">
       <body
         className={`pt-4 pb-12 ${inter.className} antialiased bg-gray-100 text-gray-900`}
       >
@@ -50,9 +55,11 @@ export default async function RootLayout({
           showSpinner={false}
         />
         <main className="mx-6 sm:w-[32rem] sm:mx-auto">
-          <DataProvider accounts={accounts} categories={categories}>
-            {children}
-          </DataProvider>
+          <NextIntlClientProvider locale="en">
+            <DataProvider accounts={accounts} categories={categories}>
+              {children}
+            </DataProvider>
+          </NextIntlClientProvider>
         </main>
         <Navbar />
         <SpeedInsights />

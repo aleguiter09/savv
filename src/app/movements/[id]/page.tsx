@@ -2,7 +2,6 @@ import Icon from "@/components/common/Icon";
 import { Icon as MDIIcon } from "@mdi/react";
 import MovementDetail from "@/components/movements/MovementDetail/MovementDetail";
 import { getMovementById } from "@/services/movements";
-import { createClient } from "@/utils/supabase-server";
 import { mdiTrashCanOutline } from "@mdi/js";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -17,8 +16,7 @@ export default async function MovementDetailPage({
 }>) {
   const id = params.id;
   const confirm = Boolean(searchParams?.confirm === "true");
-  const supabase = await createClient();
-  const movement = await getMovementById(supabase, Number(id));
+  const movement = await getMovementById(Number(id));
 
   if (!movement) {
     notFound();

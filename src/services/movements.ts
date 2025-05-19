@@ -1,17 +1,16 @@
-import { SupabaseClient } from "@supabase/supabase-js";
 import { getCategoryById } from "./categories";
 import { Movement } from "@/types/database";
 import { getInitialAndFinalDate } from "@/utils/common";
-import { unstable_noStore as noStore } from "next/cache";
 import { getAccountById } from "./accounts";
+import { createClient } from "@/utils/supabase-server";
 
 export const getMovementsByFilters = async (
-  supabase: SupabaseClient,
   from: Date,
   to: Date,
   accountId: number,
   categoryId: number
 ) => {
+  const supabase = await createClient();
   const initialDate = from.toISOString();
   const finishDate = to.toISOString();
 
@@ -34,7 +33,7 @@ export const getMovementsByFilters = async (
 
   if (data) {
     for (const d of data) {
-      const mov = await getCategoryById(supabase, d.category);
+      const mov = await getCategoryById(d.category);
       d.fullCategory = mov;
     }
     return { data };
@@ -42,11 +41,9 @@ export const getMovementsByFilters = async (
   return { data: [] };
 };
 
-export const getLastMovements = async (
-  supabase: SupabaseClient,
-  accountId: number
-) => {
-  noStore();
+export const getLastMovements = async (accountId: number) => {
+  const supabase = await createClient();
+
   let query = supabase
     .from("movement")
     .select()
@@ -61,7 +58,7 @@ export const getLastMovements = async (
 
   if (data) {
     for (const m of data) {
-      const mov = await getCategoryById(supabase, m.category);
+      const mov = await getCategoryById(m.category);
       m.fullCategory = mov;
     }
     return data;
@@ -70,10 +67,8 @@ export const getLastMovements = async (
   return [];
 };
 
-export const getMonthIncomes = async (
-  supabase: SupabaseClient,
-  accountId: number
-) => {
+export const getMonthIncomes = async (accountId: number) => {
+  const supabase = await createClient();
   const { initialDate, finishDate } = getInitialAndFinalDate();
   let query = supabase
     .from("movement")
@@ -89,10 +84,8 @@ export const getMonthIncomes = async (
   return data?.reduce((a, b) => a + b.amount, 0) ?? 0;
 };
 
-export const getMonthExpenses = async (
-  supabase: SupabaseClient,
-  accountId: number
-) => {
+export const getMonthExpenses = async (accountId: number) => {
+  const supabase = await createClient();
   const { initialDate, finishDate } = getInitialAndFinalDate();
   let query = supabase
     .from("movement")
@@ -109,7 +102,8 @@ export const getMonthExpenses = async (
   return data?.reduce((a, b) => a + b.amount, 0) ?? 0;
 };
 
-export const getMovementById = async (supabase: SupabaseClient, id: number) => {
+export const getMovementById = async (id: number) => {
+  const supabase = await createClient();
   const { data } = await supabase
     .from("movement")
     .select()
@@ -117,8 +111,8 @@ export const getMovementById = async (supabase: SupabaseClient, id: number) => {
     .single();
 
   if (data) {
-    const category = await getCategoryById(supabase, data.category);
-    const account = await getAccountById(supabase, data.from);
+    const category = await getCategoryById(data.category);
+    const account = await getAccountById(data.from);
     data.fullCategory = category;
     data.fullAccount = account;
   }
@@ -126,34 +120,30 @@ export const getMovementById = async (supabase: SupabaseClient, id: number) => {
   return data;
 };
 
-export const insertMovement = async (
-  supabase: SupabaseClient,
-  movement: Movement
-) => {
+export const insertMovement = async (movement: Movement) => {
+  const supabase = await createClient();
   return await supabase.from("movement").insert(movement);
 };
 
-export const deleteMovement = async (
-  supabase: SupabaseClient,
-  movementId: string
-) => {
+export const deleteMovement = async (movementId: string) => {
+  const supabase = await createClient();
   return await supabase.from("movement").delete().eq("id", movementId);
 };
 
 export const updateMovement = async (
-  supabase: SupabaseClient,
   movement: Movement,
   movementId: string
 ) => {
+  const supabase = await createClient();
   return await supabase.from("movement").update(movement).eq("id", movementId);
 };
 
 export const getExpenses = async (
-  supabase: SupabaseClient,
   accountId: number,
   year?: number,
   month?: number
 ) => {
+  const supabase = await createClient();
   const { initialDate, finishDate } = getInitialAndFinalDate(year, month);
 
   let query = supabase
@@ -172,7 +162,7 @@ export const getExpenses = async (
   if (data) {
     const dataWithCategory = [];
     for (const d of data) {
-      const mov = await getCategoryById(supabase, d.category);
+      const mov = await getCategoryById(d.category);
       const movWithCategory = { ...d, fullCategory: mov };
       dataWithCategory.push(movWithCategory);
     }
