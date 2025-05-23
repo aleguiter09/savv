@@ -8,6 +8,8 @@
     "lastMovements": "Últimos movimientos",
     "seeAll": "Ver todos",
     "noMovements": "No se han subido transacciones hasta ahora",
+    "expensesByCat": "Gastos por categoría",
+    "noExpensesThisMonth": "No hay gastos este mes",
     "totalWealth": "Riqueza total"
   },
   "categories": {

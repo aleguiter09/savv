@@ -8,6 +8,8 @@
     "lastMovements": "Last transactions",
     "seeAll": "See all",
     "noMovements": "No transactions uploaded so far",
+    "expensesByCat": "Expenses by category",
+    "noExpensesThisMonth": "No expenses this month",
     "totalWealth": "Total wealth"
   },
   "categories": {

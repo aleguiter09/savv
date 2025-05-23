@@ -1,5 +1,6 @@
 import { getExpenses } from "@/services/movements";
 import { parseMovementsForChart } from "@/utils/common";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
 export default async function ExpenseByCatChart({
@@ -7,7 +8,10 @@ export default async function ExpenseByCatChart({
   year,
   month,
 }: Readonly<{ account: number; year?: number; month?: number }>) {
-  const movements = await getExpenses(account, year, month);
+  const [movements, t] = await Promise.all([
+    getExpenses(account, year, month),
+    getTranslations(),
+  ]);
   const data = parseMovementsForChart(movements);
 
   return (
@@ -21,7 +25,9 @@ export default async function ExpenseByCatChart({
           <div className="flex gap-1.5">
             <div className="w-full">
               <div className="flex justify-between space-x-1">
-                <p className="text-right text-slate-500 ">{item.title}</p>
+                <p className="text-right text-slate-500 ">
+                  {t(`categories.${item.title}`)}
+                </p>
                 <p className="font-medium text-right whitespace-nowrap">
                   ${item.amount.toFixed(0)}
                 </p>
@@ -32,7 +38,7 @@ export default async function ExpenseByCatChart({
       ))}
       {data.length === 0 && (
         <p className="pt-2 text-sm text-slate-500 text-center col-span-3">
-          No expenses this month
+          {t("home.noExpensesThisMonth")}
         </p>
       )}
     </div>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Icon from "@mdi/react";
 import { Category, Movement } from "@/types/database";
 import { CATEGORY_ICONS } from "@/utils/constants";
-import { getTranslations } from "next-intl/server";
+import { getFormatter, getTranslations } from "next-intl/server";
 
 export default async function LastMovementDetail({
   id,
@@ -12,7 +12,10 @@ export default async function LastMovementDetail({
   type,
   fullCategory,
 }: Readonly<Movement>) {
-  const t = await getTranslations("categories");
+  const [t, format] = await Promise.all([
+    getTranslations("categories"),
+    getFormatter(),
+  ]);
   const isExpense = type === "expense";
   const isIncome = type === "income";
 
@@ -44,7 +47,7 @@ export default async function LastMovementDetail({
           className={`font-medium ${color}`}
         >{`${isExpense ? "-" : ""} $${amount.toFixed(2)}`}</span>
         <span className="text-xs text-gray-500">
-          {new Date(done_at).toLocaleDateString("en-EN", {
+          {format.dateTime(new Date(done_at), {
             year: "numeric",
             month: "long",
             day: "numeric",
