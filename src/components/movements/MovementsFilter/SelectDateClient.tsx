@@ -4,12 +4,16 @@ import {
   DateRangePickerItem,
   DateRangePickerValue,
 } from "@tremor/react";
+import { enUS, es } from "date-fns/locale";
+import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function SelectDateClient({
   from,
   to,
 }: Readonly<{ from: Date; to: Date }>) {
+  const t = useTranslations("movements");
+  const locale = useLocale();
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -36,7 +40,9 @@ export default function SelectDateClient({
     <DateRangePicker
       className="max-w-none"
       onValueChange={handleSelect}
+      selectPlaceholder={t("selectDateRange")}
       enableClear={false}
+      locale={locale.includes("es") ? es : enUS}
       defaultValue={{
         from,
         to,
@@ -48,7 +54,7 @@ export default function SelectDateClient({
         from={new Date()}
         to={new Date()}
       >
-        Today
+        {t("today")}
       </DateRangePickerItem>
       <DateRangePickerItem
         key="week"
@@ -56,7 +62,7 @@ export default function SelectDateClient({
         from={new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000)}
         to={new Date()}
       >
-        Last 7 days
+        {t("last7Days")}
       </DateRangePickerItem>
       <DateRangePickerItem
         key="month"
@@ -64,14 +70,14 @@ export default function SelectDateClient({
         from={new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000)}
         to={new Date()}
       >
-        Last 30 days
+        {t("last30Days")}
       </DateRangePickerItem>
       <DateRangePickerItem
         key="this-month"
         value="this-month"
         from={new Date(new Date().getFullYear(), new Date().getMonth(), 1)}
       >
-        This month
+        {t("thisMonth")}
       </DateRangePickerItem>
     </DateRangePicker>
   );

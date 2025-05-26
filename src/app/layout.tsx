@@ -55,7 +55,7 @@ export default async function RootLayout({
           showSpinner={false}
         />
         <main className="mx-6 sm:w-[32rem] sm:mx-auto">
-          <NextIntlClientProvider locale="en">
+          <NextIntlClientProvider locale={locale}>
             <DataProvider accounts={accounts} categories={categories}>
               {children}
             </DataProvider>

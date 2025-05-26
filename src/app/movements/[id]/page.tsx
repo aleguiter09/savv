@@ -6,6 +6,7 @@ import { mdiTrashCanOutline } from "@mdi/js";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import ConfirmDialog from "@/components/movements/ConfirmDialog/ConfirmDialog";
+import { getTranslations } from "next-intl/server";
 
 export default async function MovementDetailPage({
   params,
@@ -14,6 +15,7 @@ export default async function MovementDetailPage({
   params: { id: string };
   searchParams: { confirm: string };
 }>) {
+  const t = await getTranslations("movements");
   const id = params.id;
   const confirm = Boolean(searchParams?.confirm === "true");
   const movement = await getMovementById(Number(id));
@@ -30,13 +32,12 @@ export default async function MovementDetailPage({
         button={<MDIIcon path={mdiTrashCanOutline} size="24px" />}
       >
         <h3 className="text-lg font-semibold text-tremor-content-strong">
-          Are you sure? 🤔
+          {t("areYouSure")}
         </h3>
         <p className="mt-2 leading-5 text-tremor-default text-tremor-content">
-          You are about to delete the following movement:{" "}
-          {`${movement.comment}`}. <br />
+          {t("dialogMovement")} {`${movement.comment}`}. <br />
           <br />
-          This action will restore your account balance and cannot be undone.
+          {t("dialogWarning")}
         </p>
       </ConfirmDialog>
     );
@@ -48,7 +49,7 @@ export default async function MovementDetailPage({
         <Link href="/">
           <Icon color="stone" icon="arrow-left" />
         </Link>
-        <h4 className="font-medium">Details</h4>
+        <h4 className="font-medium">{t("detailsTitle")}</h4>
         {alertDialog()}
       </div>
       <MovementDetail {...movement} />

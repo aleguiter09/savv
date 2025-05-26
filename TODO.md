@@ -13,6 +13,7 @@
 [] Multiple Money types on expense
 [] Dark theme
 [X] Removed unnecesary supabase client logic
+[] Delete account
 
 # Errors
 

@@ -2,6 +2,7 @@
 import { useData } from "@/providers/DataProvider";
 import { Category } from "@/types/database";
 import { Select, SelectItem } from "@tremor/react";
+import { useTranslations } from "next-intl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type SelectCategoryProps = {
@@ -13,6 +14,7 @@ export default function SelectCategory({
   categoryId,
   containerClassName = "",
 }: Readonly<SelectCategoryProps>) {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -32,14 +34,12 @@ export default function SelectCategory({
         onValueChange={handleSelect}
         enableClear={false}
       >
-        <SelectItem value="0">All categories</SelectItem>
-        {[...incomeCategories, ...expenseCategories].map(
-          (category: Category) => (
-            <SelectItem key={category.id} value={category.id.toString()}>
-              {category.title}
-            </SelectItem>
-          )
-        )}
+        <SelectItem value="0">{t("movements.allCategories")}</SelectItem>
+        {[...incomeCategories, ...expenseCategories].map((item: Category) => (
+          <SelectItem key={item.id} value={item.id.toString()}>
+            {t(`categories.${item.title}`)}
+          </SelectItem>
+        ))}
       </Select>
     </div>
   );

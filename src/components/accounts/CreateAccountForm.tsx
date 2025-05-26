@@ -5,6 +5,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
 import { Card, NumberInput, TextInput } from "@tremor/react";
 import { FormAccountState } from "@/types/general";
+import { useTranslations } from "next-intl";
 
 export default function CreateAccountForm() {
   const initialState = { message: null, errors: {} };
@@ -19,20 +20,21 @@ export default function CreateAccountForm() {
 
 const Form = ({ state }: { state: FormAccountState }) => {
   const { pending } = useFormStatus();
+  const t = useTranslations("accounts");
 
   return (
     <Card className="rounded-md p-4">
       {/* Account name */}
       <div className="mb-4">
         <label htmlFor="name" className="mb-2 block text-sm font-medium">
-          Enter a name
+          {t("enterName")}
         </label>
         <div className="relative mt-2 rounded-md">
           <div className="relative">
             <TextInput
               id="name"
               name="name"
-              placeholder="Enter account name"
+              placeholder={t("enterAccountName")}
               error={!!state.errors?.name}
               errorMessage={state.errors?.name?.at(0)}
             />
@@ -43,7 +45,7 @@ const Form = ({ state }: { state: FormAccountState }) => {
       {/* Account balance */}
       <div>
         <label htmlFor="balance" className="mb-2 block text-sm font-medium">
-          Current balance
+          {t("enterBalance")}
         </label>
         <div className="relative mt-2 rounded-md">
           <div className="relative">
@@ -52,7 +54,7 @@ const Form = ({ state }: { state: FormAccountState }) => {
               name="balance"
               icon={CurrencyDollarIcon}
               className="mb-3"
-              placeholder="Enter amount..."
+              placeholder={t("enterBalance")}
               enableStepper={false}
               step="0.01"
               error={!!state.errors?.balance}
@@ -65,7 +67,7 @@ const Form = ({ state }: { state: FormAccountState }) => {
       {/* Default account */}
       <div className="flex items-center gap-3 mb-4">
         <label htmlFor="default" className="text-sm font-medium">
-          Default account
+          {t("defaultAccount")}
         </label>
         <input id="default" name="default" type="checkbox" />
       </div>
@@ -82,7 +84,7 @@ const Form = ({ state }: { state: FormAccountState }) => {
           className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white disabled:opacity-60"
           type="submit"
         >
-          Create account
+          {t("createAccount")}
         </button>
       )}
     </Card>

@@ -4,6 +4,7 @@ import { FormAccountState } from "@/types/general";
 import { updateAccountForm } from "@/utils/account-actions";
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
 import { Card, NumberInput, TextInput } from "@tremor/react";
+import { useTranslations } from "next-intl";
 import { useFormState, useFormStatus } from "react-dom";
 
 export default function EditAccountForm({
@@ -35,20 +36,21 @@ const Form = ({
   account: Account;
 }) => {
   const { pending } = useFormStatus();
+  const t = useTranslations("accounts");
 
   return (
     <Card className="rounded-md p-4 flex flex-col gap-4">
       {/* Account name */}
       <div>
         <label htmlFor="name" className="mb-2 block text-sm font-medium">
-          Enter a name
+          {t("enterName")}
         </label>
         <div className="relative mt-2 rounded-md">
           <div className="relative">
             <TextInput
               id="name"
               name="name"
-              placeholder="Enter account name"
+              placeholder={t("enterAccountName")}
               defaultValue={account.name}
               error={!!state.errors?.name}
               errorMessage={state.errors?.name?.at(0)}
@@ -60,7 +62,7 @@ const Form = ({
       {/* Account balance */}
       <div>
         <label htmlFor="balance" className="mb-2 block text-sm font-medium">
-          Current balance
+          {t("currentBalance")}
         </label>
         <div className="relative mt-2 rounded-md">
           <div className="relative">
@@ -69,7 +71,7 @@ const Form = ({
               name="balance"
               icon={CurrencyDollarIcon}
               className="mb-3"
-              placeholder="Enter amount..."
+              placeholder={t("enterBalance")}
               enableStepper={false}
               step="0.01"
               defaultValue={account.balance}
@@ -83,7 +85,7 @@ const Form = ({
       {/* Default account */}
       <div className="flex items-center gap-3">
         <label htmlFor="default" className="text-sm font-medium">
-          Default account
+          {t("defaultAccount")}
         </label>
         <input
           type="checkbox"
@@ -105,7 +107,7 @@ const Form = ({
           className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
           type="submit"
         >
-          Edit account
+          {t("editAccount")}
         </button>
       )}
     </Card>

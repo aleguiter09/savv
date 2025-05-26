@@ -1,5 +1,6 @@
 import { Account } from "@/types/database";
 import { Select, SelectItem } from "@tremor/react";
+import { useTranslations } from "next-intl";
 
 type AccountSelectProps = {
   label: string;
@@ -18,11 +19,13 @@ export default function AccountSelect({
   error,
   errorMessage,
 }: Readonly<AccountSelectProps>) {
+  const t = useTranslations("movements");
+
   return (
     <div className="flex flex-col gap-2 mb-2">
       <label className="block text-sm font-medium">{label}</label>
       <Select
-        placeholder="Account..."
+        placeholder={t("selectAccount")}
         value={from}
         onValueChange={(v) => setFrom(v)}
         className={`${error && "border border-rose-500 rounded-lg"}`}

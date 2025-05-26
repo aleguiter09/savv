@@ -20,6 +20,8 @@ import AccountSelect from "../AddMovement/AccountSelect";
 import CategorySelect from "../AddMovement/CategorySelect";
 import { Movement } from "@/types/database";
 import { useData } from "@/providers/DataProvider";
+import { useLocale, useTranslations } from "next-intl";
+import { enUS, es } from "date-fns/locale";
 
 type EditMovementFormProps = {
   movement: Movement;
@@ -106,6 +108,8 @@ const Form = ({
   where,
   setWhere,
 }: Props) => {
+  const t = useTranslations("movements");
+  const locale = useLocale();
   const { accounts, incomeCategories, expenseCategories } = useData();
   const { pending } = useFormStatus();
 
@@ -135,17 +139,19 @@ const Form = ({
 
   return (
     <Card className="rounded-md p-4">
-      {/* Movement done_at */}
-      <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-        Enter date
+      {/* done_at */}
+      <label htmlFor="date" className="mb-2 block text-sm font-medium">
+        {t("enterDate")}
       </label>
       <DatePicker
+        id="date"
         className="mb-3"
         value={date}
+        locale={locale.includes("es") ? es : enUS}
         onValueChange={(v) => setDate(v)}
         enableClear={false}
       />
-      {/* Movement type/category */}
+      {/* type/category */}
       <div className="rounded-md mb-4">
         <TabGroup
           index={currentIndex()}
@@ -153,14 +159,14 @@ const Form = ({
           onIndexChange={(i) => handleTypeChange(i)}
         >
           <TabList className="w-full">
-            <Tab className="w-full place-content-center">Expense</Tab>
-            <Tab className="w-full place-content-center">Income</Tab>
-            <Tab className="w-full place-content-center">Transfer</Tab>
+            <Tab className="w-full place-content-center">{t("expense")}</Tab>
+            <Tab className="w-full place-content-center">{t("income")}</Tab>
+            <Tab className="w-full place-content-center">{t("transfer")}</Tab>
           </TabList>
           <TabPanels className="mt-3">
             <TabPanel>
               <AccountSelect
-                label="Choose account"
+                label={t("chooseAccount")}
                 accounts={accounts}
                 from={from}
                 setFrom={setFrom}
@@ -177,7 +183,7 @@ const Form = ({
             </TabPanel>
             <TabPanel>
               <AccountSelect
-                label="Choose account"
+                label={t("chooseAccount")}
                 accounts={accounts}
                 from={from}
                 setFrom={setFrom}
@@ -194,7 +200,7 @@ const Form = ({
             </TabPanel>
             <TabPanel>
               <AccountSelect
-                label="Choose from where you will transfer"
+                label={t("chooseFrom")}
                 accounts={accounts.filter((a) => a.id !== Number(where))}
                 from={from}
                 setFrom={setFrom}
@@ -202,7 +208,7 @@ const Form = ({
                 errorMessage={state.errors?.from?.at(0)}
               />
               <AccountSelect
-                label="Choose where you will transfer"
+                label={t("chooseTo")}
                 accounts={accounts.filter((a) => a.id !== Number(from))}
                 from={where}
                 setFrom={setWhere}
@@ -214,15 +220,15 @@ const Form = ({
         </TabGroup>
       </div>
 
-      {/* Movement amount */}
+      {/* amount */}
       <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-        Enter amount
+        {t("enterAmount")}
       </label>
       <NumberInput
         id="amount"
         name="amount"
         icon={CurrencyDollarIcon}
-        placeholder="Amount..."
+        placeholder={t("chooseAmount")}
         enableStepper={false}
         step="0.01"
         min="0"
@@ -230,14 +236,14 @@ const Form = ({
         error={!!state.errors?.amount}
         errorMessage={state.errors?.amount?.at(0)}
       />
-      {/* Movement comment */}
+      {/* comment */}
       <label htmlFor="comment" className="mt-2 mb-2 block text-sm font-medium">
-        Enter comment
+        {t("enterComment")}
       </label>
       <TextInput
         id="comment"
         name="comment"
-        placeholder="Comment..."
+        placeholder={t("chooseComment")}
         defaultValue={movement.comment}
         error={!!state.errors?.comment}
         errorMessage={state.errors?.comment?.at(0)}
@@ -257,7 +263,7 @@ const Form = ({
             className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
             type="submit"
           >
-            Confirm
+            {t("confirm")}
           </button>
         )}
       </div>

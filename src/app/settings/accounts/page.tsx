@@ -2,15 +2,19 @@ import AddButton from "@/components/home/ActionBar/AddButton";
 import { getAccounts } from "@/services/accounts";
 import { mdiCreditCardEditOutline } from "@mdi/js";
 import Icon from "@mdi/react";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
 export default async function AccountsPage() {
+  const t = await getTranslations("settings");
   const accounts = await getAccounts();
 
   return (
     <>
       <div className="mb-4 flex justify-between items-center">
-        <h3 className="font-semibold">Settings / Accounts</h3>
+        <h3 className="font-semibold">
+          {t("title")} / {t("accounts")}
+        </h3>
         <AddButton href="/settings/accounts/create" />
       </div>
       <ul className="text-sm flex flex-col gap-2">

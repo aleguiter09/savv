@@ -1,6 +1,7 @@
 import EditAccountForm from "@/components/accounts/EditAccountForm";
 import Icon from "@/components/common/Icon";
 import { getAccountById } from "@/services/accounts";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -9,6 +10,7 @@ export default async function EditAccountPage({
 }: Readonly<{
   params: { id: string };
 }>) {
+  const t = await getTranslations("accounts");
   const id = params.id;
   const account = await getAccountById(Number(id));
 
@@ -22,7 +24,7 @@ export default async function EditAccountPage({
         <Link href="/settings/accounts">
           <Icon color="stone" icon="arrow-left" />
         </Link>
-        <h4 className="font-medium">Account Details</h4>
+        <h4 className="font-medium">{t("detailsTitle")}</h4>
         <span></span>
       </div>
       <EditAccountForm id={id} account={account} />

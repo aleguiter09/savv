@@ -4,6 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ReactNode, useState } from "react";
 import { deleteMovementForm } from "@/utils/movement-action";
 import { Movement } from "@/types/database";
+import { useTranslations } from "next-intl";
 
 export default function ConfirmDialog({
   children,
@@ -16,6 +17,7 @@ export default function ConfirmDialog({
   button: ReactNode;
   movement: Movement;
 }>) {
+  const t = useTranslations("movements");
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -49,7 +51,7 @@ export default function ConfirmDialog({
               onClick={handleClose}
               className="w-full rounded-md bg-gray-300 py-2 text-sm font-semibold text-gray-800 focus:outline-none focus:ring focus:ring-gray-blue"
             >
-              Close
+              {t("cancel")}
             </button>
             {loading ? (
               <div className="flex w-full justify-center rounded-md bg-blue-600 py-2">
@@ -63,7 +65,7 @@ export default function ConfirmDialog({
                 onClick={handleConfirm}
                 className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
               >
-                Confirm
+                {t("confirm")}
               </button>
             )}
           </div>
