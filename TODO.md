@@ -14,6 +14,7 @@
 [] Dark theme
 [X] Removed unnecesary supabase client logic
 [] Delete account
+[] Templates for movements
 
 # Errors
 

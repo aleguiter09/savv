@@ -3,8 +3,10 @@ import Link from "next/link";
 import { useTransition } from "react";
 import { useFormState } from "react-dom";
 import { createUserForm } from "@/utils/user-action";
+import { useTranslations } from "next-intl";
 
 export default function Register() {
+  const t = useTranslations("auth");
   const [pending, startTransition] = useTransition();
 
   const initialState = { message: null, errors: {} };
@@ -18,11 +20,11 @@ export default function Register() {
 
   return (
     <>
-      <h2 className="mt-4 text-3xl font-extrabold">Sign up</h2>
+      <h2 className="mt-2 text-3xl font-extrabold">{t("signUp")}</h2>
       <div className="mt-8 w-full max-w-md">
         <form className="flex flex-col gap-1" action={submit}>
           <label htmlFor="email" className="text-sm font-medium">
-            Email address
+            {t("email")}
           </label>
           <input
             id="email"
@@ -37,7 +39,7 @@ export default function Register() {
             </div>
           )}
           <label htmlFor="password" className="text-sm font-medium mt-2">
-            Password
+            {t("password")}
           </label>
           <input
             id="password"
@@ -54,7 +56,7 @@ export default function Register() {
             </div>
           )}
           <label htmlFor="confirmPassword" className="text-sm font-medium mt-2">
-            Confirm Password
+            {t("confirmPassword")}
           </label>
           <input
             id="confirmPassword"
@@ -85,13 +87,13 @@ export default function Register() {
               type="submit"
               className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
             >
-              Register
+              {t("signUp")}
             </button>
           )}
-          <p className="text-center text-sm">
-            Already have an account?{" "}
+          <p className="mt-2 text-center text-sm">
+            {t("signInMessage")}
             <Link href="/" className="font-semibold text-blue-600">
-              Log in
+              {t("signIn")}
             </Link>
           </p>
         </form>

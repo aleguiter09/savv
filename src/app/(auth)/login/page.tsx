@@ -3,8 +3,10 @@ import Link from "next/link";
 import { useTransition } from "react";
 import { useFormState } from "react-dom";
 import { loginUserForm } from "@/utils/user-action";
+import { useTranslations } from "next-intl";
 
 export default function Login() {
+  const t = useTranslations("auth");
   const initialState = { message: null, errors: {} };
   const [pending, startTransition] = useTransition();
   const [state, dispatch] = useFormState(loginUserForm, initialState);
@@ -17,11 +19,11 @@ export default function Login() {
 
   return (
     <>
-      <h2 className="mt-4 text-3xl font-extrabold">Sign in to your account</h2>
+      <h2 className="mt-2 text-3xl font-extrabold">{t("loginTitle")}</h2>
       <div className="mt-8 w-full max-w-md">
         <form className="flex flex-col gap-2" action={submit}>
           <label htmlFor="email" className="text-sm font-medium">
-            Email address
+            {t("email")}
           </label>
           <input
             id="email"
@@ -39,7 +41,7 @@ export default function Login() {
           )}
 
           <label htmlFor="password" className="text-sm font-medium">
-            Password
+            {t("password")}
           </label>
           <input
             id="password"
@@ -70,13 +72,13 @@ export default function Login() {
               className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
               type="submit"
             >
-              Sign in
+              {t("signIn")}
             </button>
           )}
-          <p className="text-center text-sm">
-            {"Don't have an account? "}
+          <p className="mt-2 text-center text-sm">
+            {t("signUpMessage")}
             <Link href="/register" className="font-semibold text-blue-600">
-              Sign up
+              {t("signUp")}
             </Link>
           </p>
         </form>

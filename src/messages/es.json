@@ -89,5 +89,15 @@
   "settings": {
     "title": "Configuración",
     "accounts": "Cuentas"
+  },
+  "auth": {
+    "loginTitle": "Inicia sesión en tu cuenta",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "signIn": "Iniciar sesión",
+    "signInMessage": "¿Ya tienes una cuenta?  ",
+    "signUp": "Registrarse",
+    "signUpMessage": "¿No tienes una cuenta?  "
   }
 }

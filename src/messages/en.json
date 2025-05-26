@@ -89,5 +89,15 @@
   "settings": {
     "title": "Settings",
     "accounts": "Accounts"
+  },
+  "auth": {
+    "loginTitle": "Login",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "signIn": "Sign in",
+    "signInMessage": "Already have an account?  ",
+    "signUp": "Sign up",
+    "signUpMessage": "Don't have an account?  "
   }
 }
