@@ -15,6 +15,7 @@
 [X] Removed unnecesary supabase client logic
 [] Delete account
 [] Templates for movements
+[] Translate errors from actions
 
 # Errors
 
