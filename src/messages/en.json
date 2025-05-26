@@ -1,6 +1,6 @@
 {
   "home": {
-    "allAccounts": "All Accounts",
+    "allAccounts": "All accounts",
     "selectAccount": "Select...",
     "balance": "Balance",
     "incomes": "Incomes",
@@ -91,7 +91,7 @@
     "accounts": "Accounts"
   },
   "auth": {
-    "loginTitle": "Login",
+    "loginTitle": "Sign in to your account",
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Confirm password",
