@@ -171,14 +171,22 @@ const Form = ({
                 from={from}
                 setFrom={setFrom}
                 error={!!state.errors?.from}
-                errorMessage={state.errors?.from?.at(0)}
+                errorMessage={
+                  state.errors?.from
+                    ? t(state.errors?.from?.at(0) as string)
+                    : undefined
+                }
               />
               <CategorySelect
                 categories={expenseCategories}
                 category={category}
                 setCategory={setCategory}
                 error={!!state.errors?.category}
-                errorMessage={state.errors?.category?.at(0)}
+                errorMessage={
+                  state.errors?.category
+                    ? t(state.errors?.category?.at(0) as string)
+                    : undefined
+                }
               />
             </TabPanel>
             <TabPanel>
@@ -188,14 +196,22 @@ const Form = ({
                 from={from}
                 setFrom={setFrom}
                 error={!!state.errors?.from}
-                errorMessage={state.errors?.from?.at(0)}
+                errorMessage={
+                  state.errors?.from
+                    ? t(state.errors?.from?.at(0) as string)
+                    : undefined
+                }
               />
               <CategorySelect
                 categories={incomeCategories}
                 category={category}
                 setCategory={setCategory}
                 error={!!state.errors?.category}
-                errorMessage={state.errors?.category?.at(0)}
+                errorMessage={
+                  state.errors?.category
+                    ? t(state.errors?.category?.at(0) as string)
+                    : undefined
+                }
               />
             </TabPanel>
             <TabPanel>
@@ -205,7 +221,11 @@ const Form = ({
                 from={from}
                 setFrom={setFrom}
                 error={!!state.errors?.from}
-                errorMessage={state.errors?.from?.at(0)}
+                errorMessage={
+                  state.errors?.from
+                    ? t(state.errors?.from?.at(0) as string)
+                    : undefined
+                }
               />
               <AccountSelect
                 label={t("chooseTo")}
@@ -213,7 +233,11 @@ const Form = ({
                 from={where}
                 setFrom={setWhere}
                 error={!!state.errors?.where}
-                errorMessage={state.errors?.where?.at(0)}
+                errorMessage={
+                  state.errors?.where
+                    ? t(state.errors?.where?.at(0) as string)
+                    : undefined
+                }
               />
             </TabPanel>
           </TabPanels>
@@ -234,7 +258,11 @@ const Form = ({
         min="0"
         defaultValue={movement.amount}
         error={!!state.errors?.amount}
-        errorMessage={state.errors?.amount?.at(0)}
+        errorMessage={
+          state.errors?.amount
+            ? t(state.errors?.amount?.at(0) as string)
+            : undefined
+        }
       />
       {/* comment */}
       <label htmlFor="comment" className="mt-2 mb-2 block text-sm font-medium">
@@ -246,7 +274,11 @@ const Form = ({
         placeholder={t("chooseComment")}
         defaultValue={movement.comment}
         error={!!state.errors?.comment}
-        errorMessage={state.errors?.comment?.at(0)}
+        errorMessage={
+          state?.errors?.amount
+            ? t(state.errors?.comment?.at(0) as string)
+            : undefined
+        }
       />
       {/* Actions */}
       <div className="mt-3 flex flex-row gap-2">

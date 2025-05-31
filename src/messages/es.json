@@ -73,7 +73,13 @@
     "last30Days": "Últimos 30 días",
     "thisMonth": "Este mes",
     "selectDateRange": "Seleccione un rango",
-    "allCategories": "Todas las categorías"
+    "allCategories": "Todas las categorías",
+    "amountNumberError": "La cantidad debe ser un número",
+    "amountPositiveError": "La cantidad debe ser positiva",
+    "noCommentError": "Por favor, introduzca una descripción",
+    "noCategoryError": "Por favor, elija una categoría",
+    "noAccountError": "Por favor, elija una cuenta",
+    "noDateError": "Por favor, introduzca una fecha"
   },
   "accounts": {
     "addTitle": "Añadir cuenta",
@@ -84,11 +90,17 @@
     "enterBalance": "Balance...",
     "defaultAccount": "Cuenta por defecto",
     "createAccount": "Crear cuenta",
-    "editAccount": "Editar cuenta"
+    "editAccount": "Editar cuenta",
+    "nameError": "Por favor, elija un nombre para la cuenta",
+    "balanceError": "Por favor, introduzca un balance"
   },
   "settings": {
     "title": "Configuración",
-    "accounts": "Cuentas"
+    "accounts": "Cuentas",
+    "languages": "Idioma",
+    "es": "Español",
+    "en": "Inglés",
+    "confirm": "Confirmar"
   },
   "auth": {
     "loginTitle": "Inicia sesión en tu cuenta",
@@ -96,8 +108,12 @@
     "password": "Contraseña",
     "confirmPassword": "Confirmar contraseña",
     "signIn": "Iniciar sesión",
-    "signInMessage": "¿Ya tienes una cuenta?  ",
+    "signInMessage": "¿Ya tienes una cuenta? ",
     "signUp": "Registrarse",
-    "signUpMessage": "¿No tienes una cuenta?  "
+    "signUpMessage": "¿No tienes una cuenta? ",
+    "emailError": "Por favor, introduzca un correo electrónico válido",
+    "passwordError": "La contraseña debe tener al menos 8 caracteres",
+    "confirmPasswordError": "Las contraseñas no coinciden",
+    "defaultAccountName": "Efectivo"
   }
 }

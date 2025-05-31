@@ -10,70 +10,70 @@ import { Movement } from "@/types/database";
 const IncomeExpenseSchema = z.object({
   amount: z.coerce
     .number({
-      invalid_type_error: "The amount should be a number",
+      invalid_type_error: "amountNumberError",
     })
-    .positive({ message: "Please enter an amount greater that $0" }),
+    .positive({ message: "amountPositiveError" }),
   comment: z
     .string({
-      required_error: "Please enter a comment",
+      required_error: "noCommentError",
     })
     .min(1, {
-      message: "Please enter a comment",
+      message: "noCommentError",
     }),
   type: z.enum(["expense", "income"]),
   category: z.coerce
     .number({
-      required_error: "Please choose a category",
-      invalid_type_error: "Please choose a category",
+      required_error: "noCategoryError",
+      invalid_type_error: "noCategoryError",
     })
-    .positive({ message: "Please choose a category" }),
+    .positive({ message: "noCategoryError" }),
   from: z.coerce
     .number({
-      required_error: "Please choose an account",
-      invalid_type_error: "Please choose an account",
+      required_error: "noAccountError",
+      invalid_type_error: "noAccountError",
     })
-    .positive({ message: "Please choose an account" }),
+    .positive({ message: "noAccountError" }),
   done_at: z
     .string({
-      required_error: "Please choose a date",
+      required_error: "noDateError",
     })
     .min(1, {
-      message: "Please choose a date",
+      message: "noDateError",
     }),
 });
 
 const TransferSchema = z.object({
   amount: z.coerce
     .number({
-      invalid_type_error: "The amount should be a number",
+      invalid_type_error: "amountNumberError",
     })
-    .positive({ message: "Please enter an amount greater that $0" }),
+    .positive({ message: "amountPositiveError" }),
   comment: z
     .string({
-      required_error: "Please enter a comment",
+      required_error: "noCommentError",
     })
     .min(1, {
-      message: "Please enter a comment",
+      message: "noCommentError",
     }),
   type: z.enum(["transfer"]),
   from: z.coerce
     .number({
-      required_error: "Please choose an account",
-      invalid_type_error: "Please choose an account",
+      required_error: "noAccountError",
+      invalid_type_error: "noAccountError",
     })
-    .positive({ message: "Please choose an account" }),
+    .positive({ message: "noAccountError" }),
   where: z.coerce
     .number({
-      required_error: "Please choose an account",
-      invalid_type_error: "Please choose an account",
+      required_error: "noAccountError",
+      invalid_type_error: "noAccountError",
     })
-    .positive({ message: "Please choose an account" }),
+    .positive({ message: "noAccountError" }),
   done_at: z
     .string({
-      required_error: "Please choose a date",
+      required_error: "noDateError",
     })
     .min(1, {
-      message: "Please choose a date",
+      message: "noDateError",
     }),
 });
 

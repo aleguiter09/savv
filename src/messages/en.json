@@ -73,7 +73,13 @@
     "last30Days": "Last 30 days",
     "thisMonth": "This month",
     "selectDateRange": "Select range",
-    "allCategories": "All categories"
+    "allCategories": "All categories",
+    "amountNumberError": "The amount must be a number",
+    "amountPositiveError": "Please enter an amount greater that $0",
+    "noCommentError": "Please enter a description",
+    "noCategoryError": "Please select a category",
+    "noAccountError": "Please select an account",
+    "noDateError": "Please enter a date"
   },
   "accounts": {
     "addTitle": "Add account",
@@ -84,11 +90,17 @@
     "enterBalance": "Balance...",
     "defaultAccount": "Default account",
     "createAccount": "Create account",
-    "editAccount": "Edit account"
+    "editAccount": "Edit account",
+    "nameError": "Please choose a name for the account",
+    "balanceError": "The balance must be a number"
   },
   "settings": {
     "title": "Settings",
-    "accounts": "Accounts"
+    "accounts": "Accounts",
+    "languages": "Language",
+    "es": "Spanish",
+    "en": "English",
+    "confirm": "Confirm"
   },
   "auth": {
     "loginTitle": "Sign in to your account",
@@ -96,8 +108,12 @@
     "password": "Password",
     "confirmPassword": "Confirm password",
     "signIn": "Sign in",
-    "signInMessage": "Already have an account?  ",
+    "signInMessage": "Already have an account? ",
     "signUp": "Sign up",
-    "signUpMessage": "Don't have an account?  "
+    "signUpMessage": "Don't have an account? ",
+    "emailError": "Provide a valid email",
+    "passwordError": "Password must be at least 8 characters",
+    "confirmPasswordError": "Passwords do not match",
+    "defaultAccountName": "Cash"
   }
 }

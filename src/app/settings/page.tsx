@@ -4,6 +4,7 @@ import Link from "next/link";
 
 const links = [
   { name: "accounts", href: "/settings/accounts " },
+  { name: "languages", href: "/settings/languages " },
   /*{ name: "Categories", href: "/settings/categories " },*/
 ];
 

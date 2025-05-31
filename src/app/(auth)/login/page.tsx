@@ -36,7 +36,11 @@ export default function Login() {
           />
           {state?.errors?.email && (
             <div id="email-error" aria-live="polite" aria-atomic="true">
-              <p className="text-sm text-red-500">{state.errors.email.at(0)}</p>
+              <p className="text-sm text-red-500">
+                {state.errors.email
+                  ? t(state.errors.email.at(0) as string)
+                  : undefined}
+              </p>
             </div>
           )}
 
@@ -55,7 +59,9 @@ export default function Login() {
           {state?.errors?.password && (
             <div id="password-error" aria-live="polite" aria-atomic="true">
               <p className="text-sm text-red-500">
-                {state?.errors?.password.at(0)}
+                {state.errors.password
+                  ? t(state?.errors?.password.at(0) as string)
+                  : undefined}
               </p>
             </div>
           )}

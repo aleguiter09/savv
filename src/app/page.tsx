@@ -15,14 +15,14 @@ export default async function MainPage({
   searchParams,
 }: Readonly<MainPageParams>) {
   const defaultAcc = await getDefaultAccountId();
-  const account =
+  const account: number =
     Number(searchParams.account) === 0
       ? 0
       : Number(searchParams.account) || defaultAcc;
 
   return (
     <>
-      <ActionBar />
+      <ActionBar account={account} />
       <Balance account={account} />
       <LastMovements account={account} />
       <ExpenseByCat

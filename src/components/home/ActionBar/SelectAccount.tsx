@@ -7,14 +7,15 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type SelectAccountProps = {
   containerClassName?: string;
+  defaultAcc: number;
 };
 
 export default function SelectAccount({
   containerClassName = "",
+  defaultAcc,
 }: Readonly<SelectAccountProps>) {
   const { accounts } = useData();
   const t = useTranslations("home");
-  const defaultAcc = accounts.find((a) => a.default);
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -31,7 +32,7 @@ export default function SelectAccount({
       <Select
         placeholder={t("selectAccount")}
         className={containerClassName}
-        defaultValue={defaultAcc?.id?.toString() ?? "0"}
+        defaultValue={defaultAcc.toString()}
         onValueChange={handleSelect}
         enableClear={false}
       >

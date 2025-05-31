@@ -36,7 +36,11 @@ const Form = ({ state }: { state: FormAccountState }) => {
               name="name"
               placeholder={t("enterAccountName")}
               error={!!state.errors?.name}
-              errorMessage={state.errors?.name?.at(0)}
+              errorMessage={
+                state.errors?.name
+                  ? t(state.errors?.name?.at(0) as string)
+                  : undefined
+              }
             />
           </div>
         </div>
@@ -45,7 +49,7 @@ const Form = ({ state }: { state: FormAccountState }) => {
       {/* Account balance */}
       <div>
         <label htmlFor="balance" className="mb-2 block text-sm font-medium">
-          {t("enterBalance")}
+          {t("currentBalance")}
         </label>
         <div className="relative mt-2 rounded-md">
           <div className="relative">
@@ -58,7 +62,11 @@ const Form = ({ state }: { state: FormAccountState }) => {
               enableStepper={false}
               step="0.01"
               error={!!state.errors?.balance}
-              errorMessage={state.errors?.balance?.at(0)}
+              errorMessage={
+                state.errors?.balance
+                  ? t(state.errors?.balance?.at(0) as string)
+                  : undefined
+              }
             />
           </div>
         </div>

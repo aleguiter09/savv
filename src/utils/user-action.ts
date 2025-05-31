@@ -4,32 +4,28 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { createAccount } from "@/services/accounts";
 import { createClient } from "./supabase-server";
+import { createSettings } from "@/services/settings";
+import { getLocale, getTranslations } from "next-intl/server";
 
 const UserSchema = z
   .object({
-    email: z.string().email({ message: "Provide a valid email" }),
-    password: z
-      .string()
-      .min(8, { message: "Password must be at least 8 characters" }),
-    confirmPassword: z
-      .string()
-      .min(8, { message: "Password must be at least 8 characters" }),
+    email: z.string().email({ message: "emailError" }),
+    password: z.string().min(8, { message: "passwordError" }),
+    confirmPassword: z.string().min(8, { message: "passwordError" }),
   })
   .superRefine(({ password, confirmPassword }, ctx) => {
     if (password !== confirmPassword) {
       ctx.addIssue({
         code: "custom",
-        message: "Passwords do not match",
+        message: "confirmPasswordError",
         path: ["confirmPassword"],
       });
     }
   });
 
 const LoginUserSchema = z.object({
-  email: z.string().email({ message: "Provide a valid email" }),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters" }),
+  email: z.string().email({ message: "emailError" }),
+  password: z.string().min(8, { message: "passwordError" }),
 });
 
 export const createUserForm = async (
@@ -55,12 +51,24 @@ export const createUserForm = async (
     return { ...prevState, errors: { email: [error.message] } };
   }
 
-  const res = await createAccount({
-    name: "Cash",
+  const t = await getTranslations("auth");
+
+  const { error: errorAcc } = await createAccount({
+    name: t("defaultAccountName"),
     balance: 0,
     default: true,
   });
-  console.log("res", JSON.stringify(res, null, 2));
+
+  if (errorAcc) {
+    return { ...prevState, errors: { account: [errorAcc.message] } };
+  }
+
+  const locale = await getLocale();
+  const { error: errorSettings } = await createSettings(locale as "es" | "en");
+
+  if (errorSettings) {
+    return { ...prevState, errors: { settings: [errorSettings.message] } };
+  }
 
   redirect("/");
 };
@@ -71,6 +79,7 @@ export const loginUserForm = async (
 ) => {
   const rawFormData = Object.fromEntries(formData.entries());
   const validatedData = LoginUserSchema.safeParse(rawFormData);
+
   if (!validatedData.success) {
     return {
       errors: validatedData.error.flatten().fieldErrors,

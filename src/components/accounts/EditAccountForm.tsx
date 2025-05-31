@@ -53,7 +53,11 @@ const Form = ({
               placeholder={t("enterAccountName")}
               defaultValue={account.name}
               error={!!state.errors?.name}
-              errorMessage={state.errors?.name?.at(0)}
+              errorMessage={
+                state.errors?.name
+                  ? t(state.errors?.name?.at(0) as string)
+                  : undefined
+              }
             />
           </div>
         </div>
@@ -76,7 +80,11 @@ const Form = ({
               step="0.01"
               defaultValue={account.balance}
               error={!!state.errors?.balance}
-              errorMessage={state.errors?.balance?.at(0)}
+              errorMessage={
+                state.errors?.balance
+                  ? t(state.errors?.balance?.at(0) as string)
+                  : undefined
+              }
             />
           </div>
         </div>

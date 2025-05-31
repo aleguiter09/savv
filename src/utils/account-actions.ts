@@ -10,13 +10,13 @@ const AccountSchema = z.object({
   id: z.string(),
   name: z
     .string({
-      required_error: "Please choose a name for the account",
+      required_error: "nameError",
     })
     .min(1, {
-      message: "Please choose a name for the account",
+      message: "nameError",
     }),
   balance: z.coerce.number({
-    invalid_type_error: "The balance amount should be a number.",
+    invalid_type_error: "balanceError",
   }),
   default: z.enum(["true", "false"]).transform((value) => value === "true"),
 });

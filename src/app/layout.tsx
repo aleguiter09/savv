@@ -10,6 +10,7 @@ import { getAccounts } from "@/services/accounts";
 import { getCategories } from "@/services/categories";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
+import { createClient } from "@/utils/supabase-server";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,7 +35,10 @@ export const viewport = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const [locale, accounts, categories] = await Promise.all([
+  const supabase = await createClient();
+
+  const [user, locale, accounts, categories] = await Promise.all([
+    supabase.auth.getUser(),
     getLocale(),
     getAccounts(),
     getCategories(),
@@ -61,7 +65,7 @@ export default async function RootLayout({
             </DataProvider>
           </NextIntlClientProvider>
         </main>
-        <Navbar />
+        {!!user.data.user?.id && <Navbar />}
         <SpeedInsights />
       </body>
     </html>
