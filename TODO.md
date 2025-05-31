@@ -1,26 +1,26 @@
 [X] Avoid multiple same requests, use caching or context CSR. Like getting accounts or categories.
 [X] Avoid multiple get for Categories.
-[] Review getAccounts in settings.
-[] Review getDefaultAccount request.
 [X] Transfers related accounts and color.
 [X] Move types to each file
 [X] Config I18n, add user config table
 [X] Add ALL translations (check Skeletons)
 [X] Removed unnecesary supabase client logic
-[] Delete account
 [X] Translate errors from actions
+[] Delete account
 [] Replace checked value with switch
 [] Recover Password
+[] Review getAccounts in settings.
+[] Review getDefaultAccount request.
 
 # Errors
 
 [X] Create account process after sign up
 [X] Error on create movement its not ending transition.
-[] Accounts & Categories not always being setted.
-[] Select Category in Movement form overlaped by navbar
 [X] Created accounts doesnt have a locale assigned
 [X] Navbar shown on login page
 [X] Account from the URL is being overwritted in select Home
+[] Accounts & Categories not always being setted.
+[] Select Category in Movement form overlaped by navbar
 
 # New Features
 
