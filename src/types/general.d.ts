@@ -53,3 +53,10 @@ export type LoginFormUserState = {
   };
   message?: string | null;
 };
+
+export type ResetFormUserState = {
+  errors?: {
+    email?: string[];
+  };
+  message?: string | null;
+};

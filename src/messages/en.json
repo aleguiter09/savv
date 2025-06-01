@@ -117,7 +117,12 @@
     "emailError": "Provide a valid email",
     "passwordError": "Password must be at least 8 characters",
     "confirmPasswordError": "Passwords do not match",
-    "defaultAccountName": "Cash"
+    "defaultAccountName": "Cash",
+    "resetTitle": "Reset your password",
+    "forgotPassword": "Forgot password? ",
+    "resetPassword": "Reset password",
+    "reset": "Reset",
+    "resetSent": "Reset link sent to your email"
   },
   "cancel": "Cancel",
   "confirm": "Confirm"

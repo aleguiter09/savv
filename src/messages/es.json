@@ -117,7 +117,12 @@
     "emailError": "Por favor, introduzca un correo electrónico válido",
     "passwordError": "La contraseña debe tener al menos 8 caracteres",
     "confirmPasswordError": "Las contraseñas no coinciden",
-    "defaultAccountName": "Efectivo"
+    "defaultAccountName": "Efectivo",
+    "resetTitle": "Restablece tu contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña? ",
+    "resetPassword": "Restablecer contraseña",
+    "reset": "Restablecer",
+    "resetSent": "Se ha enviado un enlace de restablecimiento a su correo electrónico"
   },
   "cancel": "Cancelar",
   "confirm": "Confirmar"

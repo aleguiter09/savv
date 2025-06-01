@@ -1,5 +1,9 @@
 "use server";
-import { FormUserState, LoginFormUserState } from "@/types/general";
+import {
+  FormUserState,
+  LoginFormUserState,
+  ResetFormUserState,
+} from "@/types/general";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { createAccount } from "@/services/accounts";
@@ -26,6 +30,10 @@ const UserSchema = z
 const LoginUserSchema = z.object({
   email: z.string().email({ message: "emailError" }),
   password: z.string().min(8, { message: "passwordError" }),
+});
+
+const ResetUserSchema = LoginUserSchema.omit({
+  password: true,
 });
 
 export const createUserForm = async (
@@ -97,6 +105,32 @@ export const loginUserForm = async (
   }
 
   redirect("/");
+};
+
+export const resetPasswordForm = async (
+  prevState: ResetFormUserState,
+  formData: FormData
+) => {
+  const rawFormData = Object.fromEntries(formData.entries());
+  const validatedData = ResetUserSchema.safeParse(rawFormData);
+
+  if (!validatedData.success) {
+    return {
+      errors: validatedData.error.flatten().fieldErrors,
+      message: null,
+    };
+  }
+
+  const { email } = validatedData.data;
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.resetPasswordForEmail(email);
+
+  if (error) {
+    return { ...prevState, errors: { email: [error.message] } };
+  }
+
+  return { message: "resetSent", errors: {} };
 };
 
 export const logout = async () => {

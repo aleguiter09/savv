@@ -2,14 +2,14 @@
 import Link from "next/link";
 import { useTransition } from "react";
 import { useFormState } from "react-dom";
-import { loginUserForm } from "@/utils/user-action";
+import { resetPasswordForm } from "@/utils/user-action";
 import { useTranslations } from "next-intl";
 
-export default function Login() {
+export default function Reset() {
   const t = useTranslations("auth");
   const initialState = { message: null, errors: {} };
   const [pending, startTransition] = useTransition();
-  const [state, dispatch] = useFormState(loginUserForm, initialState);
+  const [state, dispatch] = useFormState(resetPasswordForm, initialState);
 
   const submit = (formData: FormData) => {
     startTransition(() => {
@@ -19,7 +19,7 @@ export default function Login() {
 
   return (
     <>
-      <h2 className="mt-2 text-3xl font-extrabold">{t("loginTitle")}</h2>
+      <h2 className="mt-2 text-3xl font-extrabold">{t("resetTitle")}</h2>
       <div className="mt-8 w-full max-w-md">
         <form className="flex flex-col gap-2" action={submit}>
           <label htmlFor="email" className="text-sm font-medium">
@@ -44,27 +44,6 @@ export default function Login() {
             </div>
           )}
 
-          <label htmlFor="password" className="text-sm font-medium">
-            {t("password")}
-          </label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            autoComplete="current-password"
-            tabIndex={0}
-            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
-              ${state?.errors?.password ? "border-red-500" : ""}`}
-          />
-          {state?.errors?.password && (
-            <div id="password-error" aria-live="polite" aria-atomic="true">
-              <p className="text-sm text-red-500">
-                {state.errors.password
-                  ? t(state?.errors?.password.at(0) as string)
-                  : undefined}
-              </p>
-            </div>
-          )}
           {pending ? (
             <div className="mt-2 flex w-full justify-center rounded-md bg-blue-600 py-2">
               <output
@@ -78,22 +57,22 @@ export default function Login() {
               className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
               type="submit"
             >
-              {t("signIn")}
+              {t("reset")}
             </button>
           )}
-          <p className="mt-4 text-center text-sm">
-            {t("signUpMessage")}
-            <Link href="/register" className="font-semibold text-blue-600">
-              {t("signUp")}
+
+          <p className="mt-2 text-center text-sm">
+            {t("signInMessage")}
+            <Link href="/" className="font-semibold text-blue-600">
+              {t("signIn")}
             </Link>
           </p>
 
-          <p className="text-center text-sm">
-            {t("forgotPassword")}
-            <Link href="/reset" className="font-semibold text-blue-600">
-              {t("resetPassword")}
-            </Link>
-          </p>
+          {state.message && (
+            <p className="text-sm text-center mt-3 text-green-700">
+              {t(state.message)}
+            </p>
+          )}
         </form>
       </div>
     </>

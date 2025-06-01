@@ -6,11 +6,9 @@
 [X] Add ALL translations (check Skeletons)
 [X] Removed unnecesary supabase client logic
 [X] Translate errors from actions
-[] Delete account
-[] Replace checked value with switch
-[] Recover Password
-[] Review getAccounts in settings.
-[] Review getDefaultAccount request.
+[X] Delete account
+[] Recover Password page
+[] Email for recover password
 
 # Errors
 
