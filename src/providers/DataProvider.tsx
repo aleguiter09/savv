@@ -26,12 +26,14 @@ export const DataProvider = ({
   categories: Category[];
   children: React.ReactNode;
 }) => {
-  const incomeCategories = categories.filter(
-    (category) => category.for === "income"
+  const incomeCategories = useMemo(
+    () => categories.filter((category) => category.for === "income"),
+    [categories]
   );
 
-  const expenseCategories = categories.filter(
-    (category) => category.for === "expense"
+  const expenseCategories = useMemo(
+    () => categories.filter((category) => category.for === "expense"),
+    [categories]
   );
 
   const contextValue = useMemo(

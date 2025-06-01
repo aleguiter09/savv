@@ -92,7 +92,10 @@
     "createAccount": "Create account",
     "editAccount": "Edit account",
     "nameError": "Please choose a name for the account",
-    "balanceError": "The balance must be a number"
+    "balanceError": "The balance must be a number",
+    "areYouSure": "Are you sure? 🤔",
+    "dialogAccount": "You are about to delete the following account:",
+    "dialogWarning": "This action won't delete transactions associated with this account but cannot be undone."
   },
   "settings": {
     "title": "Settings",
@@ -115,5 +118,7 @@
     "passwordError": "Password must be at least 8 characters",
     "confirmPasswordError": "Passwords do not match",
     "defaultAccountName": "Cash"
-  }
+  },
+  "cancel": "Cancel",
+  "confirm": "Confirm"
 }

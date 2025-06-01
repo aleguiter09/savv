@@ -3,21 +3,26 @@ import { Dialog, DialogPanel } from "@tremor/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ReactNode, useState } from "react";
 import { deleteMovementForm } from "@/utils/movement-action";
-import { Movement } from "@/types/database";
+import { Account, Movement } from "@/types/database";
 import { useTranslations } from "next-intl";
+import { deleteAccountForm } from "@/utils/account-actions";
 
 export default function ConfirmDialog({
   children,
   isOpen,
   button,
   movement,
+  account,
+  entity,
 }: Readonly<{
   children: ReactNode;
   isOpen: boolean;
   button: ReactNode;
-  movement: Movement;
+  movement?: Movement;
+  account?: Account;
+  entity: "movements" | "accounts";
 }>) {
-  const t = useTranslations("movements");
+  const t = useTranslations();
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -36,9 +41,19 @@ export default function ConfirmDialog({
   };
 
   const handleConfirm = async () => {
-    setLoading(true);
-    await deleteMovementForm(movement);
-    setLoading(false);
+    try {
+      setLoading(true);
+      if (entity === "accounts" && account) {
+        await deleteAccountForm(account);
+      } else if (entity === "movements" && movement) {
+        await deleteMovementForm(movement);
+      }
+    } catch (error) {
+      console.error(`Error deleting ${entity}:`, error);
+    } finally {
+      setLoading(false);
+      handleClose();
+    }
   };
 
   return (

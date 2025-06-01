@@ -28,6 +28,7 @@ export default async function MovementDetailPage({
     return (
       <ConfirmDialog
         movement={movement}
+        entity="movements"
         isOpen={confirm}
         button={<MDIIcon path={mdiTrashCanOutline} size="24px" />}
       >

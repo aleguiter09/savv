@@ -76,6 +76,10 @@ export const updateAccountBalance = async (
   const supabase = await createClient();
   const currentBalance = await getAccountBalanceById(accountId);
 
+  if (currentBalance === undefined) {
+    return Promise.reject(new Error(`Account with ID ${accountId} not found.`));
+  }
+
   if (positive) {
     const { error } = await supabase
       .from("account")

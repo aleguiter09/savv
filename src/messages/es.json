@@ -92,7 +92,10 @@
     "createAccount": "Crear cuenta",
     "editAccount": "Editar cuenta",
     "nameError": "Por favor, elija un nombre para la cuenta",
-    "balanceError": "Por favor, introduzca un balance"
+    "balanceError": "Por favor, introduzca un balance",
+    "areYouSure": "¿Está seguro? 🤔",
+    "dialogAccount": "Usted está a punto de eliminar la siguiente cuenta:",
+    "dialogWarning": "Esta acción no eliminará las transacciones asociadas con esta cuenta, pero no se puede deshacer."
   },
   "settings": {
     "title": "Configuración",
@@ -115,5 +118,7 @@
     "passwordError": "La contraseña debe tener al menos 8 caracteres",
     "confirmPasswordError": "Las contraseñas no coinciden",
     "defaultAccountName": "Efectivo"
-  }
+  },
+  "cancel": "Cancelar",
+  "confirm": "Confirmar"
 }

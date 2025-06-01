@@ -121,7 +121,11 @@ export const addMovementForm = async (
 
 export const deleteMovementForm = async (movement: Movement) => {
   await deleteMovement(movement.id?.toString() ?? "");
-  if (movement.type === "transfer") {
+
+  if (!movement.from) {
+    revalidatePath("/");
+    redirect("/");
+  } else if (movement.type === "transfer") {
     await Promise.all([
       updateAccountBalance(movement.from, movement.amount, true),
       updateAccountBalance(movement.where as number, movement.amount, false),

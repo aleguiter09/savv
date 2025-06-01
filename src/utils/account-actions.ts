@@ -1,6 +1,11 @@
 "use server";
 
-import { createAccount, updateAccount } from "@/services/accounts";
+import {
+  createAccount,
+  deleteAccount,
+  updateAccount,
+} from "@/services/accounts";
+import { Account } from "@/types/database";
 import { FormAccountState } from "@/types/general";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -81,3 +86,9 @@ export async function updateAccountForm(
   revalidatePath("/settings/accounts");
   redirect("/settings/accounts");
 }
+
+export const deleteAccountForm = async (account: Account) => {
+  await deleteAccount(account.id?.toString() ?? "");
+  revalidatePath("/settings/accounts");
+  redirect("/settings/accounts");
+};
