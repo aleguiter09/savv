@@ -4,7 +4,6 @@ import { cache } from "react";
 
 export const getAccounts = cache(async (): Promise<Account[]> => {
   const supabase = await createClient();
-  console.log("ACCOUNT GT");
 
   try {
     const { data } = await supabase

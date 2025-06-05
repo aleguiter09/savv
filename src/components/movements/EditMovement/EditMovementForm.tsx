@@ -30,8 +30,10 @@ type EditMovementFormProps = {
 export default function EditMovementForm({
   movement,
 }: Readonly<EditMovementFormProps>) {
-  const initialState = { message: null, errors: {} };
-  const [state, dispatch] = useFormState(updateMovementForm, initialState);
+  const [state, dispatch] = useFormState(updateMovementForm, {
+    message: null,
+    errors: {},
+  });
   const [date, setDate] = useState<DatePickerValue>(new Date(movement.done_at));
   const [type, setType] = useState<Type>(movement.type);
   const [category, setCategory] = useState<string>(
@@ -110,8 +112,9 @@ const Form = ({
 }: Props) => {
   const t = useTranslations("movements");
   const locale = useLocale();
-  const { accounts, incomeCategories, expenseCategories } = useData();
   const { pending } = useFormStatus();
+  const { accounts, incomeCategories, expenseCategories } = useData();
+  const { errors } = state;
 
   const currentIndex = () => {
     if (type === "expense") {
@@ -170,21 +173,19 @@ const Form = ({
                 accounts={accounts}
                 from={from}
                 setFrom={setFrom}
-                error={!!state.errors?.from}
+                error={!!errors?.from}
                 errorMessage={
-                  state.errors?.from
-                    ? t(state.errors?.from?.at(0) as string)
-                    : undefined
+                  errors?.from ? t(errors?.from?.at(0) as string) : undefined
                 }
               />
               <CategorySelect
                 categories={expenseCategories}
                 category={category}
                 setCategory={setCategory}
-                error={!!state.errors?.category}
+                error={!!errors?.category}
                 errorMessage={
-                  state.errors?.category
-                    ? t(state.errors?.category?.at(0) as string)
+                  errors?.category
+                    ? t(errors?.category?.at(0) as string)
                     : undefined
                 }
               />
@@ -195,21 +196,19 @@ const Form = ({
                 accounts={accounts}
                 from={from}
                 setFrom={setFrom}
-                error={!!state.errors?.from}
+                error={!!errors?.from}
                 errorMessage={
-                  state.errors?.from
-                    ? t(state.errors?.from?.at(0) as string)
-                    : undefined
+                  errors?.from ? t(errors?.from?.at(0) as string) : undefined
                 }
               />
               <CategorySelect
                 categories={incomeCategories}
                 category={category}
                 setCategory={setCategory}
-                error={!!state.errors?.category}
+                error={!!errors?.category}
                 errorMessage={
-                  state.errors?.category
-                    ? t(state.errors?.category?.at(0) as string)
+                  errors?.category
+                    ? t(errors?.category?.at(0) as string)
                     : undefined
                 }
               />
@@ -220,11 +219,9 @@ const Form = ({
                 accounts={accounts.filter((a) => a.id !== Number(where))}
                 from={from}
                 setFrom={setFrom}
-                error={!!state.errors?.from}
+                error={!!errors?.from}
                 errorMessage={
-                  state.errors?.from
-                    ? t(state.errors?.from?.at(0) as string)
-                    : undefined
+                  errors?.from ? t(errors?.from?.at(0) as string) : undefined
                 }
               />
               <AccountSelect
@@ -232,11 +229,9 @@ const Form = ({
                 accounts={accounts.filter((a) => a.id !== Number(from))}
                 from={where}
                 setFrom={setWhere}
-                error={!!state.errors?.where}
+                error={!!errors?.where}
                 errorMessage={
-                  state.errors?.where
-                    ? t(state.errors?.where?.at(0) as string)
-                    : undefined
+                  errors?.where ? t(errors?.where?.at(0) as string) : undefined
                 }
               />
             </TabPanel>
@@ -257,11 +252,9 @@ const Form = ({
         step="0.01"
         min="0"
         defaultValue={movement.amount}
-        error={!!state.errors?.amount}
+        error={!!errors?.amount}
         errorMessage={
-          state.errors?.amount
-            ? t(state.errors?.amount?.at(0) as string)
-            : undefined
+          errors?.amount ? t(errors?.amount?.at(0) as string) : undefined
         }
       />
       {/* comment */}
@@ -273,11 +266,9 @@ const Form = ({
         name="comment"
         placeholder={t("chooseComment")}
         defaultValue={movement.comment}
-        error={!!state.errors?.comment}
+        error={!!errors?.comment}
         errorMessage={
-          state?.errors?.amount
-            ? t(state.errors?.comment?.at(0) as string)
-            : undefined
+          errors?.amount ? t(errors?.comment?.at(0) as string) : undefined
         }
       />
       {/* Actions */}

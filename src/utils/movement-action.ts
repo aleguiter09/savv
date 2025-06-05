@@ -80,7 +80,7 @@ const TransferSchema = z.object({
 export const addMovementForm = async (
   prevState: FormMovementState,
   formData: FormData
-) => {
+): Promise<FormMovementState> => {
   const rawFormData = Object.fromEntries(formData.entries());
 
   let validatedData;
@@ -143,7 +143,7 @@ export const deleteMovementForm = async (movement: Movement) => {
 export const updateMovementForm = async (
   prevState: FormMovementState,
   formData: FormData
-) => {
+): Promise<FormMovementState> => {
   const rawFormData = Object.fromEntries(formData.entries());
 
   const previous = {

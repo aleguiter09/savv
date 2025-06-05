@@ -31,7 +31,7 @@ const CreateAccountSchema = AccountSchema.omit({ id: true });
 export async function createAccountForm(
   prevState: FormAccountState,
   formData: FormData
-) {
+): Promise<FormAccountState> {
   formData.get("default") === "on"
     ? formData.set("default", "true")
     : formData.set("default", "false");
@@ -62,7 +62,7 @@ export async function updateAccountForm(
   prevState: FormAccountState,
   formData: FormData,
   id: string
-) {
+): Promise<FormAccountState> {
   formData.get("default") === "on"
     ? formData.set("default", "true")
     : formData.set("default", "false");

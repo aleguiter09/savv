@@ -14,11 +14,10 @@ export default function EditAccountForm({
   id: string;
   account: Account;
 }>) {
-  const initialState = { message: null, errors: {} };
   const [state, dispatch] = useFormState(
     (prevState: FormAccountState, formData: FormData) =>
       updateAccountForm(prevState, formData, id),
-    initialState
+    { message: null, errors: {} }
   );
 
   return (
@@ -35,8 +34,9 @@ const Form = ({
   state: FormAccountState;
   account: Account;
 }) => {
-  const { pending } = useFormStatus();
   const t = useTranslations("accounts");
+  const { errors } = state;
+  const { pending } = useFormStatus();
 
   return (
     <Card className="rounded-md p-4 flex flex-col gap-4">
@@ -52,11 +52,9 @@ const Form = ({
               name="name"
               placeholder={t("enterAccountName")}
               defaultValue={account.name}
-              error={!!state.errors?.name}
+              error={!!errors?.name}
               errorMessage={
-                state.errors?.name
-                  ? t(state.errors?.name?.at(0) as string)
-                  : undefined
+                errors?.name ? t(errors?.name?.at(0) as string) : undefined
               }
             />
           </div>
@@ -79,10 +77,10 @@ const Form = ({
               enableStepper={false}
               step="0.01"
               defaultValue={account.balance}
-              error={!!state.errors?.balance}
+              error={!!errors?.balance}
               errorMessage={
-                state.errors?.balance
-                  ? t(state.errors?.balance?.at(0) as string)
+                errors?.balance
+                  ? t(errors?.balance?.at(0) as string)
                   : undefined
               }
             />

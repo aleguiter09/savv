@@ -7,10 +7,13 @@ import { useTranslations } from "next-intl";
 
 export default function Login() {
   const t = useTranslations("auth");
-  const initialState = { message: null, errors: {} };
   const [pending, startTransition] = useTransition();
-  const [state, dispatch] = useFormState(loginUserForm, initialState);
-  const { errors } = state ?? initialState;
+  const [state, dispatch] = useFormState(loginUserForm, {
+    message: null,
+    errors: {},
+  });
+
+  const { errors } = state;
 
   const submit = (formData: FormData) => {
     startTransition(() => {

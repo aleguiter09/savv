@@ -8,8 +8,10 @@ import { FormAccountState } from "@/types/general";
 import { useTranslations } from "next-intl";
 
 export default function CreateAccountForm() {
-  const initialState = { message: null, errors: {} };
-  const [state, dispatch] = useFormState(createAccountForm, initialState);
+  const [state, dispatch] = useFormState(createAccountForm, {
+    message: null,
+    errors: {},
+  });
 
   return (
     <form action={dispatch}>
@@ -19,8 +21,9 @@ export default function CreateAccountForm() {
 }
 
 const Form = ({ state }: { state: FormAccountState }) => {
-  const { pending } = useFormStatus();
   const t = useTranslations("accounts");
+  const { errors } = state;
+  const { pending } = useFormStatus();
 
   return (
     <Card className="rounded-md p-4">
@@ -35,11 +38,9 @@ const Form = ({ state }: { state: FormAccountState }) => {
               id="name"
               name="name"
               placeholder={t("enterAccountName")}
-              error={!!state.errors?.name}
+              error={!!errors?.name}
               errorMessage={
-                state.errors?.name
-                  ? t(state.errors?.name?.at(0) as string)
-                  : undefined
+                errors?.name ? t(errors?.name?.at(0) as string) : undefined
               }
             />
           </div>
@@ -61,10 +62,10 @@ const Form = ({ state }: { state: FormAccountState }) => {
               placeholder={t("enterBalance")}
               enableStepper={false}
               step="0.01"
-              error={!!state.errors?.balance}
+              error={!!errors?.balance}
               errorMessage={
-                state.errors?.balance
-                  ? t(state.errors?.balance?.at(0) as string)
+                errors?.balance
+                  ? t(errors?.balance?.at(0) as string)
                   : undefined
               }
             />

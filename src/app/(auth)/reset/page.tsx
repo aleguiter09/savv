@@ -7,9 +7,13 @@ import { useTranslations } from "next-intl";
 
 export default function Reset() {
   const t = useTranslations("auth");
-  const initialState = { message: null, errors: {} };
   const [pending, startTransition] = useTransition();
-  const [state, dispatch] = useFormState(resetPasswordForm, initialState);
+  const [state, dispatch] = useFormState(resetPasswordForm, {
+    message: null,
+    errors: {},
+  });
+
+  const { errors, message } = state;
 
   const submit = (formData: FormData) => {
     startTransition(() => {
@@ -32,14 +36,12 @@ export default function Reset() {
             autoComplete="email"
             tabIndex={0}
             className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
-            ${state?.errors?.email ? "border-red-500" : ""}`}
+            ${errors?.email ? "border-red-500" : ""}`}
           />
-          {state?.errors?.email && (
+          {errors?.email && (
             <div id="email-error" aria-live="polite" aria-atomic="true">
               <p className="text-sm text-red-500">
-                {state.errors.email
-                  ? t(state.errors.email.at(0) as string)
-                  : undefined}
+                {errors.email ? t(errors.email.at(0) as string) : undefined}
               </p>
             </div>
           )}
@@ -68,9 +70,9 @@ export default function Reset() {
             </Link>
           </p>
 
-          {state.message && (
+          {message && (
             <p className="text-sm text-center mt-3 text-green-700">
-              {t(state.message)}
+              {t(message)}
             </p>
           )}
         </form>

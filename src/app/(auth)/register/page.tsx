@@ -8,9 +8,12 @@ import { useTranslations } from "next-intl";
 export default function Register() {
   const t = useTranslations("auth");
   const [pending, startTransition] = useTransition();
+  const [state, dispatch] = useFormState(createUserForm, {
+    message: null,
+    errors: {},
+  });
 
-  const initialState = { message: null, errors: {} };
-  const [state, dispatch] = useFormState(createUserForm, initialState);
+  const { errors } = state;
 
   const submit = (e: FormData) => {
     startTransition(() => {
@@ -31,14 +34,12 @@ export default function Register() {
             name="email"
             type="email"
             tabIndex={0}
-            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 ${state.errors?.email ? "border-red-500" : ""}`}
+            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 ${errors?.email ? "border-red-500" : ""}`}
           />
-          {state.errors?.email && (
+          {errors?.email && (
             <div id="email-error" aria-live="polite" aria-atomic="true">
               <p className="text-sm text-red-500">
-                {state.errors.email
-                  ? t(state.errors.email.at(0) as string)
-                  : undefined}
+                {errors.email ? t(errors.email.at(0) as string) : undefined}
               </p>
             </div>
           )}
@@ -50,13 +51,13 @@ export default function Register() {
             name="password"
             type="password"
             tabIndex={0}
-            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 ${state.errors?.password ? "border-red-500" : ""}`}
+            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 ${errors?.password ? "border-red-500" : ""}`}
           />
-          {state.errors?.password && (
+          {errors?.password && (
             <div id="password-error" aria-live="polite" aria-atomic="true">
               <p className="text-sm text-red-500">
-                {state.errors.password
-                  ? t(state.errors.password.at(0) as string)
+                {errors.password
+                  ? t(errors.password.at(0) as string)
                   : undefined}
               </p>
             </div>
@@ -70,14 +71,14 @@ export default function Register() {
             type="password"
             tabIndex={0}
             className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
-            ${state.errors?.confirmPassword ? "border-red-500" : ""}`}
+            ${errors?.confirmPassword ? "border-red-500" : ""}`}
           />
 
-          {state.errors?.confirmPassword && (
+          {errors?.confirmPassword && (
             <div id="password-error" aria-live="polite" aria-atomic="true">
               <p className="text-sm text-red-500">
-                {state.errors.confirmPassword
-                  ? t(state.errors.confirmPassword.at(0) as string)
+                {errors.confirmPassword
+                  ? t(errors.confirmPassword.at(0) as string)
                   : undefined}
               </p>
             </div>

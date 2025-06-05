@@ -54,10 +54,10 @@ const UpdatePasswordSchema = z
 export const createUserForm = async (
   prevState: FormUserState,
   formData: FormData
-) => {
+): Promise<FormUserState> => {
   const rawFormData = Object.fromEntries(formData.entries());
-
   const validatedData = UserSchema.safeParse(rawFormData);
+
   if (!validatedData.success) {
     return {
       errors: validatedData.error.flatten().fieldErrors,
@@ -83,14 +83,17 @@ export const createUserForm = async (
   });
 
   if (errorAcc) {
-    return { ...prevState, errors: { account: [errorAcc.message] } };
+    return { ...prevState, errors: { confirmPassword: [errorAcc.message] } };
   }
 
   const locale = await getLocale();
   const { error: errorSettings } = await createSettings(locale as "es" | "en");
 
   if (errorSettings) {
-    return { ...prevState, errors: { settings: [errorSettings.message] } };
+    return {
+      ...prevState,
+      errors: { confirmPassword: [errorSettings.message] },
+    };
   }
 
   revalidatePath("/", "layout");
@@ -100,7 +103,7 @@ export const createUserForm = async (
 export const loginUserForm = async (
   prevState: LoginFormUserState,
   formData: FormData
-) => {
+): Promise<LoginFormUserState> => {
   const rawFormData = Object.fromEntries(formData.entries());
   const validatedData = LoginUserSchema.safeParse(rawFormData);
 
@@ -138,7 +141,7 @@ export const logout = async () => {
 export const resetPasswordForm = async (
   prevState: ResetFormUserState,
   formData: FormData
-) => {
+): Promise<ResetFormUserState> => {
   const rawFormData = Object.fromEntries(formData.entries());
   const validatedData = ResetUserSchema.safeParse(rawFormData);
 
@@ -161,7 +164,7 @@ export const resetPasswordForm = async (
 export const updatePasswordForm = async (
   prevState: UpdatePasswordFormUserState,
   formData: FormData
-) => {
+): Promise<UpdatePasswordFormUserState> => {
   const rawFormData = Object.fromEntries(formData.entries());
   const validatedData = UpdatePasswordSchema.safeParse(rawFormData);
 
