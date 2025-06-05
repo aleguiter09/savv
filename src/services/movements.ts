@@ -2,7 +2,7 @@ import { getCategoryById } from "./categories";
 import { Movement } from "@/types/database";
 import { getInitialAndFinalDate } from "@/utils/common";
 import { getAccountById } from "./accounts";
-import { createClient } from "@/utils/supabase-server";
+import { createClient } from "@/utils/supabase/server";
 
 export const getMovementsByFilters = async (
   from: Date,

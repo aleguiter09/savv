@@ -1,4 +1,4 @@
-import { createClient } from "@/utils/supabase-server";
+import { createClient } from "@/utils/supabase/server";
 import { getRequestConfig } from "next-intl/server";
 import { cookies, headers } from "next/headers";
 

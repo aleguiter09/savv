@@ -122,7 +122,11 @@
     "forgotPassword": "¿Olvidaste tu contraseña? ",
     "resetPassword": "Restablecer contraseña",
     "reset": "Restablecer",
-    "resetSent": "Se ha enviado un enlace de restablecimiento a su correo electrónico"
+    "resetSent": "Se ha enviado un enlace de restablecimiento a su correo electrónico",
+    "updateTitle": "Actualizar contraseña",
+    "defaultError": "Ocurrió un error, por favor inténtelo de nuevo más tarde",
+    "invalidCredentials": "Credenciales inválidas",
+    "samePassword": "La nueva contraseña no puede ser la misma que la anterior"
   },
   "cancel": "Cancelar",
   "confirm": "Confirmar"

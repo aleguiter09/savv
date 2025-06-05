@@ -3,15 +3,12 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar/Navbar";
 import NextTopLoader from "nextjs-toploader";
-export const dynamic = "force-dynamic";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { DataProvider } from "@/providers/DataProvider";
-import { getAccounts } from "@/services/accounts";
-import { getCategories } from "@/services/categories";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
-import { createClient } from "@/utils/supabase-server";
+import { createClient } from "@/utils/supabase/server";
 
+export const dynamic = "force-dynamic";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -37,11 +34,9 @@ export default async function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const supabase = await createClient();
 
-  const [user, locale, accounts, categories] = await Promise.all([
+  const [user, locale] = await Promise.all([
     supabase.auth.getUser(),
     getLocale(),
-    getAccounts(),
-    getCategories(),
   ]);
 
   return (
@@ -60,9 +55,7 @@ export default async function RootLayout({
         />
         <main className="mx-6 sm:w-[32rem] sm:mx-auto">
           <NextIntlClientProvider locale={locale}>
-            <DataProvider accounts={accounts} categories={categories}>
-              {children}
-            </DataProvider>
+            {children}
           </NextIntlClientProvider>
         </main>
         {!!user.data.user?.id && <Navbar />}

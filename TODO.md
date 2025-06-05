@@ -8,7 +8,7 @@
 [X] Translate errors from actions
 [X] Delete account
 [] Recover Password page
-[] Email for recover password
+[] Email template for recover password in Supabase
 
 # Errors
 
@@ -22,6 +22,7 @@
 
 # New Features
 
+[] Toaster for OK msgs
 [] Templates for movements
 [] Admin Categories
 [] Dark theme

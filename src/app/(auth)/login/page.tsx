@@ -10,6 +10,7 @@ export default function Login() {
   const initialState = { message: null, errors: {} };
   const [pending, startTransition] = useTransition();
   const [state, dispatch] = useFormState(loginUserForm, initialState);
+  const { errors } = state ?? initialState;
 
   const submit = (formData: FormData) => {
     startTransition(() => {
@@ -32,14 +33,12 @@ export default function Login() {
             autoComplete="email"
             tabIndex={0}
             className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
-            ${state?.errors?.email ? "border-red-500" : ""}`}
+            ${errors?.email ? "border-red-500" : ""}`}
           />
-          {state?.errors?.email && (
+          {errors?.email && (
             <div id="email-error" aria-live="polite" aria-atomic="true">
               <p className="text-sm text-red-500">
-                {state.errors.email
-                  ? t(state.errors.email.at(0) as string)
-                  : undefined}
+                {errors.email ? t(errors.email.at(0) as string) : undefined}
               </p>
             </div>
           )}
@@ -54,13 +53,13 @@ export default function Login() {
             autoComplete="current-password"
             tabIndex={0}
             className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
-              ${state?.errors?.password ? "border-red-500" : ""}`}
+              ${errors?.password ? "border-red-500" : ""}`}
           />
-          {state?.errors?.password && (
+          {errors?.password && (
             <div id="password-error" aria-live="polite" aria-atomic="true">
               <p className="text-sm text-red-500">
-                {state.errors.password
-                  ? t(state?.errors?.password.at(0) as string)
+                {errors.password
+                  ? t(errors?.password.at(0) as string)
                   : undefined}
               </p>
             </div>

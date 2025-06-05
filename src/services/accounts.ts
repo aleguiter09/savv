@@ -1,5 +1,5 @@
 import { Account } from "@/types/database";
-import { createClient } from "@/utils/supabase-server";
+import { createClient } from "@/utils/supabase/server";
 import { cache } from "react";
 
 export const getAccounts = cache(async (): Promise<Account[]> => {
@@ -14,7 +14,7 @@ export const getAccounts = cache(async (): Promise<Account[]> => {
 
     return data || [];
   } catch (error) {
-    console.log("Database error", error);
+    console.error("Database error", error);
     return [];
   }
 });

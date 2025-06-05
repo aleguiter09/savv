@@ -1,7 +1,8 @@
-import { createClient } from "@/utils/supabase-browser";
+"use server";
+import { createClient } from "@/utils/supabase/server";
 
 export const updateLanguage = async (language: "es" | "en") => {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data } = await supabase.auth.getUser();
 
   return await supabase
@@ -11,7 +12,7 @@ export const updateLanguage = async (language: "es" | "en") => {
 };
 
 export const createSettings = async (language: "es" | "en") => {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data } = await supabase.auth.getUser();
 
   return await supabase

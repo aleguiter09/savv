@@ -1,11 +1,6 @@
-export type YearMonth = {
-  year: number;
-  month: number;
-};
+export type YearMonth = { year: number; month: number };
 
-export type CategoryIcons = {
-  [key: string]: string;
-};
+export type CategoryIcons = { [key: string]: string };
 
 export type Type = "income" | "expense" | "transfer";
 
@@ -17,11 +12,7 @@ export type MovementFormFields =
   | "comment";
 
 export type FormAccountState = {
-  errors?: {
-    name?: string[];
-    balance?: string[];
-    default?: string[];
-  };
+  errors?: { name?: string[]; balance?: string[]; default?: string[] };
   message?: string | null;
 };
 
@@ -47,16 +38,16 @@ export type FormUserState = {
 };
 
 export type LoginFormUserState = {
-  errors?: {
-    email?: string[];
-    password?: string[];
-  };
+  errors?: { email?: string[]; password?: string[] };
   message?: string | null;
 };
 
 export type ResetFormUserState = {
-  errors?: {
-    email?: string[];
-  };
+  errors?: { email?: string[] };
+  message?: string | null;
+};
+
+export type UpdatePasswordFormUserState = {
+  errors?: { password?: string[]; confirmPassword?: string[] };
   message?: string | null;
 };

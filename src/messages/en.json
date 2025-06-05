@@ -122,7 +122,11 @@
     "forgotPassword": "Forgot password? ",
     "resetPassword": "Reset password",
     "reset": "Reset",
-    "resetSent": "Reset link sent to your email"
+    "resetSent": "Reset link sent to your email",
+    "updateTitle": "Update your password",
+    "defaultError": "An error occurred, please try again later",
+    "invalidCredentials": "Invalid credentials",
+    "samePassword": "The new password cannot be the same as the previous one"
   },
   "cancel": "Cancel",
   "confirm": "Confirm"
