@@ -3,6 +3,7 @@ import Balance from "@/components/home/Balance/Balance";
 import ActionBar from "@/components/home/ActionBar/ActionBar";
 import ExpenseByCat from "@/components/home/ExpenseByCat/ExpenseByCat";
 import TotalWealth from "@/components/home/TotalWealth/TotalWealth";
+import ToastManager from "@/components/ui/ToastManager";
 import { getDefaultAccountId } from "@/services/accounts";
 
 export type MainPageParams = {
@@ -31,6 +32,8 @@ export default async function MainPage({
         month={new Date().getMonth()}
       />
       <TotalWealth />
+
+      <ToastManager />
     </>
   );
 }

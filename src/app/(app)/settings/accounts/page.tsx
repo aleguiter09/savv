@@ -1,8 +1,9 @@
 import AddButton from "@/components/home/ActionBar/AddButton";
+import ToastManager from "@/components/ui/ToastManager";
 import { getAccounts } from "@/services/accounts";
 import { mdiCreditCardEditOutline } from "@mdi/js";
-import Icon from "@mdi/react";
 import { getTranslations } from "next-intl/server";
+import Icon from "@mdi/react";
 import Link from "next/link";
 
 export default async function AccountsPage() {
@@ -33,6 +34,8 @@ export default async function AccountsPage() {
           </li>
         ))}
       </ul>
+
+      <ToastManager />
     </>
   );
 }

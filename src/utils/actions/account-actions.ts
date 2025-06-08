@@ -1,5 +1,6 @@
 "use server";
 
+import { setToastMessage } from "@/lib/toast";
 import {
   createAccount,
   deleteAccount,
@@ -7,6 +8,7 @@ import {
 } from "@/services/accounts";
 import { Account } from "@/types/database";
 import { FormAccountState } from "@/types/general";
+import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -52,6 +54,9 @@ export async function createAccountForm(
     throw error;
   }
 
+  const t = await getTranslations("accounts");
+
+  setToastMessage("success", t("createdSuccess"));
   revalidatePath("/settings/accounts");
   redirect("/settings/accounts");
 }
@@ -83,12 +88,19 @@ export async function updateAccountForm(
     throw error;
   }
 
+  const t = await getTranslations("accounts");
+
+  setToastMessage("success", t("updatedSuccess"));
   revalidatePath("/settings/accounts");
   redirect("/settings/accounts");
 }
 
 export const deleteAccountForm = async (account: Account) => {
   await deleteAccount(account.id?.toString() ?? "");
+
+  const t = await getTranslations("accounts");
+
+  setToastMessage("success", t("deletedSuccess"));
   revalidatePath("/settings/accounts");
   redirect("/settings/accounts");
 };

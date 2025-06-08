@@ -79,7 +79,10 @@
     "noCommentError": "Por favor, introduzca una descripción",
     "noCategoryError": "Por favor, elija una categoría",
     "noAccountError": "Por favor, elija una cuenta",
-    "noDateError": "Por favor, introduzca una fecha"
+    "noDateError": "Por favor, introduzca una fecha",
+    "createdSuccess": "Movimiento creado con éxito",
+    "updatedSuccess": "Movimiento actualizado con éxito",
+    "deletedSuccess": "Movimiento eliminado con éxito"
   },
   "accounts": {
     "addTitle": "Añadir cuenta",
@@ -95,7 +98,10 @@
     "balanceError": "Por favor, introduzca un balance",
     "areYouSure": "¿Está seguro? 🤔",
     "dialogAccount": "Usted está a punto de eliminar la siguiente cuenta:",
-    "dialogWarning": "Esta acción no eliminará las transacciones asociadas con esta cuenta, pero no se puede deshacer."
+    "dialogWarning": "Esta acción no eliminará las transacciones asociadas con esta cuenta, pero no se puede deshacer.",
+    "createdSuccess": "Cuenta creada con éxito",
+    "updatedSuccess": "Cuenta actualizada con éxito",
+    "deletedSuccess": "Cuenta eliminada con éxito"
   },
   "settings": {
     "title": "Configuración",

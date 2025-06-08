@@ -52,7 +52,6 @@ export default function ConfirmDialog({
       console.error(`Error deleting ${entity}:`, error);
     } finally {
       setLoading(false);
-      handleClose();
     }
   };
 

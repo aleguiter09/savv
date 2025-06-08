@@ -6,6 +6,8 @@ import { deleteMovement, insertMovement } from "@/services/movements";
 import { redirect } from "next/navigation";
 import { updateAccountBalance } from "@/services/accounts";
 import { Movement } from "@/types/database";
+import { setToastMessage } from "@/lib/toast";
+import { getTranslations } from "next-intl/server";
 
 const IncomeExpenseSchema = z.object({
   amount: z.coerce
@@ -115,6 +117,9 @@ export const addMovementForm = async (
     throw new Error("Database error: failed to insert movement");
   }
 
+  const t = await getTranslations("movements");
+
+  setToastMessage("success", t("createdSuccess"));
   revalidatePath("/");
   redirect("/");
 };
@@ -136,6 +141,9 @@ export const deleteMovementForm = async (movement: Movement) => {
     await updateAccountBalance(movement.from, movement.amount, false);
   }
 
+  const t = await getTranslations("movements");
+
+  setToastMessage("success", t("deletedSuccess"));
   revalidatePath("/");
   redirect("/");
 };
@@ -204,6 +212,9 @@ export const updateMovementForm = async (
     throw new Error("Database error: failed to insert movement");
   }
 
+  const t = await getTranslations("movements");
+
+  setToastMessage("success", t("updatedSuccess"));
   revalidatePath("/");
   redirect("/");
 };

@@ -17,11 +17,13 @@
 [X] Created accounts doesnt have a locale assigned
 [X] Navbar shown on login page
 [X] Account from the URL is being overwritted in select Home
-[] Accounts & Categories not always being setted.
+[X] Accounts & Categories not always being setted.
 [] Select Category in Movement form overlaped by navbar
+[] Only default imports are allowed
 
 # New Features
 
+[] Replace Tremor with Shadcn
 [] Toaster for OK msgs
 [] Templates for movements
 [] Admin Categories

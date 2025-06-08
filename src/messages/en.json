@@ -79,7 +79,10 @@
     "noCommentError": "Please enter a description",
     "noCategoryError": "Please select a category",
     "noAccountError": "Please select an account",
-    "noDateError": "Please enter a date"
+    "noDateError": "Please enter a date",
+    "createdSuccess": "Transaction created successfully",
+    "updatedSuccess": "Transaction updated successfully",
+    "deletedSuccess": "Transaction deleted successfully"
   },
   "accounts": {
     "addTitle": "Add account",
@@ -95,7 +98,10 @@
     "balanceError": "The balance must be a number",
     "areYouSure": "Are you sure? 🤔",
     "dialogAccount": "You are about to delete the following account:",
-    "dialogWarning": "This action won't delete transactions associated with this account but cannot be undone."
+    "dialogWarning": "This action won't delete transactions associated with this account but cannot be undone.",
+    "createdSuccess": "Account created successfully",
+    "updatedSuccess": "Account updated successfully",
+    "deletedSuccess": "Account deleted successfully"
   },
   "settings": {
     "title": "Settings",
