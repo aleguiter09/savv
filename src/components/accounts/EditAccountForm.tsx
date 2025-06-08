@@ -1,7 +1,7 @@
 "use client";
 import { Account } from "@/types/database";
 import { FormAccountState } from "@/types/general";
-import { updateAccountForm } from "@/utils/account-actions";
+import { updateAccountForm } from "@/utils/actions/account-actions";
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
 import { Card, NumberInput, TextInput } from "@tremor/react";
 import { useTranslations } from "next-intl";

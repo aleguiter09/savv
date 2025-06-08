@@ -11,7 +11,7 @@ import { createAccount } from "@/services/accounts";
 import { createSettings } from "@/services/settings";
 import { getLocale, getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
-import { createClient } from "./supabase/server";
+import { createClient } from "../supabase/server";
 
 const UserSchema = z
   .object({

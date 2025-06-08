@@ -13,7 +13,7 @@ import {
 } from "@tremor/react";
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
 import { useFormState, useFormStatus } from "react-dom";
-import { updateMovementForm } from "@/utils/movement-action";
+import { updateMovementForm } from "@/utils/actions/movement-action";
 import { useState } from "react";
 import { FormMovementState, Type } from "@/types/general";
 import AccountSelect from "../AddMovement/AccountSelect";

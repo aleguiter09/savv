@@ -8,7 +8,7 @@ import {
   mdiHomeOutline,
   mdiLogout,
 } from "@mdi/js";
-import { logout } from "@/utils/user-action";
+import { logout } from "@/utils/actions/user-action";
 import { usePathname } from "next/navigation";
 
 const links = [

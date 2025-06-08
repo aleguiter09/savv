@@ -2,10 +2,10 @@
 import { Dialog, DialogPanel } from "@tremor/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ReactNode, useState } from "react";
-import { deleteMovementForm } from "@/utils/movement-action";
+import { deleteMovementForm } from "@/utils/actions/movement-action";
 import { Account, Movement } from "@/types/database";
 import { useTranslations } from "next-intl";
-import { deleteAccountForm } from "@/utils/account-actions";
+import { deleteAccountForm } from "@/utils/actions/account-actions";
 
 export default function ConfirmDialog({
   children,

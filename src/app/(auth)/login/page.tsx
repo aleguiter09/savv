@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useTransition } from "react";
 import { useFormState } from "react-dom";
-import { loginUserForm } from "@/utils/user-action";
+import { loginUserForm } from "@/utils/actions/user-action";
 import { useTranslations } from "next-intl";
 
 export default function Login() {

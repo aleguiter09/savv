@@ -18,7 +18,7 @@ export const getAccounts = cache(async (): Promise<Account[]> => {
   }
 });
 
-export const getAccountBalanceById = async (id: number) => {
+export const getAccountBalanceById = async (id: number): Promise<number> => {
   const supabase = await createClient();
   let query = supabase.from("account").select("balance");
   if (id !== 0) {
@@ -28,7 +28,7 @@ export const getAccountBalanceById = async (id: number) => {
   return data?.reduce((a, b) => a + b.balance, 0) ?? 0;
 };
 
-export const getAccountById = async (id: number) => {
+export const getAccountById = async (id: number): Promise<Account | null> => {
   const supabase = await createClient();
 
   const { data } = await supabase
@@ -40,7 +40,7 @@ export const getAccountById = async (id: number) => {
   return data;
 };
 
-export const getDefaultAccountId = async () => {
+export const getDefaultAccountId = async (): Promise<number> => {
   const supabase = await createClient();
 
   const { data } = await supabase

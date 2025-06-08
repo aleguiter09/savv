@@ -7,7 +7,7 @@
 [X] Removed unnecesary supabase client logic
 [X] Translate errors from actions
 [X] Delete account
-[] Recover Password page
+[X] Recover Password page
 [] Email template for recover password in Supabase
 
 # Errors

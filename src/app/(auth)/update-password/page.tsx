@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useTransition } from "react";
 import { useFormState } from "react-dom";
 import { useTranslations } from "next-intl";
-import { updatePasswordForm } from "@/utils/user-action";
+import { updatePasswordForm } from "@/utils/actions/user-action";
 
 export default function UpdatePassword() {
   const t = useTranslations("auth");

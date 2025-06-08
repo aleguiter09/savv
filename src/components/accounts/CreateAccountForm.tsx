@@ -1,6 +1,6 @@
 "use client";
 
-import { createAccountForm } from "@/utils/account-actions";
+import { createAccountForm } from "@/utils/actions/account-actions";
 import { useFormState, useFormStatus } from "react-dom";
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
 import { Card, NumberInput, TextInput } from "@tremor/react";
