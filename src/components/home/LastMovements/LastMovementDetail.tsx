@@ -30,7 +30,7 @@ export default async function LastMovementDetail({
     >
       <div className="flex gap-3">
         <Icon
-          className={`bg-${(fullCategory as Category).color} mx-auto rounded-full p-1.5 shadow-md`}
+          className={`bg-${(fullCategory as Category).color} mx-auto rounded-full p-1.5`}
           path={CATEGORY_ICONS[(fullCategory as Category).icon ?? "other"]}
           size="36px"
           color="white"

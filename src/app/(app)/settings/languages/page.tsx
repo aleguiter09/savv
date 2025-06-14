@@ -1,5 +1,5 @@
 import LangSelector from "@/components/language/LangSelector";
-import { Card } from "@tremor/react";
+import { Card } from "@/components/ui/card";
 import { getTranslations } from "next-intl/server";
 
 export default async function LangPage() {
@@ -10,7 +10,7 @@ export default async function LangPage() {
       <h3 className="font-semibold">
         {t("title")} / {t("languages")}
       </h3>
-      <Card className="mt-4">
+      <Card className="p-5 mt-4">
         <LangSelector />
       </Card>
     </div>

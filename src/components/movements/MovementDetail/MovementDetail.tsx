@@ -20,7 +20,7 @@ export default async function MovementDetail({
       <div className="flex justify-between items-center mb-4">
         <div className="flex gap-3 items-center">
           <Icon
-            className={`bg-${fullCategory?.color} rounded-full p-2 shadow-md `}
+            className={`bg-${fullCategory?.color} rounded-full p-2`}
             path={CATEGORY_ICONS[fullCategory?.icon ?? "other"]}
             size="42px"
             color="white"

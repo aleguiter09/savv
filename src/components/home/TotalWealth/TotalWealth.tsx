@@ -1,5 +1,5 @@
+import { Card } from "@/components/ui/card";
 import { getAccounts } from "@/services/accounts";
-import { Card } from "@tremor/react";
 import { getTranslations } from "next-intl/server";
 
 export default async function TotalWealth() {

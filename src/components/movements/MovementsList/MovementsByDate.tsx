@@ -1,7 +1,7 @@
 import FinancesSkeleton from "@/components/home/LastMovements/LastMovementsSkeleton";
-import { Card } from "@tremor/react";
 import { Suspense } from "react";
 import MovementsList from "./MovementsList";
+import { Card } from "@/components/ui/card";
 
 export default async function MovementsByDate({
   from,
@@ -10,7 +10,7 @@ export default async function MovementsByDate({
   categoryId,
 }: Readonly<{ from: Date; to: Date; accountId: number; categoryId: number }>) {
   return (
-    <Card decoration="bottom" className="mb-4 px-3 py-2">
+    <Card className="mb-4 px-3 py-2  border-b-4 border-b-blue-600">
       <Suspense
         key={from.toString() + to.toString() + accountId + categoryId}
         fallback={<FinancesSkeleton />}

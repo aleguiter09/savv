@@ -1,9 +1,9 @@
 "use client";
-import { Card } from "@tremor/react";
 import { MONTHS } from "@/utils/constants";
 import { YearMonth } from "@/types/general";
 import Icon from "./Icon";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Card } from "../ui/card";
 
 export default function DateSlider({ year, month }: Readonly<YearMonth>) {
   const searchParams = useSearchParams();

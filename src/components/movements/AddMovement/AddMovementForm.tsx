@@ -12,7 +12,6 @@ import {
   NumberInput,
   TextInput,
   DatePicker,
-  Card,
   DatePickerValue,
 } from "@tremor/react";
 import CategorySelect from "./CategorySelect";
@@ -22,6 +21,7 @@ import { FormMovementState, Type } from "@/types/general";
 import { Account } from "@/types/database";
 import { useLocale, useTranslations } from "next-intl";
 import { enUS, es } from "date-fns/locale";
+import { Card } from "@/components/ui/card";
 
 export default function AddMovementForm() {
   const { accounts } = useData();
@@ -118,7 +118,7 @@ const Form = ({
   };
 
   return (
-    <Card className="rounded-md p-4">
+    <Card className="p-4">
       {/* done_at */}
       <label htmlFor="date" className="mb-2 block text-sm font-medium">
         {t("enterDate")}

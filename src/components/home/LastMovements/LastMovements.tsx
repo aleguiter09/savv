@@ -1,9 +1,9 @@
-import { Card } from "@tremor/react";
 import Link from "next/link";
 import { Suspense } from "react";
 import LastMovementsSkeleton from "./LastMovementsSkeleton";
 import LastMovementsList from "./LastMovementsList";
 import { getTranslations } from "next-intl/server";
+import { Card } from "@/components/ui/card";
 
 export default async function LastMovements({
   account,
@@ -11,7 +11,7 @@ export default async function LastMovements({
   const t = await getTranslations("home");
 
   return (
-    <Card className="shadow-sm mb-4 pl-4 pr-3 py-2">
+    <Card className="shadow-md mb-4 pl-4 pr-3 py-2">
       <p className="font-semibold mb-2">{t("lastMovements")}</p>
       <Suspense key={account} fallback={<LastMovementsSkeleton />}>
         <LastMovementsList account={account} />

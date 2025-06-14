@@ -9,7 +9,6 @@ import {
   TextInput,
   DatePicker,
   DatePickerValue,
-  Card,
 } from "@tremor/react";
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
 import { useFormState, useFormStatus } from "react-dom";
@@ -22,6 +21,7 @@ import { Movement } from "@/types/database";
 import { useData } from "@/providers/DataProvider";
 import { useLocale, useTranslations } from "next-intl";
 import { enUS, es } from "date-fns/locale";
+import { Card } from "@/components/ui/card";
 
 type EditMovementFormProps = {
   movement: Movement;
@@ -141,7 +141,7 @@ const Form = ({
   };
 
   return (
-    <Card className="rounded-md p-4">
+    <Card className="p-4">
       {/* done_at */}
       <label htmlFor="date" className="mb-2 block text-sm font-medium">
         {t("enterDate")}

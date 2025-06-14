@@ -3,9 +3,10 @@
 import { createAccountForm } from "@/utils/actions/account-actions";
 import { useFormState, useFormStatus } from "react-dom";
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
-import { Card, NumberInput, TextInput } from "@tremor/react";
+import { NumberInput, TextInput } from "@tremor/react";
 import { FormAccountState } from "@/types/general";
 import { useTranslations } from "next-intl";
+import { Card } from "../ui/card";
 
 export default function CreateAccountForm() {
   const [state, dispatch] = useFormState(createAccountForm, {
