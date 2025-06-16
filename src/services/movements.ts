@@ -102,7 +102,7 @@ export const getMonthExpenses = async (accountId: number) => {
   return data?.reduce((a, b) => a + b.amount, 0) ?? 0;
 };
 
-export const getMovementById = async (id: number) => {
+export const getMovementById = async (id: number): Promise<Movement> => {
   const supabase = await createClient();
   const { data } = await supabase
     .from("movement")

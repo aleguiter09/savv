@@ -1,7 +1,7 @@
-import FinancesSkeleton from "@/components/home/LastMovements/LastMovementsSkeleton";
 import { Suspense } from "react";
 import MovementsList from "./MovementsList";
 import { Card } from "@/components/ui/card";
+import { LastMovementsSkeleton } from "@/components/home/LastMovements/LastMovementsList";
 
 export default async function MovementsByDate({
   from,
@@ -13,7 +13,7 @@ export default async function MovementsByDate({
     <Card className="mb-4 px-3 py-2  border-b-4 border-b-blue-600">
       <Suspense
         key={from.toString() + to.toString() + accountId + categoryId}
-        fallback={<FinancesSkeleton />}
+        fallback={<LastMovementsSkeleton />}
       >
         <MovementsList
           from={from}

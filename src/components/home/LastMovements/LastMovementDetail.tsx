@@ -4,7 +4,7 @@ import { Category, Movement } from "@/types/database";
 import { CATEGORY_ICONS } from "@/utils/constants";
 import { getFormatter, getTranslations } from "next-intl/server";
 
-export default async function LastMovementDetail({
+export async function LastMovementDetail({
   id,
   done_at,
   amount,

@@ -1,6 +1,6 @@
 import { BadgeDelta } from "@tremor/react";
-import LastMovementDetail from "@/components/home/LastMovements/LastMovementDetail";
 import { Movement } from "@/types/database";
+import { LastMovementDetail } from "@/components/home/LastMovements/LastMovementDetail";
 
 type FinanceItemProps = {
   date: string;

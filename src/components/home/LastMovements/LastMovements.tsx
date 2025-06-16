@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import LastMovementsSkeleton from "./LastMovementsSkeleton";
-import LastMovementsList from "./LastMovementsList";
 import { getTranslations } from "next-intl/server";
 import { Card } from "@/components/ui/card";
+import { LastMovementsList, LastMovementsSkeleton } from "./LastMovementsList";
 
 export default async function LastMovements({
   account,

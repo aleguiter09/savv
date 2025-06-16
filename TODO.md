@@ -9,6 +9,8 @@
 [X] Delete account
 [X] Recover Password page
 [] Email template for recover password in Supabase
+[] Review 'fullCategory' and 'fullAccount' props in movement detail
+[] Update imports for components
 
 # Errors
 
