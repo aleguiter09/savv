@@ -102,7 +102,7 @@ export const getMonthExpenses = async (accountId: AccountIds) => {
     .lte("done_at", finishDate);
 
   if (accountId !== "all") {
-    query = query.eq("type", "expense");
+    query = query.eq("from", accountId);
   }
   const { data } = await query;
 
