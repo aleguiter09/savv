@@ -51,3 +51,7 @@ export type UpdatePasswordFormUserState = {
   errors?: { password?: string[]; confirmPassword?: string[] };
   message?: string | null;
 };
+
+export type CategoryIds = "all" | "incomes" | "expenses" | number;
+
+export type AccountIds = "all" | number;

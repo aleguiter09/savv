@@ -1,30 +1,22 @@
-import SelectAccount from "@/components/home/ActionBar/SelectAccount";
+import { SelectAccount } from "@/components/common/SelectAccount";
 import SelectDateClient from "./SelectDateClient";
-import SelectCategory from "./SelectCategory";
+import { SelectCategory } from "@/components/common/SelectCategory";
+import { AccountIds, CategoryIds } from "@/types/general";
 
-export default function MovementsFilter({
-  account,
-  from,
-  to,
-  categoryId,
-}: Readonly<{
-  account: number;
+type Props = Readonly<{
   from: Date;
   to: Date;
-  categoryId: number;
-}>) {
+  accountId: AccountIds;
+  categoryId: CategoryIds;
+}>;
+
+export function MovementsFilter({ accountId, from, to, categoryId }: Props) {
   return (
     <div className="mb-4 flex flex-col gap-2">
       <SelectDateClient from={from} to={to} />
       <div className="flex items-center gap-2">
-        <SelectAccount
-          defaultAcc={account}
-          containerClassName="w-full max-w-none"
-        />
-        <SelectCategory
-          categoryId={categoryId}
-          containerClassName="w-full max-w-none"
-        />
+        <SelectAccount accountId={accountId} />
+        <SelectCategory categoryId={categoryId} />
       </div>
     </div>
   );

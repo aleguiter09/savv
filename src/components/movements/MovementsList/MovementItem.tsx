@@ -8,7 +8,7 @@ type FinanceItemProps = {
   amount: number;
 };
 
-export default function MovementItem({
+export function MovementItem({
   date,
   items = [],
   amount,

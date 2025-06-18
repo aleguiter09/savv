@@ -3,13 +3,14 @@ import { Movement } from "@/types/database";
 import { getInitialAndFinalDate } from "@/utils/common";
 import { getAccountById } from "./accounts";
 import { createClient } from "@/utils/supabase/server";
+import { AccountIds, CategoryIds } from "@/types/general";
 
 export const getMovementsByFilters = async (
   from: Date,
   to: Date,
-  accountId: number,
-  categoryId: number
-) => {
+  accountId: AccountIds,
+  categoryId: CategoryIds
+): Promise<Movement[]> => {
   const supabase = await createClient();
   const initialDate = from.toISOString();
   const finishDate = to.toISOString();
@@ -21,12 +22,18 @@ export const getMovementsByFilters = async (
     .lte("done_at", finishDate)
     .order("done_at", { ascending: false });
 
-  if (accountId !== 0) {
+  if (accountId !== "all") {
     query = query.eq("from", accountId);
   }
 
-  if (categoryId !== 0) {
+  if (!["all", "expenses", "incomes"].includes(categoryId as string)) {
     query = query.eq("category", categoryId);
+  }
+
+  if (categoryId === "expenses") {
+    query = query.eq("type", "expense");
+  } else if (categoryId === "incomes") {
+    query = query.eq("type", "income");
   }
 
   const { data } = await query;
@@ -36,12 +43,12 @@ export const getMovementsByFilters = async (
       const mov = await getCategoryById(d.category);
       d.fullCategory = mov;
     }
-    return { data };
+    return data;
   }
-  return { data: [] };
+  return [];
 };
 
-export const getLastMovements = async (accountId: number) => {
+export const getLastMovements = async (accountId: AccountIds) => {
   const supabase = await createClient();
 
   let query = supabase
@@ -50,7 +57,7 @@ export const getLastMovements = async (accountId: number) => {
     .order("done_at", { ascending: false })
     .limit(5);
 
-  if (accountId !== 0) {
+  if (accountId !== "all") {
     query = query.eq("from", accountId);
   }
 
@@ -139,7 +146,7 @@ export const updateMovement = async (
 };
 
 export const getExpenses = async (
-  accountId: number,
+  accountId: AccountIds,
   year?: number,
   month?: number
 ) => {
@@ -153,7 +160,7 @@ export const getExpenses = async (
     .gte("done_at", initialDate)
     .lte("done_at", finishDate);
 
-  if (accountId !== 0) {
+  if (accountId !== "all") {
     query = query.eq("from", accountId);
   }
 

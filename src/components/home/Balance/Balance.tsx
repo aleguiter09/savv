@@ -1,17 +1,17 @@
 import { Suspense } from "react";
-import BalanceInfo from "./BalanceInfo";
-import BalanceSkeleton from "./BalanceSkeleton";
 import { Card } from "@/components/ui/card";
+import { BalanceInfo, BalanceSkeleton } from "./BalanceInfo";
+import { AccountIds } from "@/types/general";
 
-export default async function Balance({
-  account,
-}: Readonly<{
-  account: number;
-}>) {
+type Props = Readonly<{
+  accountId: AccountIds;
+}>;
+
+export async function Balance({ accountId }: Props) {
   return (
     <Card className="mb-4 px-3 py-2 border-b-4 border-b-blue-600">
-      <Suspense key={account} fallback={<BalanceSkeleton />}>
-        <BalanceInfo account={account} />
+      <Suspense key={accountId} fallback={<BalanceSkeleton />}>
+        <BalanceInfo accountId={accountId} />
       </Suspense>
     </Card>
   );

@@ -22,6 +22,7 @@
 [X] Accounts & Categories not always being setted.
 [] Select Category in Movement form overlaped by navbar
 [] Only default imports are allowed
+[] Transfers are not being displayed in all movements
 
 # New Features
 

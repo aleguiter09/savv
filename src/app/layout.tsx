@@ -42,7 +42,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className="scroll-smooth">
       <body
-        className={`pt-4 pb-12 ${inter.className} antialiased bg-gray-100 text-gray-900`}
+        className={`mt-4 pb-12 ${inter.className} antialiased bg-gray-100 text-gray-900`}
       >
         <NextTopLoader
           color="#3B82F6"

@@ -1,27 +1,29 @@
 import { Suspense } from "react";
-import ExpenseByCatSkeleton from "./ExpenseByCatSkeleton";
-import ExpenseByCatChart from "./ExpenseByCatChart";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { Card } from "@/components/ui/card";
+import { AccountIds } from "@/types/general";
+import { ExpenseByCatChart, ExpenseByCatSkeleton } from "./ExpenseByCatChart";
 
-export default async function ExpenseByCat({
-  account,
-  year,
-  month,
-}: Readonly<{ account: number; year: number; month: number }>) {
+type Props = Readonly<{
+  accountId: AccountIds;
+  year: number;
+  month: number;
+}>;
+
+export async function ExpenseByCat({ accountId, year, month }: Props) {
   const t = await getTranslations("home");
 
   return (
     <Card className="mb-4 pl-4 pr-3 py-2 flex flex-col gap-2">
-      <Link href={`/expenses?account=${account}`} className="font-semibold">
+      <Link href={`/expenses?account=${accountId}`} className="font-semibold">
         {t("expensesByCat")}
       </Link>
       <Suspense
-        key={account + year + month}
+        key={accountId === "all" ? 0 : accountId + year + month}
         fallback={<ExpenseByCatSkeleton />}
       >
-        <ExpenseByCatChart account={account} year={year} month={month} />
+        <ExpenseByCatChart accountId={accountId} year={year} month={month} />
       </Suspense>
     </Card>
   );

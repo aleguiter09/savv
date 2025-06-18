@@ -6,7 +6,7 @@ import { Toaster as Sonner, toast } from "sonner";
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 
-export default function ToastManager({ ...props }: ToasterProps) {
+export function ToastManager({ ...props }: ToasterProps) {
   useEffect(() => {
     const raw = document.cookie
       .split("; ")

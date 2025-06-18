@@ -1,14 +1,22 @@
 import { Suspense } from "react";
-import MovementsList from "./MovementsList";
 import { Card } from "@/components/ui/card";
 import { LastMovementsSkeleton } from "@/components/home/LastMovements/LastMovementsList";
+import { AccountIds, CategoryIds } from "@/types/general";
+import { MovementsList } from "./MovementsList";
 
-export default async function MovementsByDate({
+type Props = Readonly<{
+  from: Date;
+  to: Date;
+  accountId: AccountIds;
+  categoryId: CategoryIds;
+}>;
+
+export async function MovementsByDate({
   from,
   to,
   accountId,
   categoryId,
-}: Readonly<{ from: Date; to: Date; accountId: number; categoryId: number }>) {
+}: Props) {
   return (
     <Card className="mb-4 px-3 py-2  border-b-4 border-b-blue-600">
       <Suspense

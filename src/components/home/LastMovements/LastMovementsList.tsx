@@ -2,12 +2,15 @@ import { getLastMovements } from "@/services/movements";
 import { getTranslations } from "next-intl/server";
 import { LastMovementDetail } from "./LastMovementDetail";
 import { List } from "@tremor/react";
+import { AccountIds } from "@/types/general";
 
-export async function LastMovementsList({
-  account,
-}: Readonly<{ account: number }>) {
+type Props = Readonly<{
+  accountId: AccountIds;
+}>;
+
+export async function LastMovementsList({ accountId }: Props) {
   const t = await getTranslations("home");
-  const movements = await getLastMovements(account);
+  const movements = await getLastMovements(accountId);
 
   return (
     <div className="flex flex-col gap-2 mt-3">

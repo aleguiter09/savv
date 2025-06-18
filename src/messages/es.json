@@ -1,7 +1,7 @@
 {
   "home": {
     "allAccounts": "Todas las cuentas",
-    "selectAccount": "Seleccionar...",
+    "selectPlaceholder": "Seleccionar cuenta...",
     "balance": "Saldo",
     "incomes": "Ingresos",
     "expenses": "Gastos",
@@ -37,7 +37,13 @@
     "Investments": "Inversiones",
     "Sale": "Ventas",
     "Transfer": "Transferencias",
-    "Sports": "Deportes"
+    "Sports": "Deportes",
+    "allCategories": "Todas las categorías",
+    "allIncomes": "Todos los ingresos",
+    "allExpenses": "Todos los gastos",
+    "expenses": "Gastos",
+    "incomes": "Ingresos",
+    "selectPlaceholder": "Seleccionar categoría..."
   },
   "movements": {
     "addTitle": "Añadir movimiento",

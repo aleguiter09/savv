@@ -1,15 +1,14 @@
 import { getExpenses } from "@/services/movements";
+import { AccountIds } from "@/types/general";
 import { parseMovementsForChart } from "@/utils/common";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
-export default async function ExpenseByCatChart({
-  account,
-  year,
-  month,
-}: Readonly<{ account: number; year?: number; month?: number }>) {
+type Props = Readonly<{ accountId: AccountIds; year?: number; month?: number }>;
+
+export async function ExpenseByCatChart({ accountId, year, month }: Props) {
   const [movements, t] = await Promise.all([
-    getExpenses(account, year, month),
+    getExpenses(accountId, year, month),
     getTranslations(),
   ]);
   const data = parseMovementsForChart(movements);
@@ -18,7 +17,7 @@ export default async function ExpenseByCatChart({
     <div className="grid grid-cols-2 md:grid-cols-3 gap-2 pb-1">
       {data.map((item) => (
         <Link
-          href={`/movements?account=${account}&category=${item.category}`}
+          href={`/movements?account=${accountId}&category=${item.category}`}
           key={item.title}
           className={`text-sm px-1.5 rounded-md py-2 border border-${item?.color} border-s-4 bg-white`}
         >
@@ -41,6 +40,31 @@ export default async function ExpenseByCatChart({
           {t("home.noExpensesThisMonth")}
         </p>
       )}
+    </div>
+  );
+}
+
+export function ExpenseByCatSkeleton() {
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-2 pb-1">
+      <div
+        className={`h-8 rounded-md px-1.5 py-2 bg-slate-300 animate-pulse`}
+      />
+      <div
+        className={`h-8 rounded-md px-1.5 py-2 bg-slate-300 animate-pulse`}
+      />
+      <div
+        className={`h-8 rounded-md px-1.5 py-2 bg-slate-300 animate-pulse`}
+      />
+      <div
+        className={`h-8 rounded-md px-1.5 py-2 bg-slate-300 animate-pulse`}
+      />
+      <div
+        className={`h-8 rounded-md px-1.5 py-2 bg-slate-300 animate-pulse`}
+      />
+      <div
+        className={`h-8 rounded-md px-1.5 py-2 bg-slate-300 animate-pulse`}
+      />
     </div>
   );
 }

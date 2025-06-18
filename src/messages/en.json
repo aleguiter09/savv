@@ -1,7 +1,7 @@
 {
   "home": {
     "allAccounts": "All accounts",
-    "selectAccount": "Select...",
+    "selectPlaceholder": "Select account...",
     "balance": "Balance",
     "incomes": "Incomes",
     "expenses": "Expenses",
@@ -37,7 +37,13 @@
     "Investments": "Investments",
     "Sale": "Sales",
     "Transfer": "Transfers",
-    "Sports": "Sports"
+    "Sports": "Sports",
+    "allCategories": "All categories",
+    "allIncomes": "All incomes",
+    "allExpenses": "All expenses",
+    "expenses": "Expenses",
+    "incomes": "Incomes",
+    "selectPlaceholder": "Select category..."
   },
   "movements": {
     "addTitle": "Add transaction",

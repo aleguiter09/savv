@@ -1,10 +1,11 @@
-import LastMovements from "@/components/home/LastMovements/LastMovements";
-import Balance from "@/components/home/Balance/Balance";
-import ActionBar from "@/components/home/ActionBar/ActionBar";
-import ExpenseByCat from "@/components/home/ExpenseByCat/ExpenseByCat";
-import TotalWealth from "@/components/home/TotalWealth/TotalWealth";
-import ToastManager from "@/components/ui/ToastManager";
 import { getDefaultAccountId } from "@/services/accounts";
+import { AccountIds } from "@/types/general";
+import { ActionBar } from "@/components/home/ActionBar/ActionBar";
+import { Balance } from "@/components/home/Balance/Balance";
+import { LastMovements } from "@/components/home/LastMovements/LastMovements";
+import { ExpenseByCat } from "@/components/home/ExpenseByCat/ExpenseByCat";
+import { TotalWealth } from "@/components/home/TotalWealth/TotalWealth";
+import { ToastManager } from "@/components/ui/ToastManager";
 
 export type MainPageParams = {
   searchParams: {
@@ -16,18 +17,16 @@ export default async function MainPage({
   searchParams,
 }: Readonly<MainPageParams>) {
   const defaultAcc = await getDefaultAccountId();
-  const account: number =
-    Number(searchParams.account) === 0
-      ? 0
-      : Number(searchParams.account) || defaultAcc;
+  const accountId =
+    searchParams.account ?? (defaultAcc === 0 ? "all" : defaultAcc);
 
   return (
     <>
-      <ActionBar account={account} />
-      <Balance account={account} />
-      <LastMovements account={account} />
+      <ActionBar accountId={accountId as AccountIds} />
+      <Balance accountId={accountId as AccountIds} />
+      <LastMovements accountId={accountId as AccountIds} />
       <ExpenseByCat
-        account={account}
+        accountId={accountId as AccountIds}
         year={new Date().getFullYear()}
         month={new Date().getMonth()}
       />

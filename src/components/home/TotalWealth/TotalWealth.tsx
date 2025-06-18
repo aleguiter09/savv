@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { getAccounts } from "@/services/accounts";
 import { getTranslations } from "next-intl/server";
 
-export default async function TotalWealth() {
+export async function TotalWealth() {
   const t = await getTranslations("home");
   const accounts = await getAccounts();
 
