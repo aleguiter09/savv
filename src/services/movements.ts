@@ -74,7 +74,7 @@ export const getLastMovements = async (accountId: AccountIds) => {
   return [];
 };
 
-export const getMonthIncomes = async (accountId: number) => {
+export const getMonthIncomes = async (accountId: AccountIds) => {
   const supabase = await createClient();
   const { initialDate, finishDate } = getInitialAndFinalDate();
   let query = supabase
@@ -84,14 +84,14 @@ export const getMonthIncomes = async (accountId: number) => {
     .gte("done_at", initialDate)
     .lte("done_at", finishDate);
 
-  if (accountId !== 0) {
+  if (accountId !== "all") {
     query = query.eq("from", accountId);
   }
   const { data } = await query;
   return data?.reduce((a, b) => a + b.amount, 0) ?? 0;
 };
 
-export const getMonthExpenses = async (accountId: number) => {
+export const getMonthExpenses = async (accountId: AccountIds) => {
   const supabase = await createClient();
   const { initialDate, finishDate } = getInitialAndFinalDate();
   let query = supabase
@@ -101,7 +101,7 @@ export const getMonthExpenses = async (accountId: number) => {
     .gte("done_at", initialDate)
     .lte("done_at", finishDate);
 
-  if (accountId !== 0) {
+  if (accountId !== "all") {
     query = query.eq("type", "expense");
   }
   const { data } = await query;

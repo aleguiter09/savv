@@ -2,7 +2,7 @@ import { getExpenses } from "@/services/movements";
 import { parseMovementsForChart } from "@/utils/common";
 import Link from "next/link";
 
-export default async function ExpensesDataChart({
+export async function ExpensesDataChart({
   account,
   year,
   month,
@@ -39,6 +39,31 @@ export default async function ExpensesDataChart({
           No expenses this month
         </p>
       )}
+    </div>
+  );
+}
+
+export function ExpensesDataSkeleton() {
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-2 pb-1">
+      <div
+        className={`h-8 rounded-md px-1.5 py-2 bg-slate-300 animate-pulse`}
+      />
+      <div
+        className={`h-8 rounded-md px-1.5 py-2 bg-slate-300 animate-pulse`}
+      />
+      <div
+        className={`h-8 rounded-md px-1.5 py-2 bg-slate-300 animate-pulse`}
+      />
+      <div
+        className={`h-8 rounded-md px-1.5 py-2 bg-slate-300 animate-pulse`}
+      />
+      <div
+        className={`h-8 rounded-md px-1.5 py-2 bg-slate-300 animate-pulse`}
+      />
+      <div
+        className={`h-8 rounded-md px-1.5 py-2 bg-slate-300 animate-pulse`}
+      />
     </div>
   );
 }

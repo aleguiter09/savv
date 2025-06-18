@@ -1,10 +1,10 @@
 import AddButton from "@/components/home/ActionBar/AddButton";
-import ToastManager from "@/components/ui/ToastManager";
 import { getAccounts } from "@/services/accounts";
 import { mdiCreditCardEditOutline } from "@mdi/js";
 import { getTranslations } from "next-intl/server";
 import Icon from "@mdi/react";
 import Link from "next/link";
+import { ToastManager } from "@/components/ui/ToastManager";
 
 export default async function AccountsPage() {
   const t = await getTranslations("settings");

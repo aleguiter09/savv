@@ -4,7 +4,7 @@ import Icon from "@mdi/react";
 import { getFormatter, getTranslations } from "next-intl/server";
 import Link from "next/link";
 
-export default async function MovementDetail({
+export async function MovementDetail({
   id,
   done_at,
   amount,

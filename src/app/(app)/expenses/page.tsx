@@ -1,5 +1,5 @@
 import DateSlider from "@/components/common/DateSlider";
-import ExpensesData from "@/components/expenses/ExpensesData";
+import { ExpensesData } from "@/components/expenses/ExpensesData";
 import ExpensesFilter from "@/components/expenses/ExpensesFilter";
 import { getDefaultAccountId } from "@/services/accounts";
 

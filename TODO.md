@@ -27,7 +27,7 @@
 # New Features
 
 [] Replace Tremor with Shadcn
-[] Toaster for OK msgs
+[X] Toaster for OK msgs
 [] Templates for movements
 [] Admin Categories
 [] Dark theme

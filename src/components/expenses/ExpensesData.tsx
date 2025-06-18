@@ -1,8 +1,7 @@
 import { Suspense } from "react";
-import ExpensesDataChart from "./ExpensesDataChart";
-import ExpensesDataSkeleton from "./ExpensesDataSkeleton";
+import { ExpensesDataChart, ExpensesDataSkeleton } from "./ExpensesDataChart";
 
-export default async function ExpensesData({
+export async function ExpensesData({
   account,
   year,
   month,

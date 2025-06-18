@@ -1,4 +1,5 @@
 import { Account } from "@/types/database";
+import { AccountIds } from "@/types/general";
 import { createClient } from "@/utils/supabase/server";
 import { cache } from "react";
 
@@ -18,12 +19,16 @@ export const getAccounts = cache(async (): Promise<Account[]> => {
   }
 });
 
-export const getAccountBalanceById = async (id: number): Promise<number> => {
+export const getAccountBalanceById = async (
+  id: AccountIds
+): Promise<number> => {
   const supabase = await createClient();
   let query = supabase.from("account").select("balance");
-  if (id !== 0) {
+
+  if (id !== "all") {
     query = query.eq("id", id);
   }
+
   const { data } = await query;
   return data?.reduce((a, b) => a + b.balance, 0) ?? 0;
 };
