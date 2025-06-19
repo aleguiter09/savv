@@ -2,8 +2,7 @@
 import Link from "next/link";
 import { logout } from "@/utils/actions/user-action";
 import { usePathname } from "next/navigation";
-import { Home, Settings } from "lucide-react";
-import { LogoutIcon } from "@heroicons/react/outline";
+import { Home, LogOutIcon, Settings } from "lucide-react";
 
 const links = [
   { name: "Home", href: "/", icon: <Home /> },
@@ -45,7 +44,7 @@ export function NavLinks() {
           aria-label="Logout"
           className="grow h-full flex items-center justify-center focus:ring-2 focus:ring-inset focus:ring-blue-600"
         >
-          <LogoutIcon className="max-h-[24px]" />
+          <LogOutIcon />
         </button>
       </form>
     </>
