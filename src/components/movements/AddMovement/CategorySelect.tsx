@@ -1,58 +1,65 @@
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Category } from "@/types/database";
 import { CATEGORY_ICONS } from "@/utils/constants";
-import { Select, SelectItem } from "@tremor/react";
-import Icon from "@mdi/react";
 import { useTranslations } from "next-intl";
+import Icon from "@mdi/react";
 
-type Props = {
+type Props = Readonly<{
   categories: Category[];
   category: string;
   setCategory: (v: string) => void;
   error: boolean;
   errorMessage?: string;
-};
+}>;
 
-export default function CategorySelect({
+export function CategorySelect({
   categories,
   category,
   setCategory,
   error,
   errorMessage,
-}: Readonly<Props>) {
+}: Props) {
   const t = useTranslations();
-  const renderIcon = (color: string, icon: string) => {
-    return (
-      <Icon
-        className={`bg-${color} rounded-full p-1`}
-        path={CATEGORY_ICONS[icon]}
-        size="25px"
-        color="white"
-      />
-    );
-  };
 
   return (
     <div className="flex flex-col gap-2 mb-2">
-      <label htmlFor="category" className="block text-sm font-medium">
+      <label className="block text-sm font-medium">
         {t("movements.chooseCategory")}
       </label>
       <Select
-        id="category"
-        placeholder={t("movements.selectCategory")}
-        enableClear={false}
-        value={category}
-        onValueChange={(v) => setCategory(v)}
-        className={`${error && "border border-rose-500 rounded-lg"}`}
+        defaultValue={category}
+        onValueChange={(v) => {
+          console.log("Selected category:", v);
+          setCategory(v);
+        }}
       >
-        {categories.map((item: Category) => (
-          <SelectItem
-            key={item.id}
-            value={item.id.toString()}
-            icon={() => renderIcon(item.color, item.icon)}
-          >
-            <p className="ml-2">{t(`categories.${item.title}`)}</p>
-          </SelectItem>
-        ))}
+        <SelectTrigger className={`${error && "border border-rose-500"}`}>
+          <SelectValue placeholder={t("movements.selectCategory")} />
+        </SelectTrigger>
+        <SelectContent className="max-h-56">
+          <SelectGroup>
+            {categories.map((item: Category) => (
+              <SelectItem key={item.id} value={item.id.toString()}>
+                <div className="flex items-center">
+                  <Icon
+                    className={`bg-${item.color} rounded-full p-1`}
+                    path={CATEGORY_ICONS[item.icon]}
+                    size="25px"
+                    color="white"
+                  />
+                  <p className="ml-2">{t(`categories.${item.title}`)}</p>
+                </div>
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
       </Select>
       {error && (
         <div id="category-error" aria-live="polite" aria-atomic="true">

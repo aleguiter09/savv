@@ -1,5 +1,5 @@
 import Icon from "@/components/common/Icon";
-import AddMovementForm from "@/components/movements/AddMovement/AddMovementForm";
+import { AddMovementForm } from "@/components/movements/AddMovement/AddMovementForm";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 

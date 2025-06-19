@@ -15,21 +15,19 @@ import { useFormState, useFormStatus } from "react-dom";
 import { updateMovementForm } from "@/utils/actions/movement-action";
 import { useState } from "react";
 import { FormMovementState, Type } from "@/types/general";
-import AccountSelect from "../AddMovement/AccountSelect";
-import CategorySelect from "../AddMovement/CategorySelect";
 import { Movement } from "@/types/database";
 import { useData } from "@/providers/DataProvider";
 import { useLocale, useTranslations } from "next-intl";
 import { enUS, es } from "date-fns/locale";
 import { Card } from "@/components/ui/card";
+import { AccountSelect } from "../AddMovement/AccountSelect";
+import { CategorySelect } from "../AddMovement/CategorySelect";
 
-type EditMovementFormProps = {
+type Props = Readonly<{
   movement: Movement;
-};
+}>;
 
-export default function EditMovementForm({
-  movement,
-}: Readonly<EditMovementFormProps>) {
+export function EditMovementForm({ movement }: Props) {
   const [state, dispatch] = useFormState(updateMovementForm, {
     message: null,
     errors: {},
@@ -81,7 +79,7 @@ export default function EditMovementForm({
   );
 }
 
-type Props = {
+type FormProps = {
   movement: Movement;
   state: FormMovementState;
   date: DatePickerValue;
@@ -109,7 +107,7 @@ const Form = ({
   setFrom,
   where,
   setWhere,
-}: Props) => {
+}: FormProps) => {
   const t = useTranslations("movements");
   const locale = useLocale();
   const { pending } = useFormStatus();

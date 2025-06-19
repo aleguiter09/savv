@@ -1,4 +1,3 @@
-import EditAccountForm from "@/components/accounts/EditAccountForm";
 import Icon from "@/components/common/Icon";
 import { Icon as MDIIcon } from "@mdi/react";
 import ConfirmDialog from "@/components/movements/ConfirmDialog/ConfirmDialog";
@@ -7,6 +6,7 @@ import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { mdiTrashCanOutline } from "@mdi/js";
+import { EditAccountForm } from "@/components/accounts/EditAccountForm";
 
 export default async function EditAccountPage({
   params,

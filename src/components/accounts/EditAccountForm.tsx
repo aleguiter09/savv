@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 import { useFormState, useFormStatus } from "react-dom";
 import { Card } from "../ui/card";
 
-export default function EditAccountForm({
+export function EditAccountForm({
   id,
   account,
 }: Readonly<{

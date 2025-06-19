@@ -14,16 +14,16 @@ import {
   DatePicker,
   DatePickerValue,
 } from "@tremor/react";
-import CategorySelect from "./CategorySelect";
-import AccountSelect from "./AccountSelect";
 import { useData } from "@/providers/DataProvider";
 import { FormMovementState, Type } from "@/types/general";
 import { Account } from "@/types/database";
 import { useLocale, useTranslations } from "next-intl";
 import { enUS, es } from "date-fns/locale";
 import { Card } from "@/components/ui/card";
+import { AccountSelect } from "./AccountSelect";
+import { CategorySelect } from "./CategorySelect";
 
-export default function AddMovementForm() {
+export function AddMovementForm() {
   const { accounts } = useData();
   const defaultAcc = accounts.find((a) => a.default);
 
