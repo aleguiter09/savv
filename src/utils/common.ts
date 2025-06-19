@@ -37,6 +37,7 @@ export const getInitialAndFinalDate = (year?: number, month?: number) => {
 export const getMovementsByDay = (movements: Movement[]) => {
   type Items = { date: string; movements: Movement[]; total: number }[];
   const items: Items = [];
+
   movements.forEach((m) => {
     const currentDate = items.find(
       (item) =>

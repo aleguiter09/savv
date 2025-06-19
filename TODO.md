@@ -20,8 +20,8 @@
 [X] Navbar shown on login page
 [X] Account from the URL is being overwritted in select Home
 [X] Accounts & Categories not always being setted.
-[] Select Category in Movement form overlaped by navbar
-[] Only default imports are allowed
+[X] Select Category in Movement form overlaped by navbar
+[X] Only default imports are allowed
 [] Transfers are not being displayed in all movements
 
 # New Features

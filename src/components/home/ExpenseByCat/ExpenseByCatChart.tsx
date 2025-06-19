@@ -23,8 +23,8 @@ export async function ExpenseByCatChart({ accountId, year, month }: Props) {
         >
           <div className="flex gap-1.5">
             <div className="w-full">
-              <div className="flex justify-between space-x-1">
-                <p className="text-right text-slate-500 ">
+              <div className="flex justify-between px-[0.15rem]">
+                <p className="text-righgrid grid-cols-2 md:grid-cols-3 gap-2 pb-1t text-slate-500 ">
                   {t(`categories.${item.title}`)}
                 </p>
                 <p className="font-medium text-right whitespace-nowrap">
