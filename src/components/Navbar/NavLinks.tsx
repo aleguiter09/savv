@@ -1,29 +1,23 @@
 "use client";
 import Link from "next/link";
-import Icon from "@mdi/react";
-import {
-  mdiCog,
-  mdiCogOutline,
-  mdiHome,
-  mdiHomeOutline,
-  mdiLogout,
-} from "@mdi/js";
 import { logout } from "@/utils/actions/user-action";
 import { usePathname } from "next/navigation";
+import { Home, Settings } from "lucide-react";
+import { LogoutIcon } from "@heroicons/react/outline";
 
 const links = [
-  { name: "Home", href: "/", icon: mdiHomeOutline, activeIcon: mdiHome },
+  { name: "Home", href: "/", icon: <Home /> },
   {
     name: "Settings",
     href: "/settings",
-    icon: mdiCogOutline,
-    activeIcon: mdiCog,
+    icon: <Settings />,
   },
 ];
 
-export default function NavLinks() {
+export function NavLinks() {
   const pathname = usePathname();
   const activeLink = links.find((link) => link.href === pathname);
+
   return (
     <>
       {links.map((link) => {
@@ -37,12 +31,7 @@ export default function NavLinks() {
               activeLink?.href === link.href ? "text-blue-500" : ""
             }`}
           >
-            <Icon
-              path={
-                activeLink?.href === link.href ? link.activeIcon : link.icon
-              }
-              size="24px"
-            />
+            {link.icon}
           </Link>
         );
       })}
@@ -56,7 +45,7 @@ export default function NavLinks() {
           aria-label="Logout"
           className="grow h-full flex items-center justify-center focus:ring-2 focus:ring-inset focus:ring-blue-600"
         >
-          <Icon path={mdiLogout} size="24px" />
+          <LogoutIcon className="max-h-[24px]" />
         </button>
       </form>
     </>

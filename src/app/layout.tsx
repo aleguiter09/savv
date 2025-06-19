@@ -1,12 +1,12 @@
 import "server-only";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import Navbar from "@/components/Navbar/Navbar";
 import NextTopLoader from "nextjs-toploader";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 import { createClient } from "@/utils/supabase/server";
+import { Navbar } from "@/components/Navbar/Navbar";
 
 export const dynamic = "force-dynamic";
 const inter = Inter({ subsets: ["latin"] });
