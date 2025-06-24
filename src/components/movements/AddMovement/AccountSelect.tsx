@@ -31,7 +31,7 @@ export function AccountSelect({
   return (
     <div className="flex flex-col gap-2 mb-2">
       <label className="block text-sm font-medium">{label}</label>
-      <Select defaultValue={from} onValueChange={(v) => setFrom(v)}>
+      <Select defaultValue={from} onValueChange={setFrom}>
         <SelectTrigger className={`${error && "border border-rose-500"}`}>
           <SelectValue placeholder={t("selectAccount")} />
         </SelectTrigger>

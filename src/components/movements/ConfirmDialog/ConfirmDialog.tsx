@@ -63,7 +63,7 @@ export default function ConfirmDialog({
           <div className="flex gap-2 mt-3">
             <button
               onClick={handleClose}
-              className="w-full rounded-md bg-gray-300 py-2 text-sm font-semibold text-gray-800 focus:outline-none focus:ring focus:ring-gray-blue"
+              className="w-full rounded-md bg-gray-300 py-2 text-sm font-medium text-gray-800 focus:outline-none focus:ring focus:ring-gray-blue"
             >
               {t("cancel")}
             </button>
@@ -77,7 +77,7 @@ export default function ConfirmDialog({
             ) : (
               <button
                 onClick={handleConfirm}
-                className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
+                className="w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white focus:outline-none focus:ring focus:ring-gray-blue"
               >
                 {t("confirm")}
               </button>

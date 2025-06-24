@@ -1,12 +1,10 @@
-import Icon from "@/components/common/Icon";
-import { Icon as MDIIcon } from "@mdi/react";
 import { getMovementById } from "@/services/movements";
-import { mdiTrashCanOutline } from "@mdi/js";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import ConfirmDialog from "@/components/movements/ConfirmDialog/ConfirmDialog";
 import { getTranslations } from "next-intl/server";
 import { MovementDetail } from "@/components/movements/MovementDetail/MovementDetail";
+import { ArrowLeft, Trash2 } from "lucide-react";
 
 export default async function MovementDetailPage({
   params,
@@ -30,7 +28,7 @@ export default async function MovementDetailPage({
         movement={movement}
         entity="movements"
         isOpen={confirm}
-        button={<MDIIcon path={mdiTrashCanOutline} size="24px" />}
+        button={<Trash2 />}
       >
         <h3 className="text-lg font-semibold text-tremor-content-strong">
           {t("areYouSure")}
@@ -48,7 +46,7 @@ export default async function MovementDetailPage({
     <>
       <div className="flex justify-between items-center mb-3">
         <Link href="/">
-          <Icon color="stone" icon="arrow-left" />
+          <ArrowLeft />
         </Link>
         <h4 className="font-medium">{t("detailsTitle")}</h4>
         {alertDialog()}

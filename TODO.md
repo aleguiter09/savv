@@ -10,7 +10,8 @@
 [X] Recover Password page
 [] Email template for recover password in Supabase
 [] Review 'fullCategory' and 'fullAccount' props in movement detail
-[] Update imports for components
+[X] Update imports for components
+[X] Delete MDI icons, replace for lucid
 
 # Errors
 

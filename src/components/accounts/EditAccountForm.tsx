@@ -111,7 +111,7 @@ const Form = ({
         </div>
       ) : (
         <button
-          className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
+          className="w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white focus:outline-none focus:ring focus:ring-gray-blue"
           type="submit"
         >
           {t("editAccount")}

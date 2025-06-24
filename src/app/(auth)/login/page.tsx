@@ -77,7 +77,7 @@ export default function Login() {
           ) : (
             <button
               tabIndex={0}
-              className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
+              className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white focus:outline-none focus:ring focus:ring-gray-blue"
               type="submit"
             >
               {t("signIn")}
@@ -85,14 +85,14 @@ export default function Login() {
           )}
           <p className="mt-4 text-center text-sm">
             {t("signUpMessage")}
-            <Link href="/register" className="font-semibold text-blue-600">
+            <Link href="/register" className="font-medium text-blue-600">
               {t("signUp")}
             </Link>
           </p>
 
           <p className="text-center text-sm">
             {t("forgotPassword")}
-            <Link href="/reset" className="font-semibold text-blue-600">
+            <Link href="/reset" className="font-medium text-blue-600">
               {t("resetPassword")}
             </Link>
           </p>

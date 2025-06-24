@@ -1,9 +1,9 @@
 "use client";
 import { MONTHS } from "@/utils/constants";
 import { YearMonth } from "@/types/general";
-import Icon from "./Icon";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Card } from "../ui/card";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 export default function DateSlider({ year, month }: Readonly<YearMonth>) {
   const searchParams = useSearchParams();
@@ -31,13 +31,13 @@ export default function DateSlider({ year, month }: Readonly<YearMonth>) {
   return (
     <Card className="mb-4 flex justify-between px-3 py-2">
       <button onClick={handleLeft}>
-        <Icon icon="arrow-left" />
+        <ArrowLeft />
       </button>
       <h5 className="mt-1 text-lg font-semibold">
         {MONTHS[month]} {year}
       </h5>
       <button onClick={handleRight}>
-        <Icon icon="arrow-right" />
+        <ArrowRight />
       </button>
     </Card>
   );

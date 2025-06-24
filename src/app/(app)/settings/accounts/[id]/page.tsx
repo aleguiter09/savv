@@ -1,12 +1,10 @@
-import Icon from "@/components/common/Icon";
-import { Icon as MDIIcon } from "@mdi/react";
 import ConfirmDialog from "@/components/movements/ConfirmDialog/ConfirmDialog";
 import { getAccountById } from "@/services/accounts";
 import { getTranslations } from "next-intl/server";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { mdiTrashCanOutline } from "@mdi/js";
 import { EditAccountForm } from "@/components/accounts/EditAccountForm";
+import { ArrowLeft, Trash2 } from "lucide-react";
+import Link from "next/link";
 
 export default async function EditAccountPage({
   params,
@@ -30,7 +28,7 @@ export default async function EditAccountPage({
         entity="accounts"
         account={account}
         isOpen={confirm}
-        button={<MDIIcon path={mdiTrashCanOutline} size="24px" />}
+        button={<Trash2 />}
       >
         <h3 className="text-lg font-semibold text-tremor-content-strong">
           {t("areYouSure")}
@@ -48,7 +46,7 @@ export default async function EditAccountPage({
     <>
       <div className="flex justify-between items-center mb-3">
         <Link href="/settings/accounts">
-          <Icon color="stone" icon="arrow-left" />
+          <ArrowLeft />
         </Link>
         <h4 className="font-medium">{t("detailsTitle")}</h4>
         {alertDialog()}

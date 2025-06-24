@@ -1,8 +1,7 @@
 import Link from "next/link";
-import Icon from "@mdi/react";
 import { Category, Movement } from "@/types/database";
-import { CATEGORY_ICONS } from "@/utils/constants";
 import { getFormatter, getTranslations } from "next-intl/server";
+import { CategoryIcon } from "@/components/common/CategoryIcon";
 
 export async function LastMovementDetail({
   id,
@@ -29,11 +28,11 @@ export async function LastMovementDetail({
       className="flex items-center justify-between px-1 pb-2 border-b border-gray-300 last:border-b-0 focus:ring-2 focus:ring-inset focus:ring-blue-600"
     >
       <div className="flex gap-3">
-        <Icon
-          className={`bg-${(fullCategory as Category).color} mx-auto rounded-full p-1.5`}
-          path={CATEGORY_ICONS[(fullCategory as Category).icon ?? "other"]}
-          size="36px"
-          color="white"
+        <CategoryIcon
+          icon={(fullCategory as Category).icon}
+          color={(fullCategory as Category).color}
+          size="24px"
+          padding="p-[6px]"
         />
         <div className="flex flex-col">
           <span className="font-medium text-sm">{comment}</span>

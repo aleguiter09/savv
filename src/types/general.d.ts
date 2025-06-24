@@ -1,6 +1,14 @@
+import { CATEGORY_ICONS } from "@/utils/constants";
+
 export type YearMonth = { year: number; month: number };
 
-export type CategoryIcons = { [key: string]: string };
+export type CategoryIcons = {
+  [key: string]: ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+  >;
+};
+
+export type CategoryIconsKeys = keyof typeof CATEGORY_ICONS;
 
 export type Type = "income" | "expense" | "transfer";
 

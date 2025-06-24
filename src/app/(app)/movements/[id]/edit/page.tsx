@@ -1,9 +1,9 @@
-import Icon from "@/components/common/Icon";
 import { EditMovementForm } from "@/components/movements/EditMovement/EditMovementForm";
 import { getMovementById } from "@/services/movements";
 import { getTranslations } from "next-intl/server";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 export default async function EditMovementPage({
   params,
@@ -22,7 +22,7 @@ export default async function EditMovementPage({
     <>
       <div className="flex justify-between items-center mb-3">
         <Link href={`/movements/${id}`}>
-          <Icon color="stone" icon="arrow-left" />
+          <ArrowLeft />
         </Link>
         <h4 className="font-medium">{t("editTitle")}</h4>
         <span></span>

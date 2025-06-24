@@ -1,5 +1,5 @@
-import Icon from "@/components/common/Icon";
 import { AddMovementForm } from "@/components/movements/AddMovement/AddMovementForm";
+import { ArrowLeft } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
@@ -10,7 +10,7 @@ export default async function AddMovementPage() {
     <>
       <div className="flex justify-between items-center mb-3">
         <Link href="/">
-          <Icon color="stone" icon="arrow-left" />
+          <ArrowLeft />
         </Link>
         <h4 className="font-medium">{t("addTitle")}</h4>
         <span></span>

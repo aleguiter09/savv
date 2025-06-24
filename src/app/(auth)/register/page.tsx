@@ -94,14 +94,14 @@ export default function Register() {
             <button
               tabIndex={0}
               type="submit"
-              className="mt-4 w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white focus:outline-none focus:ring focus:ring-gray-blue"
+              className="mt-4 w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white focus:outline-none focus:ring focus:ring-gray-blue"
             >
               {t("signUp")}
             </button>
           )}
           <p className="mt-2 text-center text-sm">
             {t("signInMessage")}
-            <Link href="/" className="font-semibold text-blue-600">
+            <Link href="/" className="font-medium text-blue-600">
               {t("signIn")}
             </Link>
           </p>
