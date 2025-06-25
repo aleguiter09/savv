@@ -14,8 +14,7 @@ type Props = Readonly<{
   accounts: Account[];
   from: string;
   setFrom: (v: string) => void;
-  error: boolean;
-  errorMessage?: string;
+  error?: string;
 }>;
 
 export function AccountSelect({
@@ -24,12 +23,11 @@ export function AccountSelect({
   from,
   setFrom,
   error,
-  errorMessage,
 }: Props) {
   const t = useTranslations("movements");
 
   return (
-    <div className="flex flex-col gap-2 mb-2">
+    <div className="flex flex-col gap-1.5 mb-2">
       <label className="block text-sm font-medium">{label}</label>
       <Select defaultValue={from} onValueChange={setFrom}>
         <SelectTrigger className={`${error && "border border-rose-500"}`}>
@@ -47,7 +45,7 @@ export function AccountSelect({
       </Select>
       {error && (
         <div id="account-error" aria-live="polite" aria-atomic="true">
-          <p className="text-sm text-red-500">{errorMessage}</p>
+          <p className="text-xs text-red-500">{error}</p>
         </div>
       )}
     </div>

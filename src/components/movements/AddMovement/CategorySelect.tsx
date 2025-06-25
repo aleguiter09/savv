@@ -16,8 +16,7 @@ type Props = Readonly<{
   categories: Category[];
   category: string;
   setCategory: (v: string) => void;
-  error: boolean;
-  errorMessage?: string;
+  error?: string;
 }>;
 
 export function CategorySelect({
@@ -25,12 +24,11 @@ export function CategorySelect({
   category,
   setCategory,
   error,
-  errorMessage,
 }: Props) {
   const t = useTranslations();
 
   return (
-    <div className="flex flex-col gap-2 mb-2">
+    <div className="flex flex-col gap-1.5 mb-2">
       <label className="block text-sm font-medium">
         {t("movements.chooseCategory")}
       </label>
@@ -53,7 +51,7 @@ export function CategorySelect({
       </Select>
       {error && (
         <div id="category-error" aria-live="polite" aria-atomic="true">
-          <p className="text-sm text-red-500">{errorMessage}</p>
+          <p className="text-xs text-red-500">{error}</p>
         </div>
       )}
     </div>

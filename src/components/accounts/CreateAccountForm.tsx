@@ -2,13 +2,13 @@
 
 import { createAccountForm } from "@/utils/actions/account-actions";
 import { useFormState, useFormStatus } from "react-dom";
-import { CurrencyDollarIcon } from "@heroicons/react/outline";
-import { NumberInput, TextInput } from "@tremor/react";
 import { FormAccountState } from "@/types/general";
 import { useTranslations } from "next-intl";
 import { Card } from "../ui/card";
+import { Input } from "../ui/input";
+import { Checkbox } from "../ui/checkbox";
 
-export default function CreateAccountForm() {
+export function CreateAccountForm() {
   const [state, dispatch] = useFormState(createAccountForm, {
     message: null,
     errors: {},
@@ -35,14 +35,11 @@ const Form = ({ state }: { state: FormAccountState }) => {
         </label>
         <div className="relative mt-2 rounded-md">
           <div className="relative">
-            <TextInput
+            <Input
               id="name"
               name="name"
               placeholder={t("enterAccountName")}
-              error={!!errors?.name}
-              errorMessage={
-                errors?.name ? t(errors?.name?.at(0) as string) : undefined
-              }
+              error={errors?.name?.[0] && t(errors.name[0])}
             />
           </div>
         </div>
@@ -55,20 +52,13 @@ const Form = ({ state }: { state: FormAccountState }) => {
         </label>
         <div className="relative mt-2 rounded-md">
           <div className="relative">
-            <NumberInput
+            <Input
               id="balance"
               name="balance"
-              icon={CurrencyDollarIcon}
               className="mb-3"
               placeholder={t("enterBalance")}
-              enableStepper={false}
               step="0.01"
-              error={!!errors?.balance}
-              errorMessage={
-                errors?.balance
-                  ? t(errors?.balance?.at(0) as string)
-                  : undefined
-              }
+              error={errors?.balance?.[0] && t(errors.balance[0])}
             />
           </div>
         </div>
@@ -79,7 +69,7 @@ const Form = ({ state }: { state: FormAccountState }) => {
         <label htmlFor="default" className="text-sm font-medium">
           {t("defaultAccount")}
         </label>
-        <input id="default" name="default" type="checkbox" />
+        <Checkbox id="default" name="default" />
       </div>
 
       {pending ? (

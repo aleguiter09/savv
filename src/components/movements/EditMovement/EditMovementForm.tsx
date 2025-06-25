@@ -5,12 +5,9 @@ import {
   Tab,
   TabPanels,
   TabPanel,
-  NumberInput,
-  TextInput,
   DatePicker,
   DatePickerValue,
 } from "@tremor/react";
-import { CurrencyDollarIcon } from "@heroicons/react/outline";
 import { useFormState, useFormStatus } from "react-dom";
 import { updateMovementForm } from "@/utils/actions/movement-action";
 import { useState } from "react";
@@ -22,6 +19,7 @@ import { enUS, es } from "date-fns/locale";
 import { Card } from "@/components/ui/card";
 import { AccountSelect } from "../AddMovement/AccountSelect";
 import { CategorySelect } from "../AddMovement/CategorySelect";
+import { Input } from "@/components/ui/input";
 
 type Props = Readonly<{
   movement: Movement;
@@ -171,21 +169,13 @@ const Form = ({
                 accounts={accounts}
                 from={from}
                 setFrom={setFrom}
-                error={!!errors?.from}
-                errorMessage={
-                  errors?.from ? t(errors?.from?.at(0) as string) : undefined
-                }
+                error={errors?.from?.[0] && t(errors.from[0])}
               />
               <CategorySelect
                 categories={expenseCategories}
                 category={category}
                 setCategory={setCategory}
-                error={!!errors?.category}
-                errorMessage={
-                  errors?.category
-                    ? t(errors?.category?.at(0) as string)
-                    : undefined
-                }
+                error={errors?.category?.[0] && t(errors.category[0])}
               />
             </TabPanel>
             <TabPanel>
@@ -194,21 +184,13 @@ const Form = ({
                 accounts={accounts}
                 from={from}
                 setFrom={setFrom}
-                error={!!errors?.from}
-                errorMessage={
-                  errors?.from ? t(errors?.from?.at(0) as string) : undefined
-                }
+                error={errors?.from?.[0] && t(errors.from[0])}
               />
               <CategorySelect
                 categories={incomeCategories}
                 category={category}
                 setCategory={setCategory}
-                error={!!errors?.category}
-                errorMessage={
-                  errors?.category
-                    ? t(errors?.category?.at(0) as string)
-                    : undefined
-                }
+                error={errors?.category?.[0] && t(errors.category[0])}
               />
             </TabPanel>
             <TabPanel>
@@ -217,20 +199,14 @@ const Form = ({
                 accounts={accounts.filter((a) => a.id !== Number(where))}
                 from={from}
                 setFrom={setFrom}
-                error={!!errors?.from}
-                errorMessage={
-                  errors?.from ? t(errors?.from?.at(0) as string) : undefined
-                }
+                error={errors?.from?.[0] && t(errors.from[0])}
               />
               <AccountSelect
                 label={t("chooseTo")}
                 accounts={accounts.filter((a) => a.id !== Number(from))}
                 from={where}
                 setFrom={setWhere}
-                error={!!errors?.where}
-                errorMessage={
-                  errors?.where ? t(errors?.where?.at(0) as string) : undefined
-                }
+                error={errors?.where?.[0] && t(errors.where[0])}
               />
             </TabPanel>
           </TabPanels>
@@ -238,37 +214,27 @@ const Form = ({
       </div>
 
       {/* amount */}
-      <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-        {t("enterAmount")}
-      </label>
-      <NumberInput
+      <Input
         id="amount"
         name="amount"
-        icon={CurrencyDollarIcon}
         placeholder={t("chooseAmount")}
-        enableStepper={false}
         step="0.01"
         min="0"
         defaultValue={movement.amount}
-        error={!!errors?.amount}
-        errorMessage={
-          errors?.amount ? t(errors?.amount?.at(0) as string) : undefined
-        }
+        label={t("enterAmount")}
+        error={errors?.amount?.[0] && t(errors.amount[0])}
       />
+
       {/* comment */}
-      <label htmlFor="comment" className="mt-2 mb-2 block text-sm font-medium">
-        {t("enterComment")}
-      </label>
-      <TextInput
+      <Input
         id="comment"
         name="comment"
         placeholder={t("chooseComment")}
         defaultValue={movement.comment}
-        error={!!errors?.comment}
-        errorMessage={
-          errors?.amount ? t(errors?.comment?.at(0) as string) : undefined
-        }
+        label={t("enterComment")}
+        error={errors?.comment?.[0] && t(errors.comment[0])}
       />
+
       {/* Actions */}
       <div className="mt-3 flex flex-row gap-2">
         {pending ? (

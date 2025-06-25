@@ -4,6 +4,7 @@ import { useTransition } from "react";
 import { useFormState } from "react-dom";
 import { useTranslations } from "next-intl";
 import { updatePasswordForm } from "@/utils/actions/user-action";
+import { Input } from "@/components/ui/input";
 
 export default function UpdatePassword() {
   const t = useTranslations("auth");
@@ -24,51 +25,26 @@ export default function UpdatePassword() {
   return (
     <>
       <h2 className="mt-2 text-3xl font-extrabold">{t("updateTitle")}</h2>
-      <div className="mt-8 w-full max-w-md">
+      <div className="mt-4 w-full max-w-md">
         <form className="flex flex-col gap-2" action={submit}>
-          <label htmlFor="password" className="text-sm font-medium">
-            {t("password")}
-          </label>
-          <input
+          <Input
             id="password"
             name="password"
             type="password"
             autoComplete="current-password"
-            tabIndex={0}
-            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
-              ${errors?.password ? "border-red-500" : ""}`}
+            className="bg-white shadow-sm"
+            label={t("password")}
+            error={errors?.password?.[0] && t(errors.password[0])}
           />
-          {errors?.password && (
-            <div id="password-error" aria-live="polite" aria-atomic="true">
-              <p className="text-sm text-red-500">
-                {errors.password
-                  ? t(errors?.password.at(0) as string)
-                  : undefined}
-              </p>
-            </div>
-          )}
 
-          <label htmlFor="confirmPassword" className="text-sm font-medium mt-2">
-            {t("confirmPassword")}
-          </label>
-          <input
+          <Input
             id="confirmPassword"
             name="confirmPassword"
             type="password"
-            tabIndex={0}
-            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
-            ${errors?.confirmPassword ? "border-red-500" : ""}`}
+            className="bg-white shadow-sm"
+            label={t("confirmPassword")}
+            error={errors?.confirmPassword?.[0] && t(errors.confirmPassword[0])}
           />
-
-          {errors?.confirmPassword && (
-            <div id="password-error" aria-live="polite" aria-atomic="true">
-              <p className="text-sm text-red-500">
-                {errors.confirmPassword
-                  ? t(errors.confirmPassword.at(0) as string)
-                  : undefined}
-              </p>
-            </div>
-          )}
 
           {pending ? (
             <div className="mt-2 flex w-full justify-center rounded-md bg-blue-600 py-2">

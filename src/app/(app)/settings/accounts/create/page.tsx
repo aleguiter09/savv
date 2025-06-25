@@ -1,4 +1,4 @@
-import CreateAccountForm from "@/components/accounts/CreateAccountForm";
+import { CreateAccountForm } from "@/components/accounts/CreateAccountForm";
 import { ArrowLeft } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";

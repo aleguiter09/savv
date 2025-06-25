@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from "@heroicons/react/outline";
+import { ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
@@ -23,7 +23,7 @@ export default async function SettingsPage() {
               className="w-full px-4 py-2 border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:text-blue-500 rounded-lg flex justify-between"
             >
               <p>{t(link.name)}</p>
-              <ArrowRightIcon className="w-4" />
+              <ArrowRight className="w-4" />
             </Link>
           </li>
         ))}

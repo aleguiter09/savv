@@ -2,11 +2,11 @@
 import { Account } from "@/types/database";
 import { FormAccountState } from "@/types/general";
 import { updateAccountForm } from "@/utils/actions/account-actions";
-import { CurrencyDollarIcon } from "@heroicons/react/outline";
-import { NumberInput, TextInput } from "@tremor/react";
 import { useTranslations } from "next-intl";
 import { useFormState, useFormStatus } from "react-dom";
 import { Card } from "../ui/card";
+import { Input } from "../ui/input";
+import { Checkbox } from "../ui/checkbox";
 
 export function EditAccountForm({
   id,
@@ -40,62 +40,34 @@ const Form = ({
   const { pending } = useFormStatus();
 
   return (
-    <Card className="rounded-md p-4 flex flex-col gap-4">
+    <Card className="rounded-md p-4 flex flex-col gap-2">
       {/* Account name */}
-      <div>
-        <label htmlFor="name" className="mb-2 block text-sm font-medium">
-          {t("enterName")}
-        </label>
-        <div className="relative mt-2 rounded-md">
-          <div className="relative">
-            <TextInput
-              id="name"
-              name="name"
-              placeholder={t("enterAccountName")}
-              defaultValue={account.name}
-              error={!!errors?.name}
-              errorMessage={
-                errors?.name ? t(errors?.name?.at(0) as string) : undefined
-              }
-            />
-          </div>
-        </div>
-      </div>
+      <Input
+        id="name"
+        name="name"
+        placeholder={t("enterAccountName")}
+        defaultValue={account.name}
+        label={t("enterName")}
+        error={errors?.name?.[0] && t(errors.name[0])}
+      />
 
       {/* Account balance */}
-      <div>
-        <label htmlFor="balance" className="mb-2 block text-sm font-medium">
-          {t("currentBalance")}
-        </label>
-        <div className="relative mt-2 rounded-md">
-          <div className="relative">
-            <NumberInput
-              id="balance"
-              name="balance"
-              icon={CurrencyDollarIcon}
-              className="mb-3"
-              placeholder={t("enterBalance")}
-              enableStepper={false}
-              step="0.01"
-              defaultValue={account.balance}
-              error={!!errors?.balance}
-              errorMessage={
-                errors?.balance
-                  ? t(errors?.balance?.at(0) as string)
-                  : undefined
-              }
-            />
-          </div>
-        </div>
-      </div>
+      <Input
+        id="balance"
+        name="balance"
+        placeholder={t("enterBalance")}
+        step="0.01"
+        defaultValue={account.balance}
+        label={t("currentBalance")}
+        error={errors?.balance?.[0] && t(errors.balance[0])}
+      />
 
       {/* Default account */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 my-2">
         <label htmlFor="default" className="text-sm font-medium">
           {t("defaultAccount")}
         </label>
-        <input
-          type="checkbox"
+        <Checkbox
           id="default"
           name="default"
           defaultChecked={account.default}

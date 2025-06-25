@@ -3,8 +3,9 @@
 import { updateLanguage } from "@/services/settings";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
+import { Input } from "../ui/input";
 
-export default function LangSelector() {
+export function LangSelector() {
   const t = useTranslations("settings");
   const locale = useLocale();
   const [loading, setLoading] = useState(false);
@@ -28,32 +29,28 @@ export default function LangSelector() {
     <>
       <div className="flex gap-20">
         <div className="flex items-center gap-2">
-          <label htmlFor="en" className="text-sm">
-            {t("en")}
-          </label>
-          <input
+          <Input
             className="w-4 h-4 border-gray-300 focus:ring-blue-500 "
             id="en"
             type="radio"
             value="en"
             name="en"
             checked={selected === "en"}
+            label={t("en")}
             onChange={(e) => {
               setSelected(e.target.value);
             }}
           />
         </div>
         <div className="flex items-center gap-2">
-          <label htmlFor="es" className=" text-sm">
-            {t("es")}
-          </label>
-          <input
+          <Input
             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
             id="es"
             checked={selected === "es"}
             type="radio"
             value="es"
             name="es"
+            label={t("es")}
             onChange={(e) => {
               setSelected(e.target.value);
             }}

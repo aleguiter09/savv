@@ -4,6 +4,7 @@ import { useTransition } from "react";
 import { useFormState } from "react-dom";
 import { resetPasswordForm } from "@/utils/actions/user-action";
 import { useTranslations } from "next-intl";
+import { Input } from "@/components/ui/input";
 
 export default function Reset() {
   const t = useTranslations("auth");
@@ -24,27 +25,18 @@ export default function Reset() {
   return (
     <>
       <h2 className="mt-2 text-3xl font-extrabold">{t("resetTitle")}</h2>
-      <div className="mt-8 w-full max-w-md">
+      <div className="mt-4 w-full max-w-md">
         <form className="flex flex-col gap-2" action={submit}>
-          <label htmlFor="email" className="text-sm font-medium">
-            {t("email")}
-          </label>
-          <input
+          <Input
             id="email"
             name="email"
             type="email"
             autoComplete="email"
             tabIndex={0}
-            className={`rounded-md border p-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600
-            ${errors?.email ? "border-red-500" : ""}`}
+            className="bg-white shadow-sm"
+            label={t("email")}
+            error={errors?.email?.[0] && t(errors.email[0])}
           />
-          {errors?.email && (
-            <div id="email-error" aria-live="polite" aria-atomic="true">
-              <p className="text-sm text-red-500">
-                {errors.email ? t(errors.email.at(0) as string) : undefined}
-              </p>
-            </div>
-          )}
 
           {pending ? (
             <div className="mt-2 flex w-full justify-center rounded-md bg-blue-600 py-2">
