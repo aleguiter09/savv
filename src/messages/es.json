@@ -141,5 +141,6 @@
     "samePassword": "La nueva contraseña no puede ser la misma que la anterior"
   },
   "cancel": "Cancelar",
-  "confirm": "Confirmar"
+  "confirm": "Confirmar",
+  "chooseDate": "Elegir fecha"
 }

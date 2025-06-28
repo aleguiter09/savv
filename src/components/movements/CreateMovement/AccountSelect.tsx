@@ -12,16 +12,16 @@ import { useTranslations } from "next-intl";
 type Props = Readonly<{
   label: string;
   accounts: Account[];
-  from: string;
-  setFrom: (v: string) => void;
+  value: string;
+  setValue: (v: string) => void;
   error?: string;
 }>;
 
 export function AccountSelect({
   label,
   accounts,
-  from,
-  setFrom,
+  value,
+  setValue,
   error,
 }: Props) {
   const t = useTranslations("movements");
@@ -29,7 +29,7 @@ export function AccountSelect({
   return (
     <div className="flex flex-col gap-1.5 mb-2">
       <label className="block text-sm font-medium">{label}</label>
-      <Select defaultValue={from} onValueChange={setFrom}>
+      <Select defaultValue={value} onValueChange={setValue}>
         <SelectTrigger className={`${error && "border border-rose-500"}`}>
           <SelectValue placeholder={t("selectAccount")} />
         </SelectTrigger>

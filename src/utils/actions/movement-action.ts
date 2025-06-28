@@ -79,7 +79,7 @@ const TransferSchema = z.object({
     }),
 });
 
-export const addMovementForm = async (
+export const createMovementForm = async (
   prevState: FormMovementState,
   formData: FormData
 ): Promise<FormMovementState> => {

@@ -91,7 +91,7 @@
     "deletedSuccess": "Transaction deleted successfully"
   },
   "accounts": {
-    "addTitle": "Add account",
+    "addTitle": "Create account",
     "detailsTitle": "Account Details",
     "enterName": "Enter a name",
     "enterAccountName": "Enter the account name",
@@ -141,5 +141,6 @@
     "samePassword": "The new password cannot be the same as the previous one"
   },
   "cancel": "Cancel",
-  "confirm": "Confirm"
+  "confirm": "Confirm",
+  "chooseDate": "Choose date"
 }

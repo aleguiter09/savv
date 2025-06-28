@@ -1,4 +1,4 @@
-import { AddMovementForm } from "@/components/movements/AddMovement/AddMovementForm";
+import { CreateMovementForm } from "@/components/movements/CreateMovement/CreateMovementForm";
 import { ArrowLeft } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -15,7 +15,7 @@ export default async function AddMovementPage() {
         <h4 className="font-medium">{t("addTitle")}</h4>
         <span></span>
       </div>
-      <AddMovementForm />
+      <CreateMovementForm />
     </>
   );
 }

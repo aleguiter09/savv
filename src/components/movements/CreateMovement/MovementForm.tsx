@@ -1,78 +1,22 @@
-"use client";
-import { useFormState, useFormStatus } from "react-dom";
-import { addMovementForm } from "@/utils/actions/movement-action";
-import { useState } from "react";
-import {
-  TabGroup,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-  DatePicker,
-  DatePickerValue,
-} from "@tremor/react";
-import { useData } from "@/providers/DataProvider";
-import { FormMovementState, Type } from "@/types/general";
-import { Account } from "@/types/database";
-import { useLocale, useTranslations } from "next-intl";
-import { enUS, es } from "date-fns/locale";
 import { Card } from "@/components/ui/card";
+import { useData } from "@/providers/DataProvider";
+import { Movement } from "@/types/database";
+import { FormMovementState, Type } from "@/types/general";
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@tremor/react";
+import { useLocale, useTranslations } from "next-intl";
+import { useFormStatus } from "react-dom";
+import { enUS, es } from "date-fns/locale";
 import { AccountSelect } from "./AccountSelect";
 import { CategorySelect } from "./CategorySelect";
 import { Input } from "@/components/ui/input";
-
-export function AddMovementForm() {
-  const { accounts } = useData();
-  const defaultAcc = accounts.find((a) => a.default);
-
-  const [state, dispatch] = useFormState(addMovementForm, {
-    message: null,
-    errors: {},
-  });
-  const [date, setDate] = useState<DatePickerValue>(new Date());
-  const [type, setType] = useState<Type>("expense");
-  const [category, setCategory] = useState<string>("");
-  const [from, setFrom] = useState<string>(defaultAcc?.id?.toString() ?? "");
-  const [where, setWhere] = useState<string>("");
-
-  const submit = (formData: FormData) => {
-    formData.set("done_at", date ? date.toISOString() : "");
-    formData.set("type", type);
-    formData.set("from", from);
-    formData.set("category", category);
-
-    if (type === "transfer") {
-      formData.set("where", where);
-      formData.delete("category");
-    }
-
-    dispatch(formData);
-  };
-
-  return (
-    <form action={submit}>
-      <Form
-        accounts={accounts}
-        state={state}
-        date={date}
-        setDate={setDate}
-        setType={setType}
-        category={category}
-        setCategory={setCategory}
-        from={from}
-        setFrom={setFrom}
-        where={where}
-        setWhere={setWhere}
-      />
-    </form>
-  );
-}
+import { DatePicker } from "@/components/ui/date-picker";
 
 type FormProps = {
-  accounts: Account[];
+  movement?: Movement;
   state: FormMovementState;
-  date: DatePickerValue;
-  setDate: (date: DatePickerValue) => void;
+  date: Date | undefined;
+  setDate: (date: Date | undefined) => void;
+  type: Type;
   setType: (type: Type) => void;
   category: string;
   setCategory: (category: string) => void;
@@ -82,11 +26,12 @@ type FormProps = {
   setWhere: (where: string) => void;
 };
 
-const Form = ({
-  accounts,
+export const MovementForm = ({
+  movement,
   state,
   date,
   setDate,
+  type,
   setType,
   category,
   setCategory,
@@ -94,12 +39,24 @@ const Form = ({
   setFrom,
   where,
   setWhere,
-}: Readonly<FormProps>) => {
+}: FormProps) => {
   const t = useTranslations("movements");
   const locale = useLocale();
   const { pending } = useFormStatus();
-  const { incomeCategories, expenseCategories } = useData();
+  const { accounts, incomeCategories, expenseCategories } = useData();
   const { errors } = state;
+
+  const currentIndex = () => {
+    if (type === "expense") {
+      return 0;
+    } else if (type === "income") {
+      return 1;
+    } else if (type === "transfer") {
+      return 2;
+    } else {
+      return 0;
+    }
+  };
 
   const handleTypeChange = (i: number) => {
     switch (i) {
@@ -122,16 +79,19 @@ const Form = ({
         {t("enterDate")}
       </label>
       <DatePicker
-        id="date"
         className="mb-3"
         value={date}
         locale={locale.includes("es") ? es : enUS}
-        onValueChange={(v) => setDate(v)}
-        enableClear={false}
+        onChange={(v) => setDate(v)}
+        error={errors?.done_at?.[0] && t(errors.done_at[0])}
       />
       {/* type/category */}
       <div className="rounded-md mb-2">
-        <TabGroup className="mb-3" onIndexChange={(i) => handleTypeChange(i)}>
+        <TabGroup
+          index={currentIndex()}
+          className="mb-3"
+          onIndexChange={(i) => handleTypeChange(i)}
+        >
           <TabList className="w-full">
             <Tab className="w-full place-content-center">{t("expense")}</Tab>
             <Tab className="w-full place-content-center">{t("income")}</Tab>
@@ -142,8 +102,8 @@ const Form = ({
               <AccountSelect
                 label={t("chooseAccount")}
                 accounts={accounts}
-                from={from}
-                setFrom={setFrom}
+                value={from}
+                setValue={setFrom}
                 error={errors?.from?.[0] && t(errors.from[0])}
               />
               <CategorySelect
@@ -157,8 +117,8 @@ const Form = ({
               <AccountSelect
                 label={t("chooseAccount")}
                 accounts={accounts}
-                from={from}
-                setFrom={setFrom}
+                value={from}
+                setValue={setFrom}
                 error={errors?.from?.[0] && t(errors.from[0])}
               />
               <CategorySelect
@@ -172,15 +132,15 @@ const Form = ({
               <AccountSelect
                 label={t("chooseFrom")}
                 accounts={accounts.filter((a) => a.id !== Number(where))}
-                from={from}
-                setFrom={setFrom}
+                value={from}
+                setValue={setFrom}
                 error={errors?.from?.[0] && t(errors.from[0])}
               />
               <AccountSelect
                 label={t("chooseTo")}
                 accounts={accounts.filter((a) => a.id !== Number(from))}
-                from={where}
-                setFrom={setWhere}
+                value={where}
+                setValue={setWhere}
                 error={errors?.where?.[0] && t(errors.where[0])}
               />
             </TabPanel>
@@ -192,11 +152,13 @@ const Form = ({
       <Input
         id="amount"
         name="amount"
+        type="number"
         placeholder={t("chooseAmount")}
         step="0.01"
         min="0"
         label={t("enterAmount")}
         error={errors?.amount?.[0] && t(errors.amount[0])}
+        defaultValue={movement?.amount}
       />
 
       {/* comment */}
@@ -206,7 +168,9 @@ const Form = ({
         placeholder={t("chooseComment")}
         label={t("enterComment")}
         error={errors?.comment?.[0] && t(errors.comment[0])}
+        defaultValue={movement?.comment}
       />
+
       {/* Actions */}
       <div className="mt-3 flex flex-row gap-2">
         {pending ? (
@@ -218,6 +182,7 @@ const Form = ({
           </div>
         ) : (
           <button
+            tabIndex={0}
             className="w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white focus:outline-none focus:ring focus:ring-gray-blue"
             type="submit"
           >

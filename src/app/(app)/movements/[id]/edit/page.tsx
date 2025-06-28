@@ -1,4 +1,4 @@
-import { EditMovementForm } from "@/components/movements/EditMovement/EditMovementForm";
+import { EditMovementForm } from "@/components/movements/CreateMovement/EditMovementForm";
 import { getMovementById } from "@/services/movements";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
