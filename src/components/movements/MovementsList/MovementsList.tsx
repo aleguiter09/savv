@@ -1,4 +1,3 @@
-import { List } from "@tremor/react";
 import { getMovementsByDay } from "@/utils/common";
 import { getMovementsByFilters } from "@/services/movements";
 import { getTranslations } from "next-intl/server";
@@ -23,7 +22,7 @@ export async function MovementsList({
   const movements = getMovementsByDay(data);
 
   return (
-    <List>
+    <div>
       {movements.map((item) => (
         <MovementItem
           key={item.date}
@@ -37,6 +36,6 @@ export async function MovementsList({
           {t("noMovementsThisPeriod")}
         </p>
       )}
-    </List>
+    </div>
   );
 }
