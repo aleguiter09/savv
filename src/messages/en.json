@@ -49,7 +49,6 @@
     "addTitle": "Add transaction",
     "editTitle": "Edit transaction",
     "detailsTitle": "Details",
-    "areYouSure": "Are you sure? 🤔",
     "dialogMovement": "You are about to delete the following transaction:",
     "dialogWarning": "This action will restore your account balance and cannot be undone.",
     "noMovementsThisPeriod": "No transactions in this period",
@@ -142,5 +141,6 @@
   },
   "cancel": "Cancel",
   "confirm": "Confirm",
-  "chooseDate": "Choose date"
+  "chooseDate": "Choose date",
+  "areYouSure": "Are you sure? 🤔"
 }

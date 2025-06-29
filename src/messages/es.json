@@ -49,7 +49,6 @@
     "addTitle": "Añadir movimiento",
     "editTitle": "Editar movimiento",
     "detailsTitle": "Detalles",
-    "areYouSure": "¿Está seguro? 🤔",
     "dialogMovement": "Usted está a punto de eliminar el siguiente movimiento:",
     "dialogWarning": "Esta acción restaurará el balance de su cuenta y no se puede deshacer.",
     "noMovementsThisPeriod": "No hay movimientos en este periodo",
@@ -142,5 +141,6 @@
   },
   "cancel": "Cancelar",
   "confirm": "Confirmar",
-  "chooseDate": "Elegir fecha"
+  "chooseDate": "Elegir fecha",
+  "areYouSure": "¿Estas seguro? 🤔"
 }
