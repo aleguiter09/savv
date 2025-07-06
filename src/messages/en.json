@@ -8,9 +8,11 @@
     "lastMovements": "Last transactions",
     "seeAll": "See all",
     "noMovements": "No transactions uploaded so far",
+    "noUpcomingPayments": "No upcoming payments",
     "expensesByCat": "Expenses by category",
     "noExpensesThisMonth": "No expenses this month",
-    "totalWealth": "Total wealth"
+    "totalWealth": "Total wealth",
+    "upcomingPayments": "Upcoming payments"
   },
   "categories": {
     "Food": "Food",

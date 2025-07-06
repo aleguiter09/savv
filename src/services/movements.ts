@@ -23,7 +23,7 @@ export const getMovementsByFilters = async (
     .order("done_at", { ascending: false });
 
   if (accountId !== "all") {
-    query = query.eq("from", accountId);
+    query = query.or(`from.eq.${accountId},where.eq.${accountId}`);
   }
 
   if (!["all", "expenses", "incomes"].includes(categoryId as string)) {
@@ -54,11 +54,39 @@ export const getLastMovements = async (accountId: AccountIds) => {
   let query = supabase
     .from("movement")
     .select()
+    .lte("done_at", new Date().toISOString())
     .order("done_at", { ascending: false })
     .limit(5);
 
   if (accountId !== "all") {
-    query = query.eq("from", accountId);
+    query = query.or(`from.eq.${accountId},where.eq.${accountId}`);
+  }
+
+  const { data } = await query;
+
+  if (data) {
+    for (const m of data) {
+      const mov = await getCategoryById(m.category);
+      m.fullCategory = mov;
+    }
+    return data;
+  }
+
+  return [];
+};
+
+export const getUpcomingMovements = async (accountId: AccountIds) => {
+  const supabase = await createClient();
+
+  let query = supabase
+    .from("movement")
+    .select()
+    .gt("done_at", new Date().toISOString())
+    .order("done_at", { ascending: false })
+    .limit(5);
+
+  if (accountId !== "all") {
+    query = query.or(`from.eq.${accountId},where.eq.${accountId}`);
   }
 
   const { data } = await query;

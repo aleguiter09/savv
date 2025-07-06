@@ -54,9 +54,8 @@ export function ToastManager({ ...props }: ToasterProps) {
         info: "information",
         warning: "alert",
       }}
-      swipeDirections={["right"]}
+      swipeDirections={["left", "right"]}
       position="bottom-center"
-      duration={Infinity}
       {...props}
     />
   );

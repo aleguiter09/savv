@@ -23,7 +23,8 @@
 [X] Accounts & Categories not always being setted.
 [X] Select Category in Movement form overlaped by navbar
 [X] Only default imports are allowed
-[] Transfers are not being displayed in all movements
+[X] Transfers are not being displayed in all movements
+[X] Received transfers are not being displayed based on account
 
 # New Features
 
@@ -34,5 +35,7 @@
 [] Dark theme
 [] Multiple Money types on expense
 [] Credit cards or quotas widget
+[] Upcoming payments
 [] Loans Widget
 [] Expenses, incomes 6month Bar Chart
+[] Add types, icons and colors to accounts (cash, bank, card, savings, investments, crypto)
