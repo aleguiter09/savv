@@ -20,7 +20,7 @@ export async function ExpenseByCat({ accountId, year, month }: Props) {
         {t("expensesByCat")}
       </Link>
       <Suspense
-        key={accountId === "all" ? 0 : accountId + year + month}
+        key={(accountId === "all" ? 0 : accountId) + year + month}
         fallback={<ExpenseByCatSkeleton />}
       >
         <ExpenseByCatChart accountId={accountId} year={year} month={month} />

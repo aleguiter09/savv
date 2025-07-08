@@ -1,18 +1,20 @@
 import { Suspense } from "react";
 import { ExpensesDataChart, ExpensesDataSkeleton } from "./ExpensesDataChart";
+import { AccountIds } from "@/types/general";
 
-export async function ExpensesData({
-  account,
-  year,
-  month,
-}: Readonly<{
-  account: number;
+type Props = Readonly<{
+  accountId: AccountIds;
   year: number;
   month: number;
-}>) {
+}>;
+
+export async function ExpensesData({ accountId, year, month }: Props) {
   return (
-    <Suspense key={account + year + month} fallback={<ExpensesDataSkeleton />}>
-      <ExpensesDataChart account={account} year={year} month={month} />
+    <Suspense
+      key={(accountId === "all" ? 0 : accountId) + year + month}
+      fallback={<ExpensesDataSkeleton />}
+    >
+      <ExpensesDataChart accountId={accountId} year={year} month={month} />
     </Suspense>
   );
 }

@@ -25,6 +25,8 @@
 [X] Only default imports are allowed
 [X] Transfers are not being displayed in all movements
 [X] Received transfers are not being displayed based on account
+[] Check whats happenning when updating a movement
+[] Check how transfers are being displayed based on received or send
 
 # New Features
 
@@ -39,3 +41,4 @@
 [] Loans Widget
 [] Expenses, incomes 6month Bar Chart
 [] Add types, icons and colors to accounts (cash, bank, card, savings, investments, crypto)
+[] Add labels to movements
