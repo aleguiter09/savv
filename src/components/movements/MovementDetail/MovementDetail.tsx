@@ -1,5 +1,5 @@
 import { CategoryIcon } from "@/components/common/CategoryIcon";
-import { Category, Movement } from "@/types/database";
+import { Movement } from "@/types/database";
 import { getFormatter, getTranslations } from "next-intl/server";
 import Link from "next/link";
 
@@ -19,13 +19,13 @@ export async function MovementDetail({
       <div className="flex justify-between items-center mb-4">
         <div className="flex gap-3 items-center">
           <CategoryIcon
-            icon={(fullCategory as Category).icon}
-            color={(fullCategory as Category).color}
+            icon={fullCategory?.icon}
+            color={fullCategory?.color}
             size="24px"
             padding="p-[6px]"
           />
           <span className="font-medium">
-            {t(`categories.${(fullCategory as Category).title}`)}
+            {t(`categories.${fullCategory?.title}`)}
           </span>
         </div>
         <span

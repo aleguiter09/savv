@@ -42,3 +42,4 @@
 [] Expenses, incomes 6month Bar Chart
 [] Add types, icons and colors to accounts (cash, bank, card, savings, investments, crypto)
 [] Add labels to movements
+[X] Change querys to use Joins

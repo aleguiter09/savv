@@ -7,10 +7,11 @@ export const getCategories = async (): Promise<Category[]> => {
   const { data } = await supabase
     .from("category")
     .select("id, color, title, icon, for");
+
   return data ?? [];
 };
 
-export const getCategoryById = async (id: string) => {
+export const getCategoryById = async (id: string): Promise<Category | null> => {
   const supabase = await createClient();
 
   if (id) {

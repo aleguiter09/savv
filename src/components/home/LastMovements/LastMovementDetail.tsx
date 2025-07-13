@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Category, Movement } from "@/types/database";
+import { Movement } from "@/types/database";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { CategoryIcon } from "@/components/common/CategoryIcon";
 
@@ -29,15 +29,15 @@ export async function LastMovementDetail({
     >
       <div className="flex gap-3">
         <CategoryIcon
-          icon={(fullCategory as Category).icon}
-          color={(fullCategory as Category).color}
+          icon={fullCategory?.icon}
+          color={fullCategory?.color}
           size="24px"
           padding="p-[6px]"
         />
         <div className="flex flex-col">
           <span className="font-medium text-sm">{comment}</span>
           <span className="text-xs text-gray-500">
-            {t((fullCategory as Category).title ?? "")}
+            {t(fullCategory?.title ?? "Transfer")}
           </span>
         </div>
       </div>

@@ -1,7 +1,5 @@
-import { getCategoryById } from "./categories";
 import { Movement } from "@/types/database";
 import { getInitialAndFinalDate } from "@/utils/common";
-import { getAccountById } from "./accounts";
 import { createClient } from "@/utils/supabase/server";
 import { AccountIds, CategoryIds } from "@/types/general";
 
@@ -17,7 +15,25 @@ export const getMovementsByFilters = async (
 
   let query = supabase
     .from("movement")
-    .select("*")
+    .select(
+      `
+      id,
+      from, 
+      amount,
+      comment,
+      category,
+      type,
+      done_at,
+      where,
+      fullCategory:category (
+        id,
+        title,
+        icon,
+        color,
+        for
+      )
+    `
+    )
     .gte("done_at", initialDate)
     .lte("done_at", finishDate)
     .order("done_at", { ascending: false });
@@ -39,12 +55,14 @@ export const getMovementsByFilters = async (
   const { data } = await query;
 
   if (data) {
-    for (const d of data) {
-      const mov = await getCategoryById(d.category);
-      d.fullCategory = mov;
-    }
-    return data;
+    return data.map((item) => ({
+      ...item,
+      fullCategory: Array.isArray(item.fullCategory)
+        ? item.fullCategory[0]
+        : item.fullCategory,
+    }));
   }
+
   return [];
 };
 
@@ -53,7 +71,25 @@ export const getLastMovements = async (accountId: AccountIds) => {
 
   let query = supabase
     .from("movement")
-    .select()
+    .select(
+      `
+      id,
+      from, 
+      amount,
+      comment,
+      category,
+      type,
+      done_at,
+      where,
+      fullCategory:category (
+        id,
+        title,
+        icon,
+        color,
+        for
+      )
+    `
+    )
     .lte("done_at", new Date().toISOString())
     .order("done_at", { ascending: false })
     .limit(5);
@@ -65,11 +101,12 @@ export const getLastMovements = async (accountId: AccountIds) => {
   const { data } = await query;
 
   if (data) {
-    for (const m of data) {
-      const mov = await getCategoryById(m.category);
-      m.fullCategory = mov;
-    }
-    return data;
+    return data.map((item) => ({
+      ...item,
+      fullCategory: Array.isArray(item.fullCategory)
+        ? item.fullCategory[0]
+        : item.fullCategory,
+    }));
   }
 
   return [];
@@ -80,7 +117,25 @@ export const getUpcomingMovements = async (accountId: AccountIds) => {
 
   let query = supabase
     .from("movement")
-    .select()
+    .select(
+      `
+      id,
+      from, 
+      amount,
+      comment,
+      category,
+      type,
+      done_at,
+      where,
+      fullCategory:category (
+        id,
+        title,
+        icon,
+        color,
+        for
+      )
+    `
+    )
     .gt("done_at", new Date().toISOString())
     .order("done_at", { ascending: false })
     .limit(5);
@@ -92,11 +147,12 @@ export const getUpcomingMovements = async (accountId: AccountIds) => {
   const { data } = await query;
 
   if (data) {
-    for (const m of data) {
-      const mov = await getCategoryById(m.category);
-      m.fullCategory = mov;
-    }
-    return data;
+    return data.map((item) => ({
+      ...item,
+      fullCategory: Array.isArray(item.fullCategory)
+        ? item.fullCategory[0]
+        : item.fullCategory,
+    }));
   }
 
   return [];
@@ -115,6 +171,7 @@ export const getMonthIncomes = async (accountId: AccountIds) => {
   if (accountId !== "all") {
     query = query.eq("from", accountId);
   }
+
   const { data } = await query;
   return data?.reduce((a, b) => a + b.amount, 0) ?? 0;
 };
@@ -132,27 +189,56 @@ export const getMonthExpenses = async (accountId: AccountIds) => {
   if (accountId !== "all") {
     query = query.eq("from", accountId);
   }
-  const { data } = await query;
 
+  const { data } = await query;
   return data?.reduce((a, b) => a + b.amount, 0) ?? 0;
 };
 
-export const getMovementById = async (id: number): Promise<Movement> => {
+export const getMovementById = async (id: number): Promise<Movement | null> => {
   const supabase = await createClient();
   const { data } = await supabase
     .from("movement")
-    .select()
+    .select(
+      `
+      id,
+      from, 
+      amount,
+      comment,
+      category,
+      type,
+      done_at,
+      where,
+      fullCategory:category (
+        id,
+        title,
+        icon,
+        color,
+        for
+      ),
+      fullAccount:from (
+        id,
+        name,
+        balance,
+        default
+      )
+    `
+    )
     .eq("id", id)
     .single();
 
   if (data) {
-    const category = await getCategoryById(data.category);
-    const account = await getAccountById(data.from);
-    data.fullCategory = category;
-    data.fullAccount = account;
+    return {
+      ...data,
+      fullCategory: Array.isArray(data.fullCategory)
+        ? data.fullCategory[0]
+        : data.fullCategory,
+      fullAccount: Array.isArray(data.fullAccount)
+        ? data.fullAccount[0]
+        : data.fullAccount,
+    };
   }
 
-  return data;
+  return null;
 };
 
 export const insertMovement = async (movement: Movement) => {
@@ -177,13 +263,29 @@ export const getExpenses = async (
   accountId: AccountIds,
   year?: number,
   month?: number
-) => {
+): Promise<Movement[]> => {
   const supabase = await createClient();
   const { initialDate, finishDate } = getInitialAndFinalDate(year, month);
 
   let query = supabase
     .from("movement")
-    .select("amount, category")
+    .select(
+      `
+      from, 
+      amount,
+      comment, 
+      done_at, 
+      type,
+      category,
+      fullCategory:category (
+        id,
+        color,
+        title,
+        icon,
+        for
+      )
+    `
+    )
     .eq("type", "expense")
     .gte("done_at", initialDate)
     .lte("done_at", finishDate);
@@ -195,14 +297,12 @@ export const getExpenses = async (
   const { data } = await query;
 
   if (data) {
-    const dataWithCategory = [];
-    for (const d of data) {
-      const mov = await getCategoryById(d.category);
-      const movWithCategory = { ...d, fullCategory: mov };
-      dataWithCategory.push(movWithCategory);
-    }
-
-    return dataWithCategory;
+    return data.map((item) => ({
+      ...item,
+      fullCategory: Array.isArray(item.fullCategory)
+        ? item.fullCategory[0]
+        : item.fullCategory,
+    }));
   }
 
   return [];
