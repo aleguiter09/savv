@@ -7,11 +7,11 @@ export function AddButton({ href }: Readonly<{ href: string }>) {
       tabIndex={0}
       aria-label="Add movement"
       href={href}
-      className="rounded-full focus:outline-none focus:ring focus:ring-gray-blue"
+      className="rounded-full focus:outline-hidden focus:ring-3 focus:ring-gray-blue"
     >
       <PlusIcon
         size={32}
-        className="rounded-full bg-blue-600 p-2 text-white shadow-md focus:outline-none focus:ring focus:ring-gray-blue"
+        className="rounded-full bg-blue-600 p-2 text-white shadow-md focus:outline-hidden focus:ring-3 focus:ring-gray-blue"
       />
     </Link>
   );

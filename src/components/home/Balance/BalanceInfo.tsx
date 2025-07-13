@@ -50,7 +50,7 @@ export async function BalanceSkeleton() {
         </div>
         <div className="flex w-full justify-center py-2">
           <output
-            className="h-3 w-3 animate-spin rounded-full border-[2px] border-current border-t-transparent text-blue-600"
+            className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent text-blue-600"
             aria-label="loading"
           />
         </div>
@@ -59,7 +59,7 @@ export async function BalanceSkeleton() {
         <p className="font-semibold"></p>
         <div className=" flex w-full justify-center py-2">
           <output
-            className="h-3 w-3 animate-spin rounded-full border-[2px] border-current border-t-transparent text-blue-600"
+            className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent text-blue-600"
             aria-label="loading"
           />
         </div>
@@ -68,7 +68,7 @@ export async function BalanceSkeleton() {
         <p className="font-semibold"></p>
         <div className="flex w-full justify-center py-2">
           <output
-            className="h-3 w-3 animate-spin rounded-full border-[2px] border-current border-t-transparent text-blue-600"
+            className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent text-blue-600"
             aria-label="loading"
           />
         </div>

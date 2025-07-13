@@ -33,7 +33,7 @@ export default function Reset() {
             type="email"
             autoComplete="email"
             tabIndex={0}
-            className="bg-white shadow-sm"
+            className="bg-white shadow-xs"
             label={t("email")}
             error={errors?.email?.[0] && t(errors.email[0])}
           />
@@ -48,7 +48,7 @@ export default function Reset() {
           ) : (
             <button
               tabIndex={0}
-              className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white focus:outline-none focus:ring focus:ring-gray-blue"
+              className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white focus:outline-hidden focus:ring-3 focus:ring-gray-blue"
               type="submit"
             >
               {t("reset")}

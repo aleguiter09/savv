@@ -32,7 +32,7 @@ export default function UpdatePassword() {
             name="password"
             type="password"
             autoComplete="current-password"
-            className="bg-white shadow-sm"
+            className="bg-white shadow-xs"
             label={t("password")}
             error={errors?.password?.[0] && t(errors.password[0])}
           />
@@ -41,7 +41,7 @@ export default function UpdatePassword() {
             id="confirmPassword"
             name="confirmPassword"
             type="password"
-            className="bg-white shadow-sm"
+            className="bg-white shadow-xs"
             label={t("confirmPassword")}
             error={errors?.confirmPassword?.[0] && t(errors.confirmPassword[0])}
           />
@@ -56,7 +56,7 @@ export default function UpdatePassword() {
           ) : (
             <button
               tabIndex={0}
-              className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white focus:outline-none focus:ring focus:ring-gray-blue"
+              className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white focus:outline-hidden focus:ring-3 focus:ring-gray-blue"
               type="submit"
             >
               {t("reset")}

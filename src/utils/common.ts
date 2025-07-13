@@ -92,7 +92,7 @@ export const parseMovementsForChart = (
     if (!dataItem) {
       result.push({
         title: fullCategory?.title ?? "Uncategorized",
-        color: fullCategory?.color ?? "gray-500",
+        color: fullCategory?.color ?? "gray",
         category: category ? category.toString() : "uncategorized",
         amount: amount,
       });

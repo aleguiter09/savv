@@ -10,14 +10,14 @@ type Props = Readonly<{
 
 export function CategoryIcon({
   icon = "transfer",
-  color = "gray-500",
+  color = "gray",
   size = "14px",
   padding = "p-[3px]",
 }: Props) {
   const Icon = CATEGORY_ICONS[icon as CategoryIconsKeys];
 
   return (
-    <div className={`bg-${color} rounded-full ${padding}`}>
+    <div className={`bg-${color}-500 rounded-full ${padding}`}>
       <Icon className="text-white" size={size} />
     </div>
   );

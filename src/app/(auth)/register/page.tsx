@@ -32,7 +32,7 @@ export default function Register() {
             name="email"
             type="email"
             tabIndex={0}
-            className="bg-white shadow-sm"
+            className="bg-white shadow-xs"
             label={t("email")}
             error={errors?.email?.[0] && t(errors.email[0])}
           />
@@ -41,7 +41,7 @@ export default function Register() {
             id="password"
             name="password"
             type="password"
-            className="bg-white shadow-sm"
+            className="bg-white shadow-xs"
             label={t("password")}
             error={errors?.password?.[0] && t(errors.password[0])}
           />
@@ -50,7 +50,7 @@ export default function Register() {
             id="confirmPassword"
             name="confirmPassword"
             type="password"
-            className="bg-white shadow-sm"
+            className="bg-white shadow-xs"
             label={t("confirmPassword")}
             error={errors?.confirmPassword?.[0] && t(errors.confirmPassword[0])}
           />
@@ -66,7 +66,7 @@ export default function Register() {
             <button
               tabIndex={0}
               type="submit"
-              className="mt-4 w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white focus:outline-none focus:ring focus:ring-gray-blue"
+              className="mt-4 w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white focus:outline-hidden focus:ring-3 focus:ring-gray-blue"
             >
               {t("signUp")}
             </button>
