@@ -27,7 +27,8 @@
 [X] Received transfers are not being displayed based on account
 [] Check whats happenning when updating a movement
 [] Check how transfers are being displayed based on received or send
-[] On add movement, when changing between tabs the category displayed is empty
+[] On add movement, when changing betwewen tabs the category displayed is empty
+[] On date picker, add preestablished ranges (today, week, month, last30days)
 
 # New Features
 
