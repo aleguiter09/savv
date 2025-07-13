@@ -69,8 +69,7 @@ export const getMovementsByDay = (movements: Movement[]) => {
   });
 
   return items.sort(
-    (a, b) =>
-      new Date(b.date).getMilliseconds() - new Date(a.date).getMilliseconds()
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 };
 
