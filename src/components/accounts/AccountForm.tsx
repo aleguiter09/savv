@@ -1,4 +1,4 @@
-import { Account } from "@/types/database";
+import { Account } from "@/types/global.types";
 import { FormAccountState } from "@/types/general";
 import { useTranslations } from "next-intl";
 import { useFormStatus } from "react-dom";

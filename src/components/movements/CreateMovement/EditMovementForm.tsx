@@ -2,8 +2,7 @@
 import { useFormState } from "react-dom";
 import { updateMovementForm } from "@/utils/actions/movement-action";
 import { useState } from "react";
-import { Type } from "@/types/general";
-import { Movement } from "@/types/database";
+import { Movement, MovementTypes } from "@/types/global.types";
 import { MovementForm } from "./MovementForm";
 
 type Props = Readonly<{
@@ -18,7 +17,7 @@ export function EditMovementForm({ movement }: Props) {
   const [date, setDate] = useState<Date | undefined>(
     new Date(movement.done_at)
   );
-  const [type, setType] = useState<Type>(movement.type);
+  const [type, setType] = useState<MovementTypes>(movement.type);
   const [category, setCategory] = useState<string>(
     movement?.category?.toString() ?? ""
   );

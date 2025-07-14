@@ -1,6 +1,5 @@
 "use server";
 import { FormMovementState } from "@/types/general";
-import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import {
   deleteMovement,
@@ -8,93 +7,18 @@ import {
   updateMovement,
 } from "@/services/movements";
 import { redirect } from "next/navigation";
-import { updateAccountBalance } from "@/services/accounts";
-import { Movement } from "@/types/database";
+import { Movement } from "@/types/global.types";
 import { setToastMessage } from "@/lib/toast";
 import { getTranslations } from "next-intl/server";
-
-const IncomeExpenseSchema = z.object({
-  amount: z.coerce
-    .number({
-      invalid_type_error: "amountNumberError",
-    })
-    .positive({ message: "amountPositiveError" }),
-  comment: z
-    .string({
-      required_error: "noCommentError",
-    })
-    .min(1, {
-      message: "noCommentError",
-    }),
-  type: z.enum(["expense", "income"]),
-  category: z.coerce
-    .number({
-      required_error: "noCategoryError",
-      invalid_type_error: "noCategoryError",
-    })
-    .positive({ message: "noCategoryError" }),
-  from: z.coerce
-    .number({
-      required_error: "noAccountError",
-      invalid_type_error: "noAccountError",
-    })
-    .positive({ message: "noAccountError" }),
-  done_at: z
-    .string({
-      required_error: "noDateError",
-    })
-    .min(1, {
-      message: "noDateError",
-    }),
-});
-
-const TransferSchema = z.object({
-  amount: z.coerce
-    .number({
-      invalid_type_error: "amountNumberError",
-    })
-    .positive({ message: "amountPositiveError" }),
-  comment: z
-    .string({
-      required_error: "noCommentError",
-    })
-    .min(1, {
-      message: "noCommentError",
-    }),
-  type: z.enum(["transfer"]),
-  from: z.coerce
-    .number({
-      required_error: "noAccountError",
-      invalid_type_error: "noAccountError",
-    })
-    .positive({ message: "noAccountError" }),
-  where: z.coerce
-    .number({
-      required_error: "noAccountError",
-      invalid_type_error: "noAccountError",
-    })
-    .positive({ message: "noAccountError" }),
-  done_at: z
-    .string({
-      required_error: "noDateError",
-    })
-    .min(1, {
-      message: "noDateError",
-    }),
-});
+import { MovementSchema } from "@/lib/schemas";
+import { updateAccountBalances } from "@/services/accounts";
 
 export const createMovementForm = async (
   prevState: FormMovementState,
   formData: FormData
 ): Promise<FormMovementState> => {
   const rawFormData = Object.fromEntries(formData.entries());
-
-  let validatedData;
-  if (rawFormData.type === "transfer") {
-    validatedData = TransferSchema.safeParse(rawFormData);
-  } else {
-    validatedData = IncomeExpenseSchema.safeParse(rawFormData);
-  }
+  const validatedData = MovementSchema.safeParse(rawFormData);
 
   if (!validatedData.success) {
     return {
@@ -106,15 +30,20 @@ export const createMovementForm = async (
   try {
     const data = validatedData.data;
     await insertMovement(data);
+
+    const updates = [];
+
     if (data.type === "transfer") {
-      await Promise.all([
-        updateAccountBalance(data.from, data.amount, false),
-        updateAccountBalance(data.where, data.amount, true),
-      ]);
+      updates.push({ account_id: data.from, amount_change: -data.amount });
+      updates.push({ account_id: data.where, amount_change: data.amount });
     } else if (data.type === "expense") {
-      await updateAccountBalance(data.from, data.amount, false);
+      updates.push({ account_id: data.from, amount_change: -data.amount });
     } else if (data.type === "income") {
-      await updateAccountBalance(data.from, data.amount, true);
+      updates.push({ account_id: data.from, amount_change: data.amount });
+    }
+
+    if (updates.length > 0) {
+      await updateAccountBalances(updates);
     }
   } catch (error) {
     console.error("Database error: failed to insert movement", error);
@@ -129,20 +58,34 @@ export const createMovementForm = async (
 };
 
 export const deleteMovementForm = async (movement: Movement) => {
-  await deleteMovement(movement.id?.toString() ?? "");
+  await deleteMovement(movement.id ?? 0);
 
   if (!movement.from) {
     revalidatePath("/");
     redirect("/");
-  } else if (movement.type === "transfer") {
-    await Promise.all([
-      updateAccountBalance(movement.from, movement.amount, true),
-      updateAccountBalance(movement.where as number, movement.amount, false),
-    ]);
+  }
+
+  const updates = [];
+  if (movement.type === "transfer") {
+    updates.push({
+      account_id: movement.from,
+      amount_change: -movement.amount,
+    });
+    updates.push({
+      account_id: movement.where ?? 0,
+      amount_change: movement.amount,
+    });
   } else if (movement.type === "expense") {
-    await updateAccountBalance(movement.from, movement.amount, true);
+    updates.push({
+      account_id: movement.from,
+      amount_change: -movement.amount,
+    });
   } else if (movement.type === "income") {
-    await updateAccountBalance(movement.from, movement.amount, false);
+    updates.push({ account_id: movement.from, amount_change: movement.amount });
+  }
+
+  if (updates.length > 0) {
+    await updateAccountBalances(updates);
   }
 
   const t = await getTranslations("movements");
@@ -175,10 +118,10 @@ export const updateMovementForm = async (
   let validatedData;
   if (rawFormData.type === "transfer") {
     delete rawFormData.category;
-    validatedData = TransferSchema.safeParse(rawFormData);
+    validatedData = MovementSchema.safeParse(rawFormData);
   } else {
     delete rawFormData.where;
-    validatedData = IncomeExpenseSchema.safeParse(rawFormData);
+    validatedData = MovementSchema.safeParse(rawFormData);
   }
 
   if (!validatedData.success) {
@@ -190,7 +133,7 @@ export const updateMovementForm = async (
 
   try {
     const data = validatedData.data;
-    await updateMovement(data, previous.id);
+    await updateMovement(data, Number(previous.id));
 
     const deltas: Record<number, number> = {};
     const addDelta = (acc: number | undefined, amount: number) => {
@@ -216,13 +159,15 @@ export const updateMovementForm = async (
       addDelta(previous.from, -previous.amount);
     }
 
-    await Promise.all(
-      Object.entries(deltas).map(([accountId, diff]) =>
-        diff === 0
-          ? null
-          : updateAccountBalance(parseInt(accountId), Math.abs(diff), diff > 0)
-      )
-    );
+    const updates: { account_id: number; amount_change: number }[] = [];
+    Object.entries(deltas).forEach(([accountId, diff]) => {
+      if (diff === 0) return;
+      updates.push({ account_id: Number(accountId), amount_change: diff });
+    });
+
+    if (updates.length > 0) {
+      await updateAccountBalances(updates);
+    }
   } catch (error) {
     console.error("Database error: failed to update movement", error);
     throw new Error("Database error: failed to update movement");

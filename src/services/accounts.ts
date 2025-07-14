@@ -1,4 +1,4 @@
-import { Account } from "@/types/database";
+import { Account } from "@/types/global.types";
 import { AccountIds } from "@/types/general";
 import { createClient } from "@/utils/supabase/server";
 import { cache } from "react";
@@ -62,41 +62,27 @@ export const createAccount = async (account: Account) => {
   return await supabase.from("account").insert(account);
 };
 
-export const deleteAccount = async (accountId: string) => {
+export const deleteAccount = async (accountId: number) => {
   const supabase = await createClient();
   return await supabase.from("account").delete().eq("id", accountId);
 };
 
-export const updateAccount = async (account: Account, accountId: string) => {
+export const updateAccount = async (account: Account, accountId: number) => {
   const supabase = await createClient();
   return await supabase.from("account").update(account).eq("id", accountId);
 };
 
-export const updateAccountBalance = async (
-  accountId: number,
-  amount: number,
-  positive: boolean
+export const updateAccountBalances = async (
+  updates: Array<{ account_id: number; amount_change: number }>
 ) => {
   const supabase = await createClient();
-  const currentBalance = await getAccountBalanceById(accountId);
 
-  if (currentBalance === undefined) {
-    return Promise.reject(new Error(`Account with ID ${accountId} not found.`));
-  }
+  const { error } = await supabase.rpc("update_multiple_account_balances", {
+    updates: updates,
+  });
 
-  if (positive) {
-    const { error } = await supabase
-      .from("account")
-      .update({ balance: currentBalance + amount })
-      .eq("id", accountId);
-
-    if (error) throw error;
-  } else {
-    const { error } = await supabase
-      .from("account")
-      .update({ balance: currentBalance - amount })
-      .eq("id", accountId);
-
-    if (error) throw error;
+  if (error) {
+    console.error("Error updating account balances:", error);
+    throw new Error("Failed to update account balances");
   }
 };

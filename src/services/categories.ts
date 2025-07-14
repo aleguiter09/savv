@@ -1,4 +1,4 @@
-import { Category } from "@/types/database";
+import { Category } from "@/types/global.types";
 import { createClient } from "@/utils/supabase/server";
 
 export const getCategories = async (): Promise<Category[]> => {
@@ -11,7 +11,7 @@ export const getCategories = async (): Promise<Category[]> => {
   return data ?? [];
 };
 
-export const getCategoryById = async (id: string): Promise<Category | null> => {
+export const getCategoryById = async (id: number): Promise<Category | null> => {
   const supabase = await createClient();
 
   if (id) {

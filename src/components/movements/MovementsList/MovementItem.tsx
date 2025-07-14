@@ -1,4 +1,4 @@
-import { Movement } from "@/types/database";
+import { Movement } from "@/types/global.types";
 import { LastMovementDetail } from "@/components/home/LastMovements/LastMovementDetail";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDown, ArrowUp } from "lucide-react";

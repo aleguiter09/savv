@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { useData } from "@/providers/DataProvider";
-import { Movement } from "@/types/database";
-import { FormMovementState, Type } from "@/types/general";
+import { Movement, MovementTypes } from "@/types/global.types";
+import { FormMovementState } from "@/types/general";
 import { useLocale, useTranslations } from "next-intl";
 import { useFormStatus } from "react-dom";
 import { enUS, es } from "date-fns/locale";
@@ -17,8 +17,8 @@ type FormProps = {
   state: FormMovementState;
   date: Date | undefined;
   setDate: (date: Date | undefined) => void;
-  type: Type;
-  setType: (type: Type) => void;
+  type: MovementTypes;
+  setType: (type: MovementTypes) => void;
   category: string;
   setCategory: (category: string) => void;
   from: string;
@@ -64,7 +64,7 @@ export const MovementForm = ({
       <div className="rounded-md mb-2">
         <Tabs
           defaultValue={type}
-          onValueChange={(v) => setType(v as Type)}
+          onValueChange={(v) => setType(v as MovementTypes)}
           className="mb-3"
         >
           <TabsList className="w-full mb-3">

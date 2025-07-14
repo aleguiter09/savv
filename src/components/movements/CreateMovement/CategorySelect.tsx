@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Category } from "@/types/database";
+import { Category } from "@/types/global.types";
 import { useTranslations } from "next-intl";
 
 type Props = Readonly<{

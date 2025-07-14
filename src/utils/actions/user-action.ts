@@ -6,50 +6,17 @@ import {
   UpdatePasswordFormUserState,
 } from "@/types/general";
 import { redirect } from "next/navigation";
-import { z } from "zod";
 import { createAccount } from "@/services/accounts";
 import { createSettings } from "@/services/settings";
 import { getLocale, getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 import { createClient } from "../supabase/server";
-
-const UserSchema = z
-  .object({
-    email: z.string().email({ message: "emailError" }),
-    password: z.string().min(8, { message: "passwordError" }),
-    confirmPassword: z.string().min(8, { message: "passwordError" }),
-  })
-  .superRefine(({ password, confirmPassword }, ctx) => {
-    if (password !== confirmPassword) {
-      ctx.addIssue({
-        code: "custom",
-        message: "confirmPasswordError",
-        path: ["confirmPassword"],
-      });
-    }
-  });
-
-const LoginUserSchema = z.object({
-  email: z.string().email({ message: "emailError" }),
-  password: z.string().min(8, { message: "passwordError" }),
-});
-
-const ResetUserSchema = LoginUserSchema.omit({ password: true });
-
-const UpdatePasswordSchema = z
-  .object({
-    password: z.string().min(8, { message: "passwordError" }),
-    confirmPassword: z.string().min(8, { message: "passwordError" }),
-  })
-  .superRefine(({ password, confirmPassword }, ctx) => {
-    if (password !== confirmPassword) {
-      ctx.addIssue({
-        code: "custom",
-        message: "confirmPasswordError",
-        path: ["confirmPassword"],
-      });
-    }
-  });
+import {
+  LoginUserSchema,
+  ResetUserSchema,
+  UpdatePasswordSchema,
+  UserSchema,
+} from "@/lib/schemas";
 
 export const createUserForm = async (
   prevState: FormUserState,

@@ -1,6 +1,6 @@
 "use client";
 
-import { Account, Category } from "@/types/database";
+import { Account, Category } from "@/types/global.types";
 import { createContext, useContext, useMemo } from "react";
 
 type DataContextType = {

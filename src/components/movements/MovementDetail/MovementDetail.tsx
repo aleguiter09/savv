@@ -1,5 +1,5 @@
 import { CategoryIcon } from "@/components/common/CategoryIcon";
-import { Movement } from "@/types/database";
+import { Movement } from "@/types/global.types";
 import { getFormatter, getTranslations } from "next-intl/server";
 import Link from "next/link";
 

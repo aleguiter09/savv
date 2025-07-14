@@ -1,34 +1,17 @@
 "use server";
 
+import { AccountSchema } from "@/lib/schemas";
 import { setToastMessage } from "@/lib/toast";
 import {
   createAccount,
   deleteAccount,
   updateAccount,
 } from "@/services/accounts";
-import { Account } from "@/types/database";
+import { Account } from "@/types/global.types";
 import { FormAccountState } from "@/types/general";
 import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { z } from "zod";
-
-const AccountSchema = z.object({
-  id: z.string(),
-  name: z
-    .string({
-      required_error: "nameError",
-    })
-    .min(1, {
-      message: "nameError",
-    }),
-  balance: z.coerce.number({
-    invalid_type_error: "balanceError",
-  }),
-  default: z.enum(["true", "false"]).transform((value) => value === "true"),
-});
-
-const CreateAccountSchema = AccountSchema.omit({ id: true });
 
 export async function createAccountForm(
   prevState: FormAccountState,
@@ -38,7 +21,7 @@ export async function createAccountForm(
     ? formData.set("default", "true")
     : formData.set("default", "false");
   const rawFormData = Object.fromEntries(formData.entries());
-  const validatedData = CreateAccountSchema.safeParse(rawFormData);
+  const validatedData = AccountSchema.safeParse(rawFormData);
 
   if (!validatedData.success) {
     return {
@@ -61,8 +44,6 @@ export async function createAccountForm(
   redirect("/settings/accounts");
 }
 
-const UpdateAccountSchema = AccountSchema.omit({ id: true });
-
 export async function updateAccountForm(
   prevState: FormAccountState,
   formData: FormData,
@@ -72,7 +53,7 @@ export async function updateAccountForm(
     ? formData.set("default", "true")
     : formData.set("default", "false");
   const rawFormData = Object.fromEntries(formData.entries());
-  const validatedData = UpdateAccountSchema.safeParse(rawFormData);
+  const validatedData = AccountSchema.safeParse(rawFormData);
 
   if (!validatedData.success) {
     return {
@@ -82,7 +63,7 @@ export async function updateAccountForm(
   }
 
   try {
-    await updateAccount(validatedData.data, id);
+    await updateAccount(validatedData.data, Number(id));
   } catch (error) {
     console.error("Error updating account:", error);
     throw error;
@@ -96,7 +77,8 @@ export async function updateAccountForm(
 }
 
 export const deleteAccountForm = async (account: Account) => {
-  await deleteAccount(account.id?.toString() ?? "");
+  if (!account.id) return;
+  await deleteAccount(account.id);
 
   const t = await getTranslations("accounts");
 

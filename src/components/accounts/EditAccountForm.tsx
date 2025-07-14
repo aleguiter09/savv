@@ -1,5 +1,5 @@
 "use client";
-import { Account } from "@/types/database";
+import { Account } from "@/types/global.types";
 import { FormAccountState } from "@/types/general";
 import { updateAccountForm } from "@/utils/actions/account-actions";
 import { useFormState } from "react-dom";

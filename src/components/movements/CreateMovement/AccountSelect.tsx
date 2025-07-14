@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Account } from "@/types/database";
+import { Account } from "@/types/global.types";
 import { useTranslations } from "next-intl";
 
 type Props = Readonly<{

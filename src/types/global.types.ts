@@ -1,14 +1,17 @@
-import { Type } from "./general";
+import { Database } from "./database.types";
+
+export type MovementTypes = Database["public"]["Enums"]["movementType"];
+export type CategoryColors = Database["public"]["Enums"]["categoryColors"];
 
 export interface Movement {
   id?: number;
   from: number;
   amount: number;
   comment: string;
-  category?: number;
-  type: Type;
+  category?: number | null;
+  type: MovementTypes;
   done_at: string;
-  where?: number;
+  where?: number | null;
   fullCategory?: Category;
   fullAccount?: Account;
 }
@@ -17,23 +20,8 @@ export type Category = {
   id: number;
   title: string;
   icon: string;
-  color:
-    | "amber"
-    | "blue"
-    | "cyan"
-    | "fuchsia"
-    | "gray"
-    | "green"
-    | "indigo"
-    | "orange"
-    | "pink"
-    | "red"
-    | "rose"
-    | "sky"
-    | "teal"
-    | "violet"
-    | "yellow";
-  for: "income" | "expense";
+  color: CategoryColors;
+  for: MovementTypes;
 };
 
 export interface Account {

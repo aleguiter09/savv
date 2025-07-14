@@ -2,9 +2,9 @@
 import { useFormState } from "react-dom";
 import { useState } from "react";
 import { useData } from "@/providers/DataProvider";
-import { Type } from "@/types/general";
 import { createMovementForm } from "@/utils/actions/movement-action";
 import { MovementForm } from "./MovementForm";
+import { MovementTypes } from "@/types/global.types";
 
 export function CreateMovementForm() {
   const { accounts } = useData();
@@ -15,7 +15,7 @@ export function CreateMovementForm() {
     errors: {},
   });
   const [date, setDate] = useState<Date | undefined>(new Date());
-  const [type, setType] = useState<Type>("expense");
+  const [type, setType] = useState<MovementTypes>("expense");
   const [category, setCategory] = useState<string>("");
   const [from, setFrom] = useState<string>(defaultAcc?.id?.toString() ?? "");
   const [where, setWhere] = useState<string>("");

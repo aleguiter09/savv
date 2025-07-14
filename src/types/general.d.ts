@@ -10,8 +10,6 @@ export type CategoryIcons = {
 
 export type CategoryIconsKeys = keyof typeof CATEGORY_ICONS;
 
-export type Type = "income" | "expense" | "transfer";
-
 export type MovementFormFields =
   | "done_at"
   | "amount"

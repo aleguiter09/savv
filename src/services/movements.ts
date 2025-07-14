@@ -1,4 +1,4 @@
-import { Movement } from "@/types/database";
+import { Movement } from "@/types/global.types";
 import { getInitialAndFinalDate } from "@/utils/common";
 import { createClient } from "@/utils/supabase/server";
 import { AccountIds, CategoryIds } from "@/types/general";
@@ -17,20 +17,10 @@ export const getMovementsByFilters = async (
     .from("movement")
     .select(
       `
-      id,
-      from, 
-      amount,
-      comment,
-      category,
-      type,
-      done_at,
-      where,
+      id, from, amount, comment, category, type,
+      done_at, where,
       fullCategory:category (
-        id,
-        title,
-        icon,
-        color,
-        for
+        id, title, icon, color, for
       )
     `
     )
@@ -43,7 +33,7 @@ export const getMovementsByFilters = async (
   }
 
   if (!["all", "expenses", "incomes"].includes(categoryId as string)) {
-    query = query.eq("category", categoryId);
+    query = query.eq("category", Number(categoryId));
   }
 
   if (categoryId === "expenses") {
@@ -246,17 +236,14 @@ export const insertMovement = async (movement: Movement) => {
   return await supabase.from("movement").insert(movement);
 };
 
-export const deleteMovement = async (movementId: string) => {
+export const deleteMovement = async (id: number) => {
   const supabase = await createClient();
-  return await supabase.from("movement").delete().eq("id", movementId);
+  return await supabase.from("movement").delete().eq("id", id);
 };
 
-export const updateMovement = async (
-  movement: Movement,
-  movementId: string
-) => {
+export const updateMovement = async (movement: Movement, id: number) => {
   const supabase = await createClient();
-  return await supabase.from("movement").update(movement).eq("id", movementId);
+  return await supabase.from("movement").update(movement).eq("id", id);
 };
 
 export const getExpenses = async (
