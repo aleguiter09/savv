@@ -41,7 +41,10 @@ export function CategorySelect({
             {categories.map((item: Category) => (
               <SelectItem key={item.id} value={item.id.toString()}>
                 <div className="flex items-center">
-                  <CategoryIcon icon={item.icon} color={item.color} />
+                  <CategoryIcon
+                    icon={item.icon ?? "transfer"}
+                    color={item.color ?? "gray"}
+                  />
                   <p className="ml-2">{t(`categories.${item.title}`)}</p>
                 </div>
               </SelectItem>

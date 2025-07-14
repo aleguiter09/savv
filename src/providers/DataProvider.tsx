@@ -27,12 +27,15 @@ export const DataProvider = ({
   children: React.ReactNode;
 }) => {
   const incomeCategories = useMemo(
-    () => categories.filter((category) => category.for === "income"),
+    () => categories.filter((category) => category.parent_id === 60), // 60 is the id of the income category
     [categories]
   );
 
   const expenseCategories = useMemo(
-    () => categories.filter((category) => category.for === "expense"),
+    () =>
+      categories.filter(
+        (category) => category.parent_id !== null && category.parent_id !== 60
+      ), // 61 is the id of the expense category
     [categories]
   );
 

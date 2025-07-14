@@ -45,28 +45,36 @@ export type Database = {
         Row: {
           color: Database["public"]["Enums"]["categoryColors"]
           created_at: string
-          for: Database["public"]["Enums"]["movementType"]
-          icon: string
+          icon: string | null
           id: number
+          parent_id: number | null
           title: string
         }
         Insert: {
           color?: Database["public"]["Enums"]["categoryColors"]
           created_at?: string
-          for: Database["public"]["Enums"]["movementType"]
-          icon: string
+          icon?: string | null
           id?: number
+          parent_id?: number | null
           title: string
         }
         Update: {
           color?: Database["public"]["Enums"]["categoryColors"]
           created_at?: string
-          for?: Database["public"]["Enums"]["movementType"]
-          icon?: string
+          icon?: string | null
           id?: number
+          parent_id?: number | null
           title?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "category_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "category"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       movement: {
         Row: {

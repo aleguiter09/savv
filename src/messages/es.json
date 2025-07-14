@@ -38,7 +38,7 @@
     "Awards": "Premios",
     "Investments": "Inversiones",
     "Sale": "Ventas",
-    "Transfer": "Transferencias",
+    "transfer": "Transferencias",
     "Sports": "Deportes",
     "allCategories": "Todas las categorías",
     "allIncomes": "Todos los ingresos",
@@ -87,9 +87,11 @@
     "noCategoryError": "Por favor, elija una categoría",
     "noAccountError": "Por favor, elija una cuenta",
     "noDateError": "Por favor, introduzca una fecha",
+    "transferSameAccountError": "La cuenta no puede ser la misma que la cuenta de origen",
     "createdSuccess": "Movimiento creado con éxito",
     "updatedSuccess": "Movimiento actualizado con éxito",
-    "deletedSuccess": "Movimiento eliminado con éxito"
+    "deletedSuccess": "Movimiento eliminado con éxito",
+    "commentTooLong": "La descripción debe tener menos de 500 caracteres"
   },
   "accounts": {
     "addTitle": "Añadir cuenta",
@@ -108,12 +110,16 @@
     "dialogWarning": "Esta acción no eliminará las transacciones asociadas con esta cuenta, pero no se puede deshacer.",
     "createdSuccess": "Cuenta creada con éxito",
     "updatedSuccess": "Cuenta actualizada con éxito",
-    "deletedSuccess": "Cuenta eliminada con éxito"
+    "deletedSuccess": "Cuenta eliminada con éxito",
+    "nameTooLong": "El nombre debe tener menos de 100 caracteres",
+    "balanceTooLow": "El balance debe ser mayor que -999999999",
+    "balanceTooHigh": "El balance debe ser menor que 999999999"
   },
   "settings": {
     "title": "Configuración",
     "accounts": "Cuentas",
     "languages": "Idioma",
+    "categories": "Categorías",
     "es": "Español",
     "en": "Inglés",
     "confirm": "Confirmar"

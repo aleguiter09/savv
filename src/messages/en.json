@@ -16,7 +16,7 @@
   },
   "categories": {
     "Food": "Food",
-    "Comissions": "Commissions",
+    "Commissions": "Commissions",
     "Services": "Services",
     "Education": "Education",
     "Technology": "Technology",
@@ -38,7 +38,7 @@
     "Awards": "Awards",
     "Investments": "Investments",
     "Sale": "Sales",
-    "Transfer": "Transfers",
+    "transfer": "Transfers",
     "Sports": "Sports",
     "allCategories": "All categories",
     "allIncomes": "All incomes",
@@ -87,9 +87,11 @@
     "noCategoryError": "Please select a category",
     "noAccountError": "Please select an account",
     "noDateError": "Please enter a date",
+    "transferSameAccountError": "The account cannot be the same as the source account",
     "createdSuccess": "Transaction created successfully",
     "updatedSuccess": "Transaction updated successfully",
-    "deletedSuccess": "Transaction deleted successfully"
+    "deletedSuccess": "Transaction deleted successfully",
+    "commentTooLong": "The description must be less than 500 characters"
   },
   "accounts": {
     "addTitle": "Create account",
@@ -108,12 +110,16 @@
     "dialogWarning": "This action won't delete transactions associated with this account but cannot be undone.",
     "createdSuccess": "Account created successfully",
     "updatedSuccess": "Account updated successfully",
-    "deletedSuccess": "Account deleted successfully"
+    "deletedSuccess": "Account deleted successfully",
+    "nameTooLong": "The name must be less than 100 characters",
+    "balanceTooLow": "The balance must be greater than -999999999",
+    "balanceTooHigh": "The balance must be less than 999999999"
   },
   "settings": {
     "title": "Settings",
     "accounts": "Accounts",
     "languages": "Language",
+    "categories": "Categories",
     "es": "Spanish",
     "en": "English",
     "confirm": "Confirm"

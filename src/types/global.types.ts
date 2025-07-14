@@ -19,9 +19,9 @@ export interface Movement {
 export type Category = {
   id: number;
   title: string;
-  icon: string;
+  icon: string | null;
   color: CategoryColors;
-  for: MovementTypes;
+  parent_id?: number | null;
 };
 
 export interface Account {

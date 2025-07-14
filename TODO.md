@@ -25,11 +25,12 @@
 [X] Only default imports are allowed
 [X] Transfers are not being displayed in all movements
 [X] Received transfers are not being displayed based on account
-[] Check whats happenning when updating a movement
+[X] Check whats happenning when updating a movement
 [] Check how transfers are being displayed based on received or send
 [] On add movement, when changing betwewen tabs the category displayed is empty
 [] On date picker, add preestablished ranges (today, week, month, last30days)
 [X] When updating movement, movement is being inserted and eliminated. Not being updated.
+[] Verify translations for error mssgs in movements schemas
 
 # New Features
 
@@ -46,3 +47,4 @@
 [] Add types, icons and colors to accounts (cash, bank, card, savings, investments, crypto)
 [] Add labels to movements
 [X] Change querys to use Joins
+[] Obtain message stats from RPC queries

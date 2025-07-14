@@ -29,15 +29,15 @@ export async function LastMovementDetail({
     >
       <div className="flex gap-3">
         <CategoryIcon
-          icon={fullCategory?.icon}
-          color={fullCategory?.color}
+          icon={fullCategory?.icon ?? "transfer"}
+          color={fullCategory?.color ?? "gray"}
           size="24px"
           padding="p-[6px]"
         />
         <div className="flex flex-col">
           <span className="font-medium text-sm">{comment}</span>
           <span className="text-xs text-gray-500">
-            {t(fullCategory?.title ?? "Transfer")}
+            {t(fullCategory?.title ?? "transfer")}
           </span>
         </div>
       </div>

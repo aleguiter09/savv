@@ -20,7 +20,7 @@ export const getMovementsByFilters = async (
       id, from, amount, comment, category, type,
       done_at, where,
       fullCategory:category (
-        id, title, icon, color, for
+        id, title, icon, color
       )
     `
     )
@@ -75,8 +75,7 @@ export const getLastMovements = async (accountId: AccountIds) => {
         id,
         title,
         icon,
-        color,
-        for
+        color
       )
     `
     )
@@ -121,8 +120,7 @@ export const getUpcomingMovements = async (accountId: AccountIds) => {
         id,
         title,
         icon,
-        color,
-        for
+        color
       )
     `
     )
@@ -202,8 +200,7 @@ export const getMovementById = async (id: number): Promise<Movement | null> => {
         id,
         title,
         icon,
-        color,
-        for
+        color
       ),
       fullAccount:from (
         id,
@@ -266,10 +263,9 @@ export const getExpenses = async (
       category,
       fullCategory:category (
         id,
-        color,
         title,
         icon,
-        for
+        color
       )
     `
     )

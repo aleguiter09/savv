@@ -19,13 +19,13 @@ export async function MovementDetail({
       <div className="flex justify-between items-center mb-4">
         <div className="flex gap-3 items-center">
           <CategoryIcon
-            icon={fullCategory?.icon}
-            color={fullCategory?.color}
+            icon={fullCategory?.icon ?? "transfer"}
+            color={fullCategory?.color ?? "gray"}
             size="24px"
             padding="p-[6px]"
           />
           <span className="font-medium">
-            {t(`categories.${fullCategory?.title}`)}
+            {t(`categories.${fullCategory?.title ?? "transfer"}`)}
           </span>
         </div>
         <span

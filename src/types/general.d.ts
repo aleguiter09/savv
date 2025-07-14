@@ -1,5 +1,3 @@
-import { CATEGORY_ICONS } from "@/utils/constants";
-
 export type YearMonth = { year: number; month: number };
 
 export type CategoryIcons = {
@@ -7,15 +5,6 @@ export type CategoryIcons = {
     Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
   >;
 };
-
-export type CategoryIconsKeys = keyof typeof CATEGORY_ICONS;
-
-export type MovementFormFields =
-  | "done_at"
-  | "amount"
-  | "type"
-  | "category"
-  | "comment";
 
 export type FormAccountState = {
   errors?: { name?: string[]; balance?: string[]; default?: string[] };

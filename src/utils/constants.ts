@@ -29,7 +29,7 @@ import {
 
 export const CATEGORY_ICONS: CategoryIcons = {
   food: Hamburger,
-  comissions: ReceiptText,
+  commissions: ReceiptText,
   services: File,
   education: School,
   technology: Laptop,
@@ -53,7 +53,7 @@ export const CATEGORY_ICONS: CategoryIcons = {
   sales: CirclePercent,
   transfer: Forward,
   sports: Dumbbell,
-};
+} as const;
 
 export const MONTHS = [
   "January",

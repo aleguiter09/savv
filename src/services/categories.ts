@@ -6,29 +6,7 @@ export const getCategories = async (): Promise<Category[]> => {
 
   const { data } = await supabase
     .from("category")
-    .select("id, color, title, icon, for");
+    .select("id, color, title, icon, parent_id");
 
   return data ?? [];
-};
-
-export const getCategoryById = async (id: number): Promise<Category | null> => {
-  const supabase = await createClient();
-
-  if (id) {
-    const { data } = await supabase
-      .from("category")
-      .select("id, color, title, icon, for")
-      .eq("id", id)
-      .single();
-
-    return data;
-  } else {
-    const { data } = await supabase
-      .from("category")
-      .select("id, color, title, icon, for")
-      .eq("for", "transfer")
-      .single();
-
-    return data;
-  }
 };
