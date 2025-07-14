@@ -18,13 +18,20 @@ export type Category = {
   title: string;
   icon: string;
   color:
-    | "red"
+    | "amber"
     | "blue"
-    | "green"
-    | "purple"
-    | "orange"
     | "cyan"
+    | "fuchsia"
+    | "gray"
+    | "green"
+    | "indigo"
+    | "orange"
     | "pink"
+    | "red"
+    | "rose"
+    | "sky"
+    | "teal"
+    | "violet"
     | "yellow";
   for: "income" | "expense";
 };

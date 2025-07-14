@@ -2,7 +2,11 @@
 import { FormMovementState } from "@/types/general";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
-import { deleteMovement, insertMovement } from "@/services/movements";
+import {
+  deleteMovement,
+  insertMovement,
+  updateMovement,
+} from "@/services/movements";
 import { redirect } from "next/navigation";
 import { updateAccountBalance } from "@/services/accounts";
 import { Movement } from "@/types/database";
@@ -170,8 +174,10 @@ export const updateMovementForm = async (
 
   let validatedData;
   if (rawFormData.type === "transfer") {
+    delete rawFormData.category;
     validatedData = TransferSchema.safeParse(rawFormData);
   } else {
+    delete rawFormData.where;
     validatedData = IncomeExpenseSchema.safeParse(rawFormData);
   }
 
@@ -184,32 +190,42 @@ export const updateMovementForm = async (
 
   try {
     const data = validatedData.data;
-    await insertMovement(data);
+    await updateMovement(data, previous.id);
+
+    const deltas: Record<number, number> = {};
+    const addDelta = (acc: number | undefined, amount: number) => {
+      if (acc === undefined || Number.isNaN(acc)) return;
+      deltas[acc] = (deltas[acc] ?? 0) + amount;
+    };
+
     if (data.type === "transfer") {
-      await Promise.all([
-        updateAccountBalance(data.from, data.amount, false),
-        updateAccountBalance(data.where, data.amount, true),
-      ]);
+      addDelta(data.from, -data.amount);
+      addDelta(data.where, data.amount);
     } else if (data.type === "expense") {
-      await updateAccountBalance(data.from, data.amount, false);
+      addDelta(data.from, -data.amount);
     } else if (data.type === "income") {
-      await updateAccountBalance(data.from, data.amount, true);
+      addDelta(data.from, data.amount);
     }
 
-    await deleteMovement(previous.id);
     if (previous.type === "transfer") {
-      await Promise.all([
-        updateAccountBalance(previous.from, previous.amount, true),
-        updateAccountBalance(previous.where, previous.amount, false),
-      ]);
+      addDelta(previous.from, previous.amount);
+      addDelta(previous.where, -previous.amount);
     } else if (previous.type === "expense") {
-      await updateAccountBalance(previous.from, previous.amount, true);
+      addDelta(previous.from, previous.amount);
     } else if (previous.type === "income") {
-      await updateAccountBalance(previous.from, previous.amount, false);
+      addDelta(previous.from, -previous.amount);
     }
+
+    await Promise.all(
+      Object.entries(deltas).map(([accountId, diff]) =>
+        diff === 0
+          ? null
+          : updateAccountBalance(parseInt(accountId), Math.abs(diff), diff > 0)
+      )
+    );
   } catch (error) {
-    console.error("Database error: failed to insert movement", error);
-    throw new Error("Database error: failed to insert movement");
+    console.error("Database error: failed to update movement", error);
+    throw new Error("Database error: failed to update movement");
   }
 
   const t = await getTranslations("movements");

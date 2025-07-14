@@ -29,13 +29,14 @@
 [] Check how transfers are being displayed based on received or send
 [] On add movement, when changing betwewen tabs the category displayed is empty
 [] On date picker, add preestablished ranges (today, week, month, last30days)
+[X] When updating movement, movement is being inserted and eliminated. Not being updated.
 
 # New Features
 
 [] Replace Tremor with Shadcn
 [X] Toaster for OK msgs
 [] Templates for movements
-[] Admin Categories
+[] Admin Categories/subcategories
 [] Dark theme
 [] Multiple Money types on expense
 [] Credit cards or quotas widget
