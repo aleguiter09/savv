@@ -15,6 +15,14 @@
     "upcomingPayments": "Upcoming payments"
   },
   "categories": {
+    "addTitle": "Add category",
+    "title": "Enter the category title",
+    "titlePlaceholder": "Title...",
+    "createCategory": "Create category",
+    "titleError": "Please enter a category title",
+    "titleTooLong": "The category title must be less than 20 characters",
+    "iconError": "Please select an icon",
+    "colorError": "Please select a color",
     "food": "Food",
     "commissions": "Commissions",
     "services": "Services",

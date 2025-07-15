@@ -52,18 +52,12 @@ export function ConfirmDelete({ children, deleteAction }: Props) {
             {t("cancel")}
           </AlertDialogCancel>
           <Button
-            className={cn(
-              "w-24",
-              loading && "cursor-default hover:bg-blue-600 disabled:opacity-100"
-            )}
+            className="w-24"
+            loading={loading}
             disabled={loading}
             onClick={handleConfirm}
           >
-            {loading ? (
-              <output className="h-5 w-5 animate-spin rounded-full border-[3px] border-current border-t-transparent text-white" />
-            ) : (
-              t("confirm")
-            )}
+            {t("confirm")}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

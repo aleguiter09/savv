@@ -5,6 +5,7 @@ import { useFormState } from "react-dom";
 import { useTranslations } from "next-intl";
 import { updatePasswordForm } from "@/utils/actions/user-action";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default function UpdatePassword() {
   const t = useTranslations("auth");
@@ -46,22 +47,9 @@ export default function UpdatePassword() {
             error={errors?.confirmPassword?.[0] && t(errors.confirmPassword[0])}
           />
 
-          {pending ? (
-            <div className="mt-2 flex w-full justify-center rounded-md bg-blue-600 py-2">
-              <output
-                className="h-5 w-5 animate-spin rounded-full border-[3px] border-current border-t-transparent text-white"
-                aria-live="polite"
-              />
-            </div>
-          ) : (
-            <button
-              tabIndex={0}
-              className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white focus:outline-hidden focus:ring-3 focus:ring-gray-blue"
-              type="submit"
-            >
-              {t("reset")}
-            </button>
-          )}
+          <Button className="mt-2" loading={pending} type="submit">
+            {t("reset")}
+          </Button>
 
           <p className="mt-2 text-center text-sm">
             {t("signInMessage")}

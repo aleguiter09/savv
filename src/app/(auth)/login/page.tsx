@@ -5,6 +5,7 @@ import { useFormState } from "react-dom";
 import { loginUserForm } from "@/utils/actions/user-action";
 import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default function Login() {
   const t = useTranslations("auth");
@@ -48,23 +49,11 @@ export default function Login() {
             error={errors?.password?.[0] && t(errors.password[0])}
           />
 
-          {pending ? (
-            <div className="mt-2 flex w-full justify-center rounded-md bg-blue-600 py-2">
-              <output
-                className="h-5 w-5 animate-spin rounded-full border-[3px] border-current border-t-transparent text-white"
-                aria-live="polite"
-              />
-            </div>
-          ) : (
-            <button
-              tabIndex={0}
-              className="mt-2 w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white focus:outline-hidden focus:ring-3 focus:ring-gray-blue"
-              type="submit"
-            >
-              {t("signIn")}
-            </button>
-          )}
-          <p className="mt-4 text-center text-sm">
+          <Button className="mt-3" loading={pending} type="submit">
+            {t("signIn")}
+          </Button>
+
+          <p className="mt-3 text-center text-sm">
             {t("signUpMessage")}
             <Link href="/register" className="font-medium text-blue-600">
               {t("signUp")}

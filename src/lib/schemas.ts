@@ -44,6 +44,13 @@ export const AccountSchema = z.object({
   default: z.boolean().default(false),
 });
 
+export const CategorySchema = z.object({
+  title: z.string().min(1, "titleError").max(20, "titleTooLong"),
+  icon: z.string().min(1, "iconError"),
+  color: z.string().min(1, "colorError"),
+  parent_id: z.coerce.number().optional(),
+});
+
 export const UserSchema = z
   .object({
     email: z.string().email({ message: "emailError" }),

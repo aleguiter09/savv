@@ -5,6 +5,7 @@ import { useFormStatus } from "react-dom";
 import { Input } from "../ui/input";
 import { Checkbox } from "../ui/checkbox";
 import { Card } from "../ui/card";
+import { Button } from "../ui/button";
 
 export const AccountForm = ({
   state,
@@ -53,21 +54,9 @@ export const AccountForm = ({
         />
       </div>
 
-      {pending ? (
-        <div className="flex w-full justify-center rounded-md bg-blue-600 py-2">
-          <output
-            className="h-5 w-5 animate-spin rounded-full border-[3px] border-current border-t-transparent text-white"
-            aria-live="polite"
-          />
-        </div>
-      ) : (
-        <button
-          className="w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white focus:outline-hidden focus:ring-3 focus:ring-gray-blue"
-          type="submit"
-        >
-          {account ? t("editAccount") : t("createAccount")}
-        </button>
-      )}
+      <Button loading={pending} type="submit">
+        {account ? t("editAccount") : t("createAccount")}
+      </Button>
     </Card>
   );
 };

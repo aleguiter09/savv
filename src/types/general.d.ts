@@ -11,6 +11,16 @@ export type FormAccountState = {
   message?: string | null;
 };
 
+export type FormCategoryState = {
+  errors?: {
+    title?: string[];
+    icon?: string[];
+    color?: string[];
+    parent_id?: string[];
+  };
+  message?: string | null;
+};
+
 export type FormMovementState = {
   errors?: {
     amount?: string[];

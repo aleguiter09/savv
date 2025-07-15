@@ -15,6 +15,14 @@
     "upcomingPayments": "Pagos próximos"
   },
   "categories": {
+    "addTitle": "Añadir categoría",
+    "title": "Ingrese el título de la categoría",
+    "titlePlaceholder": "Título...",
+    "createCategory": "Crear categoría",
+    "titleError": "Por favor, introduzca un título para la categoría",
+    "titleTooLong": "El título de la categoría debe tener menos de 20 caracteres",
+    "iconError": "Por favor, seleccione un icono",
+    "colorError": "Por favor, seleccione un color",
     "food": "Comida",
     "commissions": "Comisiones",
     "services": "Servicios",

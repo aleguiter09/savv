@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
+import { Button } from "@/components/ui/button";
 
 type FormProps = {
   movement?: Movement;
@@ -152,22 +153,9 @@ export const MovementForm = ({
 
       {/* Actions */}
       <div className="mt-3 flex flex-row gap-2">
-        {pending ? (
-          <div className="flex w-full justify-center rounded-md bg-blue-600 py-2">
-            <output
-              className="h-5 w-5 animate-spin rounded-full border-[3px] border-current border-t-transparent text-white"
-              aria-live="polite"
-            />
-          </div>
-        ) : (
-          <button
-            tabIndex={0}
-            className="w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white focus:outline-hidden focus:ring-3 focus:ring-gray-blue"
-            type="submit"
-          >
-            {t("confirm")}
-          </button>
-        )}
+        <Button loading={pending} type="submit">
+          {t("confirm")}
+        </Button>
       </div>
     </Card>
   );

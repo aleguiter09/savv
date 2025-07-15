@@ -5,6 +5,7 @@ import { useFormState } from "react-dom";
 import { createUserForm } from "@/utils/actions/user-action";
 import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default function Register() {
   const t = useTranslations("auth");
@@ -55,22 +56,10 @@ export default function Register() {
             error={errors?.confirmPassword?.[0] && t(errors.confirmPassword[0])}
           />
 
-          {pending ? (
-            <div className="mt-4 flex w-full justify-center rounded-md bg-blue-600 py-2">
-              <output
-                className="h-5 w-5 animate-spin rounded-full border-[3px] border-current border-t-transparent text-white"
-                aria-label="loading"
-              ></output>
-            </div>
-          ) : (
-            <button
-              tabIndex={0}
-              type="submit"
-              className="mt-4 w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white focus:outline-hidden focus:ring-3 focus:ring-gray-blue"
-            >
-              {t("signUp")}
-            </button>
-          )}
+          <Button className="mt-4" loading={pending} type="submit">
+            {t("signUp")}
+          </Button>
+
           <p className="mt-2 text-center text-sm">
             {t("signInMessage")}
             <Link href="/" className="font-medium text-blue-600">
