@@ -10,7 +10,7 @@ export function AddButton({ href }: Readonly<{ href: string }>) {
       className="rounded-full focus:outline-hidden focus:ring-3 focus:ring-gray-blue"
     >
       <PlusIcon
-        size={32}
+        size={30}
         className="rounded-full bg-blue-600 p-2 text-white shadow-md focus:outline-hidden focus:ring-3 focus:ring-gray-blue"
       />
     </Link>

@@ -49,6 +49,7 @@ export type Database = {
           id: number
           parent_id: number | null
           title: string
+          user_id: string | null
         }
         Insert: {
           color?: Database["public"]["Enums"]["categoryColors"]
@@ -57,6 +58,7 @@ export type Database = {
           id?: number
           parent_id?: number | null
           title: string
+          user_id?: string | null
         }
         Update: {
           color?: Database["public"]["Enums"]["categoryColors"]
@@ -65,6 +67,7 @@ export type Database = {
           id?: number
           parent_id?: number | null
           title?: string
+          user_id?: string | null
         }
         Relationships: [
           {
