@@ -41,7 +41,7 @@ export const AccountSchema = z.object({
     .number()
     .min(-999999999, "balanceTooLow")
     .max(999999999, "balanceTooHigh"),
-  default: z.boolean().default(false),
+  default: z.string().transform((val) => val === "true"),
 });
 
 export const CategorySchema = z.object({
