@@ -1,7 +1,6 @@
 "use client";
 import {
   AlertDialog,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -42,15 +41,20 @@ export function ConfirmDelete({ children, deleteAction }: Props) {
       <AlertDialogTrigger asChild>
         <Trash2 className="cursor-pointer" />
       </AlertDialogTrigger>
-      <AlertDialogContent className="p-5">
+      <AlertDialogContent className="p-4.5">
         <AlertDialogHeader>
           <AlertDialogTitle>{t("areYouSure")}</AlertDialogTitle>
           <AlertDialogDescription>{children}</AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel disabled={loading} className={cn("w-24")}>
+        <AlertDialogFooter className="flex flex-row gap-2 justify-end">
+          <Button
+            variant="outline"
+            disabled={loading}
+            className={cn("w-24")}
+            onClick={() => setOpen(false)}
+          >
             {t("cancel")}
-          </AlertDialogCancel>
+          </Button>
           <Button
             className="w-24"
             loading={loading}

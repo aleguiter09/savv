@@ -11,9 +11,11 @@ export default async function AccountsPage() {
   return (
     <>
       <div className="mb-4 flex justify-between items-center">
-        <h3 className="font-semibold">
-          {t("title")} / {t("accounts")}
-        </h3>
+        <div className="flex items-center gap-1 text-sm">
+          <h3>{t("title")}</h3>
+          <span className="text-gray-500">/</span>
+          <h3 className="font-semibold">{t("accounts")}</h3>
+        </div>
         <AddButton href="/settings/accounts/create" />
       </div>
       <ul className="text-sm flex flex-col gap-2">

@@ -153,7 +153,7 @@ export const MovementForm = ({
 
       {/* Actions */}
       <div className="mt-3 flex flex-row gap-2">
-        <Button loading={pending} type="submit">
+        <Button loading={pending} type="submit" className="w-full">
           {t("confirm")}
         </Button>
       </div>
