@@ -6,56 +6,52 @@ export type CategoryIcons = {
   >;
 };
 
-export type FormAccountState = {
-  errors?: { name?: string[]; balance?: string[]; default?: string[] };
+export type FormState<T> = {
+  errors?: T;
   message?: string | null;
 };
 
-export type FormCategoryState = {
-  errors?: {
-    title?: string[];
-    icon?: string[];
-    color?: string[];
-    parent_id?: string[];
-  };
-  message?: string | null;
-};
+export type FormAccountState = FormState<{
+  name?: string[];
+  balance?: string[];
+  default?: string[];
+}>;
 
-export type FormMovementState = {
-  errors?: {
-    amount?: string[];
-    comment?: string[];
-    done_at?: string[];
-    category?: string[];
-    from?: string[];
-    where?: string[];
-  };
-  message?: string | null;
-};
+export type FormCategoryState = FormState<{
+  title?: string[];
+  icon?: string[];
+  color?: string[];
+  parent_id?: string[];
+}>;
 
-export type FormUserState = {
-  errors?: {
-    email?: string[];
-    password?: string[];
-    confirmPassword?: string[];
-  };
-  message?: string | null;
-};
+export type FormMovementState = FormState<{
+  amount?: string[];
+  comment?: string[];
+  done_at?: string[];
+  category?: string[];
+  from?: string[];
+  where?: string[];
+}>;
 
-export type LoginFormUserState = {
-  errors?: { email?: string[]; password?: string[] };
-  message?: string | null;
-};
+export type FormUserState = FormState<{
+  email?: string[];
+  password?: string[];
+  confirmPassword?: string[];
+}>;
 
-export type ResetFormUserState = {
-  errors?: { email?: string[] };
-  message?: string | null;
-};
+export type LoginFormUserState = FormState<{
+  email?: string[];
+  password?: string[];
+}>;
 
-export type UpdatePasswordFormUserState = {
-  errors?: { password?: string[]; confirmPassword?: string[] };
-  message?: string | null;
-};
+export type ResetFormUserState = FormState<{
+  email?: string[];
+}>;
+
+export type UpdatePasswordFormUserState = FormState<{
+  password?: string[];
+  confirmPassword?: string[];
+}>;
 
 export type CategoryIds = "all" | "incomes" | "expenses" | number;
 

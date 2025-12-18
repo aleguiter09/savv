@@ -31,6 +31,7 @@
 [] On date picker, add preestablished ranges (today, week, month, last30days)
 [X] When updating movement, movement is being inserted and eliminated. Not being updated.
 [] Verify translations for error mssgs in movements schemas
+[] Default account should be unique
 
 # New Features
 
@@ -48,3 +49,4 @@
 [] Add labels to movements
 [X] Change querys to use Joins
 [] Obtain message stats from RPC queries
+[] Allow multiple accounts on home

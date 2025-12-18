@@ -8,7 +8,7 @@ import { TotalWealth } from "@/components/home/TotalWealth/TotalWealth";
 import { ToastManager } from "@/components/ui/ToastManager";
 import { UpcomingPayments } from "@/components/home/UpcomingPayments/UpcomingPayments";
 
-export type MainPageParams = {
+type MainPageParams = {
   searchParams: {
     account: string;
   };

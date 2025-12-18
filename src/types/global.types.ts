@@ -1,11 +1,11 @@
-import { Database } from "./database.types";
+import { Tables, Enums } from "./database.types";
 
-export type MovementTypes = Database["public"]["Enums"]["movementType"];
-export type CategoryColors = Database["public"]["Enums"]["categoryColors"];
+export type MovementTypes = Enums<"movementType">;
+export type CategoryColors = Enums<"categoryColors">;
 
-type MovementDB = Database["public"]["Tables"]["movement"]["Row"];
-type CategoryDB = Database["public"]["Tables"]["category"]["Row"];
-type AccountDB = Database["public"]["Tables"]["account"]["Row"];
+type MovementDB = Tables<"movement">;
+type CategoryDB = Tables<"category">;
+type AccountDB = Tables<"account">;
 
 export interface Movement {
   id?: MovementDB["id"];
