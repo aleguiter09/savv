@@ -1,6 +1,6 @@
-import { DataProvider } from "@/providers/DataProvider";
 import { getAccounts } from "@/services/accounts";
 import { getCategories } from "@/services/categories";
+import { DataProvider } from "@/stores/DataProvider";
 
 export default async function AppLayout({
   children,

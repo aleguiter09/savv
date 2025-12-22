@@ -5,8 +5,8 @@ import { Balance } from "@/components/home/Balance/Balance";
 import { LastMovements } from "@/components/home/LastMovements/LastMovements";
 import { ExpenseByCat } from "@/components/home/ExpenseByCat/ExpenseByCat";
 import { TotalWealth } from "@/components/home/TotalWealth/TotalWealth";
-import { ToastManager } from "@/components/ui/ToastManager";
 import { UpcomingPayments } from "@/components/home/UpcomingPayments/UpcomingPayments";
+import { ToastManager } from "@/components/Toast/toast-manager";
 
 type MainPageParams = {
   searchParams: {

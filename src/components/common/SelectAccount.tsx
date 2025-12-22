@@ -8,11 +8,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useData } from "@/providers/DataProvider";
 import { Account } from "@/types/global.types";
 import { AccountIds } from "@/types/general";
 import { useTranslations } from "next-intl";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useData } from "@/stores/DataProvider";
 
 type Props = Readonly<{
   accountId: AccountIds;

@@ -1,6 +1,6 @@
 import { getAccounts } from "@/services/accounts";
 import { getTranslations } from "next-intl/server";
-import { ToastManager } from "@/components/ui/ToastManager";
+import { ToastManager } from "@/components/Toast/toast-manager";
 import { AddButton } from "@/components/home/ActionBar/AddButton";
 import Link from "next/link";
 

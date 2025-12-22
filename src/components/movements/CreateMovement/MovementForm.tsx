@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { useData } from "@/providers/DataProvider";
+import { useData } from "@/stores/DataProvider";
 import { Movement, MovementTypes } from "@/types/global.types";
 import { FormMovementState } from "@/types/general";
 import { useLocale, useTranslations } from "next-intl";

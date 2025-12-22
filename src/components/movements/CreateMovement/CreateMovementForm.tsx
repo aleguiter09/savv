@@ -1,7 +1,7 @@
 "use client";
 import { useFormState } from "react-dom";
 import { useState } from "react";
-import { useData } from "@/providers/DataProvider";
+import { useData } from "@/stores/DataProvider";
 import { createMovementForm } from "@/utils/actions/movement-action";
 import { MovementForm } from "./MovementForm";
 import { MovementTypes } from "@/types/global.types";
