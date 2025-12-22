@@ -32,6 +32,7 @@
 [X] When updating movement, movement is being inserted and eliminated. Not being updated.
 [] Verify translations for error mssgs in movements schemas
 [] Default account should be unique
+[] Translate default errors
 
 # New Features
 

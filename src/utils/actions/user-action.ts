@@ -1,6 +1,5 @@
 "use server";
 import {
-  FormUserState,
   ResetFormUserState,
   ServerActionResponse,
   UpdatePasswordFormUserState,
@@ -20,26 +19,24 @@ import {
 } from "@/lib/schemas";
 
 export const createUserForm = async (
-  prevState: FormUserState,
-  formData: FormData
-): Promise<FormUserState> => {
-  const rawFormData = Object.fromEntries(formData.entries());
-  const validatedData = UserSchema.safeParse(rawFormData);
+  data: z.infer<typeof UserSchema>
+): Promise<ServerActionResponse> => {
+  const parsed = UserSchema.safeParse(data);
 
-  if (!validatedData.success) {
+  if (!parsed.success) {
     return {
-      errors: validatedData.error.flatten().fieldErrors,
-      message: "Missing fields. Failed to create the user",
+      success: false,
+      error: "Missing fields. Failed to create user",
     };
   }
 
-  const { email, password } = validatedData.data;
+  const { email, password } = parsed.data;
 
   const supabase = await createClient();
   const { error } = await supabase.auth.signUp({ email, password });
 
   if (error) {
-    return { ...prevState, errors: { email: [error.message] } };
+    return { success: false, error: error.message };
   }
 
   const t = await getTranslations("auth");
@@ -51,17 +48,14 @@ export const createUserForm = async (
   });
 
   if (errorAcc) {
-    return { ...prevState, errors: { confirmPassword: [errorAcc.message] } };
+    return { success: false, error: errorAcc.message };
   }
 
   const locale = await getLocale();
   const { error: errorSettings } = await createSettings(locale as "es" | "en");
 
   if (errorSettings) {
-    return {
-      ...prevState,
-      errors: { confirmPassword: [errorSettings.message] },
-    };
+    return { success: false, error: errorSettings.message };
   }
 
   revalidatePath("/", "layout");

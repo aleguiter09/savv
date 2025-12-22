@@ -33,12 +33,6 @@ export type FormMovementState = FormState<{
   where?: string[];
 }>;
 
-export type FormUserState = FormState<{
-  email?: string[];
-  password?: string[];
-  confirmPassword?: string[];
-}>;
-
 export type ResetFormUserState = FormState<{
   email?: string[];
 }>;
