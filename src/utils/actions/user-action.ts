@@ -1,10 +1,11 @@
 "use server";
 import {
   FormUserState,
-  LoginFormUserState,
   ResetFormUserState,
+  ServerActionResponse,
   UpdatePasswordFormUserState,
 } from "@/types/general";
+import { z } from "zod";
 import { redirect } from "next/navigation";
 import { createAccount } from "@/services/accounts";
 import { createSettings } from "@/services/settings";
@@ -68,29 +69,27 @@ export const createUserForm = async (
 };
 
 export const loginUserForm = async (
-  prevState: LoginFormUserState,
-  formData: FormData
-): Promise<LoginFormUserState> => {
-  const rawFormData = Object.fromEntries(formData.entries());
-  const validatedData = LoginUserSchema.safeParse(rawFormData);
+  data: z.infer<typeof LoginUserSchema>
+): Promise<ServerActionResponse> => {
+  const parsed = LoginUserSchema.safeParse(data);
 
-  if (!validatedData.success) {
+  if (!parsed.success) {
     return {
-      errors: validatedData.error.flatten().fieldErrors,
-      message: "Missing fields. Failed to login",
+      success: false,
+      error: "Missing fields. Failed to login",
     };
   }
 
-  const { email, password } = validatedData.data;
+  const { email, password } = parsed.data;
 
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
     if (error.code === "invalid_credentials") {
-      return { ...prevState, errors: { password: ["invalidCredentials"] } };
+      return { success: false, error: "invalidCredentials" };
     } else {
-      return { ...prevState, errors: { password: ["defaultError"] } };
+      return { success: false, error: "defaultError" };
     }
   }
 

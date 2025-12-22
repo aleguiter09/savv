@@ -39,11 +39,6 @@ export type FormUserState = FormState<{
   confirmPassword?: string[];
 }>;
 
-export type LoginFormUserState = FormState<{
-  email?: string[];
-  password?: string[];
-}>;
-
 export type ResetFormUserState = FormState<{
   email?: string[];
 }>;
@@ -56,3 +51,8 @@ export type UpdatePasswordFormUserState = FormState<{
 export type CategoryIds = "all" | "incomes" | "expenses" | number;
 
 export type AccountIds = "all" | number;
+
+export type ServerActionResponse = {
+  success: boolean;
+  error?: string;
+};
