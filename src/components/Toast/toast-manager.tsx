@@ -1,7 +1,6 @@
 "use client";
 
 import { Toaster } from "../ui/sonner";
-import { CheckIcon } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { useToastStore } from "@/stores/toast-store";
@@ -33,14 +32,6 @@ export function ToastManager(props: React.ComponentProps<typeof Toaster>) {
 
   return (
     <Toaster
-      icons={{
-        success: (
-          <CheckIcon
-            size={20}
-            className="rounded-full bg-blue-600 p-1 text-white shadow-md"
-          />
-        ),
-      }}
       swipeDirections={["left", "right"]}
       position="bottom-center"
       {...props}

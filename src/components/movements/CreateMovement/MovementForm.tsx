@@ -20,7 +20,7 @@ import {
 } from "@/utils/actions/movement-action";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocale, useTranslations } from "next-intl";
-import React, { useTransition } from "react";
+import React, { useEffect, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { AccountSelect } from "./AccountSelect";
@@ -56,27 +56,28 @@ export function MovementForm({ movement }: Props) {
           where: movement.where ?? undefined,
         }
       : {
-          amount: 0,
-          comment: "",
           type: "expense",
           done_at: new Date(),
           from: defaultAcc?.id ?? undefined,
+          comment: "",
         },
   });
 
   const [type, from, where] = form.watch(["type", "from", "where"]);
 
+  useEffect(() => {
+    form.resetField("category");
+  }, [type, form]);
+
   function onSubmit(data: Schema) {
     startTransition(async () => {
       const res = { success: true, error: null };
 
-      console.log("data", data);
-
-      /*  if (movement) {
-        await updateMovementForm(movement.id, data);
+      if (movement?.id) {
+        await updateMovementForm(movement, data);
       } else {
         await createMovementForm(data);
-      }*/
+      }
 
       if (!res.success) {
         show({ type: "error", message: t(res.error ?? "defaultError") });
@@ -92,7 +93,7 @@ export function MovementForm({ movement }: Props) {
         <AccountSelect
           label={t("chooseAccount")}
           accounts={accounts.filter((a) => a.id !== where)}
-          value={field.value.toString()}
+          value={field.value?.toString() ?? ""}
           setValue={field.onChange}
           error={
             fieldState.invalid
@@ -131,7 +132,7 @@ export function MovementForm({ movement }: Props) {
       render={({ field, fieldState }) => (
         <CategorySelect
           categories={type === "income" ? incomeCategories : expenseCategories}
-          category={field.value?.toString() ?? undefined}
+          category={field.value?.toString() ?? ""}
           setCategory={field.onChange}
           error={
             fieldState.invalid
@@ -172,7 +173,7 @@ export function MovementForm({ movement }: Props) {
               name="type"
               control={form.control}
               render={({ field }) => (
-                <Tabs defaultValue={type} onValueChange={field.onChange}>
+                <Tabs value={type} onValueChange={field.onChange}>
                   <TabsList className="w-full">
                     <TabsTrigger value="expense" className="w-full">
                       {t("expense")}
@@ -203,7 +204,6 @@ export function MovementForm({ movement }: Props) {
           </div>
 
           {/* amount */}
-
           <Controller
             name="amount"
             control={form.control}
@@ -212,6 +212,7 @@ export function MovementForm({ movement }: Props) {
                 <FieldLabel htmlFor="amount">{t("enterAmount")}</FieldLabel>
                 <Input
                   {...field}
+                  value={field.value ?? ""}
                   id="amount"
                   type="number"
                   aria-invalid={fieldState.invalid}

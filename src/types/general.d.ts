@@ -24,15 +24,6 @@ export type FormCategoryState = FormState<{
   parent_id?: string[];
 }>;
 
-export type FormMovementState = FormState<{
-  amount?: string[];
-  comment?: string[];
-  done_at?: string[];
-  category?: string[];
-  from?: string[];
-  where?: string[];
-}>;
-
 export type ResetFormUserState = FormState<{
   email?: string[];
 }>;

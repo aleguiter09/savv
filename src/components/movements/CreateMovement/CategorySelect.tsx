@@ -32,8 +32,8 @@ export function CategorySelect({
       <label className="block text-sm font-medium">
         {t("movements.chooseCategory")}
       </label>
-      <Select defaultValue={category} onValueChange={setCategory}>
-        <SelectTrigger className={`${error && "border border-rose-500"}`}>
+      <Select value={category ?? ""} onValueChange={setCategory}>
+        <SelectTrigger className={error ? "border border-rose-500" : ""}>
           <SelectValue placeholder={t("movements.selectCategory")} />
         </SelectTrigger>
         <SelectContent className="max-h-56">

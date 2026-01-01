@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  CircleCheckIcon,
+  CheckIcon,
   InfoIcon,
   Loader2Icon,
   OctagonXIcon,
@@ -18,7 +18,9 @@ const Toaster = ({ ...props }: ToasterProps) => {
       theme={theme as ToasterProps["theme"]}
       className="toaster group"
       icons={{
-        success: <CircleCheckIcon className="size-4" />,
+        success: (
+          <CheckIcon className="size-5 rounded-full bg-blue-600 p-1 text-white shadow-md" />
+        ),
         info: <InfoIcon className="size-4" />,
         warning: <TriangleAlertIcon className="size-4" />,
         error: <OctagonXIcon className="size-4" />,
@@ -26,7 +28,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       }}
       style={
         {
-          "--normal-bg": "var(--popover)",
+          "--normal-bg": "white",
           "--normal-text": "var(--popover-foreground)",
           "--normal-border": "var(--border)",
           "--border-radius": "var(--radius)",

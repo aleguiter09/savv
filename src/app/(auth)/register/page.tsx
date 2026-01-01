@@ -37,7 +37,6 @@ export default function Register() {
 
       if (!res.success) {
         show({ type: "error", message: t(res.error ?? "defaultError") });
-        return;
       }
     });
   }

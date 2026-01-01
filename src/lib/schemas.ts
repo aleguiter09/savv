@@ -4,7 +4,7 @@ const BaseMovementSchema = z.object({
   amount: z.coerce
     .number()
     .positive("amountPositiveError")
-    .max(999999999, "amountTooLarge"),
+    .max(999999, "amountTooLarge"),
   comment: z.string().min(1, "noCommentError").max(500, "commentTooLong"),
   done_at: z.coerce.date({
     required_error: "noDateError",

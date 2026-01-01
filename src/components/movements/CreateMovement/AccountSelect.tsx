@@ -12,7 +12,7 @@ import { useTranslations } from "next-intl";
 type Props = Readonly<{
   label: string;
   accounts: Account[];
-  value: string;
+  value?: string;
   setValue: (v: string) => void;
   error?: string;
 }>;
@@ -29,8 +29,8 @@ export function AccountSelect({
   return (
     <div className="flex flex-col gap-1.5">
       <label className="block text-sm font-medium">{label}</label>
-      <Select defaultValue={value} onValueChange={setValue}>
-        <SelectTrigger className={`${error && "border border-rose-500"}`}>
+      <Select value={value ?? ""} onValueChange={setValue}>
+        <SelectTrigger className={error ? "border border-rose-500" : ""}>
           <SelectValue placeholder={t("selectAccount")} />
         </SelectTrigger>
         <SelectContent className="max-h-56">

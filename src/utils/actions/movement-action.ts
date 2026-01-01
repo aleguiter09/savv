@@ -1,5 +1,5 @@
 "use server";
-import { FormMovementState } from "@/types/general";
+import { ServerActionResponse } from "@/types/general";
 import { revalidatePath } from "next/cache";
 import {
   deleteMovement,
@@ -12,30 +12,31 @@ import { setToastMessage } from "@/lib/toast";
 import { getTranslations } from "next-intl/server";
 import { MovementSchema } from "@/lib/schemas";
 import { updateAccountBalances } from "@/services/accounts";
+import { z } from "zod";
 
 export const createMovementForm = async (
-  prevState: FormMovementState,
-  formData: FormData
-): Promise<FormMovementState> => {
-  const rawFormData = Object.fromEntries(formData.entries());
-  const validatedData = MovementSchema.safeParse(rawFormData);
+  data: z.infer<typeof MovementSchema>
+): Promise<ServerActionResponse> => {
+  const parsed = MovementSchema.safeParse(data);
 
-  if (!validatedData.success) {
+  if (!parsed.success) {
     return {
-      errors: validatedData.error.flatten().fieldErrors,
-      message: "Missing fields. Failed to create the movement",
+      success: false,
+      error: "Missing fields. Failed to create the movement",
     };
   }
 
   try {
-    const data = validatedData.data;
-    await insertMovement(data);
+    const data = parsed.data;
+    await insertMovement({ ...data, done_at: data.done_at.toISOString() });
 
     const updates = [];
 
     if (data.type === "transfer") {
-      updates.push({ account_id: data.from, amount_change: -data.amount });
-      updates.push({ account_id: data.where, amount_change: data.amount });
+      updates.push(
+        { account_id: data.from, amount_change: -data.amount },
+        { account_id: data.where, amount_change: data.amount }
+      );
     } else if (data.type === "expense") {
       updates.push({ account_id: data.from, amount_change: -data.amount });
     } else if (data.type === "income") {
@@ -46,8 +47,10 @@ export const createMovementForm = async (
       await updateAccountBalances(updates);
     }
   } catch (error) {
-    console.error("Database error: failed to insert movement", error);
-    throw new Error("Database error: failed to insert movement");
+    return {
+      success: false,
+      error: "Database error: failed to insert movement: " + error,
+    };
   }
 
   const t = await getTranslations("movements");
@@ -58,23 +61,22 @@ export const createMovementForm = async (
 };
 
 export const deleteMovementForm = async (movement: Movement) => {
-  await deleteMovement(movement.id ?? 0);
+  if (!movement.id || !movement.from) return;
 
-  if (!movement.from) {
-    revalidatePath("/");
-    redirect("/");
-  }
+  await deleteMovement(movement.id);
 
   const updates = [];
   if (movement.type === "transfer") {
-    updates.push({
-      account_id: movement.from,
-      amount_change: -movement.amount,
-    });
-    updates.push({
-      account_id: movement.where ?? 0,
-      amount_change: movement.amount,
-    });
+    updates.push(
+      {
+        account_id: movement.from,
+        amount_change: -movement.amount,
+      },
+      {
+        account_id: movement.where ?? 0,
+        amount_change: movement.amount,
+      }
+    );
   } else if (movement.type === "expense") {
     updates.push({
       account_id: movement.from,
@@ -96,44 +98,24 @@ export const deleteMovementForm = async (movement: Movement) => {
 };
 
 export const updateMovementForm = async (
-  prevState: FormMovementState,
-  formData: FormData
-): Promise<FormMovementState> => {
-  const rawFormData = Object.fromEntries(formData.entries());
+  previous: Movement,
+  data: z.infer<typeof MovementSchema>
+): Promise<ServerActionResponse> => {
+  const parsed = MovementSchema.safeParse(data);
 
-  const previous = {
-    id: rawFormData.id as string,
-    amount: parseFloat(rawFormData.previousAmount as string),
-    from: parseInt(rawFormData.previousFrom as string),
-    where: parseInt(rawFormData.previousWhere as string),
-    type: rawFormData.previousType,
-  };
-
-  delete rawFormData.id;
-  delete rawFormData.previousAmount;
-  delete rawFormData.previousFrom;
-  delete rawFormData.previousWhere;
-  delete rawFormData.previousType;
-
-  let validatedData;
-  if (rawFormData.type === "transfer") {
-    delete rawFormData.category;
-    validatedData = MovementSchema.safeParse(rawFormData);
-  } else {
-    delete rawFormData.where;
-    validatedData = MovementSchema.safeParse(rawFormData);
-  }
-
-  if (!validatedData.success) {
+  if (!parsed.success) {
     return {
-      errors: validatedData.error.flatten().fieldErrors,
-      message: "Missing fields. Failed to create the movement",
+      success: false,
+      error: "Missing fields. Failed to update the movement",
     };
   }
 
   try {
-    const data = validatedData.data;
-    await updateMovement(data, Number(previous.id));
+    const data = parsed.data;
+    await updateMovement(
+      { ...data, done_at: data.done_at.toISOString() },
+      Number(previous.id)
+    );
 
     const deltas: Record<number, number> = {};
     const addDelta = (acc: number | undefined, amount: number) => {
@@ -152,7 +134,7 @@ export const updateMovementForm = async (
 
     if (previous.type === "transfer") {
       addDelta(previous.from, previous.amount);
-      addDelta(previous.where, -previous.amount);
+      addDelta(previous.where as number, -previous.amount);
     } else if (previous.type === "expense") {
       addDelta(previous.from, previous.amount);
     } else if (previous.type === "income") {
@@ -169,8 +151,10 @@ export const updateMovementForm = async (
       await updateAccountBalances(updates);
     }
   } catch (error) {
-    console.error("Database error: failed to update movement", error);
-    throw new Error("Database error: failed to update movement");
+    return {
+      success: false,
+      error: "Database error: failed to update movement: " + error,
+    };
   }
 
   const t = await getTranslations("movements");
