@@ -37,7 +37,6 @@ export default function Login() {
 
       if (!res.success) {
         show({ type: "error", message: t(res.error ?? "defaultError") });
-        return;
       }
     });
   }
@@ -67,12 +66,7 @@ export default function Login() {
                   />
                   {fieldState.invalid && (
                     <FieldError
-                      errors={[
-                        {
-                          ...fieldState.error,
-                          message: t(fieldState.error?.message ?? ""),
-                        },
-                      ]}
+                      error={t(fieldState.error?.message as string)}
                     />
                   )}
                 </Field>
@@ -95,12 +89,7 @@ export default function Login() {
                   />
                   {fieldState.invalid && (
                     <FieldError
-                      errors={[
-                        {
-                          ...fieldState.error,
-                          message: t(fieldState.error?.message ?? ""),
-                        },
-                      ]}
+                      error={t(fieldState.error?.message as string)}
                     />
                   )}
                 </Field>

@@ -6,16 +6,19 @@ const BaseMovementSchema = z.object({
     .positive("amountPositiveError")
     .max(999999999, "amountTooLarge"),
   comment: z.string().min(1, "noCommentError").max(500, "commentTooLong"),
-  done_at: z.string().min(1, "noDateError").datetime("invalidDateError"),
+  done_at: z.coerce.date({
+    required_error: "noDateError",
+    invalid_type_error: "invalidDateError",
+  }),
   from: z.coerce.number().positive("noAccountError"),
 });
 
-export const IncomeExpenseSchema = BaseMovementSchema.extend({
+const IncomeExpenseSchema = BaseMovementSchema.extend({
   type: z.enum(["expense", "income"]),
   category: z.coerce.number().positive("noCategoryError"),
 });
 
-export const TransferSchema = BaseMovementSchema.extend({
+const TransferSchema = BaseMovementSchema.extend({
   type: z.literal("transfer"),
   where: z.coerce.number().positive("noAccountError"),
 });
@@ -41,7 +44,7 @@ export const AccountSchema = z.object({
     .number()
     .min(-999999999, "balanceTooLow")
     .max(999999999, "balanceTooHigh"),
-  default: z.string().transform((val) => val === "true"),
+  default: z.boolean().default(false),
 });
 
 export const CategorySchema = z.object({

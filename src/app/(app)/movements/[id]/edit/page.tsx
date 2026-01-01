@@ -1,9 +1,9 @@
-import { EditMovementForm } from "@/components/movements/CreateMovement/EditMovementForm";
 import { getMovementById } from "@/services/movements";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { MovementForm } from "@/components/movements/CreateMovement/MovementForm";
 
 export default async function EditMovementPage({
   params,
@@ -27,7 +27,7 @@ export default async function EditMovementPage({
         <h4 className="font-medium">{t("editTitle")}</h4>
         <span></span>
       </div>
-      <EditMovementForm movement={movement} />
+      <MovementForm movement={movement} />
     </>
   );
 }

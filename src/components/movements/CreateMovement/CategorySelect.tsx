@@ -14,7 +14,7 @@ import { useTranslations } from "next-intl";
 
 type Props = Readonly<{
   categories: Category[];
-  category: string;
+  category?: string;
   setCategory: (v: string) => void;
   error?: string;
 }>;
@@ -28,7 +28,7 @@ export function CategorySelect({
   const t = useTranslations();
 
   return (
-    <div className="flex flex-col gap-1.5 mb-2">
+    <div className="flex flex-col gap-1.5">
       <label className="block text-sm font-medium">
         {t("movements.chooseCategory")}
       </label>

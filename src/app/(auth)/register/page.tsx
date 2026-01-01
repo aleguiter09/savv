@@ -67,12 +67,7 @@ export default function Register() {
                   />
                   {fieldState.invalid && (
                     <FieldError
-                      errors={[
-                        {
-                          ...fieldState.error,
-                          message: t(fieldState.error?.message ?? ""),
-                        },
-                      ]}
+                      error={t(fieldState.error?.message as string)}
                     />
                   )}
                 </Field>
@@ -95,12 +90,7 @@ export default function Register() {
                   />
                   {fieldState.invalid && (
                     <FieldError
-                      errors={[
-                        {
-                          ...fieldState.error,
-                          message: t(fieldState.error?.message ?? ""),
-                        },
-                      ]}
+                      error={t(fieldState.error?.message as string)}
                     />
                   )}
                 </Field>
@@ -125,12 +115,7 @@ export default function Register() {
                   />
                   {fieldState.invalid && (
                     <FieldError
-                      errors={[
-                        {
-                          ...fieldState.error,
-                          message: t(fieldState.error?.message ?? ""),
-                        },
-                      ]}
+                      error={t(fieldState.error?.message as string)}
                     />
                   )}
                 </Field>

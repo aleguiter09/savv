@@ -27,7 +27,7 @@ export function AccountSelect({
   const t = useTranslations("movements");
 
   return (
-    <div className="flex flex-col gap-1.5 mb-2">
+    <div className="flex flex-col gap-1.5">
       <label className="block text-sm font-medium">{label}</label>
       <Select defaultValue={value} onValueChange={setValue}>
         <SelectTrigger className={`${error && "border border-rose-500"}`}>
