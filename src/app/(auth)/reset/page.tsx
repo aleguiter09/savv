@@ -1,43 +1,81 @@
 "use client";
 import Link from "next/link";
 import { useTransition } from "react";
-import { useFormState } from "react-dom";
 import { resetPasswordForm } from "@/utils/actions/user-action";
 import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useToastStore } from "@/stores/toast-store";
+import { ResetUserSchema } from "@/lib/schemas";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
+import { ToastManager } from "@/components/Toast/toast-manager";
 
-export default function Reset() {
+type Schema = z.infer<typeof ResetUserSchema>;
+
+export default function ResetPage() {
   const t = useTranslations("auth");
+  const show = useToastStore((store) => store.show);
   const [pending, startTransition] = useTransition();
-  const [state, dispatch] = useFormState(resetPasswordForm, {
-    message: null,
-    errors: {},
+
+  const form = useForm<Schema>({
+    resolver: zodResolver(ResetUserSchema),
+    defaultValues: {
+      email: "",
+    },
   });
 
-  const { errors, message } = state;
+  function onSubmit(data: Schema) {
+    startTransition(async () => {
+      const res = await resetPasswordForm(data);
 
-  const submit = (formData: FormData) => {
-    startTransition(() => {
-      dispatch(formData);
+      if (res.success) {
+        show({ type: "success", message: t("resetSent") });
+      } else {
+        show({ type: "error", message: t(res.error ?? "defaultError") });
+      }
     });
-  };
+  }
 
   return (
     <>
       <h2 className="mt-2 text-3xl font-extrabold">{t("resetTitle")}</h2>
       <div className="mt-4 w-full max-w-md">
-        <form className="flex flex-col gap-2" action={submit}>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            tabIndex={0}
-            className="bg-white shadow-xs"
-            label={t("email")}
-            error={errors?.email?.[0] && t(errors.email[0])}
-          />
+        <form
+          className="flex flex-col gap-2"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
+          <FieldGroup>
+            <Controller
+              name="email"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="email">{t("email")}</FieldLabel>
+                  <Input
+                    {...field}
+                    id="email"
+                    aria-invalid={fieldState.invalid}
+                    type="email"
+                    autoComplete="email"
+                    className="bg-white shadow-xs"
+                  />
+                  {fieldState.invalid && (
+                    <FieldError
+                      error={t(fieldState.error?.message as string)}
+                    />
+                  )}
+                </Field>
+              )}
+            />
+          </FieldGroup>
 
           <Button className="mt-2" loading={pending} type="submit">
             {t("reset")}
@@ -49,14 +87,9 @@ export default function Reset() {
               {t("signIn")}
             </Link>
           </p>
-
-          {message && (
-            <p className="text-sm text-center mt-3 text-green-700">
-              {t(message)}
-            </p>
-          )}
         </form>
       </div>
+      <ToastManager />
     </>
   );
 }

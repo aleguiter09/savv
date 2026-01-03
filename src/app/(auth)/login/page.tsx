@@ -18,12 +18,14 @@ import {
 import { useToastStore } from "@/stores/toast-store";
 import { ToastManager } from "@/components/Toast/toast-manager";
 
-export default function Login() {
+type Schema = z.infer<typeof LoginUserSchema>;
+
+export default function LoginPage() {
   const t = useTranslations("auth");
   const show = useToastStore((store) => store.show);
   const [pending, startTransition] = useTransition();
 
-  const form = useForm<z.infer<typeof LoginUserSchema>>({
+  const form = useForm<Schema>({
     resolver: zodResolver(LoginUserSchema),
     defaultValues: {
       email: "",
@@ -31,7 +33,7 @@ export default function Login() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof LoginUserSchema>) {
+  function onSubmit(data: Schema) {
     startTransition(async () => {
       const res = await loginUserForm(data);
 

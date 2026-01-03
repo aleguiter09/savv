@@ -17,12 +17,14 @@ import {
 } from "@/components/ui/field";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+type Schema = z.infer<typeof UserSchema>;
+
 export default function Register() {
   const t = useTranslations("auth");
   const show = useToastStore((store) => store.show);
   const [pending, startTransition] = useTransition();
 
-  const form = useForm<z.infer<typeof UserSchema>>({
+  const form = useForm<Schema>({
     resolver: zodResolver(UserSchema),
     defaultValues: {
       email: "",
@@ -31,7 +33,7 @@ export default function Register() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof UserSchema>) {
+  function onSubmit(data: Schema) {
     startTransition(async () => {
       const res = await createUserForm(data);
 

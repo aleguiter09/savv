@@ -1,9 +1,5 @@
 "use server";
-import {
-  ResetFormUserState,
-  ServerActionResponse,
-  UpdatePasswordFormUserState,
-} from "@/types/general";
+import { ServerActionResponse } from "@/types/general";
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import { createAccount } from "@/services/accounts";
@@ -99,49 +95,45 @@ export const logout = async () => {
 };
 
 export const resetPasswordForm = async (
-  prevState: ResetFormUserState,
-  formData: FormData
-): Promise<ResetFormUserState> => {
-  const rawFormData = Object.fromEntries(formData.entries());
-  const validatedData = ResetUserSchema.safeParse(rawFormData);
+  data: z.infer<typeof ResetUserSchema>
+): Promise<ServerActionResponse> => {
+  const parsed = ResetUserSchema.safeParse(data);
 
-  if (!validatedData.success) {
-    return { errors: validatedData.error.flatten().fieldErrors, message: null };
+  if (!parsed.success) {
+    return { success: false, error: "defaultError" };
   }
 
-  const { email } = validatedData.data;
+  const { email } = parsed.data;
 
   const supabase = await createClient();
   const { error } = await supabase.auth.resetPasswordForEmail(email);
 
   if (error) {
-    return { ...prevState, errors: { email: [error.message] } };
+    return { success: false, error: error.message };
   }
 
-  return { message: "resetSent", errors: {} };
+  return { success: true };
 };
 
 export const updatePasswordForm = async (
-  prevState: UpdatePasswordFormUserState,
-  formData: FormData
-): Promise<UpdatePasswordFormUserState> => {
-  const rawFormData = Object.fromEntries(formData.entries());
-  const validatedData = UpdatePasswordSchema.safeParse(rawFormData);
+  data: z.infer<typeof UpdatePasswordSchema>
+): Promise<ServerActionResponse> => {
+  const parsed = UpdatePasswordSchema.safeParse(data);
 
-  if (!validatedData.success) {
-    return { errors: validatedData.error.flatten().fieldErrors, message: null };
+  if (!parsed.success) {
+    return { success: false, error: "passwordError" };
   }
 
-  const { password } = validatedData.data;
+  const { password } = parsed.data;
 
   const supabase = await createClient();
   const { error } = await supabase.auth.updateUser({ password });
 
   if (error) {
     if (error.code === "same_password") {
-      return { ...prevState, errors: { confirmPassword: ["samePassword"] } };
+      return { success: false, error: "samePassword" };
     } else {
-      return { ...prevState, errors: { confirmPassword: ["defaultError"] } };
+      return { success: false, error: "defaultError" };
     }
   }
 

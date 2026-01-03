@@ -24,15 +24,6 @@ export type FormCategoryState = FormState<{
   parent_id?: string[];
 }>;
 
-export type ResetFormUserState = FormState<{
-  email?: string[];
-}>;
-
-export type UpdatePasswordFormUserState = FormState<{
-  password?: string[];
-  confirmPassword?: string[];
-}>;
-
 export type CategoryIds = "all" | "incomes" | "expenses" | number;
 
 export type AccountIds = "all" | number;
