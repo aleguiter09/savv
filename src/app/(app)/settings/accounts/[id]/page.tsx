@@ -1,11 +1,11 @@
 import { getAccountById } from "@/services/accounts";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { EditAccountForm } from "@/components/accounts/EditAccountForm";
 import { ArrowLeft } from "lucide-react";
 import { deleteAccountForm } from "@/utils/actions/account-actions";
 import { ConfirmDelete } from "@/components/common/ConfirmDelete";
 import Link from "next/link";
+import { AccountForm } from "@/components/accounts/AccountForm";
 
 export default async function EditAccountPage({
   params,
@@ -39,7 +39,7 @@ export default async function EditAccountPage({
           </p>
         </ConfirmDelete>
       </div>
-      <EditAccountForm id={id} account={account} />
+      <AccountForm account={account} />
     </>
   );
 }

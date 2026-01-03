@@ -71,12 +71,11 @@ export function MovementForm({ movement }: Props) {
 
   function onSubmit(data: Schema) {
     startTransition(async () => {
-      const res = { success: true, error: null };
-
+      let res;
       if (movement?.id) {
-        await updateMovementForm(movement, data);
+        res = await updateMovementForm(movement, data);
       } else {
-        await createMovementForm(data);
+        res = await createMovementForm(data);
       }
 
       if (!res.success) {

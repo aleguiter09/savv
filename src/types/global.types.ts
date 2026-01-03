@@ -3,11 +3,12 @@ import { Tables, Enums } from "./database.types";
 export type MovementTypes = Enums<"movementType">;
 export type CategoryColors = Enums<"categoryColors">;
 
-type MovementDB = Tables<"movement">;
-type CategoryDB = Tables<"category">;
-type AccountDB = Tables<"account">;
+export type MovementDB = Tables<"movement">;
+export type CategoryDB = Tables<"category">;
+export type AccountDB = Tables<"account">;
+export type SettingsDB = Tables<"user_settings">;
 
-export interface Movement {
+export type Movement = {
   id?: MovementDB["id"];
   from: MovementDB["from"];
   amount: MovementDB["amount"];
@@ -18,7 +19,7 @@ export interface Movement {
   where?: MovementDB["where"];
   fullCategory?: Category;
   fullAccount?: Account;
-}
+};
 
 export type Category = {
   id: CategoryDB["id"];
@@ -29,9 +30,9 @@ export type Category = {
   parent_id?: CategoryDB["parent_id"];
 };
 
-export interface Account {
+export type Account = {
   id?: AccountDB["id"];
   name: AccountDB["name"];
   balance: AccountDB["balance"];
   default?: AccountDB["default"];
-}
+};

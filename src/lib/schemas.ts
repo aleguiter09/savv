@@ -42,9 +42,9 @@ export const AccountSchema = z.object({
   name: z.string().min(1, "nameError").max(100, "nameTooLong"),
   balance: z.coerce
     .number()
-    .min(-999999999, "balanceTooLow")
-    .max(999999999, "balanceTooHigh"),
-  default: z.boolean().default(false),
+    .min(-99999999, "balanceTooLow")
+    .max(9999999, "balanceTooHigh"),
+  default: z.boolean(),
 });
 
 export const CategorySchema = z.object({

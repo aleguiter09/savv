@@ -7,34 +7,32 @@ import {
   deleteAccount,
   updateAccount,
 } from "@/services/accounts";
+import { ServerActionResponse } from "@/types/general";
 import { Account } from "@/types/global.types";
-import { FormAccountState } from "@/types/general";
 import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { z } from "zod";
 
 export async function createAccountForm(
-  prevState: FormAccountState,
-  formData: FormData
-): Promise<FormAccountState> {
-  formData.get("default") === "on"
-    ? formData.set("default", "true")
-    : formData.set("default", "false");
-  const rawFormData = Object.fromEntries(formData.entries());
-  const validatedData = AccountSchema.safeParse(rawFormData);
+  data: z.infer<typeof AccountSchema>
+): Promise<ServerActionResponse> {
+  const parsed = AccountSchema.safeParse(data);
 
-  if (!validatedData.success) {
+  if (!parsed.success) {
     return {
-      errors: validatedData.error.flatten().fieldErrors,
-      message: "Missing fields. Failed to create an account.",
+      success: false,
+      error: "Missing fields. Failed to create an account.",
     };
   }
 
   try {
-    await createAccount(validatedData.data);
+    await createAccount(parsed.data);
   } catch (error) {
-    console.error("Error creating account:", error);
-    throw error;
+    return {
+      success: false,
+      error: "Database error: failed to create account: " + error,
+    };
   }
 
   const t = await getTranslations("accounts");
@@ -45,28 +43,25 @@ export async function createAccountForm(
 }
 
 export async function updateAccountForm(
-  prevState: FormAccountState,
-  formData: FormData,
-  id: string
-): Promise<FormAccountState> {
-  formData.get("default") === "on"
-    ? formData.set("default", "true")
-    : formData.set("default", "false");
-  const rawFormData = Object.fromEntries(formData.entries());
-  const validatedData = AccountSchema.safeParse(rawFormData);
+  account: Account,
+  data: z.infer<typeof AccountSchema>
+): Promise<ServerActionResponse> {
+  const parsed = AccountSchema.safeParse(data);
 
-  if (!validatedData.success) {
+  if (!parsed.success) {
     return {
-      errors: validatedData.error.flatten().fieldErrors,
-      message: "Missing fields. Failed to update the account.",
+      success: false,
+      error: "Missing fields. Failed to update the account.",
     };
   }
 
   try {
-    await updateAccount(validatedData.data, Number(id));
+    await updateAccount(parsed.data, account.id!);
   } catch (error) {
-    console.error("Error updating account:", error);
-    throw error;
+    return {
+      success: false,
+      error: "Database error: failed to update account: " + error,
+    };
   }
 
   const t = await getTranslations("accounts");

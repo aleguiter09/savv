@@ -11,12 +11,6 @@ export type FormState<T> = {
   message?: string | null;
 };
 
-export type FormAccountState = FormState<{
-  name?: string[];
-  balance?: string[];
-  default?: string[];
-}>;
-
 export type FormCategoryState = FormState<{
   title?: string[];
   icon?: string[];

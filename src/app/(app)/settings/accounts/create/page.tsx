@@ -1,4 +1,4 @@
-import { CreateAccountForm } from "@/components/accounts/CreateAccountForm";
+import { AccountForm } from "@/components/accounts/AccountForm";
 import { ArrowLeft } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -15,7 +15,7 @@ export default async function CreateAccountPage() {
         <h4 className="font-medium">{t("addTitle")}</h4>
         <span></span>
       </div>
-      <CreateAccountForm />
+      <AccountForm />
     </>
   );
 }
