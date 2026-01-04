@@ -9,7 +9,7 @@ export const getAccounts = cache(async (): Promise<Account[]> => {
   try {
     const { data } = await supabase
       .from("account")
-      .select("id, name, balance, default")
+      .select("id, name, balance, is_default")
       .order("balance", { ascending: false });
 
     return data || [];
@@ -38,7 +38,7 @@ export const getAccountById = async (id: number): Promise<Account | null> => {
 
   const { data } = await supabase
     .from("account")
-    .select("id, name, balance, default")
+    .select("id, name, balance, is_default")
     .eq("id", id)
     .single();
 
@@ -51,7 +51,7 @@ export const getDefaultAccountId = async (): Promise<number> => {
   const { data } = await supabase
     .from("account")
     .select("id")
-    .eq("default", true)
+    .eq("is_default", true)
     .single();
 
   return data?.id ?? 0;

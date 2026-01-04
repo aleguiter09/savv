@@ -36,7 +36,7 @@ type Schema = z.infer<typeof MovementSchema>;
 
 export function MovementForm({ movement }: Props) {
   const { accounts, incomeCategories, expenseCategories } = useData();
-  const defaultAcc = accounts.find((a) => a.default);
+  const defaultAcc = accounts.find((a) => a.is_default);
 
   const t = useTranslations("movements");
   const locale = useLocale();

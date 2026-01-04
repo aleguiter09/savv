@@ -34,7 +34,7 @@ export function AccountForm({ account }: Props) {
     defaultValues: {
       name: account?.name ?? "",
       balance: account?.balance ?? undefined,
-      default: account?.default ?? false,
+      is_default: account?.is_default ?? false,
     },
   });
 
@@ -113,7 +113,7 @@ export function AccountForm({ account }: Props) {
 
           {/* Default account */}
           <Controller
-            name="default"
+            name="is_default"
             control={form.control}
             render={({ field, fieldState }) => (
               <Field
@@ -121,14 +121,13 @@ export function AccountForm({ account }: Props) {
                 data-invalid={fieldState.invalid}
               >
                 <FieldLabel
-                  htmlFor="default"
+                  htmlFor="is_default"
                   className="block text-sm font-medium"
                 >
                   {t("defaultAccount")}
                 </FieldLabel>
                 <Checkbox
-                  id="default"
-                  name="default"
+                  id="is_default"
                   checked={field.value}
                   onCheckedChange={field.onChange}
                 />

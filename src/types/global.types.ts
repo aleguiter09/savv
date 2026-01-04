@@ -34,5 +34,5 @@ export type Account = {
   id?: AccountDB["id"];
   name: AccountDB["name"];
   balance: AccountDB["balance"];
-  default?: AccountDB["default"];
+  is_default?: AccountDB["is_default"];
 };
