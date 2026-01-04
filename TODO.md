@@ -12,6 +12,7 @@
 [] Review 'fullCategory' and 'fullAccount' props in movement detail
 [X] Update imports for components
 [X] Delete MDI icons, replace for lucid
+[X] Replace forms to use RHF
 
 # Errors
 
@@ -27,7 +28,7 @@
 [X] Received transfers are not being displayed based on account
 [X] Check whats happenning when updating a movement
 [] Check how transfers are being displayed based on received or send
-[] On add movement, when changing betwewen tabs the category displayed is empty
+[X] On add movement, when changing betwewen tabs the category displayed is empty
 [] On date picker, add preestablished ranges (today, week, month, last30days)
 [X] When updating movement, movement is being inserted and eliminated. Not being updated.
 [] Verify translations for error mssgs in movements schemas
@@ -36,7 +37,7 @@
 
 # New Features
 
-[] Replace Tremor with Shadcn
+[X] Replace Tremor with Shadcn
 [X] Toaster for OK msgs
 [] Templates for movements
 [] Admin Categories/subcategories
@@ -47,7 +48,7 @@
 [] Loans Widget
 [] Expenses, incomes 6month Bar Chart
 [] Add types, icons and colors to accounts (cash, bank, card, savings, investments, crypto)
-[] Add labels to movements
+[X] Add labels to movements
 [X] Change querys to use Joins
 [] Obtain message stats from RPC queries
 [] Allow multiple accounts on home
