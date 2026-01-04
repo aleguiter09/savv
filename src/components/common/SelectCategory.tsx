@@ -1,5 +1,5 @@
 "use client";
-
+import type { CategoryIds } from "@/types/general";
 import {
   Select,
   SelectContent,
@@ -10,7 +10,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useData } from "@/stores/DataProvider";
-import { CategoryIds } from "@/types/general";
 import { useTranslations } from "next-intl";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
@@ -42,7 +41,7 @@ export function SelectCategory({ categoryId }: Readonly<SelectCategoryProps>) {
           <SelectLabel>{t("incomes")}</SelectLabel>
           <SelectItem value="incomes">{t(`allIncomes`)}</SelectItem>
           {incomeCategories.map((item) => (
-            <SelectItem key={item.id} value={item.id.toString()}>
+            <SelectItem key={item.id} value={(item.id as number).toString()}>
               {t(item.title)}
             </SelectItem>
           ))}
@@ -52,7 +51,7 @@ export function SelectCategory({ categoryId }: Readonly<SelectCategoryProps>) {
           <SelectLabel>{t("expenses")}</SelectLabel>
           <SelectItem value="expenses">{t(`allExpenses`)}</SelectItem>
           {expenseCategories.map((item) => (
-            <SelectItem key={item.id} value={item.id.toString()}>
+            <SelectItem key={item.id} value={(item.id as number).toString()}>
               {t(item.title)}
             </SelectItem>
           ))}

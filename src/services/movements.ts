@@ -1,7 +1,7 @@
-import { Movement } from "@/types/global.types";
+import type { AccountIds, CategoryIds } from "@/types/general";
+import type { Movement } from "@/types/global.types";
 import { getInitialAndFinalDate } from "@/utils/common";
 import { createClient } from "@/utils/supabase/server";
-import { AccountIds, CategoryIds } from "@/types/general";
 
 export const getMovementsByFilters = async (
   from: Date,

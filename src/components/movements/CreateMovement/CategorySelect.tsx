@@ -1,5 +1,5 @@
 "use client";
-
+import type { Category } from "@/types/global.types";
 import { CategoryIcon } from "@/components/common/CategoryIcon";
 import {
   Select,
@@ -9,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Category } from "@/types/global.types";
 import { useTranslations } from "next-intl";
 
 type Props = Readonly<{
@@ -39,7 +38,7 @@ export function CategorySelect({
         <SelectContent className="max-h-56">
           <SelectGroup>
             {categories.map((item: Category) => (
-              <SelectItem key={item.id} value={item.id.toString()}>
+              <SelectItem key={item.id} value={(item.id as number).toString()}>
                 <div className="flex items-center">
                   <CategoryIcon
                     icon={item.icon ?? "transfer"}

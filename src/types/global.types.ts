@@ -22,7 +22,7 @@ export type Movement = {
 };
 
 export type Category = {
-  id: CategoryDB["id"];
+  id?: CategoryDB["id"];
   title: CategoryDB["title"];
   icon: CategoryDB["icon"];
   color: CategoryDB["color"];

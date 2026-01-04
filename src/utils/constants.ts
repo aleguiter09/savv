@@ -1,4 +1,4 @@
-import { CategoryIcons } from "@/types/general";
+import type { CategoryIcons } from "@/types/general";
 import {
   BusFront,
   CirclePercent,
@@ -68,7 +68,7 @@ export const MONTHS = [
   "October",
   "November",
   "December",
-];
+] as const;
 
 export const tailwindColors = [
   "bg-amber-500",
@@ -101,4 +101,22 @@ export const tailwindColors = [
   "border-teal-500",
   "border-violet-500",
   "border-yellow-500",
-];
+] as const;
+
+export const categoryColorsLiterals = [
+  "amber",
+  "blue",
+  "cyan",
+  "fuchsia",
+  "gray",
+  "green",
+  "indigo",
+  "orange",
+  "pink",
+  "red",
+  "rose",
+  "sky",
+  "teal",
+  "violet",
+  "yellow",
+] as const;

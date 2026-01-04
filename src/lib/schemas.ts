@@ -1,3 +1,4 @@
+import { categoryColorsLiterals } from "@/utils/constants";
 import { z } from "zod";
 
 const BaseMovementSchema = z.object({
@@ -50,7 +51,7 @@ export const AccountSchema = z.object({
 export const CategorySchema = z.object({
   title: z.string().min(1, "titleError").max(20, "titleTooLong"),
   icon: z.string().min(1, "iconError"),
-  color: z.string().min(1, "colorError"),
+  color: z.enum(categoryColorsLiterals),
   parent_id: z.coerce.number().optional(),
 });
 

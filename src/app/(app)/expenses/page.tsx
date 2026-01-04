@@ -2,7 +2,7 @@ import DateSlider from "@/components/common/DateSlider";
 import { ExpensesData } from "@/components/expenses/ExpensesData";
 import { ExpensesFilter } from "@/components/expenses/ExpensesFilter";
 import { getDefaultAccountId } from "@/services/accounts";
-import { AccountIds } from "@/types/general";
+import type { AccountIds } from "@/types/general";
 
 type ExpensesPageParams = {
   searchParams: {

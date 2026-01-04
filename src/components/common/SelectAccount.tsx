@@ -1,5 +1,6 @@
 "use client";
-
+import type { Account } from "@/types/global.types";
+import type { AccountIds } from "@/types/general";
 import {
   Select,
   SelectContent,
@@ -8,8 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Account } from "@/types/global.types";
-import { AccountIds } from "@/types/general";
 import { useTranslations } from "next-intl";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useData } from "@/stores/DataProvider";

@@ -1,4 +1,4 @@
-import { Movement } from "@/types/global.types";
+import type { Movement } from "@/types/global.types";
 
 export const valueFormatter = (number: number) =>
   `$ ${Intl.NumberFormat("us").format(number).toString()}`;

@@ -1,5 +1,5 @@
+import type { AccountIds } from "@/types/general";
 import { getExpenses } from "@/services/movements";
-import { AccountIds } from "@/types/general";
 import { parseMovementsForChart } from "@/utils/common";
 import Link from "next/link";
 import { Card } from "../ui/card";

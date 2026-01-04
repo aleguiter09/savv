@@ -1,7 +1,7 @@
+import type { AccountIds, CategoryIds } from "@/types/general";
 import { MovementsFilter } from "@/components/movements/MovementsFilter/MovementsFilter";
 import { MovementsByDate } from "@/components/movements/MovementsList/MovementsByDate";
 import { getDefaultAccountId } from "@/services/accounts";
-import { AccountIds, CategoryIds } from "@/types/general";
 
 type Props = Readonly<{
   searchParams: {

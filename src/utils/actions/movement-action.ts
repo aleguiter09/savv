@@ -1,5 +1,6 @@
 "use server";
-import { ServerActionResponse } from "@/types/general";
+import type { ServerActionResponse } from "@/types/general";
+import type { Movement } from "@/types/global.types";
 import { revalidatePath } from "next/cache";
 import {
   deleteMovement,
@@ -7,7 +8,6 @@ import {
   updateMovement,
 } from "@/services/movements";
 import { redirect } from "next/navigation";
-import { Movement } from "@/types/global.types";
 import { setToastMessage } from "@/lib/toast";
 import { getTranslations } from "next-intl/server";
 import { MovementSchema } from "@/lib/schemas";

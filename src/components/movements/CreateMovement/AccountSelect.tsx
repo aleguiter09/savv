@@ -1,3 +1,4 @@
+import type { Account } from "@/types/global.types";
 import {
   Select,
   SelectContent,
@@ -6,7 +7,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Account } from "@/types/global.types";
 import { useTranslations } from "next-intl";
 
 type Props = Readonly<{

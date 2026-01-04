@@ -1,5 +1,7 @@
 "use server";
 
+import type { ServerActionResponse } from "@/types/general";
+import type { Account } from "@/types/global.types";
 import { AccountSchema } from "@/lib/schemas";
 import { setToastMessage } from "@/lib/toast";
 import {
@@ -7,8 +9,6 @@ import {
   deleteAccount,
   updateAccount,
 } from "@/services/accounts";
-import { ServerActionResponse } from "@/types/general";
-import { Account } from "@/types/global.types";
 import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";

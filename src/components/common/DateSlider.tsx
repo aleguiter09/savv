@@ -1,6 +1,6 @@
 "use client";
+import type { YearMonth } from "@/types/general";
 import { MONTHS } from "@/utils/constants";
-import { YearMonth } from "@/types/general";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Card } from "../ui/card";
 import { ArrowLeft, ArrowRight } from "lucide-react";

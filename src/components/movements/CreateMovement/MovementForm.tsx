@@ -1,5 +1,6 @@
 "use client";
 
+import type { Movement } from "@/types/global.types";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { DatePicker } from "@/components/ui/date-picker";
@@ -13,7 +14,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MovementSchema } from "@/lib/schemas";
 import { useData } from "@/stores/DataProvider";
 import { useToastStore } from "@/stores/toast-store";
-import { Movement } from "@/types/global.types";
 import {
   createMovementForm,
   updateMovementForm,

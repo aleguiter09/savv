@@ -1,9 +1,9 @@
 "use client";
+import type { Category } from "@/types/global.types";
 import { useTranslations } from "next-intl";
 import { Card } from "../ui/card";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Category } from "@/types/global.types";
 import { CategorySchema } from "@/lib/schemas";
 import { useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -25,7 +25,7 @@ export const CategoryForm = ({ category }: { category?: Category }) => {
     defaultValues: {
       title: category?.title ?? "",
       icon: category?.icon ?? "",
-      color: category?.color ?? "",
+      color: category?.color ?? undefined,
       parent_id: category?.parent_id ?? undefined,
     },
   });

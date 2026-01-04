@@ -1,9 +1,9 @@
+import type { AccountIds } from "@/types/general";
 import Link from "next/link";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 import { Card } from "@/components/ui/card";
 import { LastMovementsList, LastMovementsSkeleton } from "./LastMovementsList";
-import { AccountIds } from "@/types/general";
 
 type Props = Readonly<{
   accountId: AccountIds;

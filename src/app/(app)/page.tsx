@@ -1,5 +1,5 @@
 import { getDefaultAccountId } from "@/services/accounts";
-import { AccountIds } from "@/types/general";
+import type { AccountIds } from "@/types/general";
 import { ActionBar } from "@/components/home/ActionBar/ActionBar";
 import { Balance } from "@/components/home/Balance/Balance";
 import { LastMovements } from "@/components/home/LastMovements/LastMovements";

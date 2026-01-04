@@ -1,4 +1,4 @@
-import { AccountIds } from "@/types/general";
+import type { AccountIds } from "@/types/general";
 import { SelectAccount } from "../common/SelectAccount";
 
 type Props = Readonly<{

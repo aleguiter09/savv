@@ -5,7 +5,7 @@ import Link from "next/link";
 const links = [
   { name: "accounts", href: "/settings/accounts " },
   { name: "languages", href: "/settings/languages " },
-  /*{ name: "categories", href: "/settings/categories " },*/
+  { name: "categories", href: "/settings/categories " },
 ];
 
 export default async function SettingsPage() {

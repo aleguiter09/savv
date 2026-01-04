@@ -1,6 +1,6 @@
+import type { AccountIds } from "@/types/general";
 import { Suspense } from "react";
 import { ExpensesDataChart, ExpensesDataSkeleton } from "./ExpensesDataChart";
-import { AccountIds } from "@/types/general";
 
 type Props = Readonly<{
   accountId: AccountIds;

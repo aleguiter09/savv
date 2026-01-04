@@ -1,7 +1,7 @@
+import type { AccountIds, CategoryIds } from "@/types/general";
 import { Suspense } from "react";
 import { Card } from "@/components/ui/card";
 import { LastMovementsSkeleton } from "@/components/home/LastMovements/LastMovementsList";
-import { AccountIds, CategoryIds } from "@/types/general";
 import { MovementsList } from "./MovementsList";
 
 type Props = Readonly<{

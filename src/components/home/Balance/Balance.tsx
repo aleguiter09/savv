@@ -1,7 +1,7 @@
+import type { AccountIds } from "@/types/general";
 import { Suspense } from "react";
 import { Card } from "@/components/ui/card";
 import { BalanceInfo, BalanceSkeleton } from "./BalanceInfo";
-import { AccountIds } from "@/types/general";
 
 type Props = Readonly<{
   accountId: AccountIds;

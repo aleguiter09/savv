@@ -1,5 +1,5 @@
-import { Account } from "@/types/global.types";
-import { AccountIds } from "@/types/general";
+import type { Account } from "@/types/global.types";
+import type { AccountIds } from "@/types/general";
 import { createClient } from "@/utils/supabase/server";
 import { cache } from "react";
 

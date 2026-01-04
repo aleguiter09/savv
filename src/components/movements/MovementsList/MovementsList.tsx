@@ -1,7 +1,7 @@
+import type { AccountIds, CategoryIds } from "@/types/general";
 import { getMovementsByDay } from "@/utils/common";
 import { getMovementsByFilters } from "@/services/movements";
 import { getTranslations } from "next-intl/server";
-import { AccountIds, CategoryIds } from "@/types/general";
 import { MovementItem } from "./MovementItem";
 
 type Props = Readonly<{

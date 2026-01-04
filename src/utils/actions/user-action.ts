@@ -1,5 +1,5 @@
 "use server";
-import { ServerActionResponse } from "@/types/general";
+import type { ServerActionResponse } from "@/types/general";
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import { createAccount } from "@/services/accounts";

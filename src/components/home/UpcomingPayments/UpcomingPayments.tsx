@@ -1,3 +1,4 @@
+import type { AccountIds } from "@/types/general";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 import { Card } from "@/components/ui/card";
@@ -5,7 +6,6 @@ import {
   UpcomingPaymentsList,
   UpcomingPaymentsSkeleton,
 } from "./UpcomingPaymentsList";
-import { AccountIds } from "@/types/general";
 
 type Props = Readonly<{
   accountId: AccountIds;

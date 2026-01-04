@@ -1,6 +1,6 @@
+import type { AccountIds } from "@/types/general";
 import { getAccountBalanceById } from "@/services/accounts";
 import { getMonthIncomes, getMonthExpenses } from "@/services/movements";
-import { AccountIds } from "@/types/general";
 import { getTranslations } from "next-intl/server";
 
 type Props = Readonly<{

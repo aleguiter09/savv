@@ -1,5 +1,5 @@
+import type { AccountIds } from "@/types/general";
 import { SelectAccount } from "@/components/common/SelectAccount";
-import { AccountIds } from "@/types/general";
 import { AddButton } from "./AddButton";
 
 type Props = Readonly<{

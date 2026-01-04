@@ -1,6 +1,6 @@
+import type { AccountIds } from "@/types/general";
 import { getUpcomingMovements } from "@/services/movements";
 import { getTranslations } from "next-intl/server";
-import { AccountIds } from "@/types/general";
 import { LastMovementDetail } from "../LastMovements/LastMovementDetail";
 
 type Props = Readonly<{

@@ -1,6 +1,6 @@
+import type { AccountIds, CategoryIds } from "@/types/general";
 import { SelectAccount } from "@/components/common/SelectAccount";
 import { SelectCategory } from "@/components/common/SelectCategory";
-import { AccountIds, CategoryIds } from "@/types/general";
 import { SelectDate } from "./SelectDate";
 
 type Props = Readonly<{

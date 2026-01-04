@@ -1,5 +1,5 @@
 "use client";
-import { Account } from "@/types/global.types";
+import type { Account } from "@/types/global.types";
 import { useTranslations } from "next-intl";
 import { Input } from "../ui/input";
 import { Checkbox } from "../ui/checkbox";
