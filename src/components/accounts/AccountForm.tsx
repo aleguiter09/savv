@@ -57,7 +57,7 @@ export function AccountForm({ account }: Props) {
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
       <Card className="rounded-md p-4 flex flex-col gap-2">
-        <FieldGroup>
+        <FieldGroup className="mb-2">
           {/* Account name */}
           <Controller
             name="name"
@@ -117,20 +117,19 @@ export function AccountForm({ account }: Props) {
             control={form.control}
             render={({ field, fieldState }) => (
               <Field
-                className="flex items-center gap-3 my-2"
+                className="gap-3"
+                orientation="horizontal"
                 data-invalid={fieldState.invalid}
               >
-                <FieldLabel
-                  htmlFor="is_default"
-                  className="block text-sm font-medium"
-                >
-                  {t("defaultAccount")}
-                </FieldLabel>
                 <Checkbox
                   id="is_default"
                   checked={field.value}
                   onCheckedChange={field.onChange}
                 />
+
+                <FieldLabel htmlFor="is_default">
+                  {t("defaultAccount")}
+                </FieldLabel>
               </Field>
             )}
           />
