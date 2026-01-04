@@ -17,13 +17,9 @@ import {
 import { useToastStore } from "@/stores/toast-store";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 
-type Props = {
-  account?: Account;
-};
-
 type Schema = z.infer<typeof AccountSchema>;
 
-export function AccountForm({ account }: Props) {
+export function AccountForm({ account }: { account?: Account }) {
   const t = useTranslations("accounts");
   const show = useToastStore((store) => store.show);
   const [pending, startTransition] = useTransition();

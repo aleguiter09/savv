@@ -3,16 +3,16 @@ import { MovementsByDate } from "@/components/movements/MovementsList/MovementsB
 import { getDefaultAccountId } from "@/services/accounts";
 import { AccountIds, CategoryIds } from "@/types/general";
 
-type Props = {
+type Props = Readonly<{
   searchParams: {
     from?: string;
     to?: string;
     account?: string;
     category?: string;
   };
-};
+}>;
 
-export default async function MovementsPage({ searchParams }: Readonly<Props>) {
+export default async function MovementsPage({ searchParams }: Props) {
   const defaultAcc = await getDefaultAccountId();
   const accountId =
     searchParams.account ?? (defaultAcc === 0 ? "all" : defaultAcc);

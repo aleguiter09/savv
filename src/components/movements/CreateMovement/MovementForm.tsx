@@ -28,13 +28,9 @@ import { CategorySelect } from "./CategorySelect";
 import { enUS, es } from "date-fns/locale";
 import { Input } from "@/components/ui/input";
 
-type Props = {
-  movement?: Movement;
-};
-
 type Schema = z.infer<typeof MovementSchema>;
 
-export function MovementForm({ movement }: Props) {
+export function MovementForm({ movement }: { movement?: Movement }) {
   const { accounts, incomeCategories, expenseCategories } = useData();
   const defaultAcc = accounts.find((a) => a.is_default);
 

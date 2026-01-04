@@ -6,18 +6,6 @@ export type CategoryIcons = {
   >;
 };
 
-export type FormState<T> = {
-  errors?: T;
-  message?: string | null;
-};
-
-export type FormCategoryState = FormState<{
-  title?: string[];
-  icon?: string[];
-  color?: string[];
-  parent_id?: string[];
-}>;
-
 export type CategoryIds = "all" | "incomes" | "expenses" | number;
 
 export type AccountIds = "all" | number;

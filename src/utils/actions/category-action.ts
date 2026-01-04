@@ -1,24 +1,22 @@
 "use server";
 
 import { CategorySchema } from "@/lib/schemas";
-import { FormCategoryState } from "@/types/general";
+import { ServerActionResponse } from "@/types/general";
+import z from "zod";
 
 export async function createCategoryForm(
-  prevState: FormCategoryState,
-  formData: FormData
-): Promise<FormCategoryState> {
-  const rawFormData = Object.fromEntries(formData.entries());
-  const validatedData = CategorySchema.safeParse(rawFormData);
+  data: z.infer<typeof CategorySchema>
+): Promise<ServerActionResponse> {
+  const parsed = CategorySchema.safeParse(data);
 
-  if (!validatedData.success) {
+  if (!parsed.success) {
     return {
-      errors: validatedData.error.flatten().fieldErrors,
-      message: "Missing fields. Failed to create a category.",
+      success: false,
+      error: "Missing fields. Failed to create a category.",
     };
   }
 
   return {
-    message: "Category created successfully",
-    errors: {},
+    success: true,
   };
 }

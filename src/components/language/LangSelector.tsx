@@ -3,22 +3,23 @@
 import { updateLanguage } from "@/services/settings";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
-import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { Label } from "../ui/label";
 
 export function LangSelector() {
   const t = useTranslations("settings");
   const locale = useLocale();
   const [loading, setLoading] = useState(false);
-  const [selected, setSelected] = useState(locale);
+  const [selected, setSelected] = useState<"en" | "es">(locale as "en" | "es");
 
   const handleClick = async () => {
     if (locale === selected) return;
     setLoading(true);
 
     try {
-      await updateLanguage(selected as "en" | "es");
-      window.location.reload();
+      await updateLanguage(selected);
+      globalThis.location.reload();
     } catch (error) {
       console.error("Error updating language:", error);
     } finally {
@@ -28,36 +29,21 @@ export function LangSelector() {
 
   return (
     <>
-      <div className="flex gap-20 ">
-        <div className="flex items-center gap-2">
-          <Input
-            className="w-4 h-4 px-0 py-0 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
-            id="en"
-            type="radio"
-            value="en"
-            name="en"
-            checked={selected === "en"}
-            label={t("en")}
-            onChange={(e) => {
-              setSelected(e.target.value);
-            }}
-          />
+      <RadioGroup
+        value={selected}
+        orientation="horizontal"
+        className="flex space-x-4"
+        onValueChange={(value) => setSelected(value as "en" | "es")}
+      >
+        <div className="flex items-center space-x-2">
+          <RadioGroupItem value="en" id="en" />
+          <Label htmlFor="en">{t("en")}</Label>
         </div>
-        <div className="flex items-center gap-2">
-          <Input
-            className="w-4 h-4 px-0 py-0 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-            id="es"
-            checked={selected === "es"}
-            type="radio"
-            value="es"
-            name="es"
-            label={t("es")}
-            onChange={(e) => {
-              setSelected(e.target.value);
-            }}
-          />
+        <div className="flex items-center space-x-2">
+          <RadioGroupItem value="es" id="es" />
+          <Label htmlFor="es">{t("es")}</Label>
         </div>
-      </div>
+      </RadioGroup>
 
       <Button
         loading={loading}

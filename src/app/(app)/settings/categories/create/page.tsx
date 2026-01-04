@@ -1,7 +1,7 @@
-import { CreateCategoryForm } from "@/components/categories/CreateCategoryForm";
 import { getTranslations } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { CategoryForm } from "@/components/categories/CategoryForm";
 
 export default async function CreateCategoryPage() {
   const t = await getTranslations("categories");
@@ -15,7 +15,7 @@ export default async function CreateCategoryPage() {
         <h4 className="font-medium">{t("addTitle")}</h4>
         <span></span>
       </div>
-      <CreateCategoryForm />
+      <CategoryForm />
     </>
   );
 }
