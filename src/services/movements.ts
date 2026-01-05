@@ -206,7 +206,7 @@ export const getMovementById = async (id: number): Promise<Movement | null> => {
         id,
         name,
         balance,
-        default
+        is_default
       )
     `
     )
