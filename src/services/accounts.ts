@@ -1,3 +1,4 @@
+// cSpell:ignore supabase
 import type { Account } from "@/types/global.types";
 import type { AccountIds } from "@/types/general";
 import { createClient } from "@/utils/supabase/server";

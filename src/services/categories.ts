@@ -1,3 +1,4 @@
+// cSpell:ignore supabase
 import type { Category } from "@/types/global.types";
 import { createClient } from "@/utils/supabase/server";
 
@@ -6,7 +7,8 @@ export const getCategories = async (): Promise<Category[]> => {
 
   const { data } = await supabase
     .from("category")
-    .select("id, color, title, icon, parent_id");
+    .select("id, color, title, icon, parent_id")
+    .throwOnError();
 
   return data ?? [];
 };
@@ -19,7 +21,8 @@ export const getCategoryById = async (
     .from("category")
     .select("*")
     .eq("id", categoryId)
-    .single();
+    .single()
+    .throwOnError();
 
   return data ?? null;
 };
@@ -31,19 +34,24 @@ export const getCategoriesByParentId = async (
   const { data } = await supabase
     .from("category")
     .select("*")
-    .eq("parent_id", parentId);
+    .eq("parent_id", parentId)
+    .throwOnError();
 
   return data ?? [];
 };
 
 export const createCategory = async (category: Category) => {
   const supabase = await createClient();
-  return await supabase.from("category").insert(category);
+  return await supabase.from("category").insert(category).throwOnError();
 };
 
 export const deleteCategory = async (categoryId: number) => {
   const supabase = await createClient();
-  return await supabase.from("category").delete().eq("id", categoryId);
+  return await supabase
+    .from("category")
+    .delete()
+    .eq("id", categoryId)
+    .throwOnError();
 };
 
 export const updateCategory = async (
@@ -51,5 +59,9 @@ export const updateCategory = async (
   categoryId: number
 ) => {
   const supabase = await createClient();
-  return await supabase.from("category").update(category).eq("id", categoryId);
+  return await supabase
+    .from("category")
+    .update(category)
+    .eq("id", categoryId)
+    .throwOnError();
 };

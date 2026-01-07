@@ -24,9 +24,13 @@ export async function createCategoryForm(
   try {
     await createCategory(parsed.data);
   } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error creating category:", error.message);
+    }
+
     return {
       success: false,
-      error: "Database error: failed to create category: " + error,
+      error: "databaseError",
     };
   }
 

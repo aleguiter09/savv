@@ -51,7 +51,7 @@ export const AccountSchema = z.object({
 export const CategorySchema = z.object({
   title: z.string().min(1, "titleError").max(20, "titleTooLong"),
   icon: z.string().min(1, "iconError"),
-  color: z.enum(categoryColorsLiterals),
+  color: z.enum(categoryColorsLiterals, { message: "colorError" }),
   parent_id: z.coerce.number().optional(),
 });
 

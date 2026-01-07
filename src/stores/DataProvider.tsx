@@ -7,12 +7,14 @@ type DataContextType = {
   accounts: Account[];
   incomeCategories: Category[];
   expenseCategories: Category[];
+  parentCategories: Category[];
 };
 
 const initialData: DataContextType = {
   accounts: [],
   incomeCategories: [],
   expenseCategories: [],
+  parentCategories: [],
 };
 
 const DataContext = createContext<DataContextType>(initialData);
@@ -39,13 +41,19 @@ export const DataProvider = ({
     [categories]
   );
 
+  const parentCategories = useMemo(
+    () => categories.filter((category) => category.parent_id === null),
+    [categories]
+  );
+
   const contextValue = useMemo(
     () => ({
       accounts,
       incomeCategories,
       expenseCategories,
+      parentCategories,
     }),
-    [accounts, incomeCategories, expenseCategories]
+    [accounts, incomeCategories, expenseCategories, parentCategories]
   );
 
   return (

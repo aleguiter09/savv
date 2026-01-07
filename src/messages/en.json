@@ -21,8 +21,13 @@
     "createCategory": "Create category",
     "titleError": "Please enter a category title",
     "titleTooLong": "The category title must be less than 20 characters",
+    "enterIcon": "Choose an icon",
     "iconError": "Please select an icon",
+    "enterColor": "Choose a color",
     "colorError": "Please select a color",
+    "editTitle": "Edit category",
+    "chooseParentCategory": "Choose a parent category (optional)",
+    "noCategory": "No category",
     "food": "Food",
     "commissions": "Commissions",
     "services": "Services",
@@ -56,7 +61,10 @@
     "allExpenses": "All expenses",
     "expenses": "Expenses",
     "incomes": "Incomes",
-    "selectPlaceholder": "Select category..."
+    "selectPlaceholder": "Select category...",
+    "databaseError": "Database error, please try again later",
+    "createdSuccess": "Category created successfully",
+    "updatedSuccess": "Category updated successfully"
   },
   "movements": {
     "addTitle": "Add transaction",
@@ -161,5 +169,6 @@
   "cancel": "Cancel",
   "confirm": "Confirm",
   "chooseDate": "Choose date",
-  "areYouSure": "Are you sure? 🤔"
+  "areYouSure": "Are you sure? 🤔",
+  "databaseError": "Database error, please try again later"
 }

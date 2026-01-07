@@ -24,7 +24,7 @@ export type Movement = {
 export type Category = {
   id?: CategoryDB["id"];
   title: CategoryDB["title"];
-  icon: CategoryDB["icon"];
+  icon?: CategoryDB["icon"];
   color: CategoryDB["color"];
   user_id?: CategoryDB["user_id"];
   parent_id?: CategoryDB["parent_id"];

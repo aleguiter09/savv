@@ -6,6 +6,7 @@ import { deleteAccountForm } from "@/utils/actions/account-actions";
 import { ConfirmDelete } from "@/components/common/ConfirmDelete";
 import Link from "next/link";
 import { AccountForm } from "@/components/accounts/AccountForm";
+import { ToastManager } from "@/components/Toast/toast-manager";
 
 export default async function EditAccountPage({
   params,
@@ -40,6 +41,8 @@ export default async function EditAccountPage({
         </ConfirmDelete>
       </div>
       <AccountForm account={account} />
+
+      <ToastManager />
     </>
   );
 }

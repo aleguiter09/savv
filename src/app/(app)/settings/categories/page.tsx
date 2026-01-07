@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { getCategories } from "@/services/categories";
 import { getTranslations } from "next-intl/server";
-import { Pencil } from "lucide-react";
-import { Trash } from "lucide-react";
+import { Pencil, Trash } from "lucide-react";
+import { ToastManager } from "@/components/Toast/toast-manager";
 
 export default async function CategoriesPage() {
   const t = await getTranslations();
@@ -71,6 +71,8 @@ export default async function CategoriesPage() {
           </ul>
         </Card>
       ))}
+
+      <ToastManager />
     </>
   );
 }
