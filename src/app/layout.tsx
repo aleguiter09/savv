@@ -19,6 +19,7 @@ export const metadata = {
     icon: ["/favicon.ico"],
     apple: ["/apple-touch-icon.png"],
   },
+  manifest: "/manifest.json",
   metadataBase: new URL("https://savv-finances.vercel.app/"),
 };
 
@@ -27,6 +28,7 @@ export const viewport = {
   initialScale: 1.0,
   maximumScale: 1.0,
   userScalable: "no",
+  themeColor: "#ffffff",
 };
 
 export default async function RootLayout({
