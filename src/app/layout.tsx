@@ -20,6 +20,11 @@ export const metadata = {
     apple: ["/apple-touch-icon.png"],
   },
   manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Savv",
+  },
   metadataBase: new URL("https://savv-finances.vercel.app/"),
 };
 
