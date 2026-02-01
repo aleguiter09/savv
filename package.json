@@ -44,7 +44,7 @@
     "server-only": "^0.0.1",
     "sharp": "^0.34.5",
     "sonner": "^2.0.5",
-    "supabase": "^2.70.5",
+    "supabase": "^2.74.5",
     "tailwind-merge": "^3.3.1",
     "tailwind-variants": "^1.0.0",
     "tailwindcss": "^4.1.11",

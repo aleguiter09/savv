@@ -21,7 +21,7 @@ export const getAccounts = cache(async (): Promise<Account[]> => {
 });
 
 export const getAccountBalanceById = async (
-  id: AccountIds
+  id: AccountIds,
 ): Promise<number> => {
   const supabase = await createClient();
   let query = supabase.from("account").select("balance");
@@ -74,7 +74,7 @@ export const updateAccount = async (account: Account, accountId: number) => {
 };
 
 export const updateAccountBalances = async (
-  updates: Array<{ account_id: number; amount_change: number }>
+  updates: { account_id: number; amount_change: number }[],
 ) => {
   const supabase = await createClient();
 

@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 import z from "zod";
 
 export async function createCategoryForm(
-  data: z.infer<typeof CategorySchema>
+  data: z.infer<typeof CategorySchema>,
 ): Promise<ServerActionResponse> {
   const parsed = CategorySchema.safeParse(data);
 

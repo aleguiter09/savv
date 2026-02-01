@@ -36,13 +36,13 @@ export function NavLinks() {
       })}
       <form
         action={logout}
-        className="flex h-[48px] grow items-center justify-center"
+        className="flex h-12 grow items-center justify-center"
       >
         <button
           type="submit"
           tabIndex={0}
           aria-label="Logout"
-          className="grow h-full flex items-center justify-center focus:ring-2 focus:ring-inset focus:ring-blue-600"
+          className="grow cursor-pointer h-full flex items-center justify-center focus:ring-2 focus:ring-inset focus:ring-blue-600"
         >
           <LogOutIcon />
         </button>
