@@ -2,12 +2,15 @@
 
 import { categoryColorsLiterals } from "@/utils/constants";
 
+import { useTranslations } from "next-intl";
+
 interface ColorPickerProps {
   value: string;
   onChange: (color: string) => void;
 }
 
 export function ColorPicker({ value, onChange }: ColorPickerProps) {
+  const t = useTranslations();
   return (
     <div className="space-y-2">
       <div className="grid gap-2 grid-cols-5">
@@ -27,7 +30,7 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
               bg-${color}-500
             `}
             title={color}
-            aria-label={`Color ${color}`}
+            aria-label={t("common.colorLabel", { name: t(`colors.${color}`) })}
           />
         ))}
       </div>

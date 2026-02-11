@@ -55,21 +55,6 @@ export const CATEGORY_ICONS: CategoryIcons = {
   sports: Dumbbell,
 } as const;
 
-export const MONTHS = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-] as const;
-
 export const tailwindColors = [
   "bg-amber-500",
   "bg-blue-500",

@@ -13,7 +13,10 @@ import z from "zod";
 import { useToastStore } from "@/stores/toast-store";
 import { useData } from "@/stores/DataProvider";
 import { CategorySelect } from "../movements/CreateMovement/CategorySelect";
-import { createCategoryForm } from "@/utils/actions/category-action";
+import {
+  createCategoryForm,
+  updateCategoryForm,
+} from "@/utils/actions/category-action";
 import { ColorPicker } from "../common/ColorPicker";
 import { IconPicker } from "../common/IconPicker";
 
@@ -40,7 +43,7 @@ export const CategoryForm = ({ category }: { category?: Category }) => {
     startTransition(async () => {
       let res;
       if (category?.id) {
-        res = { success: true }; // await updateCategoryForm(category, data);
+        res = await updateCategoryForm(category, data);
       } else {
         res = await createCategoryForm(data);
       }

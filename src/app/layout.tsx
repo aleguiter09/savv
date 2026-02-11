@@ -60,12 +60,10 @@ export default async function RootLayout({
           speed={200}
           showSpinner={false}
         />
-        <main className="mx-6 sm:w-lg sm:mx-auto">
-          <NextIntlClientProvider locale={locale}>
-            {children}
-          </NextIntlClientProvider>
-        </main>
-        {!!user.data.user?.id && <Navbar />}
+        <NextIntlClientProvider locale={locale}>
+          <main className="mx-6 sm:w-lg sm:mx-auto">{children}</main>
+          {!!user.data.user?.id && <Navbar />}
+        </NextIntlClientProvider>
         <SpeedInsights />
       </body>
     </html>

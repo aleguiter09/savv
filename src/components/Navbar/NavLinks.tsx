@@ -3,17 +3,19 @@ import Link from "next/link";
 import { logout } from "@/utils/actions/user-action";
 import { usePathname } from "next/navigation";
 import { Home, LogOutIcon, Settings } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const links = [
-  { name: "Home", href: "/", icon: <Home /> },
+  { key: "home", href: "/", icon: <Home /> },
   {
-    name: "Settings",
+    key: "settings",
     href: "/settings",
     icon: <Settings />,
   },
 ];
 
 export function NavLinks() {
+  const t = useTranslations("nav");
   const pathname = usePathname();
   const activeLink = links.find((link) => link.href === pathname);
 
@@ -22,9 +24,9 @@ export function NavLinks() {
       {links.map((link) => {
         return (
           <Link
-            key={link.name}
+            key={link.key}
             href={link.href}
-            aria-label={link.name}
+            aria-label={t(link.key)}
             tabIndex={0}
             className={`flex h-12 grow items-center justify-center focus:ring-2 focus:ring-inset focus:ring-blue-600 ${
               activeLink?.href === link.href ? "text-blue-500" : ""
@@ -41,7 +43,7 @@ export function NavLinks() {
         <button
           type="submit"
           tabIndex={0}
-          aria-label="Logout"
+          aria-label={t("logout")}
           className="grow cursor-pointer h-full flex items-center justify-center focus:ring-2 focus:ring-inset focus:ring-blue-600"
         >
           <LogOutIcon />

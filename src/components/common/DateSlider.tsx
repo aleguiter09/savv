@@ -1,11 +1,12 @@
 "use client";
 import type { YearMonth } from "@/types/general";
-import { MONTHS } from "@/utils/constants";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Card } from "../ui/card";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function DateSlider({ year, month }: Readonly<YearMonth>) {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -34,7 +35,7 @@ export default function DateSlider({ year, month }: Readonly<YearMonth>) {
         <ArrowLeft />
       </button>
       <h5 className="mt-1 text-lg font-semibold">
-        {MONTHS[month]} {year}
+        {t(`months.${month}`)} {year}
       </h5>
       <button onClick={handleRight}>
         <ArrowRight />

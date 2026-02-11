@@ -41,7 +41,7 @@ export async function BalanceInfo({ accountId }: Props) {
   );
 }
 
-export async function BalanceSkeleton() {
+export function BalanceSkeleton({ loadingText }: { loadingText: string }) {
   return (
     <div className="grid grid-cols-3 text-center">
       <div>
@@ -51,7 +51,7 @@ export async function BalanceSkeleton() {
         <div className="flex w-full justify-center py-2">
           <output
             className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent text-blue-600"
-            aria-label="loading"
+            aria-label={loadingText}
           />
         </div>
       </div>
@@ -60,7 +60,7 @@ export async function BalanceSkeleton() {
         <div className=" flex w-full justify-center py-2">
           <output
             className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent text-blue-600"
-            aria-label="loading"
+            aria-label={loadingText}
           />
         </div>
       </div>
@@ -69,7 +69,7 @@ export async function BalanceSkeleton() {
         <div className="flex w-full justify-center py-2">
           <output
             className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent text-blue-600"
-            aria-label="loading"
+            aria-label={loadingText}
           />
         </div>
       </div>

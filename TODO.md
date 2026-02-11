@@ -4,7 +4,7 @@
 [X] Move types to each file
 [X] Config I18n, add user config table
 [X] Add ALL translations (check Skeletons)
-[X] Removed unnecesary supabase client logic
+[X] Removed unnecessary supabase client logic
 [X] Translate errors from actions
 [X] Delete account
 [X] Recover Password page
@@ -18,22 +18,23 @@
 
 [X] Create account process after sign up
 [X] Error on create movement its not ending transition.
-[X] Created accounts doesnt have a locale assigned
+[X] Created accounts doesn't have a locale assigned
 [X] Navbar shown on login page
-[X] Account from the URL is being overwritted in select Home
-[X] Accounts & Categories not always being setted.
-[X] Select Category in Movement form overlaped by navbar
+[X] Account from the URL is being overwritten in select Home
+[X] Accounts & Categories not always being settled.
+[X] Select Category in Movement form overlapped by navbar
 [X] Only default imports are allowed
 [X] Transfers are not being displayed in all movements
 [X] Received transfers are not being displayed based on account
-[X] Check whats happenning when updating a movement
+[X] Check whats happening when updating a movement
 [] Check how transfers are being displayed based on received or send
-[X] On add movement, when changing betwewen tabs the category displayed is empty
+[X] On add movement, when changing between tabs the category displayed is empty
 [] On date picker, add preestablished ranges (today, week, month, last30days)
 [X] When updating movement, movement is being inserted and eliminated. Not being updated.
-[] Verify translations for error mssgs in movements schemas
+[] Verify translations for error messages in movements schemas
 [] Default account should be unique
 [] Translate default errors
+[] Review 'Category' page translations (based on new categories)
 
 # New Features
 
@@ -49,6 +50,6 @@
 [] Expenses, incomes 6month Bar Chart
 [] Add types, icons and colors to accounts (cash, bank, card, savings, investments, crypto)
 [X] Add labels to movements
-[X] Change querys to use Joins
+[X] Change queries to use Joins
 [] Obtain message stats from RPC queries
 [] Allow multiple accounts on home

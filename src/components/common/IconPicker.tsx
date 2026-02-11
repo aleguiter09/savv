@@ -2,6 +2,7 @@
 
 import { CATEGORY_ICONS } from "@/utils/constants";
 import { LucideIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface IconPickerProps {
   value?: string;
@@ -9,6 +10,7 @@ interface IconPickerProps {
 }
 
 export function IconPicker({ value, onChange }: IconPickerProps) {
+    const t = useTranslations("common");
   const iconEntries = Object.entries(CATEGORY_ICONS) as [string, LucideIcon][];
 
   return (
@@ -30,7 +32,7 @@ export function IconPicker({ value, onChange }: IconPickerProps) {
               }
             `}
             title={iconKey}
-            aria-label={`Icon ${iconKey}`}
+            aria-label={t("iconLabel", {name: iconKey})}
           >
             <IconComponent className="h-5 w-5 text-gray-700" />
           </button>

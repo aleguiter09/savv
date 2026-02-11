@@ -6,18 +6,19 @@ import { getCategories } from "@/services/categories";
 import { getTranslations } from "next-intl/server";
 import { Pencil, Trash } from "lucide-react";
 import { ToastManager } from "@/components/Toast/toast-manager";
+import Link from "next/link";
 
 export default async function CategoriesPage() {
   const t = await getTranslations();
   const categories = await getCategories();
 
   const parentCategories = categories.filter(
-    (category) => category.parent_id === null
+    (category) => category.parent_id === null,
   );
 
   const mappedCategories = parentCategories.map((category) => {
     const children = categories.filter(
-      (child) => child.parent_id === category.id
+      (child) => child.parent_id === category.id,
     );
 
     return {
@@ -36,6 +37,7 @@ export default async function CategoriesPage() {
         </div>
         <AddButton href="/settings/categories/create" />
       </div>
+
       {mappedCategories.map((category) => (
         <Card key={category.id} className="mb-4 shadow-md pl-4 pr-3 pt-2 pb-3">
           <p className="font-semibold mb-2">
@@ -59,8 +61,15 @@ export default async function CategoriesPage() {
                   <p className="text-sm">{t("categories." + child.title)}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Button size="icon" className="p-0" variant="secondary">
-                    <Pencil size={16} />
+                  <Button
+                    asChild
+                    size="icon"
+                    className="p-0"
+                    variant="secondary"
+                  >
+                    <Link href={`/settings/categories/${child.id}`}>
+                      <Pencil size={16} />
+                    </Link>
                   </Button>
                   <Button size="icon" className="p-0" variant="secondary">
                     <Trash size={16} />
