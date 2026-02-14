@@ -1,4 +1,4 @@
-import { MovementForm } from "@/components/movements/CreateMovement/MovementForm";
+import { MovementForm } from "@/modules/movements/ui/CreateMovement/MovementForm";
 import { ArrowLeft } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";

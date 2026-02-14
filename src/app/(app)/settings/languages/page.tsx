@@ -1,4 +1,4 @@
-import { LangSelector } from "@/components/language/LangSelector";
+import { LangSelector } from "@/modules/settings/ui/LangSelector";
 import { Card } from "@/components/ui/card";
 import { getTranslations } from "next-intl/server";
 

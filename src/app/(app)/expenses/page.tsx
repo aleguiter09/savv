@@ -1,8 +1,7 @@
-import DateSlider from "@/components/common/DateSlider";
-import { ExpensesData } from "@/components/expenses/ExpensesData";
-import { ExpensesFilter } from "@/components/expenses/ExpensesFilter";
-import { getDefaultAccountId } from "@/services/accounts";
-import type { AccountIds } from "@/types/general";
+import DateSlider from "@/modules/shared/ui/common/DateSlider";
+import { getDefaultAccountId } from "@/modules/accounts/services/accounts";
+import { ExpensesData } from "@/modules/dashboard/ui/expenses/ExpensesData";
+import { ExpensesFilter } from "@/modules/dashboard/ui/expenses/ExpensesFilter";
 
 type ExpensesPageParams = {
   searchParams: {
@@ -17,7 +16,7 @@ export default async function ExpensesPage({
 }: Readonly<ExpensesPageParams>) {
   const defaultAcc = await getDefaultAccountId();
   const accountId =
-    searchParams.account ?? (defaultAcc === 0 ? "all" : defaultAcc);
+    searchParams.account ?? (defaultAcc === 0 ? "all" : defaultAcc.toString());
 
   const year = searchParams.year
     ? Number(searchParams.year)
@@ -29,12 +28,8 @@ export default async function ExpensesPage({
   return (
     <>
       <DateSlider year={year} month={month} />
-      <ExpensesFilter accountId={accountId as AccountIds} />
-      <ExpensesData
-        accountId={accountId as AccountIds}
-        year={year}
-        month={month}
-      />
+      <ExpensesFilter accountId={accountId} />
+      <ExpensesData accountId={accountId} year={year} month={month} />
     </>
   );
 }

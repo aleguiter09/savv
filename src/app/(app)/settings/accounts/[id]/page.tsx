@@ -1,12 +1,12 @@
-import { getAccountById } from "@/services/accounts";
+import { getAccountById } from "@/modules/accounts/services/accounts";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { deleteAccountForm } from "@/utils/actions/account-actions";
-import { ConfirmDelete } from "@/components/common/ConfirmDelete";
+import { deleteAccountForm } from "@/modules/accounts/actions/account-actions";
+import { ConfirmDelete } from "@/modules/shared/ui/common/ConfirmDelete";
 import Link from "next/link";
-import { AccountForm } from "@/components/accounts/AccountForm";
-import { ToastManager } from "@/components/Toast/toast-manager";
+import { AccountForm } from "@/modules/accounts/ui/AccountForm";
+import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 
 export default async function EditAccountPage({
   params,

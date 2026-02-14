@@ -1,9 +1,9 @@
-import { getMovementById } from "@/services/movements";
+import { getMovementById } from "@/modules/movements/services/movements";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { MovementForm } from "@/components/movements/CreateMovement/MovementForm";
+import { MovementForm } from "@/modules/movements/ui/CreateMovement/MovementForm";
 
 export default async function EditMovementPage({
   params,

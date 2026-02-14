@@ -1,22 +1,12 @@
-import type { Movement } from "@/types/global.types";
-
-export const valueFormatter = (number: number) =>
-  `$ ${Intl.NumberFormat("us").format(number).toString()}`;
-
-export const calculatePercentage = (a: number, b: number) => {
-  if (b > 0) {
-    return Math.floor((a / (a + b)) * 100);
-  }
-  return 0;
-};
+import type { Movement } from "@/modules/shared/types/global.types";
 
 export const getInitialAndFinalDate = (year?: number, month?: number) => {
   const initialDate = new Date(
     Date.UTC(
       year ?? new Date().getFullYear(),
       month || month === 0 ? month : new Date().getMonth(),
-      1
-    )
+      1,
+    ),
   ).toISOString();
 
   const finishDate = new Date(
@@ -27,8 +17,8 @@ export const getInitialAndFinalDate = (year?: number, month?: number) => {
       23,
       59,
       59,
-      999
-    )
+      999,
+    ),
   ).toISOString();
 
   return { initialDate, finishDate };
@@ -46,7 +36,7 @@ export const getMovementsByDay = (movements: Movement[]) => {
           year: "numeric",
           month: "2-digit",
           day: "2-digit",
-        })
+        }),
     );
     if (currentDate) {
       currentDate.movements.push(m);
@@ -69,7 +59,7 @@ export const getMovementsByDay = (movements: Movement[]) => {
   });
 
   return items.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 };
 
@@ -81,7 +71,7 @@ type ParsedMovement = {
 };
 
 export const parseMovementsForChart = (
-  movements: Movement[]
+  movements: Movement[],
 ): ParsedMovement[] => {
   const result: ParsedMovement[] = [];
 

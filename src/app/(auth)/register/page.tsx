@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useTransition } from "react";
-import { createUserForm } from "@/utils/actions/user-action";
+import { createUserForm } from "@/modules/auth/actions/user-action";
 import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useTransition } from "react";
-import { loginUserForm } from "@/utils/actions/user-action";
+import { loginUserForm } from "@/modules/auth/actions/user-action";
 import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -16,7 +16,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { useToastStore } from "@/stores/toast-store";
-import { ToastManager } from "@/components/Toast/toast-manager";
+import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 
 type Schema = z.infer<typeof LoginUserSchema>;
 

@@ -1,4 +1,4 @@
-import type { CategoryIcons } from "@/types/general";
+import type { CategoryIcons } from "@/modules/shared/types/general";
 import {
   BusFront,
   CirclePercent,

@@ -1,5 +1,5 @@
-import { AccountForm } from "@/components/accounts/AccountForm";
-import { ToastManager } from "@/components/Toast/toast-manager";
+import { AccountForm } from "@/modules/accounts/ui/AccountForm";
+import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 import { ArrowLeft } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";

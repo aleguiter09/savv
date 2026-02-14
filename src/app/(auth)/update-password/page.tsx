@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { updatePasswordForm } from "@/utils/actions/user-action";
+import { updatePasswordForm } from "@/modules/auth/actions/user-action";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToastStore } from "@/stores/toast-store";

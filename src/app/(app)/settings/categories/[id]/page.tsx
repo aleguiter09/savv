@@ -2,8 +2,8 @@ import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { getCategoryById } from "@/services/categories";
-import { CategoryForm } from "@/components/categories/CategoryForm";
+import { getCategoryById } from "@/modules/categories/services/categories";
+import { CategoryForm } from "@/modules/categories/ui/CategoryForm";
 
 export default async function EditCategoryPage({
   params,

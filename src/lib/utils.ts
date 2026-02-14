@@ -5,10 +5,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function cx(...args: ClassValue[]) {
-  return twMerge(clsx(...args));
-}
-
 export const focusInput = [
   // base
   "focus:ring-2",

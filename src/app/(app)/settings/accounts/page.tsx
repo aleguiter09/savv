@@ -1,7 +1,7 @@
-import { getAccounts } from "@/services/accounts";
+import { getAccounts } from "@/modules/accounts/services/accounts";
+import { AddButton } from "@/modules/dashboard/ui/ActionBar/AddButton";
+import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 import { getTranslations } from "next-intl/server";
-import { ToastManager } from "@/components/Toast/toast-manager";
-import { AddButton } from "@/components/home/ActionBar/AddButton";
 import Link from "next/link";
 
 export default async function AccountsPage() {

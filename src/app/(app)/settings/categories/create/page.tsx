@@ -1,8 +1,8 @@
 import { getTranslations } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { CategoryForm } from "@/components/categories/CategoryForm";
-import { ToastManager } from "@/components/Toast/toast-manager";
+import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
+import { CategoryForm } from "@/modules/categories/ui/CategoryForm";
 
 export default async function CreateCategoryPage() {
   const t = await getTranslations("categories");

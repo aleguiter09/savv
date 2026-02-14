@@ -1,12 +1,11 @@
-import { getDefaultAccountId } from "@/services/accounts";
-import type { AccountIds } from "@/types/general";
-import { ActionBar } from "@/components/home/ActionBar/ActionBar";
-import { Balance } from "@/components/home/Balance/Balance";
-import { LastMovements } from "@/components/home/LastMovements/LastMovements";
-import { ExpenseByCat } from "@/components/home/ExpenseByCat/ExpenseByCat";
-import { TotalWealth } from "@/components/home/TotalWealth/TotalWealth";
-import { UpcomingPayments } from "@/components/home/UpcomingPayments/UpcomingPayments";
-import { ToastManager } from "@/components/Toast/toast-manager";
+import { getDefaultAccountId } from "@/modules/accounts/services/accounts";
+import { ActionBar } from "@/modules/dashboard/ui/ActionBar/ActionBar";
+import { Balance } from "@/modules/dashboard/ui/Balance/Balance";
+import { ExpenseByCat } from "@/modules/dashboard/ui/ExpenseByCat/ExpenseByCat";
+import { LastMovements } from "@/modules/dashboard/ui/LastMovements/LastMovements";
+import { TotalWealth } from "@/modules/dashboard/ui/TotalWealth/TotalWealth";
+import { UpcomingPayments } from "@/modules/dashboard/ui/UpcomingPayments/UpcomingPayments";
+import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 
 type MainPageParams = {
   searchParams: {
@@ -23,16 +22,16 @@ export default async function MainPage({
 
   return (
     <>
-      <ActionBar accountId={accountId as AccountIds} />
-      <Balance accountId={accountId as AccountIds} />
-      <LastMovements accountId={accountId as AccountIds} />
+      <ActionBar accountId={accountId} />
+      <Balance accountId={accountId} />
+      <LastMovements accountId={accountId} />
       <ExpenseByCat
-        accountId={accountId as AccountIds}
+        accountId={accountId}
         year={new Date().getFullYear()}
         month={new Date().getMonth()}
       />
       <TotalWealth />
-      <UpcomingPayments accountId={accountId as AccountIds} />
+      <UpcomingPayments accountId={accountId} />
 
       <ToastManager />
     </>

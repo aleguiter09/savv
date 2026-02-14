@@ -1,11 +1,11 @@
-import { getMovementById } from "@/services/movements";
+import { getMovementById } from "@/modules/movements/services/movements";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { MovementDetail } from "@/components/movements/MovementDetail/MovementDetail";
 import { ArrowLeft } from "lucide-react";
-import { ConfirmDelete } from "@/components/common/ConfirmDelete";
-import { deleteMovementForm } from "@/utils/actions/movement-action";
+import { ConfirmDelete } from "@/modules/shared/ui/common/ConfirmDelete";
+import { deleteMovementForm } from "@/modules/movements/actions/movement-action";
 import Link from "next/link";
+import { MovementDetail } from "@/modules/movements/ui/MovementDetail/MovementDetail";
 
 export default async function MovementDetailPage({
   params,

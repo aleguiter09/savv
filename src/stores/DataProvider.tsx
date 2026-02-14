@@ -1,6 +1,6 @@
 "use client";
 
-import type { Account, Category } from "@/types/global.types";
+import type { Account, Category } from "@/modules/shared/types/global.types";
 import { createContext, useContext, useMemo } from "react";
 
 type DataContextType = {
@@ -30,20 +30,20 @@ export const DataProvider = ({
 }) => {
   const incomeCategories = useMemo(
     () => categories.filter((category) => category.parent_id === 60), // 60 is the id of the income category
-    [categories]
+    [categories],
   );
 
   const expenseCategories = useMemo(
     () =>
       categories.filter(
-        (category) => category.parent_id !== null && category.parent_id !== 60
+        (category) => category.parent_id !== null && category.parent_id !== 60,
       ), // 61 is the id of the expense category
-    [categories]
+    [categories],
   );
 
   const parentCategories = useMemo(
     () => categories.filter((category) => category.parent_id === null),
-    [categories]
+    [categories],
   );
 
   const contextValue = useMemo(
@@ -53,7 +53,7 @@ export const DataProvider = ({
       expenseCategories,
       parentCategories,
     }),
-    [accounts, incomeCategories, expenseCategories, parentCategories]
+    [accounts, incomeCategories, expenseCategories, parentCategories],
   );
 
   return (

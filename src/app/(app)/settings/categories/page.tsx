@@ -1,12 +1,12 @@
-import { CategoryIcon } from "@/components/common/CategoryIcon";
-import { AddButton } from "@/components/home/ActionBar/AddButton";
+import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { getCategories } from "@/services/categories";
+import { getCategories } from "@/modules/categories/services/categories";
 import { getTranslations } from "next-intl/server";
 import { Pencil, Trash } from "lucide-react";
-import { ToastManager } from "@/components/Toast/toast-manager";
 import Link from "next/link";
+import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
+import { AddButton } from "@/modules/dashboard/ui/ActionBar/AddButton";
 
 export default async function CategoriesPage() {
   const t = await getTranslations();
