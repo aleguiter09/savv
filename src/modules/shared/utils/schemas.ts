@@ -1,4 +1,4 @@
-import { categoryColorsLiterals } from "@/utils/constants";
+import { categoryColorsLiterals } from "@/modules/shared/utils/constants";
 import { z } from "zod";
 
 const BaseMovementSchema = z.object({
@@ -36,7 +36,7 @@ export const MovementSchema = z
     {
       message: "transferSameAccountError",
       path: ["where"],
-    }
+    },
   );
 
 export const AccountSchema = z.object({

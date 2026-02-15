@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { useToastStore } from "@/stores/toast-store";
-import { Toaster } from "@/components/ui/sonner";
+import { useToastStore } from "@/modules/shared/ui/toast-store";
+import { Toaster } from "@/ui/sonner";
 
 export function ToastManager(props: React.ComponentProps<typeof Toaster>) {
   const pathname = usePathname();

@@ -1,4 +1,4 @@
-import { CATEGORY_ICONS } from "@/utils/constants";
+import { CATEGORY_ICONS } from "@/modules/shared/utils/constants";
 
 type Props = Readonly<{
   icon: string;

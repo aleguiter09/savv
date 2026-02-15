@@ -7,10 +7,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/ui/select";
 import { useTranslations } from "next-intl";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { useData } from "@/stores/DataProvider";
+import { useData } from "@/modules/shared/stores/DataProvider";
 
 type Props = Readonly<{
   accountId: string;

@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/ui/card";
 import { BalanceInfo, BalanceSkeleton } from "./BalanceInfo";
 import { getTranslations } from "next-intl/server";
 

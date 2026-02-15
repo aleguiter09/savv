@@ -1,6 +1,6 @@
 "use server";
 
-import { ToastType } from "@/stores/toast-store";
+import { ToastType } from "@/modules/shared/ui/toast-store";
 import { cookies } from "next/headers";
 
 export const setToastMessage = (type: ToastType, message: string) => {
@@ -14,6 +14,6 @@ export const setToastMessage = (type: ToastType, message: string) => {
       path: "/",
       maxAge: 30,
       sameSite: "lax",
-    }
+    },
   );
 };

@@ -3,14 +3,10 @@
 import * as React from "react";
 import { Calendar1 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
+import { Button } from "@/ui/button";
+import { Calendar } from "@/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
+import { cn } from "@/modules/shared/utils/cn";
 import { DateRange, Locale } from "react-day-picker";
 import { useTranslations } from "next-intl";
 
@@ -41,7 +37,7 @@ export function DatePicker({
             id="date"
             className={cn(
               "justify-start font-normal flex gap-3 px-2 bg-white hover:bg-gray-50",
-              error && "border-red-500"
+              error && "border-red-500",
             )}
           >
             <Calendar1 className="text-gray-600" />
@@ -89,7 +85,7 @@ export function DateRangePicker({
             variant="outline"
             id="date"
             className={cn(
-              "justify-start font-normal flex gap-3 px-2 bg-white hover:bg-gray-50"
+              "justify-start font-normal flex gap-3 px-2 bg-white hover:bg-gray-50",
             )}
           >
             <Calendar1 className="text-gray-600" />

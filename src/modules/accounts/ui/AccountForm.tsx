@@ -1,11 +1,11 @@
 "use client";
 import type { Account } from "@/modules/shared/types/global.types";
 import { useTranslations } from "next-intl";
-import { Input } from "../../../components/ui/input";
-import { Checkbox } from "../../../components/ui/checkbox";
-import { Card } from "../../../components/ui/card";
-import { Button } from "../../../components/ui/button";
-import { AccountSchema } from "@/lib/schemas";
+import { Input } from "@/ui/input";
+import { Checkbox } from "@/ui/checkbox";
+import { Card } from "@/ui/card";
+import { Button } from "@/ui/button";
+import { AccountSchema } from "@/modules/shared/utils/schemas";
 import { z } from "zod";
 import { useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,13 +14,8 @@ import {
   createAccountForm,
   updateAccountForm,
 } from "@/modules/accounts/actions/account-actions";
-import { useToastStore } from "@/stores/toast-store";
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "../../../components/ui/field";
+import { useToastStore } from "@/modules/shared/ui/toast-store";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/ui/field";
 
 type Schema = z.infer<typeof AccountSchema>;
 

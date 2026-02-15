@@ -1,19 +1,14 @@
 "use client";
 
 import type { Movement } from "@/modules/shared/types/global.types";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { DatePicker } from "@/components/ui/date-picker";
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MovementSchema } from "@/lib/schemas";
-import { useData } from "@/stores/DataProvider";
-import { useToastStore } from "@/stores/toast-store";
+import { Button } from "@/ui/button";
+import { Card } from "@/ui/card";
+import { DatePicker } from "@/ui/date-picker";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/ui/field";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
+import { MovementSchema } from "@/modules/shared/utils/schemas";
+import { useData } from "@/modules/shared/stores/DataProvider";
+import { useToastStore } from "@/modules/shared/ui/toast-store";
 import {
   createMovementForm,
   updateMovementForm,
@@ -26,7 +21,7 @@ import { z } from "zod";
 import { AccountSelect } from "./AccountSelect";
 import { CategorySelect } from "./CategorySelect";
 import { enUS, es } from "date-fns/locale";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/ui/input";
 
 type Schema = z.infer<typeof MovementSchema>;
 

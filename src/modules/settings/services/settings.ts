@@ -1,5 +1,5 @@
 "use server";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/infra/supabase/server";
 
 export const updateLanguage = async (language: "es" | "en") => {
   const supabase = await createClient();

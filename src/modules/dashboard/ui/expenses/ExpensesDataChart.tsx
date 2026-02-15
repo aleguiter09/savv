@@ -1,7 +1,7 @@
 import { getExpenses } from "@/modules/movements/services/movements";
-import { parseMovementsForChart } from "@/utils/common";
+import { parseMovementsForChart } from "@/modules/shared/utils/common";
 import Link from "next/link";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/ui/card";
 
 type Props = Readonly<{
   accountId: string;

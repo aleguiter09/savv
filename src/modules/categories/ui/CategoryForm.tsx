@@ -1,29 +1,24 @@
 "use client";
 import type { Category } from "@/modules/shared/types/global.types";
 import { useTranslations } from "next-intl";
-import { CategorySchema } from "@/lib/schemas";
+import { CategorySchema } from "@/modules/shared/utils/schemas";
 import { useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-import { useToastStore } from "@/stores/toast-store";
-import { useData } from "@/stores/DataProvider";
+import { useToastStore } from "@/modules/shared/ui/toast-store";
+import { useData } from "@/modules/shared/stores/DataProvider";
 import {
   createCategoryForm,
   updateCategoryForm,
 } from "@/modules/categories/actions/category-action";
-import { Card } from "@/components/ui/card";
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+import { Card } from "@/ui/card";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/ui/field";
+import { Input } from "@/ui/input";
 import { CategorySelect } from "@/modules/movements/ui/CreateMovement/CategorySelect";
 import { IconPicker } from "@/modules/shared/ui/common/IconPicker";
 import { ColorPicker } from "@/modules/shared/ui/common/ColorPicker";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/button";
 
 type Schema = z.infer<typeof CategorySchema>;
 

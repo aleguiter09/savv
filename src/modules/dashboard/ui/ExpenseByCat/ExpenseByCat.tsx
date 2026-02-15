@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/ui/card";
 import { ExpenseByCatChart, ExpenseByCatSkeleton } from "./ExpenseByCatChart";
 
 type Props = Readonly<{

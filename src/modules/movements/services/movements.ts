@@ -1,6 +1,6 @@
 import type { Movement } from "@/modules/shared/types/global.types";
-import { getInitialAndFinalDate } from "@/utils/common";
-import { createClient } from "@/utils/supabase/server";
+import { getInitialAndFinalDate } from "@/modules/shared/utils/common";
+import { createClient } from "@/infra/supabase/server";
 
 export const getMovementsByFilters = async (
   from: Date,

@@ -1,4 +1,4 @@
-import { getMovementsByDay } from "@/utils/common";
+import { getMovementsByDay } from "@/modules/shared/utils/common";
 import { getMovementsByFilters } from "@/modules/movements/services/movements";
 import { getTranslations } from "next-intl/server";
 import { MovementItem } from "./MovementItem";

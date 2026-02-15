@@ -1,4 +1,4 @@
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/infra/supabase/server";
 import { getRequestConfig } from "next-intl/server";
 import { cookies, headers } from "next/headers";
 
@@ -12,7 +12,7 @@ export default getRequestConfig(async () => {
   if (data?.language) {
     return {
       locale: data.language,
-      messages: (await import(`../messages/${data.language}.json`)).default,
+      messages: (await import(`../../messages/${data.language}.json`)).default,
     };
   }
 
@@ -25,6 +25,6 @@ export default getRequestConfig(async () => {
 
   return {
     locale,
-    messages: (await import(`../messages/${locale}.json`)).default,
+    messages: (await import(`../../messages/${locale}.json`)).default,
   };
 });

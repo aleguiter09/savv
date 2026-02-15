@@ -7,8 +7,8 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { useData } from "@/stores/DataProvider";
+} from "@/ui/select";
+import { useData } from "@/modules/shared/stores/DataProvider";
 import { useTranslations } from "next-intl";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 

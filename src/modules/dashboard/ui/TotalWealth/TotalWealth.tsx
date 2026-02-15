@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui/card";
+import { Card } from "@/ui/card";
 import { getAccounts } from "@/modules/accounts/services/accounts";
 import { getTranslations } from "next-intl/server";
 

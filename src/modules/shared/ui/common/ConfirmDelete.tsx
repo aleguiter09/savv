@@ -1,18 +1,19 @@
 "use client";
 import {
   AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { cn } from "@/lib/utils";
+} from "@/ui/alert-dialog";
+import { cn } from "@/modules/shared/utils/cn";
 import { Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Button } from "../../../../components/ui/button";
 
 type Props = Readonly<{
   children?: React.ReactNode;
@@ -47,22 +48,21 @@ export function ConfirmDelete({ children, deleteAction }: Props) {
           <AlertDialogDescription>{children}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="flex flex-row gap-2 justify-end">
-          <Button
-            variant="outline"
+          <AlertDialogCancel
             disabled={loading}
             className={cn("w-24")}
             onClick={() => setOpen(false)}
           >
             {t("cancel")}
-          </Button>
-          <Button
+          </AlertDialogCancel>
+          <AlertDialogAction
             className="w-24"
             loading={loading}
             disabled={loading}
             onClick={handleConfirm}
           >
             {t("confirm")}
-          </Button>
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

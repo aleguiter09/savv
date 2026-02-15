@@ -1,5 +1,5 @@
 import { LangSelector } from "@/modules/settings/ui/LangSelector";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/ui/card";
 import { getTranslations } from "next-intl/server";
 
 export default async function LangPage() {

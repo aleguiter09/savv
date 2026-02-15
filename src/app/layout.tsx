@@ -5,7 +5,7 @@ import NextTopLoader from "nextjs-toploader";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/infra/supabase/server";
 import { Navbar } from "@/modules/shared/ui/Navbar/Navbar";
 
 export const dynamic = "force-dynamic";

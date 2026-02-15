@@ -1,6 +1,6 @@
 "use client";
 
-import { categoryColorsLiterals } from "@/utils/constants";
+import { categoryColorsLiterals } from "@/modules/shared/utils/constants";
 
 import { useTranslations } from "next-intl";
 

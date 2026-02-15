@@ -8,9 +8,9 @@ import {
   updateMovement,
 } from "@/modules/movements/services/movements";
 import { redirect } from "next/navigation";
-import { setToastMessage } from "@/lib/toast";
+import { setToastMessage } from "@/modules/shared/actions/toast";
 import { getTranslations } from "next-intl/server";
-import { MovementSchema } from "@/lib/schemas";
+import { MovementSchema } from "@/modules/shared/utils/schemas";
 import { updateAccountBalances } from "@/modules/accounts/services/accounts";
 import { z } from "zod";
 

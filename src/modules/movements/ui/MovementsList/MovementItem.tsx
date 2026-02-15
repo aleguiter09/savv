@@ -1,7 +1,7 @@
 import type { Movement } from "@/modules/shared/types/global.types";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/ui/badge";
 import { ArrowDown, ArrowUp } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/modules/shared/utils/cn";
 import { LastMovementDetail } from "@/modules/dashboard/ui/LastMovements/LastMovementDetail";
 
 type FinanceItemProps = {

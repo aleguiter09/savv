@@ -128,7 +128,7 @@
     "balanceError": "Por favor, introduzca un balance",
     "areYouSure": "¿Está seguro? 🤔",
     "dialogAccount": "Usted está a punto de eliminar la siguiente cuenta:",
-    "dialogWarning": "Esta acción no eliminará las transacciones asociadas con esta cuenta, pero no se puede deshacer.",
+    "dialogWarning": "Esta acción eliminará las transacciones asociadas y no se puede deshacer.",
     "createdSuccess": "Cuenta creada con éxito",
     "updatedSuccess": "Cuenta actualizada con éxito",
     "deletedSuccess": "Cuenta eliminada con éxito",

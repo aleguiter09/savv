@@ -1,6 +1,6 @@
 import { getAccounts } from "@/modules/accounts/services/accounts";
 import { getCategories } from "@/modules/categories/services/categories";
-import { DataProvider } from "@/stores/DataProvider";
+import { DataProvider } from "@/modules/shared/stores/DataProvider";
 
 export default async function AppLayout({
   children,

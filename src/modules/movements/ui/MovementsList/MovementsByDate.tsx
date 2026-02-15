@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/ui/card";
 import { MovementsList } from "./MovementsList";
 import { LastMovementsSkeleton } from "@/modules/dashboard/ui/LastMovements/LastMovementsList";
 

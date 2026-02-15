@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/ui/card";
 import { LastMovementsList, LastMovementsSkeleton } from "./LastMovementsList";
 
 type Props = Readonly<{

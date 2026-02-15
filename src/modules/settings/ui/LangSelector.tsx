@@ -3,9 +3,9 @@
 import { updateLanguage } from "@/modules/settings/services/settings";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
-import { Button } from "../../../components/ui/button";
-import { RadioGroup, RadioGroupItem } from "../../../components/ui/radio-group";
-import { Label } from "../../../components/ui/label";
+import { Button } from "@/ui/button";
+import { RadioGroup, RadioGroupItem } from "@/ui/radio-group";
+import { Label } from "@/ui/label";
 
 export function LangSelector() {
   const t = useTranslations("settings");

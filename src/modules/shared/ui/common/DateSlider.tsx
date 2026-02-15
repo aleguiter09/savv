@@ -1,7 +1,7 @@
 "use client";
 import type { YearMonth } from "@/modules/shared/types/general";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Card } from "../../../../components/ui/card";
+import { Card } from "@/ui/card";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 

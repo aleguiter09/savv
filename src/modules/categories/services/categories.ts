@@ -1,6 +1,6 @@
 // cSpell:ignore supabase
 import type { Category } from "@/modules/shared/types/global.types";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/infra/supabase/server";
 
 export const getCategories = async (): Promise<Category[]> => {
   const supabase = await createClient();

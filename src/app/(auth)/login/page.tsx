@@ -3,19 +3,14 @@ import Link from "next/link";
 import { useTransition } from "react";
 import { loginUserForm } from "@/modules/auth/actions/user-action";
 import { useTranslations } from "next-intl";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/ui/input";
+import { Button } from "@/ui/button";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import { LoginUserSchema } from "@/lib/schemas";
+import { LoginUserSchema } from "@/modules/shared/utils/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
-import { useToastStore } from "@/stores/toast-store";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/ui/field";
+import { useToastStore } from "@/modules/shared/ui/toast-store";
 import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 
 type Schema = z.infer<typeof LoginUserSchema>;

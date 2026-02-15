@@ -6,13 +6,13 @@ import { createAccount } from "@/modules/accounts/services/accounts";
 import { createSettings } from "@/modules/settings/services/settings";
 import { getLocale, getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
-import { createClient } from "../../../utils/supabase/server";
+import { createClient } from "@/infra/supabase/server";
 import {
   LoginUserSchema,
   ResetUserSchema,
   UpdatePasswordSchema,
   UserSchema,
-} from "@/lib/schemas";
+} from "@/modules/shared/utils/schemas";
 
 export const createUserForm = async (
   data: z.infer<typeof UserSchema>,

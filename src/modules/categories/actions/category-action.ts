@@ -2,8 +2,8 @@
 
 import type { ServerActionResponse } from "@/modules/shared/types/general";
 import type { Category } from "@/modules/shared/types/global.types";
-import { CategorySchema } from "@/lib/schemas";
-import { setToastMessage } from "@/lib/toast";
+import { CategorySchema } from "@/modules/shared/utils/schemas";
+import { setToastMessage } from "@/modules/shared/actions/toast";
 import {
   createCategory,
   deleteCategory,

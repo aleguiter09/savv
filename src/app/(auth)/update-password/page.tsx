@@ -3,19 +3,14 @@ import Link from "next/link";
 import { useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { updatePasswordForm } from "@/modules/auth/actions/user-action";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useToastStore } from "@/stores/toast-store";
-import { UpdatePasswordSchema } from "@/lib/schemas";
+import { Input } from "@/ui/input";
+import { Button } from "@/ui/button";
+import { useToastStore } from "@/modules/shared/ui/toast-store";
+import { UpdatePasswordSchema } from "@/modules/shared/utils/schemas";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/ui/field";
 
 type Schema = z.infer<typeof UpdatePasswordSchema>;
 

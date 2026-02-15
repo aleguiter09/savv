@@ -1,6 +1,6 @@
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Button } from "@/ui/button";
+import { Card } from "@/ui/card";
 import { getCategories } from "@/modules/categories/services/categories";
 import { getTranslations } from "next-intl/server";
 import { Pencil, Trash } from "lucide-react";

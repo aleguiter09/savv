@@ -2,8 +2,8 @@
 
 import type { ServerActionResponse } from "@/modules/shared/types/general";
 import type { Account } from "@/modules/shared/types/global.types";
-import { AccountSchema } from "@/lib/schemas";
-import { setToastMessage } from "@/lib/toast";
+import { AccountSchema } from "@/modules/shared/utils/schemas";
+import { setToastMessage } from "@/modules/shared/actions/toast";
 import {
   createAccount,
   deleteAccount,

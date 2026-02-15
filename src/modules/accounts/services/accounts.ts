@@ -1,5 +1,5 @@
 import type { Account } from "@/modules/shared/types/global.types";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/infra/supabase/server";
 import { cache } from "react";
 
 export const getAccounts = cache(async (): Promise<Account[]> => {
@@ -56,12 +56,16 @@ export const getDefaultAccountId = async (): Promise<number> => {
 
 export const createAccount = async (account: Account) => {
   const supabase = await createClient();
-  return await supabase.from("account").insert(account);
+  return await supabase.from("account").insert(account).throwOnError();
 };
 
 export const deleteAccount = async (accountId: number) => {
   const supabase = await createClient();
-  return await supabase.from("account").delete().eq("id", accountId);
+  return await supabase
+    .from("account")
+    .delete()
+    .eq("id", accountId)
+    .throwOnError();
 };
 
 export const updateAccount = async (account: Account, accountId: number) => {
