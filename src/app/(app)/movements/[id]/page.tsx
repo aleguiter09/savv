@@ -7,5 +7,5 @@ type PageProps = {
 };
 
 export default async function Page({ params }: PageProps) {
-  return <MovementDetailPage {...params} />;
+  return <MovementDetailPage id={params.id} />;
 }

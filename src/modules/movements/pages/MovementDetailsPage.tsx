@@ -6,7 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { MovementDetail } from "@/modules/movements/ui/MovementDetail/MovementDetail";
 import { DeleteMovementButton } from "../ui/DeleteMovementButton";
 
-export type MovementDetailPageProps = {
+type MovementDetailPageProps = {
   id: string;
 };
 
