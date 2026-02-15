@@ -1,8 +1,14 @@
-import {
-  MovementsPage,
-  type MovementsPageProps,
-} from "@/modules/movements/pages/MovementsPage";
+import { MovementsPage } from "@/modules/movements/pages/MovementsPage";
 
-export default async function Page({ searchParams }: MovementsPageProps) {
-  return <MovementsPage searchParams={searchParams} />;
+export type Props = Readonly<{
+  searchParams: {
+    from?: string;
+    to?: string;
+    account?: string;
+    category?: string;
+  };
+}>;
+
+export default async function Page({ searchParams }: Props) {
+  return <MovementsPage {...searchParams} />;
 }

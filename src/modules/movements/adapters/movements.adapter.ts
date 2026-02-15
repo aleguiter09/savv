@@ -2,25 +2,26 @@ import { getDefaultAccountId } from "@/modules/accounts/services/accounts";
 import { type MovementsPageProps } from "../pages/MovementsPage";
 
 export async function parseMovementsSearchParams(
-  searchParams: MovementsPageProps["searchParams"],
+  searchParams: MovementsPageProps,
 ): Promise<{
   accountId: string;
   categoryId: string;
   from: Date;
   to: Date;
 }> {
+  const { from, to, account, category } = searchParams;
+
   const defaultAcc = await getDefaultAccountId();
+  const defaultAccountId = defaultAcc === "0" ? "all" : defaultAcc.toString();
+  const accountId = account ?? defaultAccountId;
 
-  const accountId =
-    searchParams.account ?? (defaultAcc === 0 ? "all" : defaultAcc.toString());
+  const categoryId = category ?? "all";
 
-  const categoryId = searchParams.category ?? "all";
-
-  const from = searchParams.from
-    ? new Date(searchParams.from)
+  const parsedFrom = from
+    ? new Date(from)
     : new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
-  const to = searchParams.to ? new Date(searchParams.to) : new Date();
+  const parsedTo = to ? new Date(to) : new Date();
 
-  return { accountId, categoryId, from, to };
+  return { accountId, categoryId, from: parsedFrom, to: parsedTo };
 }

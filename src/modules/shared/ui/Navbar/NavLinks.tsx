@@ -15,7 +15,7 @@ const links = [
 ];
 
 export function NavLinks() {
-  const t = useTranslations("nav");
+  const t = useTranslations("common.nav");
   const pathname = usePathname();
   const activeLink = links.find((link) => link.href === pathname);
 

@@ -14,7 +14,7 @@ export async function BalanceInfo({ accountId }: Props) {
     getAccountBalanceById(accountId),
     getMonthIncomes(accountId),
     getMonthExpenses(accountId),
-    getTranslations("home"),
+    getTranslations("dashboard"),
   ]);
 
   return (

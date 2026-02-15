@@ -7,7 +7,7 @@ type Props = Readonly<{
 }>;
 
 export async function LastMovementsList({ accountId }: Props) {
-  const t = await getTranslations("home");
+  const t = await getTranslations("dashboard");
   const movements = await getLastMovements(accountId);
 
   return (

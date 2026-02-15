@@ -16,7 +16,8 @@ export default async function ExpensesPage({
 }: Readonly<ExpensesPageParams>) {
   const defaultAcc = await getDefaultAccountId();
   const accountId =
-    searchParams.account ?? (defaultAcc === 0 ? "all" : defaultAcc.toString());
+    searchParams.account ??
+    (defaultAcc === "0" ? "all" : defaultAcc.toString());
 
   const year = searchParams.year
     ? Number(searchParams.year)

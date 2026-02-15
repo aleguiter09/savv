@@ -17,7 +17,7 @@ type Props = Readonly<{
 }>;
 
 export function SelectAccount({ accountId }: Props) {
-  const t = useTranslations("home");
+  const t = useTranslations("dashboard");
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();

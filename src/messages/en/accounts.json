@@ -1,0 +1,22 @@
+{
+  "addTitle": "Create account",
+  "detailsTitle": "Account Details",
+  "enterName": "Enter a name",
+  "enterAccountName": "Enter the account name",
+  "currentBalance": "Enter a balance",
+  "enterBalance": "Balance...",
+  "defaultAccount": "Default account",
+  "createAccount": "Create account",
+  "editAccount": "Edit account",
+  "nameError": "Please choose a name for the account",
+  "balanceError": "The balance must be a number",
+  "areYouSure": "Are you sure? 🤔",
+  "dialogAccount": "You are about to delete the following account:",
+  "dialogWarning": "This action will delete transactions associated and cannot be undone.",
+  "createdSuccess": "Account created successfully",
+  "updatedSuccess": "Account updated successfully",
+  "deletedSuccess": "Account deleted successfully",
+  "nameTooLong": "The name must be less than 100 characters",
+  "balanceTooLow": "The balance must be greater than -999999999",
+  "balanceTooHigh": "The balance must be less than 999999999"
+}

@@ -11,7 +11,7 @@ type Props = Readonly<{
 }>;
 
 export async function ExpenseByCat({ accountId, year, month }: Props) {
-  const t = await getTranslations("home");
+  const t = await getTranslations("dashboard");
 
   return (
     <Card className="mb-4 pl-4 pr-3 py-2 flex flex-col gap-2">

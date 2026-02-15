@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export default function DateSlider({ year, month }: Readonly<YearMonth>) {
-  const t = useTranslations();
+  const t = useTranslations("common");
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();

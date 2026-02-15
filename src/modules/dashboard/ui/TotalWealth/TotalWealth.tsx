@@ -3,7 +3,7 @@ import { getAccounts } from "@/modules/accounts/services/accounts";
 import { getTranslations } from "next-intl/server";
 
 export async function TotalWealth() {
-  const t = await getTranslations("home");
+  const t = await getTranslations("dashboard");
   const accounts = await getAccounts();
 
   const totalWealth = accounts.reduce((acc, account) => {

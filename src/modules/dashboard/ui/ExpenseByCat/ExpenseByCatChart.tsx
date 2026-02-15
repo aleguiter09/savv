@@ -36,7 +36,7 @@ export async function ExpenseByCatChart({ accountId, year, month }: Props) {
       ))}
       {data.length === 0 && (
         <p className="pt-2 text-sm text-slate-500 text-center col-span-3">
-          {t("home.noExpensesThisMonth")}
+          {t("dashboard.noExpensesThisMonth")}
         </p>
       )}
     </div>

@@ -26,7 +26,7 @@ export function DatePicker({
   error,
 }: DatePickerProps) {
   const [open, setOpen] = React.useState(false);
-  const t = useTranslations();
+  const t = useTranslations("common");
 
   return (
     <div className={cn("flex flex-col gap-3 w-full", className)}>
@@ -75,7 +75,7 @@ export function DateRangePicker({
   className,
 }: DateRangePickerProps) {
   const [open, setOpen] = React.useState(false);
-  const t = useTranslations();
+  const t = useTranslations("common");
 
   return (
     <div className={cn("flex flex-col gap-3 w-full", className)}>

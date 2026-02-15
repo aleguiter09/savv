@@ -12,7 +12,27 @@ export default getRequestConfig(async () => {
   if (data?.language) {
     return {
       locale: data.language,
-      messages: (await import(`../../messages/${data.language}.json`)).default,
+      messages: {
+        accounts: (
+          await import(`../../messages/${data.language}/accounts.json`)
+        ).default,
+        auth: (await import(`../../messages/${data.language}/auth.json`))
+          .default,
+        categories: (
+          await import(`../../messages/${data.language}/categories.json`)
+        ).default,
+        common: (await import(`../../messages/${data.language}/common.json`))
+          .default,
+        dashboard: (
+          await import(`../../messages/${data.language}/dashboard.json`)
+        ).default,
+        movements: (
+          await import(`../../messages/${data.language}/movements.json`)
+        ).default,
+        settings: (
+          await import(`../../messages/${data.language}/settings.json`)
+        ).default,
+      },
     };
   }
 
@@ -25,6 +45,19 @@ export default getRequestConfig(async () => {
 
   return {
     locale,
-    messages: (await import(`../../messages/${locale}.json`)).default,
+    messages: {
+      accounts: (await import(`../../messages/${locale}/accounts.json`))
+        .default,
+      auth: (await import(`../../messages/${locale}/auth.json`)).default,
+      categories: (await import(`../../messages/${locale}/categories.json`))
+        .default,
+      common: (await import(`../../messages/${locale}/common.json`)).default,
+      dashboard: (await import(`../../messages/${locale}/dashboard.json`))
+        .default,
+      movements: (await import(`../../messages/${locale}/movements.json`))
+        .default,
+      settings: (await import(`../../messages/${locale}/settings.json`))
+        .default,
+    },
   };
 });

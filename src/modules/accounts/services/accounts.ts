@@ -42,7 +42,7 @@ export const getAccountById = async (id: number): Promise<Account | null> => {
   return data;
 };
 
-export const getDefaultAccountId = async (): Promise<number> => {
+export const getDefaultAccountId = async (): Promise<string> => {
   const supabase = await createClient();
 
   const { data } = await supabase
@@ -51,7 +51,7 @@ export const getDefaultAccountId = async (): Promise<number> => {
     .eq("is_default", true)
     .single();
 
-  return data?.id ?? 0;
+  return data?.id.toString() ?? "0";
 };
 
 export const createAccount = async (account: Account) => {

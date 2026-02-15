@@ -44,7 +44,7 @@ export const createUserForm = async (
   });
 
   if (errorAcc) {
-    return { success: false, error: errorAcc.message };
+    return { success: false, error: errorAcc };
   }
 
   const locale = await getLocale();

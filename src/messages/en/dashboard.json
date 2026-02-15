@@ -1,0 +1,15 @@
+{
+  "allAccounts": "All accounts",
+  "selectPlaceholder": "Select account...",
+  "balance": "Balance",
+  "incomes": "Incomes",
+  "expenses": "Expenses",
+  "lastMovements": "Last transactions",
+  "seeAll": "See all",
+  "noMovements": "No transactions uploaded so far",
+  "noUpcomingPayments": "No upcoming payments",
+  "expensesByCat": "Expenses by category",
+  "noExpensesThisMonth": "No expenses this month",
+  "totalWealth": "Total wealth",
+  "upcomingPayments": "Upcoming payments"
+}

@@ -10,25 +10,32 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/ui/alert-dialog";
-import { cn } from "@/modules/shared/utils/cn";
-import { Trash2 } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 
 type Props = Readonly<{
-  children?: React.ReactNode;
-  deleteAction: () => Promise<void>;
+  trigger?: ReactNode;
+  title: string;
+  description: ReactNode;
+  confirmLabel: string;
+  cancelLabel: string;
+  onConfirm: () => Promise<void>;
 }>;
 
-export function ConfirmDelete({ children, deleteAction }: Props) {
-  const t = useTranslations("common");
+export function ConfirmDialog({
+  trigger,
+  title,
+  description,
+  confirmLabel,
+  cancelLabel,
+  onConfirm,
+}: Props) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleConfirm = async () => {
     try {
       setLoading(true);
-      await deleteAction();
+      await onConfirm();
       setOpen(false);
     } catch (error) {
       console.error("Error deleting entity:", error);
@@ -39,28 +46,26 @@ export function ConfirmDelete({ children, deleteAction }: Props) {
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger asChild>
-        <Trash2 className="cursor-pointer" />
-      </AlertDialogTrigger>
+      <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
       <AlertDialogContent className="p-4.5">
         <AlertDialogHeader>
-          <AlertDialogTitle>{t("areYouSure")}</AlertDialogTitle>
-          <AlertDialogDescription>{children}</AlertDialogDescription>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="flex flex-row gap-2 justify-end">
           <AlertDialogCancel
             disabled={loading}
-            className={cn("w-24")}
+            className="w-24"
             onClick={() => setOpen(false)}
           >
-            {t("cancel")}
+            {cancelLabel}
           </AlertDialogCancel>
           <AlertDialogAction
             className="w-24"
             disabled={loading}
             onClick={handleConfirm}
           >
-            {t("confirm")}
+            {confirmLabel}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

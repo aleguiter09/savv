@@ -18,7 +18,7 @@ export default async function MainPage({
 }: Readonly<MainPageParams>) {
   const defaultAcc = await getDefaultAccountId();
   const accountId =
-    searchParams.account ?? (defaultAcc === 0 ? "all" : defaultAcc);
+    searchParams.account ?? (defaultAcc === "0" ? "all" : defaultAcc);
 
   return (
     <>

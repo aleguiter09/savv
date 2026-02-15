@@ -9,7 +9,7 @@ type Props = Readonly<{
 }>;
 
 export async function LastMovements({ accountId }: Props) {
-  const t = await getTranslations("home");
+  const t = await getTranslations("dashboard");
 
   return (
     <Card className="shadow-md mb-4 pl-4 pr-3 py-2">

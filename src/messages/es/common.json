@@ -1,0 +1,46 @@
+{
+  "cancel": "Cancelar",
+  "confirm": "Confirmar",
+  "chooseDate": "Elegir fecha",
+  "areYouSure": "¿Estas seguro? 🤔",
+  "databaseError": "Error de base de datos, por favor inténtelo de nuevo más tarde",
+  "nav": {
+    "home": "Inicio",
+    "settings": "Configuración",
+    "logout": "Cerrar sesión"
+  },
+  "loading": "Cargando...",
+  "iconLabel": "Icono {name}",
+  "colorLabel": "Color {name}",
+  "months": {
+    "0": "Enero",
+    "1": "Febrero",
+    "2": "Marzo",
+    "3": "Abril",
+    "4": "Mayo",
+    "5": "Junio",
+    "6": "Julio",
+    "7": "Agosto",
+    "8": "Septiembre",
+    "9": "Octubre",
+    "10": "Noviembre",
+    "11": "Diciembre"
+  },
+  "colors": {
+    "amber": "Ámbar",
+    "blue": "Azul",
+    "cyan": "Cian",
+    "fuchsia": "Fucsia",
+    "gray": "Gris",
+    "green": "Verde",
+    "indigo": "Índigo",
+    "orange": "Naranja",
+    "pink": "Rosa",
+    "red": "Rojo",
+    "rose": "Rosa",
+    "sky": "Cielo",
+    "teal": "Verde azulado",
+    "violet": "Violeta",
+    "yellow": "Amarillo"
+  }
+}
