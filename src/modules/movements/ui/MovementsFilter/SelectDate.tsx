@@ -1,31 +1,32 @@
 "use client";
+import { format } from "date-fns";
 import { enUS, es } from "date-fns/locale";
 import { useLocale } from "next-intl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { DateRangePicker } from "@/ui/date-picker";
 
-export function SelectDate({ from, to }: Readonly<{ from: Date; to: Date }>) {
+export function SelectDate({ from, to }: { from: Date; to: Date }) {
   const locale = useLocale();
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-  const params = new URLSearchParams(searchParams);
 
   const handleSelect = (value: { from?: Date; to?: Date }) => {
+    const params = new URLSearchParams(searchParams.toString());
+
     if (value.from) {
-      params.set(
-        "from",
-        `${value.from.getFullYear()}-${value.from.getMonth() + 1}-${value.from.getDate()}`,
-      );
-    }
-    if (value.to) {
-      params.set(
-        "to",
-        `${value.to.getFullYear()}-${value.to.getMonth() + 1}-${value.to.getDate()}`,
-      );
+      params.set("from", format(value.from, "yyyy-MM-dd"));
+    } else {
+      params.delete("from");
     }
 
-    replace(`${pathname}?${params.toString()}`);
+    if (value.to) {
+      params.set("to", format(value.to, "yyyy-MM-dd"));
+    } else {
+      params.delete("to");
+    }
+
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   return (

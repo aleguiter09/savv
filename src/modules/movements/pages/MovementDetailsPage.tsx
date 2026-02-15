@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
 import { MovementDetail } from "@/modules/movements/ui/MovementDetail/MovementDetail";
 import { DeleteMovementButton } from "../ui/DeleteMovementButton";
+import { parseMovementDetails } from "../adapters/movements.adapter";
 
 type MovementDetailPageProps = {
   id: string;
@@ -18,6 +19,8 @@ export async function MovementDetailPage({ id }: MovementDetailPageProps) {
     notFound();
   }
 
+  const parsedMovement = parseMovementDetails(movement);
+
   return (
     <>
       <div className="flex justify-between items-center mb-3">
@@ -28,7 +31,7 @@ export async function MovementDetailPage({ id }: MovementDetailPageProps) {
         <DeleteMovementButton movement={movement} />
       </div>
 
-      <MovementDetail {...movement} />
+      <MovementDetail {...parsedMovement} />
     </>
   );
 }
