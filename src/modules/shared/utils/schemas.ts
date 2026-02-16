@@ -3,7 +3,7 @@ import { z } from "zod";
 
 const BaseMovementSchema = z.object({
   amount: z.coerce
-    .number()
+    .number({ invalid_type_error: "amountPositiveError" })
     .positive("amountPositiveError")
     .max(999999, "amountTooLarge"),
   comment: z.string().min(1, "noCommentError").max(500, "commentTooLong"),
@@ -11,17 +11,23 @@ const BaseMovementSchema = z.object({
     required_error: "noDateError",
     invalid_type_error: "invalidDateError",
   }),
-  from: z.coerce.number().positive("noAccountError"),
+  from: z.coerce
+    .number({ invalid_type_error: "noAccountError" })
+    .positive("noAccountError"),
 });
 
 const IncomeExpenseSchema = BaseMovementSchema.extend({
   type: z.enum(["expense", "income"]),
-  category: z.coerce.number().positive("noCategoryError"),
+  category: z.coerce
+    .number({ invalid_type_error: "noCategoryError" })
+    .positive("noCategoryError"),
 });
 
 const TransferSchema = BaseMovementSchema.extend({
   type: z.literal("transfer"),
-  where: z.coerce.number().positive("noAccountError"),
+  where: z.coerce
+    .number({ invalid_type_error: "noAccountError" })
+    .positive("noAccountError"),
 });
 
 export const MovementSchema = z
@@ -42,7 +48,7 @@ export const MovementSchema = z
 export const AccountSchema = z.object({
   name: z.string().min(1, "nameError").max(100, "nameTooLong"),
   balance: z.coerce
-    .number()
+    .number({ invalid_type_error: "balanceError" })
     .min(-99999999, "balanceTooLow")
     .max(9999999, "balanceTooHigh"),
   is_default: z.boolean(),

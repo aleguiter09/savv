@@ -1,20 +1,18 @@
-import type { Movement } from "@/modules/shared/types/global.types";
 import { Badge } from "@/ui/badge";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { cn } from "@/modules/shared/utils/cn";
-import { LastMovementDetail } from "@/modules/dashboard/ui/LastMovements/LastMovementDetail";
+import {
+  MovementItemDetail,
+  type MovementItemDetailProps,
+} from "./MovementItemDetail";
 
-type FinanceItemProps = {
+export type MovementItemProps = {
   date: string;
-  items: Movement[];
   amount: number;
+  items: MovementItemDetailProps[];
 };
 
-export function MovementItem({
-  date,
-  items = [],
-  amount,
-}: Readonly<FinanceItemProps>) {
+export function MovementItem({ date, items = [], amount }: MovementItemProps) {
   return (
     <div className="px-2 pb-1 pt-2 flex flex-col gap-2 text-gray-900 border-b border-gray-2 last:border-0">
       <div className="flex justify-between">
@@ -30,7 +28,7 @@ export function MovementItem({
         </Badge>
       </div>
       {items.map((item) => (
-        <LastMovementDetail key={item.id} {...item} />
+        <MovementItemDetail key={item.id} {...item} />
       ))}
     </div>
   );

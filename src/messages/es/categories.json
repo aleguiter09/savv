@@ -1,6 +1,7 @@
 {
   "addTitle": "Añadir categoría",
   "title": "Ingrese el título de la categoría",
+  "detailsTitle": "Detalles de la categoría",
   "titlePlaceholder": "Título...",
   "createCategory": "Crear categoría",
   "titleError": "Por favor, introduzca un título para la categoría",
@@ -45,8 +46,14 @@
   "allExpenses": "Todos los gastos",
   "expenses": "Gastos",
   "incomes": "Ingresos",
+  "confirm": "Confirmar",
+  "close": "Cerrar",
+  "cancel": "Cancelar",
   "selectPlaceholder": "Seleccionar categoría...",
   "databaseError": "Error de base de datos, por favor inténtelo de nuevo más tarde",
   "createdSuccess": "Categoría creada con éxito",
-  "updatedSuccess": "Categoría actualizada con éxito"
+  "updatedSuccess": "Categoría actualizada con éxito",
+  "areYouSure": "¿Estas seguro? 🤔",
+  "deleteDialog": "Usted está a punto de eliminar la siguiente categoría: \"{title}\"<br></br>Esta acción no se puede deshacer.",
+  "deletedSuccess": "Categoría eliminada con éxito"
 }

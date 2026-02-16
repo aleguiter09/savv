@@ -19,7 +19,7 @@ export async function MovementsByDate({
   return (
     <Card className="mb-4 px-3 py-2  border-b-4 border-b-blue-600">
       <Suspense
-        key={from.toString() + to.toString() + accountId + categoryId}
+        key={`${from.getTime()}-${to.getTime()}-${accountId}-${categoryId}`}
         fallback={<LastMovementsSkeleton />}
       >
         <MovementsList

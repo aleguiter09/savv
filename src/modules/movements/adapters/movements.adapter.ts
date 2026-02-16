@@ -1,7 +1,9 @@
 import { getDefaultAccountId } from "@/modules/accounts/services/accounts";
-import { type MovementsPageProps } from "../pages/MovementsPage";
 import { Movement } from "@/modules/shared/types/global.types";
-import { MovementDetailProps } from "../ui/MovementDetail/MovementDetail";
+import type { MovementsPageProps } from "../pages/MovementsPage";
+import type { MovementDetailProps } from "../ui/MovementDetail/MovementDetail";
+import type { MovementItemProps } from "../ui/MovementsList/MovementItem";
+import { MovementItemDetailProps } from "../ui/MovementsList/MovementItemDetail";
 
 export async function parseMovementsSearchParams(
   searchParams: MovementsPageProps,
@@ -28,16 +30,56 @@ export async function parseMovementsSearchParams(
   return { accountId, categoryId, from: parsedFrom, to: parsedTo };
 }
 
-export function parseMovementDetails(movement: Movement): MovementDetailProps {
-  return {
-    id: movement.id as number,
-    done_at: movement.done_at,
-    amount: movement.amount ?? 0,
-    comment: movement.comment ?? "",
-    type: movement.type,
-    categoryTitle: movement.fullCategory?.title ?? "transfer",
-    categoryIcon: movement.fullCategory?.icon ?? "transfer",
-    categoryColor: movement.fullCategory?.color ?? "gray",
-    accountName: movement.fullAccount?.name ?? "",
-  };
-}
+export const parseMovementDetails = (
+  movement: Movement,
+): MovementDetailProps => ({
+  id: movement.id as number,
+  done_at: movement.done_at,
+  amount: movement.amount ?? 0,
+  comment: movement.comment ?? "",
+  type: movement.type,
+  categoryTitle: movement.fullCategory?.title ?? "transfer",
+  categoryIcon: movement.fullCategory?.icon ?? "transfer",
+  categoryColor: movement.fullCategory?.color ?? "gray",
+  accountName: movement.fullAccount?.name ?? "",
+});
+
+export const getMovementsByDay = (
+  movements: Movement[],
+): MovementItemProps[] => {
+  const items: MovementItemProps[] = [];
+
+  movements.forEach((m) => {
+    const currentDate = items.find((item) => item.date === m.done_at);
+    if (currentDate) {
+      currentDate.items.push(adaptMovementItem(m));
+      if (m.type === "expense") {
+        currentDate.amount -= m.amount;
+      } else {
+        currentDate.amount += m.amount;
+      }
+    } else {
+      items.push({
+        date: m.done_at,
+        items: [adaptMovementItem(m)],
+        amount: m.type === "expense" ? -m.amount : m.amount,
+      });
+    }
+  });
+
+  return items.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
+};
+
+const adaptMovementItem = (movement: Movement): MovementItemDetailProps => ({
+  id: movement.id as number,
+  done_at: movement.done_at,
+  amount: movement.amount ?? 0,
+  comment: movement.comment ?? "",
+  type: movement.type,
+  translateCategory: !movement.fullCategory?.user_id,
+  categoryTitle: movement.fullCategory?.title ?? "transfer",
+  categoryIcon: movement.fullCategory?.icon ?? "transfer",
+  categoryColor: movement.fullCategory?.color ?? "gray",
+});

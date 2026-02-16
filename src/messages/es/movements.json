@@ -3,7 +3,7 @@
   "editTitle": "Editar movimiento",
   "detailsTitle": "Detalles",
   "areYouSure": "¿Estas seguro? 🤔",
-  "deleteDialog": "Usted está a punto de eliminar el siguiente movimiento: \"{comment}\"\nEsta acción restaurará el balance de su cuenta y no se puede deshacer.",
+  "deleteDialog": "Usted está a punto de eliminar el siguiente movimiento: \"{comment}\"<br></br>Esta acción restaurará el balance de su cuenta y no se puede deshacer.",
   "noMovementsThisPeriod": "No hay movimientos en este periodo",
   "enterDate": "Introduzca una fecha",
   "expense": "Gasto",

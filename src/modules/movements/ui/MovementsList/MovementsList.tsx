@@ -1,7 +1,7 @@
-import { getMovementsByDay } from "@/modules/shared/utils/common";
 import { getMovementsByFilters } from "@/modules/movements/services/movements";
 import { getTranslations } from "next-intl/server";
 import { MovementItem } from "./MovementItem";
+import { getMovementsByDay } from "../../adapters/movements.adapter";
 
 type Props = Readonly<{
   from: Date;
@@ -23,14 +23,10 @@ export async function MovementsList({
   return (
     <div>
       {movements.map((item) => (
-        <MovementItem
-          key={item.date}
-          items={item.movements}
-          date={item.date}
-          amount={item.total}
-        />
+        <MovementItem key={item.date} {...item} />
       ))}
-      {data.length === 0 && (
+
+      {movements.length === 0 && (
         <p className="py-2 text-sm text-slate-500 text-center">
           {t("noMovementsThisPeriod")}
         </p>

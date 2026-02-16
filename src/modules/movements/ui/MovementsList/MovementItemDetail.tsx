@@ -1,25 +1,36 @@
-import type { Movement } from "@/modules/shared/types/global.types";
+import type { MovementTypes } from "@/modules/shared/types/global.types";
 import Link from "next/link";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
+import { cn } from "@/modules/shared/utils/cn";
 
-export async function LastMovementDetail({
+export type MovementItemDetailProps = {
+  id: number;
+  done_at: string;
+  amount: number;
+  comment: string;
+  type: MovementTypes;
+  translateCategory: boolean;
+  categoryTitle: string;
+  categoryIcon: string;
+  categoryColor: string;
+};
+
+export async function MovementItemDetail({
   id,
   done_at,
   amount,
   comment,
   type,
-  fullCategory,
-}: Movement) {
+  translateCategory,
+  categoryTitle,
+  categoryIcon,
+  categoryColor,
+}: MovementItemDetailProps) {
   const [t, format] = await Promise.all([
     getTranslations("categories"),
     getFormatter(),
   ]);
-  const isExpense = type === "expense";
-  const isIncome = type === "income";
-
-  const auxColor = isIncome ? "text-green-500" : "text-gray-500";
-  const color = isExpense ? "text-red-500" : auxColor;
 
   return (
     <Link
@@ -29,22 +40,27 @@ export async function LastMovementDetail({
     >
       <div className="flex gap-3">
         <CategoryIcon
-          icon={fullCategory?.icon ?? "transfer"}
-          color={fullCategory?.color ?? "gray"}
+          icon={categoryIcon}
+          color={categoryColor}
           size="24px"
           padding="p-[6px]"
         />
         <div className="flex flex-col">
           <span className="font-medium text-sm">{comment}</span>
           <span className="text-xs text-gray-500">
-            {t(fullCategory?.title ?? "transfer")}
+            {translateCategory ? t(categoryTitle) : categoryTitle}
           </span>
         </div>
       </div>
       <div className="flex flex-col gap-1 text-right">
         <span
-          className={`font-medium ${color}`}
-        >{`${isExpense ? "-" : ""} $${amount.toFixed(2)}`}</span>
+          className={cn(
+            "font-medium text-sm",
+            type === "expense" && "text-red-500",
+            type === "income" && "text-green-500",
+            type === "transfer" && "text-gray-500",
+          )}
+        >{`${type === "expense" ? "-" : ""} $${amount.toFixed(2)}`}</span>
         <span className="text-xs text-gray-500">
           {format.dateTime(new Date(done_at), {
             year: "numeric",

@@ -1,4 +1,5 @@
 import type { Account } from "@/modules/shared/types/global.types";
+import { cn } from "@/modules/shared/utils/cn";
 import {
   Select,
   SelectContent,
@@ -28,9 +29,13 @@ export function AccountSelect({
 
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="block text-sm font-medium">{label}</label>
+      <label
+        className={cn("block text-sm font-medium", error && "text-red-500")}
+      >
+        {label}
+      </label>
       <Select value={value ?? ""} onValueChange={setValue}>
-        <SelectTrigger className={error ? "border border-rose-500" : ""}>
+        <SelectTrigger className={cn(error && "border-red-500")}>
           <SelectValue placeholder={t("selectAccount")} />
         </SelectTrigger>
         <SelectContent className="max-h-56">

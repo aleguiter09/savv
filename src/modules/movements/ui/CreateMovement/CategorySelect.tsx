@@ -1,6 +1,7 @@
 "use client";
 import type { Category } from "@/modules/shared/types/global.types";
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
+import { cn } from "@/modules/shared/utils/cn";
 import {
   Select,
   SelectContent,
@@ -32,7 +33,11 @@ export function CategorySelect({
 
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="block text-sm font-medium">{t(label)}</label>
+      <label
+        className={cn("block text-sm font-medium", error && "text-red-500")}
+      >
+        {t(label)}
+      </label>
       <Select value={category ?? ""} onValueChange={setCategory}>
         <SelectTrigger className={error ? "border border-rose-500" : ""}>
           <SelectValue placeholder={t("movements.selectCategory")} />
@@ -53,7 +58,9 @@ export function CategorySelect({
                     icon={item.icon ?? "transfer"}
                     color={item.color ?? "gray"}
                   />
-                  <p className="ml-2">{t(`categories.${item.title}`)}</p>
+                  <p className="ml-2">
+                    {item.user_id ? item.title : t(`categories.${item.title}`)}
+                  </p>
                 </div>
               </SelectItem>
             ))}

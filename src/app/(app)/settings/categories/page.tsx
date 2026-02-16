@@ -3,10 +3,11 @@ import { Button } from "@/ui/button";
 import { Card } from "@/ui/card";
 import { getCategories } from "@/modules/categories/services/categories";
 import { getTranslations } from "next-intl/server";
-import { Pencil, Trash } from "lucide-react";
+import { Pencil } from "lucide-react";
 import Link from "next/link";
 import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 import { AddButton } from "@/modules/dashboard/ui/ActionBar/AddButton";
+import { DeleteCategoryButton } from "@/modules/categories/ui/DeleteCategoryButton";
 
 export default async function CategoriesPage() {
   const t = await getTranslations();
@@ -40,41 +41,62 @@ export default async function CategoriesPage() {
 
       {mappedCategories.map((category) => (
         <Card key={category.id} className="mb-4 shadow-md pl-4 pr-3 pt-2 pb-3">
-          <p className="font-semibold mb-2">
-            {t("categories." + category.title)}
-          </p>
-          <ul className="flex flex-col gap-2">
+          <div className="flex justify-between items-center mb-2">
+            <p className="font-semibold">
+              {category.user_id
+                ? category.title
+                : t("categories." + category.title)}
+            </p>
+
+            {category.user_id && (
+              <div className="flex items-center gap-2">
+                <Button asChild size="icon" className="p-0" variant="secondary">
+                  <Link href={`/settings/categories/${category.id}`}>
+                    <Pencil size={16} />
+                  </Link>
+                </Button>
+
+                <DeleteCategoryButton category={category} />
+              </div>
+            )}
+          </div>
+          <ul className="flex flex-col">
             {category.children.map((child) => (
               <li
                 key={child.id}
-                className="flex items-center justify-between py-1 border-b border-gray-200 last:border-b-0"
+                className="flex items-center py-2 justify-between border-b border-gray-200 last:border-b-0"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 min-h-9">
                   <div className="w-5 h-5 flex items-center justify-center gap-3">
                     <CategoryIcon
                       icon={child.icon ?? "transfer"}
                       color={child.color ?? "gray"}
                       size="18px"
-                      padding="p-[4px]"
+                      padding="p-1"
                     />
                   </div>
-                  <p className="text-sm">{t("categories." + child.title)}</p>
+                  <p className="text-sm">
+                    {child.user_id
+                      ? child.title
+                      : t("categories." + child.title)}
+                  </p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Button
-                    asChild
-                    size="icon"
-                    className="p-0"
-                    variant="secondary"
-                  >
-                    <Link href={`/settings/categories/${child.id}`}>
-                      <Pencil size={16} />
-                    </Link>
-                  </Button>
-                  <Button size="icon" className="p-0" variant="secondary">
-                    <Trash size={16} />
-                  </Button>
-                </div>
+                {child.user_id && (
+                  <div className="flex items-center gap-2">
+                    <Button
+                      asChild
+                      size="icon"
+                      className="p-0"
+                      variant="secondary"
+                    >
+                      <Link href={`/settings/categories/${child.id}`}>
+                        <Pencil size={16} />
+                      </Link>
+                    </Button>
+
+                    <DeleteCategoryButton category={child} />
+                  </div>
+                )}
               </li>
             ))}
           </ul>

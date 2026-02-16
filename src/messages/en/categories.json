@@ -1,6 +1,7 @@
 {
   "addTitle": "Add category",
   "title": "Enter the category title",
+  "detailsTitle": "Category Details",
   "titlePlaceholder": "Title...",
   "createCategory": "Create category",
   "titleError": "Please enter a category title",
@@ -45,8 +46,14 @@
   "allExpenses": "All expenses",
   "expenses": "Expenses",
   "incomes": "Incomes",
+  "confirm": "Confirm",
+  "close": "Close",
+  "cancel": "Cancel",
   "selectPlaceholder": "Select category...",
   "databaseError": "Database error, please try again later",
   "createdSuccess": "Category created successfully",
-  "updatedSuccess": "Category updated successfully"
+  "updatedSuccess": "Category updated successfully",
+  "areYouSure": "Are you sure? 🤔",
+  "deleteDialog": "You are about to delete the following category: \"{title}\"<br></br>This action cannot be undone.",
+  "deletedSuccess": "Category deleted successfully"
 }

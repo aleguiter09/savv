@@ -19,7 +19,7 @@ export const getMovementsByFilters = async (
       id, from, amount, comment, category, type,
       done_at, where,
       fullCategory:category (
-        id, title, icon, color
+        id, title, icon, color, user_id
       )
     `,
     )

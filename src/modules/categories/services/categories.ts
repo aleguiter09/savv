@@ -5,10 +5,7 @@ import { createClient } from "@/infra/supabase/server";
 export const getCategories = async (): Promise<Category[]> => {
   const supabase = await createClient();
 
-  const { data } = await supabase
-    .from("category")
-    .select("id, color, title, icon, parent_id")
-    .throwOnError();
+  const { data } = await supabase.from("category").select().throwOnError();
 
   return data ?? [];
 };
@@ -19,7 +16,7 @@ export const getCategoryById = async (
   const supabase = await createClient();
   const { data } = await supabase
     .from("category")
-    .select("*")
+    .select()
     .eq("id", categoryId)
     .single()
     .throwOnError();
