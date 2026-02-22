@@ -1,14 +1,14 @@
 "use client";
 
 import { adaptCategories } from "../adapters/adaptCategories";
-import type { Account, Category } from "../types/global.types";
+import type { Account, EffectiveCategory } from "../types/global.types";
 import { createContext, useContext, useMemo } from "react";
 
 type DataContextType = {
   accounts: Account[];
-  incomeCategories: Category[];
-  expenseCategories: Category[];
-  parentCategories: Category[];
+  incomeCategories: EffectiveCategory[];
+  expenseCategories: EffectiveCategory[];
+  parentCategories: EffectiveCategory[];
 };
 
 const DataContext = createContext<DataContextType>({
@@ -24,7 +24,7 @@ export const DataProvider = ({
   children,
 }: {
   accounts: Account[];
-  categories: Category[];
+  categories: EffectiveCategory[];
   children: React.ReactNode;
 }) => {
   const derived = useMemo(() => adaptCategories(categories), [categories]);

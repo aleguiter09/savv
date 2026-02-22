@@ -1,23 +1,5 @@
-import { getTranslations } from "next-intl/server";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
-import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
-import { CategoryForm } from "@/modules/categories/ui/CategoryForm";
+import { CreateCategoryPage } from "@/modules/categories/pages/CreateCategoryPage";
 
-export default async function CreateCategoryPage() {
-  const t = await getTranslations("categories");
-
-  return (
-    <>
-      <div className="flex justify-between items-center mb-3">
-        <Link href="/settings/categories">
-          <ArrowLeft />
-        </Link>
-        <h4 className="font-medium">{t("addTitle")}</h4>
-        <span></span>
-      </div>
-      <CategoryForm />
-      <ToastManager />
-    </>
-  );
+export default async function Page() {
+  return <CreateCategoryPage />;
 }

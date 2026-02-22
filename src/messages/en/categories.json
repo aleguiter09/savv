@@ -55,5 +55,6 @@
   "updatedSuccess": "Category updated successfully",
   "areYouSure": "Are you sure? 🤔",
   "deleteDialog": "You are about to delete the following category: \"{title}\"<br></br>This action cannot be undone.",
-  "deletedSuccess": "Category deleted successfully"
+  "deletedSuccess": "Category deleted successfully",
+  "customizeCategory": "Customize category"
 }

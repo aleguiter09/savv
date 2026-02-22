@@ -71,9 +71,9 @@ export async function updateCategoryForm(
   redirect("/settings/categories");
 }
 
-export const deleteCategoryForm = async (category: Category) => {
-  if (!category.id) return;
-  await deleteCategory(category.id);
+export const deleteCategoryForm = async (id: number) => {
+  if (!id) return;
+  await deleteCategory(id);
 
   const t = await getTranslations("categories");
 

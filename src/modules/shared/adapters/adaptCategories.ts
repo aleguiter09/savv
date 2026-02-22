@@ -1,6 +1,6 @@
-import type { Category } from "../types/global.types";
+import type { EffectiveCategory } from "../types/global.types";
 
-export function adaptCategories(categories: Category[]) {
+export function adaptCategories(categories: EffectiveCategory[]) {
   const INCOME_PARENT_ID = 60;
 
   return {

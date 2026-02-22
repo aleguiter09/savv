@@ -5,11 +5,13 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { MovementForm } from "@/modules/movements/ui/CreateMovement/MovementForm";
 
-type EditMovementPageProps = { id: string };
+type EditMovementPageProps = { id: number };
 
 export async function EditMovementPage({ id }: EditMovementPageProps) {
-  const t = await getTranslations("movements");
-  const movement = await getMovementById(Number(id));
+  const [t, movement] = await Promise.all([
+    getTranslations("movements"),
+    getMovementById(id),
+  ]);
 
   if (!movement) {
     notFound();

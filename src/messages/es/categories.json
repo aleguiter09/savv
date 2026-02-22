@@ -55,5 +55,6 @@
   "updatedSuccess": "Categoría actualizada con éxito",
   "areYouSure": "¿Estas seguro? 🤔",
   "deleteDialog": "Usted está a punto de eliminar la siguiente categoría: \"{title}\"<br></br>Esta acción no se puede deshacer.",
-  "deletedSuccess": "Categoría eliminada con éxito"
+  "deletedSuccess": "Categoría eliminada con éxito",
+  "customizeCategory": "Personalizar categoría"
 }

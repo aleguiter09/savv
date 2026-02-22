@@ -77,6 +77,13 @@ export type Database = {
             referencedRelation: "category"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "category_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "effective_categories"
+            referencedColumns: ["id"]
+          },
         ]
       }
       movement: {
@@ -128,6 +135,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "movement_category_fkey"
+            columns: ["category"]
+            isOneToOne: false
+            referencedRelation: "effective_categories"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "movement_from_fkey"
             columns: ["from"]
             isOneToOne: false
@@ -147,6 +161,8 @@ export type Database = {
         Row: {
           category_id: number | null
           created_at: string
+          custom_color: Database["public"]["Enums"]["categoryColors"] | null
+          custom_icon: string | null
           custom_name: string | null
           id: number
           is_hidden: boolean | null
@@ -155,6 +171,8 @@ export type Database = {
         Insert: {
           category_id?: number | null
           created_at?: string
+          custom_color?: Database["public"]["Enums"]["categoryColors"] | null
+          custom_icon?: string | null
           custom_name?: string | null
           id?: number
           is_hidden?: boolean | null
@@ -163,6 +181,8 @@ export type Database = {
         Update: {
           category_id?: number | null
           created_at?: string
+          custom_color?: Database["public"]["Enums"]["categoryColors"] | null
+          custom_icon?: string | null
           custom_name?: string | null
           id?: number
           is_hidden?: boolean | null
@@ -174,6 +194,13 @@ export type Database = {
             columns: ["category_id"]
             isOneToOne: false
             referencedRelation: "category"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_category_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "effective_categories"
             referencedColumns: ["id"]
           },
         ]
@@ -198,7 +225,34 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      effective_categories: {
+        Row: {
+          color: Database["public"]["Enums"]["categoryColors"] | null
+          icon: string | null
+          id: number | null
+          is_custom_name: boolean | null
+          is_global: boolean | null
+          is_hidden: boolean | null
+          parent_id: number | null
+          title: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "category_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "category"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "category_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "effective_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       finish: { Args: never; Returns: string[] }

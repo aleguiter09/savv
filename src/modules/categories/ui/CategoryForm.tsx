@@ -1,5 +1,8 @@
 "use client";
-import type { Category } from "@/modules/shared/types/global.types";
+import type {
+  Category,
+  CategoryColors,
+} from "@/modules/shared/types/global.types";
 import { useTranslations } from "next-intl";
 import { CategorySchema } from "@/modules/shared/utils/schemas";
 import { useTransition } from "react";
@@ -22,7 +25,23 @@ import { Button } from "@/ui/button";
 
 type Schema = z.infer<typeof CategorySchema>;
 
-export const CategoryForm = ({ category }: { category?: Category }) => {
+export type CategoryFormProps = {
+  id?: number;
+  title?: string;
+  icon?: string;
+  color?: CategoryColors;
+  parentId?: number;
+  isGlobal?: boolean;
+};
+
+export const CategoryForm = ({
+  id,
+  title,
+  icon,
+  color,
+  parentId,
+  isGlobal,
+}: CategoryFormProps) => {
   const { parentCategories } = useData();
   const t = useTranslations("categories");
   const show = useToastStore((store) => store.show);
@@ -32,17 +51,25 @@ export const CategoryForm = ({ category }: { category?: Category }) => {
     resolver: zodResolver(CategorySchema),
     mode: "onBlur",
     defaultValues: {
-      title: category?.title ?? "",
-      icon: category?.icon ?? "",
-      color: category?.color ?? undefined,
-      parent_id: category?.parent_id ?? undefined,
+      title: title,
+      icon: icon,
+      color: color,
+      parent_id: parentId,
     },
   });
 
   function onSubmit(data: Schema) {
     startTransition(async () => {
       let res;
-      if (category?.id) {
+      if (id) {
+        const category: Category = {
+          id,
+          title: data.title,
+          icon: data.icon,
+          color: data.color,
+          parent_id: data.parent_id,
+        };
+
         res = await updateCategoryForm(category, data);
       } else {
         res = await createCategoryForm(data);
@@ -95,6 +122,7 @@ export const CategoryForm = ({ category }: { category?: Category }) => {
                 category={field.value?.toString() ?? ""}
                 setCategory={field.onChange}
                 label={"categories.chooseParentCategory"}
+                disabled={isGlobal}
                 allowNull
                 error={
                   fieldState.invalid
@@ -137,7 +165,7 @@ export const CategoryForm = ({ category }: { category?: Category }) => {
         </FieldGroup>
 
         <Button loading={pending} type="submit">
-          {t("createCategory")}
+          {isGlobal ? t("customizeCategory") : t("createCategory")}
         </Button>
       </Card>
     </form>

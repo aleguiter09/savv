@@ -3,17 +3,22 @@
 import { useTranslations } from "next-intl";
 import { Trash2 } from "lucide-react";
 import { ConfirmDialog } from "@/modules/shared/ui/common/ConfirmDialog";
-import type { Category } from "@/modules/shared/types/global.types";
 import { deleteCategoryForm } from "../actions/category-action";
 import { Button } from "@/ui/button";
 
 const BrComponent = () => <br />;
 
-export function DeleteCategoryButton({ category }: { category: Category }) {
+export function DeleteCategoryButton({
+  id,
+  title,
+}: {
+  id: number;
+  title: string;
+}) {
   const t = useTranslations("categories");
 
   const handleDelete = async () => {
-    await deleteCategoryForm(category);
+    await deleteCategoryForm(id);
   };
 
   const trigger = (
@@ -27,7 +32,7 @@ export function DeleteCategoryButton({ category }: { category: Category }) {
       trigger={trigger}
       title={t("areYouSure")}
       description={t.rich("deleteDialog", {
-        title: category.title,
+        title,
         br: BrComponent,
       })}
       confirmLabel={t("confirm")}

@@ -1,5 +1,5 @@
 "use client";
-import type { Category } from "@/modules/shared/types/global.types";
+import type { EffectiveCategory } from "@/modules/shared/types/global.types";
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
 import { cn } from "@/modules/shared/utils/cn";
 import {
@@ -13,12 +13,13 @@ import {
 import { useTranslations } from "next-intl";
 
 type Props = Readonly<{
-  categories: Category[];
+  categories: EffectiveCategory[];
   category?: string;
   setCategory: (v: string) => void;
   error?: string;
   label?: string;
   allowNull?: boolean;
+  disabled?: boolean;
 }>;
 
 export function CategorySelect({
@@ -28,6 +29,7 @@ export function CategorySelect({
   error,
   label = "movements.chooseCategory",
   allowNull = false,
+  disabled = false,
 }: Props) {
   const t = useTranslations();
 
@@ -38,7 +40,11 @@ export function CategorySelect({
       >
         {t(label)}
       </label>
-      <Select value={category ?? ""} onValueChange={setCategory}>
+      <Select
+        disabled={disabled}
+        value={category ?? ""}
+        onValueChange={setCategory}
+      >
         <SelectTrigger className={error ? "border border-rose-500" : ""}>
           <SelectValue placeholder={t("movements.selectCategory")} />
         </SelectTrigger>
@@ -51,7 +57,7 @@ export function CategorySelect({
                 </div>
               </SelectItem>
             )}
-            {categories.map((item: Category) => (
+            {categories.map((item: EffectiveCategory) => (
               <SelectItem key={item.id} value={(item.id as number).toString()}>
                 <div className="flex items-center">
                   <CategoryIcon
@@ -59,7 +65,9 @@ export function CategorySelect({
                     color={item.color ?? "gray"}
                   />
                   <p className="ml-2">
-                    {item.user_id ? item.title : t(`categories.${item.title}`)}
+                    {item.is_global && !item.is_custom_name
+                      ? item.title
+                      : t(`categories.${item.title}`)}
                   </p>
                 </div>
               </SelectItem>

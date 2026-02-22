@@ -8,12 +8,14 @@ import { DeleteMovementButton } from "../ui/DeleteMovementButton";
 import { parseMovementDetails } from "../adapters/movements.adapter";
 
 type MovementDetailPageProps = {
-  id: string;
+  id: number;
 };
 
 export async function MovementDetailPage({ id }: MovementDetailPageProps) {
-  const t = await getTranslations("movements");
-  const movement = await getMovementById(Number(id));
+  const [t, movement] = await Promise.all([
+    getTranslations("movements"),
+    getMovementById(id),
+  ]);
 
   if (!movement) {
     notFound();
