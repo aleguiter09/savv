@@ -42,8 +42,8 @@ export function SelectCategory({ categoryId }: Readonly<SelectCategoryProps>) {
           {incomeCategories.map((item) => (
             <SelectItem key={item.id} value={(item.id as number).toString()}>
               {item.is_global && !item.is_custom_name
-                ? item.title
-                : t(`categories.${item.title}`)}
+                ? t(`categories.${item.title}`)
+                : item.title}
             </SelectItem>
           ))}
         </SelectGroup>
@@ -54,8 +54,8 @@ export function SelectCategory({ categoryId }: Readonly<SelectCategoryProps>) {
           {expenseCategories.map((item) => (
             <SelectItem key={item.id} value={(item.id as number).toString()}>
               {item.is_global && !item.is_custom_name
-                ? item.title
-                : t(`categories.${item.title}`)}
+                ? t(`categories.${item.title}`)
+                : item.title}
             </SelectItem>
           ))}
         </SelectGroup>
