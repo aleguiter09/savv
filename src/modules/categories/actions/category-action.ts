@@ -1,13 +1,14 @@
 "use server";
 
 import type { ServerActionResponse } from "@/modules/shared/types/general";
-import type { Category } from "@/modules/shared/types/global.types";
+import type { UserCategory } from "@/modules/shared/types/global.types";
 import { CategorySchema } from "@/modules/shared/utils/schemas";
 import { setToastMessage } from "@/modules/shared/actions/toast";
 import {
   createCategory,
   deleteCategory,
   updateCategory,
+  upsertUserCategory,
 } from "@/modules/categories/services/categories";
 import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
@@ -43,7 +44,8 @@ export async function createCategoryForm(
 }
 
 export async function updateCategoryForm(
-  category: Category,
+  isGlobal: boolean,
+  categoryId: number,
   data: z.infer<typeof CategorySchema>,
 ): Promise<ServerActionResponse> {
   const parsed = CategorySchema.safeParse(data);
@@ -56,7 +58,18 @@ export async function updateCategoryForm(
   }
 
   try {
-    await updateCategory(parsed.data, category.id!);
+    if (isGlobal) {
+      const userCategory: Partial<UserCategory> = {
+        category_id: categoryId,
+        custom_name: parsed.data.title,
+        custom_icon: parsed.data.icon,
+        custom_color: parsed.data.color,
+      };
+
+      await upsertUserCategory(userCategory);
+    } else {
+      await updateCategory(categoryId, parsed.data);
+    }
   } catch (error) {
     return {
       success: false,

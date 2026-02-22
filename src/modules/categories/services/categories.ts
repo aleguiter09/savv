@@ -46,8 +46,8 @@ export const deleteCategory = async (categoryId: number) => {
 };
 
 export const updateCategory = async (
-  category: Category,
   categoryId: number,
+  category: Category,
 ) => {
   const supabase = await createClient();
   return await supabase
@@ -57,11 +57,13 @@ export const updateCategory = async (
     .throwOnError();
 };
 
-export const createUserCategory = async (userCategory: UserCategory) => {
+export const upsertUserCategory = async (
+  userCategory: Partial<UserCategory>,
+) => {
   const supabase = await createClient();
   return await supabase
     .from("user_category")
-    .insert(userCategory)
+    .upsert(userCategory, { onConflict: "user_id,category_id" })
     .throwOnError();
 };
 
@@ -70,18 +72,6 @@ export const deleteUserCategory = async (categoryId: number) => {
   return await supabase
     .from("user_category")
     .delete()
-    .eq("category_id", categoryId)
-    .throwOnError();
-};
-
-export const updateUserCategory = async (
-  userCategory: UserCategory,
-  categoryId: number,
-) => {
-  const supabase = await createClient();
-  return await supabase
-    .from("user_category")
-    .update(userCategory)
     .eq("category_id", categoryId)
     .throwOnError();
 };

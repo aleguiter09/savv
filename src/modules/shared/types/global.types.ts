@@ -33,9 +33,9 @@ export type Category = {
 
 export type UserCategory = {
   id?: UserCategoryDB["id"];
-  user_id: UserCategoryDB["user_id"];
+  user_id?: UserCategoryDB["user_id"];
   category_id: UserCategoryDB["category_id"];
-  is_hidden: UserCategoryDB["is_hidden"];
+  is_hidden?: UserCategoryDB["is_hidden"];
   custom_name: UserCategoryDB["custom_name"];
   custom_icon: UserCategoryDB["custom_icon"];
   custom_color: UserCategoryDB["custom_color"];

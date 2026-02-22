@@ -1,8 +1,5 @@
 "use client";
-import type {
-  Category,
-  CategoryColors,
-} from "@/modules/shared/types/global.types";
+import type { CategoryColors } from "@/modules/shared/types/global.types";
 import { useTranslations } from "next-intl";
 import { CategorySchema } from "@/modules/shared/utils/schemas";
 import { useTransition } from "react";
@@ -40,7 +37,7 @@ export const CategoryForm = ({
   icon,
   color,
   parentId,
-  isGlobal,
+  isGlobal = false,
 }: CategoryFormProps) => {
   const { parentCategories } = useData();
   const t = useTranslations("categories");
@@ -62,15 +59,7 @@ export const CategoryForm = ({
     startTransition(async () => {
       let res;
       if (id) {
-        const category: Category = {
-          id,
-          title: data.title,
-          icon: data.icon,
-          color: data.color,
-          parent_id: data.parent_id,
-        };
-
-        res = await updateCategoryForm(category, data);
+        res = await updateCategoryForm(isGlobal, id, data);
       } else {
         res = await createCategoryForm(data);
       }

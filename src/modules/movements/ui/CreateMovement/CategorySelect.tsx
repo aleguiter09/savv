@@ -66,8 +66,8 @@ export function CategorySelect({
                   />
                   <p className="ml-2">
                     {item.is_global && !item.is_custom_name
-                      ? item.title
-                      : t(`categories.${item.title}`)}
+                      ? t(`categories.${item.title}`)
+                      : item.title}
                   </p>
                 </div>
               </SelectItem>

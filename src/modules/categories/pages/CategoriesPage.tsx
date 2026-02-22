@@ -44,7 +44,11 @@ export async function CategoriesPage() {
                   <Pencil size={16} />
                 </Link>
               </Button>
-              {!category.is_global && (
+              {category.is_global ? (
+                <Button size="icon" variant="secondary">
+                  <EyeIcon size={16} />
+                </Button>
+              ) : (
                 <DeleteCategoryButton
                   id={category.id as number}
                   title={category.title as string}
