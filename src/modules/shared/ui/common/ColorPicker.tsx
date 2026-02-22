@@ -13,21 +13,20 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
   const t = useTranslations("common");
   return (
     <div className="space-y-2">
-      <div className="grid gap-2 grid-cols-5">
+      <div
+        className="flex overflow-x-auto gap-2 py-2 snap-x snap-mandatory 
+        [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
         {categoryColorsLiterals.map((color) => (
           <button
             key={color}
             type="button"
             onClick={() => onChange(color)}
             className={`
-              h-8 w-full rounded-lg transition-all duration-200
-              border-2 shadow-sm hover:shadow-md cursor-pointer
-              ${
-                value === color
-                  ? "scale-110 border-gray-800"
-                  : "hover:scale-105"
-              }
-              bg-${color}-500
+              shrink-0 size-10 rounded-full transition-all duration-200
+              border cursor-pointer snap-center
+              ${value === color ? "ring-2 ring-offset-2" : ""}
+              bg-${color}-500 ring-${color}-500
             `}
             title={color}
             aria-label={t("colorLabel", { name: t(`colors.${color}`) })}

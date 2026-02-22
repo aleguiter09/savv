@@ -55,6 +55,8 @@ export const CategoryForm = ({
     },
   });
 
+  const [formColor] = form.watch(["color"]);
+
   function onSubmit(data: Schema) {
     startTransition(async () => {
       let res;
@@ -122,21 +124,6 @@ export const CategoryForm = ({
             )}
           />
 
-          {/* Icon */}
-          <Controller
-            name="icon"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="icon">{t("enterIcon")}</FieldLabel>
-                <IconPicker value={field.value} onChange={field.onChange} />
-                {fieldState.invalid && (
-                  <FieldError error={t(fieldState.error?.message as string)} />
-                )}
-              </Field>
-            )}
-          />
-
           {/* Color */}
           <Controller
             name="color"
@@ -145,6 +132,25 @@ export const CategoryForm = ({
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor="color">{t("enterColor")}</FieldLabel>
                 <ColorPicker value={field.value} onChange={field.onChange} />
+                {fieldState.invalid && (
+                  <FieldError error={t(fieldState.error?.message as string)} />
+                )}
+              </Field>
+            )}
+          />
+
+          {/* Icon */}
+          <Controller
+            name="icon"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="icon">{t("enterIcon")}</FieldLabel>
+                <IconPicker
+                  color={formColor}
+                  value={field.value}
+                  onChange={field.onChange}
+                />
                 {fieldState.invalid && (
                   <FieldError error={t(fieldState.error?.message as string)} />
                 )}
