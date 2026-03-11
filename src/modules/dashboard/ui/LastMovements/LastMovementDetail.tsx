@@ -32,7 +32,6 @@ export async function LastMovementDetail({
           icon={fullCategory?.icon ?? "transfer"}
           color={fullCategory?.color ?? "gray"}
           size="24px"
-          padding="p-[6px]"
         />
         <div className="flex flex-col">
           <span className="font-medium text-sm">{comment}</span>

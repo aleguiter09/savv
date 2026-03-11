@@ -43,7 +43,6 @@ export async function MovementItemDetail({
           icon={categoryIcon}
           color={categoryColor}
           size="24px"
-          padding="p-[6px]"
         />
         <div className="flex flex-col">
           <span className="font-medium text-sm">{comment}</span>

@@ -8,13 +8,15 @@ import Link from "next/link";
 import { AccountForm } from "@/modules/accounts/ui/AccountForm";
 import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 
-export default async function EditAccountPage({
-  params,
-}: Readonly<{
+type EditAccountPageProps = {
   params: { id: string };
-}>) {
+};
+
+export default async function Page({
+  params,
+}: Readonly<EditAccountPageProps>) {
   const t = await getTranslations("accounts");
-  const id = params.id;
+  const { id } = await params;
   const account = await getAccountById(Number(id));
 
   if (!account) {
@@ -34,10 +36,10 @@ export default async function EditAccountPage({
         </Link>
         <h4 className="font-medium">{t("detailsTitle")}</h4>
         <ConfirmDelete deleteAction={handleDelete}>
-          <p className="mt-2 text-gray-500">
+          <span className="mt-2 text-gray-500">
             {t("dialogAccount")} {`${account.name}`}. <br />
             {t("dialogWarning")}
-          </p>
+          </span>
         </ConfirmDelete>
       </div>
       <AccountForm account={account} />

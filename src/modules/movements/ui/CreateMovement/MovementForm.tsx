@@ -23,7 +23,8 @@ import { CategorySelect } from "./CategorySelect";
 import { enUS, es } from "date-fns/locale";
 import { Input } from "@/ui/input";
 
-type Schema = z.infer<typeof MovementSchema>;
+type SchemaInput = z.input<typeof MovementSchema>;
+type SchemaOutput = z.infer<typeof MovementSchema>;
 
 export function MovementForm({ movement }: { movement?: Movement }) {
   const { accounts, incomeCategories, expenseCategories } = useData();
@@ -34,7 +35,7 @@ export function MovementForm({ movement }: { movement?: Movement }) {
   const show = useToastStore((store) => store.show);
   const [pending, startTransition] = useTransition();
 
-  const form = useForm<Schema>({
+  const form = useForm<SchemaInput, any, SchemaOutput>({
     resolver: zodResolver(MovementSchema),
     defaultValues: movement
       ? {
@@ -60,7 +61,7 @@ export function MovementForm({ movement }: { movement?: Movement }) {
     form.resetField("category");
   }, [type, form]);
 
-  function onSubmit(data: Schema) {
+  function onSubmit(data: SchemaOutput) {
     startTransition(async () => {
       let res;
       if (movement?.id) {
@@ -148,7 +149,7 @@ export function MovementForm({ movement }: { movement?: Movement }) {
                   {t("enterDate")}
                 </FieldLabel>
                 <DatePicker
-                  value={field.value}
+                  value={field.value as Date | undefined}
                   onChange={field.onChange}
                   locale={locale.includes("es") ? es : enUS}
                   error={fieldState.error?.message}
@@ -202,7 +203,7 @@ export function MovementForm({ movement }: { movement?: Movement }) {
                 <FieldLabel htmlFor="amount">{t("enterAmount")}</FieldLabel>
                 <Input
                   {...field}
-                  value={field.value ?? ""}
+                  value={(field.value as string | number) ?? ""}
                   id="amount"
                   type="number"
                   aria-invalid={fieldState.invalid}

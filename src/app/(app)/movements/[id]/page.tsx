@@ -7,5 +7,7 @@ type PageProps = {
 };
 
 export default async function Page({ params }: PageProps) {
-  return <MovementDetailPage id={Number(params.id)} />;
+  const { id } = await params;
+
+  return <MovementDetailPage id={Number(id)} />;
 }

@@ -17,14 +17,15 @@ import {
 import { useToastStore } from "@/modules/shared/ui/toast-store";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/ui/field";
 
-type Schema = z.infer<typeof AccountSchema>;
+type SchemaInput = z.input<typeof AccountSchema>;
+type SchemaOutput = z.infer<typeof AccountSchema>;
 
 export function AccountForm({ account }: { account?: Account }) {
   const t = useTranslations("accounts");
   const show = useToastStore((store) => store.show);
   const [pending, startTransition] = useTransition();
 
-  const form = useForm<Schema>({
+  const form = useForm<SchemaInput, any, SchemaOutput>({
     resolver: zodResolver(AccountSchema),
     mode: "onBlur",
     defaultValues: {
@@ -34,7 +35,7 @@ export function AccountForm({ account }: { account?: Account }) {
     },
   });
 
-  function onSubmit(data: Schema) {
+  function onSubmit(data: SchemaOutput) {
     startTransition(async () => {
       let res;
 
@@ -95,7 +96,7 @@ export function AccountForm({ account }: { account?: Account }) {
                   {...field}
                   id="balance"
                   placeholder={t("enterBalance")}
-                  value={field.value ?? ""}
+                  value={(field.value as string | number) ?? ""}
                   onChange={field.onChange}
                   step="0.01"
                   type="number"

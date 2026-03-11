@@ -3,6 +3,7 @@
   "confirm": "Confirmar",
   "chooseDate": "Elegir fecha",
   "databaseError": "Error de base de datos, por favor inténtelo de nuevo más tarde",
+  "areYouSure": "¿Está seguro? 🤔",
   "nav": {
     "home": "Inicio",
     "settings": "Configuración",

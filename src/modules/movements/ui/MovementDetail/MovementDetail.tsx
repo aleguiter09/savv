@@ -53,7 +53,6 @@ export async function MovementDetail({
             icon={categoryIcon}
             color={categoryColor}
             size="24px"
-            padding="p-[6px]"
           />
           <span className="font-medium">{tCategories(categoryTitle)}</span>
         </div>

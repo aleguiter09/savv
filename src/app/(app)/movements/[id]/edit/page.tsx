@@ -5,5 +5,6 @@ type EditMovementPageProps = {
 };
 
 export default async function Page({ params }: EditMovementPageProps) {
-  return <EditMovementPage id={Number(params.id)} />;
+  const { id } = await params;
+  return <EditMovementPage id={Number(id)} />;
 }

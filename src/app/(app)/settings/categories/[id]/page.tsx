@@ -5,5 +5,6 @@ type EditCategoryPageProps = {
 };
 
 export default async function Page({ params }: EditCategoryPageProps) {
-  return <EditCategoryPage id={Number(params.id)} />;
+  const { id } = await params;
+  return <EditCategoryPage id={Number(id)} />;
 }

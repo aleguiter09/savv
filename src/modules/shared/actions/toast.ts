@@ -3,8 +3,10 @@
 import { ToastType } from "@/modules/shared/ui/toast-store";
 import { cookies } from "next/headers";
 
-export const setToastMessage = (type: ToastType, message: string) => {
-  cookies().set(
+export const setToastMessage = async (type: ToastType, message: string) => {
+  const cookieStore = await cookies();
+
+  cookieStore.set(
     "toastMessage",
     JSON.stringify({
       type,

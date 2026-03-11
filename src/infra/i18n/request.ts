@@ -36,10 +36,12 @@ export default getRequestConfig(async () => {
     };
   }
 
-  const headersList = headers();
+  const headersList = await headers();
+  const cookieStore = await cookies();
+
   const defaultLocale = headersList.get("accept-language");
   const currentLocale =
-    cookies().get("NEXT_LOCALE")?.value ?? defaultLocale ?? "en";
+    cookieStore.get("NEXT_LOCALE")?.value ?? defaultLocale ?? "en";
 
   const locale = currentLocale.split(",")[0].includes("es") ? "es" : "en";
 
