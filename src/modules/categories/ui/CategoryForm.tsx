@@ -20,7 +20,8 @@ import { IconPicker } from "@/modules/shared/ui/common/IconPicker";
 import { ColorPicker } from "@/modules/shared/ui/common/ColorPicker";
 import { Button } from "@/ui/button";
 
-type Schema = z.infer<typeof CategorySchema>;
+type SchemaInput = z.input<typeof CategorySchema>;
+type SchemaOutput = z.infer<typeof CategorySchema>;
 
 export type CategoryFormProps = {
   id?: number;
@@ -44,7 +45,7 @@ export const CategoryForm = ({
   const show = useToastStore((store) => store.show);
   const [pending, startTransition] = useTransition();
 
-  const form = useForm<Schema>({
+  const form = useForm<SchemaInput, any, SchemaOutput>({
     resolver: zodResolver(CategorySchema),
     mode: "onBlur",
     defaultValues: {
@@ -57,7 +58,7 @@ export const CategoryForm = ({
 
   const [formColor] = form.watch(["color"]);
 
-  function onSubmit(data: Schema) {
+  function onSubmit(data: SchemaOutput) {
     startTransition(async () => {
       let res;
       if (id) {

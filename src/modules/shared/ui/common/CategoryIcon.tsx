@@ -1,23 +1,14 @@
 import { CATEGORY_ICONS } from "@/modules/shared/utils/constants";
+import { LucideProps } from "lucide-react";
 
-type Props = Readonly<{
+interface CategoryIconProps extends LucideProps {
   icon: string;
-  color: string;
-  size?: string;
-  padding?: string;
-}>;
+}
 
-export function CategoryIcon({
-  icon,
-  color,
-  size = "14px",
-  padding = "p-[3px]",
-}: Props) {
+export function CategoryIcon({ icon, ...props }: CategoryIconProps) {
   const Icon = CATEGORY_ICONS[icon];
 
-  return (
-    <div className={`bg-${color}-500 rounded-full ${padding}`}>
-      <Icon className="text-white" size={size} />
-    </div>
-  );
+  if (!Icon ) return <div className="w-5 h-5 rounded-full bg-gray-500" />;
+
+  return <Icon className="text-white" {...props} />;
 }
