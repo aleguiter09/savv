@@ -26,7 +26,7 @@ export const adaptCategoryToForm = (
   return {
     id: category.id ?? undefined,
     title: category.title ?? "",
-    icon: category.icon ?? "",
+    icon: category.icon ?? "transfer",
     color: category.color ?? undefined,
     parentId: category.parent_id ?? undefined,
     isGlobal: category.is_global ?? false,

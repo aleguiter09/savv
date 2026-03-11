@@ -29,9 +29,7 @@ export async function CategoryItem({
   return (
     <li className="flex items-center py-2 justify-between border-b border-gray-200 last:border-b-0">
       <div className="flex items-center gap-3 min-h-9">
-        <div className="w-5 h-5 flex items-center justify-center gap-3">
-          <CategoryIcon icon={icon ?? "transfer"} size="18px" />
-        </div>
+        <CategoryIcon icon={icon ?? "transfer"} size={24} color={color ?? "gray"} />
         <p className="text-sm">
           {isGlobal && !isCustomName ? t(title) : title}
         </p>

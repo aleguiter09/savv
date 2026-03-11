@@ -5,6 +5,7 @@ import {
   MovementItemDetail,
   type MovementItemDetailProps,
 } from "./MovementItemDetail";
+import { getFormatter } from "next-intl/server";
 
 export type MovementItemProps = {
   date: string;
@@ -12,11 +13,17 @@ export type MovementItemProps = {
   items: MovementItemDetailProps[];
 };
 
-export function MovementItem({ date, items = [], amount }: MovementItemProps) {
+export async function MovementItem({ date, items = [], amount }: MovementItemProps) {
+  const format = await getFormatter()
+
   return (
     <div className="px-2 pb-1 pt-2 flex flex-col gap-2 text-gray-900 border-b border-gray-2 last:border-0">
       <div className="flex justify-between">
-        <h2 className="text-xs">{date}</h2>
+        <h2 className="text-xs">{format.dateTime(new Date(date), {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })}</h2>
         <Badge
           className={cn(
             amount > 0

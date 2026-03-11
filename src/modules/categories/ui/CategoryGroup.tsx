@@ -33,20 +33,15 @@ export async function CategoryGroup({
   const t = await getTranslations("categories");
 
   return (
-    <Card className="shadow-md pl-4 pr-3 pt-2 pb-3">
+    <Card className="shadow-md px-4 py-3">
       <div
         className={cn(
-          "flex items-center justify-between py-3 px-4 transition-colors hover:bg-secondary/60",
+          "flex items-center justify-between py-3",
           isHidden && "opacity-50",
         )}
       >
         <button className="flex flex-1 items-center gap-3 text-left">
-          <div
-            className="flex size-8 items-center justify-center rounded-lg"
-            style={{ backgroundColor: color }}
-          >
-            <CategoryIcon icon={icon ?? "transfer"} />
-          </div>
+          <CategoryIcon icon={icon ?? "transfer"} color={color ?? "gray"} />
           <div className="flex flex-col">
             <span
               className={cn(
@@ -60,7 +55,7 @@ export async function CategoryGroup({
         </button>
 
         <div className="flex items-center gap-1">
-          <Button asChild size="icon" className="p-0" variant="secondary">
+          <Button asChild size="icon" variant="secondary">
             <Link href={`/settings/categories/${id}`}>
               <Pencil size={16} />
             </Link>
@@ -89,8 +84,8 @@ export async function CategoryGroup({
             isHidden={child.is_hidden ?? false}
             isGlobal={child.is_global ?? false}
             isCustomName={child.is_custom_name ?? false}
-            color={child.color ?? ""}
-            icon={child.icon ?? ""}
+            color={child.color ?? "gray"}
+            icon={child.icon ?? "transfer"}
           />
         ))}
       </ul>

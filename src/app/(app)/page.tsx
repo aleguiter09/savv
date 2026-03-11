@@ -16,9 +16,10 @@ type MainPageParams = {
 export default async function MainPage({
   searchParams,
 }: Readonly<MainPageParams>) {
+  const { account } = await searchParams;
+
   const defaultAcc = await getDefaultAccountId();
-  const accountId =
-    searchParams.account ?? (defaultAcc === "0" ? "all" : defaultAcc);
+  const accountId = account ?? (defaultAcc === "0" ? "all" : defaultAcc);
 
   return (
     <>

@@ -33,8 +33,8 @@ export async function CategoriesPage() {
             isGlobal={category.is_global ?? false}
             isHidden={category.is_hidden ?? false}
             subcategories={category.children}
-            color={category.color ?? ""}
-            icon={category.icon ?? ""}
+            color={category.color ?? "gray"}
+            icon={category.icon ?? "transfer"}
             title={category.title ?? ""}
           />
         ))}

@@ -31,7 +31,6 @@ export async function LastMovementDetail({
         <CategoryIcon
           icon={fullCategory?.icon ?? "transfer"}
           color={fullCategory?.color ?? "gray"}
-          size="24px"
         />
         <div className="flex flex-col">
           <span className="font-medium text-sm">{comment}</span>

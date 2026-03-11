@@ -14,17 +14,14 @@ type ExpensesPageParams = {
 export default async function ExpensesPage({
   searchParams,
 }: Readonly<ExpensesPageParams>) {
+  const { year: yearParam, month: monthParam, account } = await searchParams;
+
   const defaultAcc = await getDefaultAccountId();
   const accountId =
-    searchParams.account ??
-    (defaultAcc === "0" ? "all" : defaultAcc.toString());
+    account ?? (defaultAcc === "0" ? "all" : defaultAcc.toString());
 
-  const year = searchParams.year
-    ? Number(searchParams.year)
-    : new Date().getFullYear();
-  const month = searchParams.month
-    ? Number(searchParams.month)
-    : new Date().getMonth();
+  const year = yearParam ? Number(yearParam) : new Date().getFullYear();
+  const month = monthParam ? Number(monthParam) : new Date().getMonth();
 
   return (
     <>

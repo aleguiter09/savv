@@ -39,11 +39,7 @@ export async function MovementItemDetail({
       className="flex items-center justify-between px-1 pb-2 border-b border-gray-300 last:border-b-0 focus:ring-2 focus:ring-inset focus:ring-blue-600"
     >
       <div className="flex gap-3">
-        <CategoryIcon
-          icon={categoryIcon}
-          color={categoryColor}
-          size="24px"
-        />
+        <CategoryIcon icon={categoryIcon} color={categoryColor} />
         <div className="flex flex-col">
           <span className="font-medium text-sm">{comment}</span>
           <span className="text-xs text-gray-500">

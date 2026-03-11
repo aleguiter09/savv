@@ -10,5 +10,14 @@ export type Props = Readonly<{
 }>;
 
 export default async function Page({ searchParams }: Props) {
-  return <MovementsPage {...searchParams} />;
+  const { from, to, account, category } = await searchParams;
+
+  return (
+    <MovementsPage
+      from={from}
+      to={to}
+      account={account}
+      category={category}
+    />
+  );
 }

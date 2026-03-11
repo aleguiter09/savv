@@ -52,7 +52,6 @@ export async function MovementDetail({
           <CategoryIcon
             icon={categoryIcon}
             color={categoryColor}
-            size="24px"
           />
           <span className="font-medium">{tCategories(categoryTitle)}</span>
         </div>
