@@ -33,9 +33,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#json
-package-lock.json
-
 # PWA
 public/sw.js
 public/sw.js.map
