@@ -8,5 +8,7 @@ interface CategoryIconProps extends LucideProps {
 export function CategoryIcon({ icon, color, ...props }: CategoryIconProps) {
   const Icon = CATEGORY_ICONS[icon];
 
-  return <Icon className={`text-white rounded-full p-1 bg-${color}-500`} size={32} {...props} />;
+  return <div className={`text-white rounded-full p-1.5 bg-${color}-500`}>
+    <Icon size={18} {...props} />
+  </div>
 }

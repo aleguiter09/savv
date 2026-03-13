@@ -54,7 +54,7 @@ export async function CategoryGroup({
           </div>
         </button>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
           <Button asChild size="icon" variant="secondary">
             <Link href={`/settings/categories/${id}`}>
               <Pencil size={16} />
