@@ -94,3 +94,16 @@ export const deleteCategoryForm = async (id: number) => {
   revalidatePath("/settings/categories");
   redirect("/settings/categories");
 };
+
+export async function toggleCategoryVisibility(
+  categoryId: number,
+  is_hidden: boolean,
+) {
+  const userCategory: Partial<UserCategory> = {
+    category_id: categoryId,
+    is_hidden: is_hidden,
+  };
+
+  await upsertUserCategory(userCategory);
+  revalidatePath("/settings/categories");
+}

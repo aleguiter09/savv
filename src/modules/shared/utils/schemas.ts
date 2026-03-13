@@ -52,11 +52,12 @@ export const CategorySchema = z.object({
   icon: z.string().min(1, "iconError"),
   color: z.enum(categoryColorsLiterals, { message: "colorError" }),
   parent_id: z.coerce.number().optional(),
+  is_hidden: z.boolean().optional(),
 });
 
 export const UserSchema = z
   .object({
-    email: z.string().email({ message: "emailError" }),
+    email: z.email({ message: "emailError" }),
     password: z.string().min(8, { message: "passwordError" }),
     confirmPassword: z.string().min(8, { message: "passwordError" }),
   })
@@ -71,7 +72,7 @@ export const UserSchema = z
   });
 
 export const LoginUserSchema = z.object({
-  email: z.string().email({ message: "emailError" }),
+  email: z.email({ message: "emailError" }),
   password: z.string().min(8, { message: "passwordError" }),
 });
 

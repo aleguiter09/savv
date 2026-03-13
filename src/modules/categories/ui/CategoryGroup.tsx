@@ -1,26 +1,20 @@
-import type { EffectiveCategory } from "@/modules/shared/types/global.types";
 import { Button } from "@/ui/button";
 import { Card } from "@/ui/card";
 import { Eye, EyeOff, Pencil } from "lucide-react";
-import { getTranslations } from "next-intl/server";
 import { DeleteCategoryButton } from "./DeleteCategoryButton";
 import { cn } from "@/modules/shared/utils/cn";
 import { CategoryItem } from "./CategoryItem";
 import Link from "next/link";
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
+import { useTranslations } from "next-intl";
+import type { CategoryClient, ParsedCategory } from "./CategoryClient";
 
-export type CategoryGroupProps = {
-  id: number;
-  title: string;
-  icon: string;
-  color: string;
-  isHidden: boolean;
-  isGlobal: boolean;
-  isCustomName: boolean;
-  subcategories: EffectiveCategory[];
+export type CategoryGroupProps = CategoryClient & {
+  subcategories: ParsedCategory[];
+  handleToggle: (id: number, is_hidden: boolean) => Promise<void>;
 };
 
-export async function CategoryGroup({
+export function CategoryGroup({
   id,
   title,
   icon,
@@ -29,11 +23,14 @@ export async function CategoryGroup({
   isGlobal,
   isCustomName,
   subcategories,
+  handleToggle,
 }: CategoryGroupProps) {
-  const t = await getTranslations("categories");
+  const t = useTranslations("categories");
+  const visibleCount = subcategories.filter((c) => !c.isHidden).length;
+  const totalCount = subcategories.length;
 
   return (
-    <Card className="shadow-md px-4 py-3">
+    <Card className="shadow-md px-4 py-2">
       <div
         className={cn(
           "flex items-center justify-between py-3",
@@ -42,7 +39,7 @@ export async function CategoryGroup({
       >
         <button className="flex flex-1 items-center gap-3 text-left">
           <CategoryIcon icon={icon ?? "transfer"} color={color ?? "gray"} />
-          <div className="flex flex-col">
+          <div className="flex flex-col flex-1">
             <span
               className={cn(
                 "text-sm font-semibold text-foreground",
@@ -50,6 +47,9 @@ export async function CategoryGroup({
               )}
             >
               {isGlobal && !isCustomName ? t(title) : title}
+            </span>
+            <span className="text-xs text-muted-foreground">
+              {visibleCount}/{totalCount} activas
             </span>
           </div>
         </button>
@@ -62,7 +62,11 @@ export async function CategoryGroup({
           </Button>
 
           {isGlobal ? (
-            <Button size="icon" variant="secondary">
+            <Button
+              size="icon"
+              variant="secondary"
+              onClick={() => handleToggle(id, !isHidden)}
+            >
               {isHidden ? (
                 <Eye className="size-3.5" />
               ) : (
@@ -75,20 +79,23 @@ export async function CategoryGroup({
         </div>
       </div>
 
-      <ul className="border-t">
-        {subcategories.map((child) => (
-          <CategoryItem
-            key={child.id}
-            id={child.id as number}
-            title={child.title as string}
-            isHidden={child.is_hidden ?? false}
-            isGlobal={child.is_global ?? false}
-            isCustomName={child.is_custom_name ?? false}
-            color={child.color ?? "gray"}
-            icon={child.icon ?? "transfer"}
-          />
-        ))}
-      </ul>
+      {subcategories.length > 0 && (
+        <ul className="border-t">
+          {subcategories.map((child) => (
+            <CategoryItem
+              key={child.id}
+              id={child.id}
+              title={child.title}
+              isHidden={child.isHidden}
+              isGlobal={child.isGlobal}
+              isCustomName={child.isCustomName}
+              color={child.color}
+              icon={child.icon}
+              handleToggle={handleToggle}
+            />
+          ))}
+        </ul>
+      )}
     </Card>
   );
 }

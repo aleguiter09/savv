@@ -63,7 +63,7 @@ export function CategorySelect({
                   <CategoryIcon
                     icon={item.icon ?? "transfer"}
                     color={item.color ?? "gray"}
-                    size={24}
+                    size={14}
                   />
                   <p className="ml-2">
                     {item.is_global && !item.is_custom_name

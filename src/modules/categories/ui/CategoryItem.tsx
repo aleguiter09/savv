@@ -3,19 +3,21 @@ import { DeleteCategoryButton } from "./DeleteCategoryButton";
 import { Button } from "@/ui/button";
 import { Eye, EyeOff, Pencil } from "lucide-react";
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
+import { cn } from "tailwind-variants";
 
 export type CategoryItemProps = {
   id: number;
   title: string;
-  color?: string;
-  icon?: string;
-  isGlobal?: boolean;
-  isCustomName?: boolean;
-  isHidden?: boolean;
+  color: string;
+  icon: string;
+  isGlobal: boolean;
+  isCustomName: boolean;
+  isHidden: boolean;
+  handleToggle: (id: number, is_hidden: boolean) => Promise<void>;
 };
 
-export async function CategoryItem({
+export function CategoryItem({
   id,
   title,
   color,
@@ -23,25 +25,40 @@ export async function CategoryItem({
   isGlobal,
   isCustomName,
   isHidden,
+  handleToggle,
 }: CategoryItemProps) {
-  const t = await getTranslations("categories");
+  const t = useTranslations("categories");
 
   return (
-    <li className="flex items-center py-2 justify-between border-b border-gray-200 last:border-b-0">
+    <li
+      className={cn(
+        "flex items-center py-2 pl-2 justify-between border-b border-gray-200 last:border-b-0",
+        isHidden && "opacity-50",
+      )}
+    >
       <div className="flex items-center gap-3 min-h-9">
-        <CategoryIcon icon={icon ?? "transfer"} size={24} color={color ?? "gray"} />
-        <p className="text-sm">
+        <CategoryIcon icon={icon} color={color} />
+        <p
+          className={cn(
+            "text-sm",
+            isHidden && "line-through text-muted-foreground",
+          )}
+        >
           {isGlobal && !isCustomName ? t(title) : title}
         </p>
       </div>
       <div className="flex items-center gap-2">
-        <Button asChild size="icon" className="p-0" variant="secondary">
+        <Button asChild size="icon" variant="secondary">
           <Link href={`/settings/categories/${id}`}>
             <Pencil size={16} />
           </Link>
         </Button>
         {isGlobal ? (
-          <Button size="icon" variant="secondary">
+          <Button
+            size="icon"
+            variant="secondary"
+            onClick={() => handleToggle(id, !isHidden)}
+          >
             {isHidden ? (
               <Eye className="size-3.5" />
             ) : (

@@ -1,4 +1,3 @@
-// cSpell:ignore supabase
 import type {
   Category,
   EffectiveCategory,
