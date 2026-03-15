@@ -3,14 +3,16 @@ import {
   getMonthIncomes,
   getMonthExpenses,
 } from "@/modules/movements/services/movements";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
 
 type Props = Readonly<{
   accountId: string;
 }>;
 
 export async function BalanceInfo({ accountId }: Props) {
-  const [accountBalance, incomes, expenses, t] = await Promise.all([
+  const [locale, accountBalance, incomes, expenses, t] = await Promise.all([
+    getLocale(),
     getAccountBalanceById(accountId),
     getMonthIncomes(accountId),
     getMonthExpenses(accountId),
@@ -24,19 +26,19 @@ export async function BalanceInfo({ accountId }: Props) {
           <p className="font-semibold">{t("balance")}</p>
         </div>
         <p className={accountBalance < 0 ? "text-red-600" : ""}>
-          ${accountBalance.toFixed(2)}
+          {formatCurrency(locale, accountBalance, 2)}
         </p>
       </div>
       <div>
         <p className="font-semibold">{t("incomes")}</p>
         <p className={accountBalance < 0 ? "text-red-600" : ""}>
-          ${incomes.toFixed(2)}
+          {formatCurrency(locale, incomes, 2)}
         </p>
       </div>
       <div>
         <p className="font-semibold">{t("expenses")}</p>
         <p className={accountBalance < 0 ? "text-red-600" : ""}>
-          ${expenses.toFixed(2)}
+          {formatCurrency(locale, expenses, 2)}
         </p>
       </div>
     </div>

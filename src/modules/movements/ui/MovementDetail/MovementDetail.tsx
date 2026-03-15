@@ -1,8 +1,9 @@
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
 import { cn } from "@/modules/shared/utils/cn";
-import { getFormatter, getTranslations } from "next-intl/server";
+import { getFormatter, getLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
 import type { MovementView } from "../../types/types";
+import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
 
 export async function MovementDetail({
   id,
@@ -13,21 +14,22 @@ export async function MovementDetail({
   category,
   account,
 }: MovementView) {
-  const [tMovements, tCategories, format] = await Promise.all([
+  const [tMovements, tCategories, formatter, locale] = await Promise.all([
     getTranslations("movements"),
     getTranslations("categories"),
     getFormatter(),
+    getLocale(),
   ]);
 
   const { icon, color, isGlobal, isCustomName, title } = category;
 
-  const displayAmount = format.number(type === "expense" ? -amount : amount, {
-    style: "currency",
-    currency: "EUR",
-    signDisplay: "auto",
-  });
+  const displayAmount = formatCurrency(
+    locale,
+    type === "expense" ? -amount : amount,
+    2,
+  );
 
-  const displayDate = format.dateTime(new Date(doneAt), {
+  const displayDate = formatter.dateTime(new Date(doneAt), {
     year: "numeric",
     month: "long",
     day: "numeric",

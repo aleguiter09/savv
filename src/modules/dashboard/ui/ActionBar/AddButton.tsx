@@ -5,7 +5,7 @@ export function AddButton({ href }: Readonly<{ href: string }>) {
   return (
     <Link
       href={href}
-      className="rounded-full outline-none focus:ring-1 focus:ring-blue-600 focus:ring-offset-2 transition-all"
+      className="rounded-full focus:outline-1 focus:outline-blue-600 focus:outline-offset-2 transition-all"
     >
       <PlusIcon
         size={30}
