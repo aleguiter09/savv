@@ -3,6 +3,7 @@ import { parseMovementsForChart } from "@/modules/shared/utils/common";
 import Link from "next/link";
 import { Card } from "@/ui/card";
 import { adaptMovementItem } from "@/modules/movements/adapters/movements.adapter";
+import { getFormatter } from "next-intl/server";
 
 type Props = Readonly<{
   accountId: string;
@@ -12,6 +13,7 @@ type Props = Readonly<{
 
 export async function ExpensesDataChart({ accountId, year, month }: Props) {
   const movements = await getExpenses(accountId, year, month);
+  const format = await getFormatter();
   const adaptedMovements = movements.map(adaptMovementItem);
 
   const data = parseMovementsForChart(adaptedMovements);
@@ -31,7 +33,13 @@ export async function ExpensesDataChart({ accountId, year, month }: Props) {
                 <div className="flex justify-between space-x-1">
                   <p className="text-right text-slate-500 ">{item.title}</p>
                   <p className="font-medium text-right whitespace-nowrap">
-                    ${item.amount.toFixed(0)}
+                    {format.number(item.amount, {
+                      style: "currency",
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0,
+                      currency: "EUR",
+                      signDisplay: "auto",
+                    })}
                   </p>
                 </div>
               </div>
@@ -39,7 +47,14 @@ export async function ExpensesDataChart({ accountId, year, month }: Props) {
           </Link>
         ))}
         <div className="flex mt-2 ml-auto col-span-2 md:col-span-3">
-          <p className="text-sm">Total expenses: ${total.toFixed(0)}</p>
+          <p className="text-sm">
+            Total expenses:{" "}
+            {format.number(total, {
+              style: "currency",
+              currency: "EUR",
+              signDisplay: "auto",
+            })}
+          </p>
         </div>
         {data.length === 0 && (
           <p className="pt-2 text-sm text-slate-500 text-center col-span-3">

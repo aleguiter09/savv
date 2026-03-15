@@ -11,7 +11,7 @@ import { useData } from "@/modules/shared/stores/DataProvider";
 import {
   createCategoryForm,
   updateCategoryForm,
-} from "@/modules/categories/actions/category-action";
+} from "@/modules/categories/actions/categories.action";
 import { Card } from "@/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/ui/field";
 import { Input } from "@/ui/input";

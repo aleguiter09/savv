@@ -2,6 +2,11 @@
   "cancel": "Cancel",
   "confirm": "Confirm",
   "chooseDate": "Choose date",
+  "quickSelect": "Quick Select",
+  "today": "Today",
+  "thisWeek": "This Week",
+  "currentMonth": "Current Month",
+  "last30Days": "Last 30 Days",
   "databaseError": "Database error, please try again later",
   "nav": {
     "home": "Home",

@@ -2,7 +2,7 @@
 
 import { startTransition, useOptimistic } from "react";
 import { CategoryGroup } from "./CategoryGroup";
-import { toggleCategoryVisibility } from "../actions/category-action";
+import { toggleCategoryVisibility } from "../actions/categories.action";
 import { CategoryView } from "../types/types";
 
 export type CategoryClient = CategoryView & {

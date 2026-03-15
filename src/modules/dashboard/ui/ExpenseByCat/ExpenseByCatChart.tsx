@@ -1,15 +1,16 @@
 import { adaptMovementItem } from "@/modules/movements/adapters/movements.adapter";
 import { getExpenses } from "@/modules/movements/services/movements";
 import { parseMovementsForChart } from "@/modules/shared/utils/common";
-import { getTranslations } from "next-intl/server";
+import { getFormatter, getTranslations } from "next-intl/server";
 import Link from "next/link";
 
 type Props = Readonly<{ accountId: string; year?: number; month?: number }>;
 
 export async function ExpenseByCatChart({ accountId, year, month }: Props) {
-  const [movements, t] = await Promise.all([
+  const [movements, t, formatter] = await Promise.all([
     getExpenses(accountId, year, month),
     getTranslations(),
+    getFormatter(),
   ]);
 
   const adaptedMovements = movements.map(adaptMovementItem);
@@ -30,7 +31,12 @@ export async function ExpenseByCatChart({ accountId, year, month }: Props) {
                   {t(`categories.${item.title}`)}
                 </p>
                 <p className="font-medium text-right whitespace-nowrap">
-                  ${item.amount.toFixed(0)}
+                  {formatter.number(item.amount, {
+                    style: "currency",
+                    maximumFractionDigits: 0,
+                    currency: "EUR",
+                    signDisplay: "auto",
+                  })}
                 </p>
               </div>
             </div>

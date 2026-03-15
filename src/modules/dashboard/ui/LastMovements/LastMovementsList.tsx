@@ -1,7 +1,7 @@
 import { getLastMovements } from "@/modules/movements/services/movements";
 import { getTranslations } from "next-intl/server";
-import { LastMovementDetail } from "./LastMovementDetail";
 import { adaptMovementItem } from "@/modules/movements/adapters/movements.adapter";
+import { MovementItemDetail } from "@/modules/movements/ui/MovementsList/MovementItemDetail";
 
 type Props = Readonly<{
   accountId: string;
@@ -15,7 +15,7 @@ export async function LastMovementsList({ accountId }: Props) {
   return (
     <div className="flex flex-col gap-2 mt-3">
       {adaptedMovements.map((item) => (
-        <LastMovementDetail key={item.id} {...item} />
+        <MovementItemDetail key={item.id} {...item} />
       ))}
       {adaptedMovements.length === 0 && (
         <p className="pt-2 text-sm text-slate-500 text-center col-span-3">

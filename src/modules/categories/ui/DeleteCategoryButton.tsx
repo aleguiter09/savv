@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Trash2 } from "lucide-react";
 import { ConfirmDialog } from "@/modules/shared/ui/common/ConfirmDialog";
-import { deleteCategoryForm } from "../actions/category-action";
+import { deleteCategoryForm } from "../actions/categories.action";
 import { Button } from "@/ui/button";
 
 const BrComponent = () => <br />;

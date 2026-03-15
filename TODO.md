@@ -9,7 +9,7 @@
 [X] Delete account
 [X] Recover Password page
 [] Email template for recover password in Supabase
-[] Review 'fullCategory' and 'fullAccount' props in movement detail
+[X] Review 'fullCategory' and 'fullAccount' props in movement detail
 [X] Update imports for components
 [X] Delete MDI icons, replace for lucid
 [X] Replace forms to use RHF
@@ -33,8 +33,8 @@
 [X] When updating movement, movement is being inserted and eliminated. Not being updated.
 [] Verify translations for error messages in movements schemas
 [] Default account should be unique
-[] Translate default errors
-[] Review 'Category' page translations (based on new categories)
+[X] Translate default errors
+[X] Review 'Category' page translations (based on new categories)
 
 # New Features
 
