@@ -10,9 +10,11 @@ const BaseMovementSchema = z.object({
     .string()
     .min(1, "noDescriptionError")
     .max(500, "descriptionTooLong"),
-  done_at: z.coerce.date({
-    error: "noDateError",
-  }),
+  done_at: z.coerce
+    .date({
+      error: "noDateError",
+    })
+    .transform((date) => date.toISOString()),
   from: z.coerce.number("noAccountError").positive("noAccountError"),
 });
 

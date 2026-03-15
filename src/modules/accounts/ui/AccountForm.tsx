@@ -1,5 +1,4 @@
 "use client";
-import type { Account } from "@/modules/shared/types/global.types";
 import { useTranslations } from "next-intl";
 import { Input } from "@/ui/input";
 import { Checkbox } from "@/ui/checkbox";
@@ -16,11 +15,12 @@ import {
 } from "@/modules/accounts/actions/account-actions";
 import { useToastStore } from "@/modules/shared/ui/toast-store";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/ui/field";
+import { AccountView } from "../types/types";
 
 type SchemaInput = z.input<typeof AccountSchema>;
 type SchemaOutput = z.infer<typeof AccountSchema>;
 
-export function AccountForm({ account }: { account?: Account }) {
+export function AccountForm({ account }: { account?: AccountView }) {
   const t = useTranslations("accounts");
   const show = useToastStore((store) => store.show);
   const [pending, startTransition] = useTransition();
@@ -31,7 +31,7 @@ export function AccountForm({ account }: { account?: Account }) {
     defaultValues: {
       name: account?.name ?? "",
       balance: account?.balance ?? undefined,
-      is_default: account?.is_default ?? false,
+      is_default: account?.isDefault ?? false,
     },
   });
 
@@ -40,7 +40,7 @@ export function AccountForm({ account }: { account?: Account }) {
       let res;
 
       if (account?.id) {
-        res = await updateAccountForm(account, data);
+        res = await updateAccountForm(Number(account.id), data);
       } else {
         res = await createAccountForm(data);
       }

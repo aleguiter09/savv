@@ -2,6 +2,7 @@ import { getExpenses } from "@/modules/movements/services/movements";
 import { parseMovementsForChart } from "@/modules/shared/utils/common";
 import Link from "next/link";
 import { Card } from "@/ui/card";
+import { adaptMovementItem } from "@/modules/movements/adapters/movements.adapter";
 
 type Props = Readonly<{
   accountId: string;
@@ -11,7 +12,9 @@ type Props = Readonly<{
 
 export async function ExpensesDataChart({ accountId, year, month }: Props) {
   const movements = await getExpenses(accountId, year, month);
-  const data = parseMovementsForChart(movements);
+  const adaptedMovements = movements.map(adaptMovementItem);
+
+  const data = parseMovementsForChart(adaptedMovements);
   const total = data.reduce((acc, item) => acc + item.amount, 0);
 
   return (

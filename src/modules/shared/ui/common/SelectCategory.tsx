@@ -40,10 +40,8 @@ export function SelectCategory({ categoryId }: Readonly<SelectCategoryProps>) {
           <SelectLabel>{t("incomes")}</SelectLabel>
           <SelectItem value="incomes">{t(`allIncomes`)}</SelectItem>
           {incomeCategories.map((item) => (
-            <SelectItem key={item.id} value={(item.id as number).toString()}>
-              {item.is_global && !item.is_custom_name
-                ? t(item.title as string)
-                : item.title}
+            <SelectItem key={item.id} value={item.id.toString()}>
+              {item.isGlobal && !item.isCustomName ? t(item.title) : item.title}
             </SelectItem>
           ))}
         </SelectGroup>
@@ -52,10 +50,8 @@ export function SelectCategory({ categoryId }: Readonly<SelectCategoryProps>) {
           <SelectLabel>{t("expenses")}</SelectLabel>
           <SelectItem value="expenses">{t(`allExpenses`)}</SelectItem>
           {expenseCategories.map((item) => (
-            <SelectItem key={item.id} value={(item.id as number).toString()}>
-              {item.is_global && !item.is_custom_name
-                ? t(item.title as string)
-                : item.title}
+            <SelectItem key={item.id} value={item.id.toString()}>
+              {item.isGlobal && !item.isCustomName ? t(item.title) : item.title}
             </SelectItem>
           ))}
         </SelectGroup>

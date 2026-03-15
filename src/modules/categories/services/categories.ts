@@ -1,11 +1,9 @@
-import type {
-  Category,
-  EffectiveCategory,
-  UserCategory,
-} from "@/modules/shared/types/global.types";
+import type { CategoryApi } from "../types/types";
 import { createClient } from "@/infra/supabase/server";
+import { CategorySchema } from "@/modules/shared/utils/schemas";
+import z from "zod";
 
-export const getCategories = async (): Promise<EffectiveCategory[]> => {
+export const getCategories = async (): Promise<CategoryApi[]> => {
   const supabase = await createClient();
 
   const { data } = await supabase
@@ -18,7 +16,7 @@ export const getCategories = async (): Promise<EffectiveCategory[]> => {
 
 export const getCategoryById = async (
   categoryId: number,
-): Promise<EffectiveCategory | null> => {
+): Promise<CategoryApi | null> => {
   const supabase = await createClient();
   const { data } = await supabase
     .from("effective_categories")
@@ -30,7 +28,9 @@ export const getCategoryById = async (
   return data ?? null;
 };
 
-export const createCategory = async (category: Category) => {
+export const createCategory = async (
+  category: z.infer<typeof CategorySchema>,
+) => {
   const supabase = await createClient();
   return await supabase.from("category").insert(category).throwOnError();
 };
@@ -46,7 +46,7 @@ export const deleteCategory = async (categoryId: number) => {
 
 export const updateCategory = async (
   categoryId: number,
-  category: Category,
+  category: z.infer<typeof CategorySchema>,
 ) => {
   const supabase = await createClient();
   return await supabase
@@ -57,7 +57,9 @@ export const updateCategory = async (
 };
 
 export const upsertUserCategory = async (
-  userCategory: Partial<UserCategory> & { category_id: number },
+  userCategory: Partial<z.infer<typeof CategorySchema>> & {
+    category_id: number;
+  },
 ) => {
   const supabase = await createClient();
   return await supabase

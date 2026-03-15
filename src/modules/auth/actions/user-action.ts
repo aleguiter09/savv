@@ -1,5 +1,4 @@
 "use server";
-import type { ServerActionResponse } from "@/modules/shared/types/general";
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import { createAccount } from "@/modules/accounts/services/accounts";
@@ -13,6 +12,7 @@ import {
   UpdatePasswordSchema,
   UserSchema,
 } from "@/modules/shared/utils/schemas";
+import { ServerActionResponse } from "@/modules/shared/types/global.types";
 
 export const createUserForm = async (
   data: z.infer<typeof UserSchema>,

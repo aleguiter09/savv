@@ -7,14 +7,13 @@ import { ConfirmDelete } from "@/modules/shared/ui/common/ConfirmDelete";
 import Link from "next/link";
 import { AccountForm } from "@/modules/accounts/ui/AccountForm";
 import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
+import { adaptAccount } from "@/modules/accounts/adapters/account.adapter.";
 
 type EditAccountPageProps = {
   params: { id: string };
 };
 
-export default async function Page({
-  params,
-}: Readonly<EditAccountPageProps>) {
+export default async function Page({ params }: Readonly<EditAccountPageProps>) {
   const t = await getTranslations("accounts");
   const { id } = await params;
   const account = await getAccountById(Number(id));
@@ -23,9 +22,11 @@ export default async function Page({
     notFound();
   }
 
+  const adaptedAccount = adaptAccount(account);
+
   const handleDelete = async () => {
     "use server";
-    await deleteAccountForm(account);
+    await deleteAccountForm(Number(account.id));
   };
 
   return (
@@ -42,7 +43,7 @@ export default async function Page({
           </span>
         </ConfirmDelete>
       </div>
-      <AccountForm account={account} />
+      <AccountForm account={adaptedAccount} />
 
       <ToastManager />
     </>

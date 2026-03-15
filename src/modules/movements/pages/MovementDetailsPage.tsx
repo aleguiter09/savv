@@ -5,7 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
 import { MovementDetail } from "@/modules/movements/ui/MovementDetail/MovementDetail";
 import { DeleteMovementButton } from "../ui/DeleteMovementButton";
-import { parseMovementDetails } from "../adapters/movements.adapter";
+import { adaptMovementItem } from "../adapters/movements.adapter";
 
 type MovementDetailPageProps = {
   id: number;
@@ -21,7 +21,7 @@ export async function MovementDetailPage({ id }: MovementDetailPageProps) {
     notFound();
   }
 
-  const parsedMovement = parseMovementDetails(movement);
+  const parsedMovement = adaptMovementItem(movement);
 
   return (
     <>
@@ -30,7 +30,7 @@ export async function MovementDetailPage({ id }: MovementDetailPageProps) {
           <ArrowLeft />
         </Link>
         <h4 className="font-medium">{t("detailsTitle")}</h4>
-        <DeleteMovementButton movement={movement} />
+        <DeleteMovementButton movement={parsedMovement} />
       </div>
 
       <MovementDetail {...parsedMovement} />

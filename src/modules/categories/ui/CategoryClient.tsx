@@ -3,19 +3,10 @@
 import { startTransition, useOptimistic } from "react";
 import { CategoryGroup } from "./CategoryGroup";
 import { toggleCategoryVisibility } from "../actions/category-action";
+import { CategoryView } from "../types/types";
 
-export type ParsedCategory = {
-  id: number;
-  title: string;
-  icon: string;
-  color: string;
-  isHidden: boolean;
-  isGlobal: boolean;
-  isCustomName: boolean;
-};
-
-export type CategoryClient = ParsedCategory & {
-  subcategories: ParsedCategory[];
+export type CategoryClient = CategoryView & {
+  subcategories: CategoryView[];
 };
 
 export function CategoryClient({
@@ -26,26 +17,38 @@ export function CategoryClient({
   const [categories, setOptimistic] = useOptimistic(
     initialCategories,
     (state, { id, isHidden }) =>
-      state.map((category) => {
-        if (category.id === id) {
-          return { ...category, isHidden };
-        }
+      state
+        .map((category) => {
+          if (category.id === id) {
+            return { ...category, isHidden };
+          }
 
-        const updatedSubcategories = category.subcategories.map((sub) =>
-          sub.id === id ? { ...sub, isHidden } : sub,
-        );
+          const updatedSubcategories = category.subcategories
+            .map((sub) => (sub.id === id ? { ...sub, isHidden } : sub))
+            .sort((a, b) => {
+              if (a.isHidden === b.isHidden) {
+                return a.title.localeCompare(b.title);
+              }
+              return a.isHidden ? 1 : -1;
+            });
 
-        if (
-          updatedSubcategories.some(
-            (sub, index) =>
-              sub.isHidden !== category.subcategories[index].isHidden,
-          )
-        ) {
-          return { ...category, subcategories: updatedSubcategories };
-        }
+          if (
+            updatedSubcategories.some(
+              (sub, index) =>
+                sub.isHidden !== category.subcategories[index].isHidden,
+            )
+          ) {
+            return { ...category, subcategories: updatedSubcategories };
+          }
 
-        return category;
-      }),
+          return category;
+        })
+        .sort((a, b) => {
+          if (a.isHidden === b.isHidden) {
+            return a.title.localeCompare(b.title);
+          }
+          return a.isHidden ? 1 : -1;
+        }),
   );
 
   const handleToggle = async (id: number, isHidden: boolean) => {

@@ -1,3 +1,4 @@
+import { adaptMovementItem } from "@/modules/movements/adapters/movements.adapter";
 import { getExpenses } from "@/modules/movements/services/movements";
 import { parseMovementsForChart } from "@/modules/shared/utils/common";
 import { getTranslations } from "next-intl/server";
@@ -10,7 +11,9 @@ export async function ExpenseByCatChart({ accountId, year, month }: Props) {
     getExpenses(accountId, year, month),
     getTranslations(),
   ]);
-  const data = parseMovementsForChart(movements);
+
+  const adaptedMovements = movements.map(adaptMovementItem);
+  const data = parseMovementsForChart(adaptedMovements);
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-2 pb-1">

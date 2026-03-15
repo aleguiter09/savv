@@ -1,8 +1,10 @@
-import type { Account } from "@/modules/shared/types/global.types";
 import { createClient } from "@/infra/supabase/server";
 import { cache } from "react";
+import { AccountApi } from "../types/types";
+import { AccountSchema } from "@/modules/shared/utils/schemas";
+import z from "zod";
 
-export const getAccounts = cache(async (): Promise<Account[]> => {
+export const getAccounts = cache(async (): Promise<AccountApi[]> => {
   const supabase = await createClient();
 
   try {
@@ -30,7 +32,9 @@ export const getAccountBalanceById = async (id: string): Promise<number> => {
   return data?.reduce((a, b) => a + b.balance, 0) ?? 0;
 };
 
-export const getAccountById = async (id: number): Promise<Account | null> => {
+export const getAccountById = async (
+  id: number,
+): Promise<AccountApi | null> => {
   const supabase = await createClient();
 
   const { data } = await supabase
@@ -54,7 +58,7 @@ export const getDefaultAccountId = async (): Promise<string> => {
   return data?.id.toString() ?? "0";
 };
 
-export const createAccount = async (account: Account) => {
+export const createAccount = async (account: AccountApi) => {
   const supabase = await createClient();
   return await supabase.from("account").insert(account).throwOnError();
 };
@@ -68,13 +72,16 @@ export const deleteAccount = async (accountId: number) => {
     .throwOnError();
 };
 
-export const updateAccount = async (account: Account, accountId: number) => {
+export const updateAccount = async (
+  account: z.infer<typeof AccountSchema>,
+  accountId: number,
+) => {
   const supabase = await createClient();
   return await supabase.from("account").update(account).eq("id", accountId);
 };
 
 export const updateAccountBalances = async (
-  updates: { account_id: number; amount_change: number }[],
+  updates: { account_id: string; amount_change: number }[],
 ) => {
   const supabase = await createClient();
 

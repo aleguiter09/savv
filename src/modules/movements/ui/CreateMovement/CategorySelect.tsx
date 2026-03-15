@@ -1,5 +1,5 @@
 "use client";
-import type { EffectiveCategory } from "@/modules/shared/types/global.types";
+import { CategoryView } from "@/modules/categories/types/types";
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
 import { cn } from "@/modules/shared/utils/cn";
 import {
@@ -13,7 +13,7 @@ import {
 import { useTranslations } from "next-intl";
 
 type Props = Readonly<{
-  categories: EffectiveCategory[];
+  categories: CategoryView[];
   category?: string;
   setCategory: (v: string) => void;
   error?: string;
@@ -57,8 +57,8 @@ export function CategorySelect({
                 </div>
               </SelectItem>
             )}
-            {categories.map((item: EffectiveCategory) => (
-              <SelectItem key={item.id} value={(item.id as number).toString()}>
+            {categories.map((item: CategoryView) => (
+              <SelectItem key={item.id} value={item.id}>
                 <div className="flex items-center">
                   <CategoryIcon
                     icon={item.icon ?? "transfer"}
@@ -66,7 +66,7 @@ export function CategorySelect({
                     size={14}
                   />
                   <p className="ml-2">
-                    {item.is_global && !item.is_custom_name
+                    {item.isGlobal && !item.isCustomName
                       ? t(`categories.${item.title}`)
                       : item.title}
                   </p>

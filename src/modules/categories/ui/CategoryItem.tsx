@@ -5,15 +5,9 @@ import { Eye, EyeOff, Pencil } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { cn } from "tailwind-variants";
+import { CategoryView } from "../types/types";
 
-export type CategoryItemProps = {
-  id: number;
-  title: string;
-  color: string;
-  icon: string;
-  isGlobal: boolean;
-  isCustomName: boolean;
-  isHidden: boolean;
+export type CategoryItemProps = CategoryView & {
   handleToggle: (id: number, is_hidden: boolean) => Promise<void>;
 };
 
@@ -57,7 +51,7 @@ export function CategoryItem({
           <Button
             size="icon"
             variant="secondary"
-            onClick={() => handleToggle(id, !isHidden)}
+            onClick={() => handleToggle(Number(id), !isHidden)}
           >
             {isHidden ? (
               <Eye className="size-3.5" />
@@ -66,7 +60,7 @@ export function CategoryItem({
             )}
           </Button>
         ) : (
-          <DeleteCategoryButton id={id} title={title} />
+          <DeleteCategoryButton id={Number(id)} title={title} />
         )}
       </div>
     </li>

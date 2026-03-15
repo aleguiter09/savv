@@ -1,6 +1,5 @@
 "use client";
 
-import type { Movement } from "@/modules/shared/types/global.types";
 import { Button } from "@/ui/button";
 import { Card } from "@/ui/card";
 import { DatePicker } from "@/ui/date-picker";
@@ -22,13 +21,14 @@ import { AccountSelect } from "./AccountSelect";
 import { CategorySelect } from "./CategorySelect";
 import { enUS, es } from "date-fns/locale";
 import { Input } from "@/ui/input";
+import { MovementView } from "../../types/types";
 
 type SchemaInput = z.input<typeof MovementSchema>;
 type SchemaOutput = z.infer<typeof MovementSchema>;
 
-export function MovementForm({ movement }: { movement?: Movement }) {
+export function MovementForm({ movement }: { movement?: MovementView }) {
   const { accounts, incomeCategories, expenseCategories } = useData();
-  const defaultAcc = accounts.find((a) => a.is_default);
+  const defaultAcc = accounts.find((a) => a.isDefault);
 
   const t = useTranslations("movements");
   const locale = useLocale();
@@ -42,9 +42,9 @@ export function MovementForm({ movement }: { movement?: Movement }) {
           amount: movement.amount,
           description: movement.description,
           type: movement.type,
-          done_at: new Date(movement.done_at),
-          category: movement.category ?? undefined,
-          from: movement.from,
+          done_at: new Date(movement.doneAt),
+          category: movement.category?.id ?? undefined,
+          from: movement.account?.id ?? undefined,
           where: movement.where ?? undefined,
         }
       : {

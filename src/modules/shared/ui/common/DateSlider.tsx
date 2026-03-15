@@ -1,9 +1,9 @@
 "use client";
-import type { YearMonth } from "@/modules/shared/types/general";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Card } from "@/ui/card";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { YearMonth } from "../../types/global.types";
 
 export default function DateSlider({ year, month }: Readonly<YearMonth>) {
   const t = useTranslations("common");

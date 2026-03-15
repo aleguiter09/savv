@@ -1,13 +1,15 @@
-import type { Movement } from "@/modules/shared/types/global.types";
+import { type MovementApi } from "../types/types";
 import { getInitialAndFinalDate } from "@/modules/shared/utils/common";
 import { createClient } from "@/infra/supabase/server";
+import { MovementSchema } from "@/modules/shared/utils/schemas";
+import z from "zod";
 
 export const getMovementsByFilters = async (
   from: Date,
   to: Date,
   accountId: string,
   categoryId: string,
-): Promise<Movement[]> => {
+): Promise<MovementApi[]> => {
   const supabase = await createClient();
   const initialDate = from.toISOString();
   const finishDate = to.toISOString();
@@ -15,13 +17,7 @@ export const getMovementsByFilters = async (
   let query = supabase
     .from("movement")
     .select(
-      `
-      id, from, amount, description, category, type,
-      done_at, where,
-      fullCategory:category (
-        id, title, icon, color, user_id
-      )
-    `,
+      `id, from, amount, description, category, type, done_at, where, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color)`,
     )
     .gte("done_at", initialDate)
     .lte("done_at", finishDate)
@@ -55,28 +51,15 @@ export const getMovementsByFilters = async (
   return [];
 };
 
-export const getLastMovements = async (accountId: string) => {
+export const getLastMovements = async (
+  accountId: string,
+): Promise<MovementApi[]> => {
   const supabase = await createClient();
 
   let query = supabase
     .from("movement")
     .select(
-      `
-      id,
-      from, 
-      amount,
-      description,
-      category,
-      type,
-      done_at,
-      where,
-      fullCategory:category (
-        id,
-        title,
-        icon,
-        color
-      )
-    `,
+      `id, from, amount, description, category, type, done_at, where, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color)`,
     )
     .lte("done_at", new Date().toISOString())
     .order("done_at", { ascending: false })
@@ -100,28 +83,15 @@ export const getLastMovements = async (accountId: string) => {
   return [];
 };
 
-export const getUpcomingMovements = async (accountId: string) => {
+export const getUpcomingMovements = async (
+  accountId: string,
+): Promise<MovementApi[]> => {
   const supabase = await createClient();
 
   let query = supabase
     .from("movement")
     .select(
-      `
-      id,
-      from, 
-      amount,
-      description,
-      category,
-      type,
-      done_at,
-      where,
-      fullCategory:category (
-        id,
-        title,
-        icon,
-        color
-      )
-    `,
+      `id, from, amount, description, category, type, done_at, where, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color)`,
     )
     .gt("done_at", new Date().toISOString())
     .order("done_at", { ascending: false })
@@ -181,33 +151,14 @@ export const getMonthExpenses = async (accountId: string) => {
   return data?.reduce((a, b) => a + b.amount, 0) ?? 0;
 };
 
-export const getMovementById = async (id: number): Promise<Movement | null> => {
+export const getMovementById = async (
+  id: number,
+): Promise<MovementApi | null> => {
   const supabase = await createClient();
   const { data } = await supabase
     .from("movement")
     .select(
-      `
-      id,
-      from, 
-      amount,
-      description,
-      category,
-      type,
-      done_at,
-      where,
-      fullCategory:category (
-        id,
-        title,
-        icon,
-        color
-      ),
-      fullAccount:from (
-        id,
-        name,
-        balance,
-        is_default
-      )
-    `,
+      `id, from, amount, description, category, type, done_at, where, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color), fullAccount:from(id, name, balance, is_default)`,
     )
     .eq("id", id)
     .single();
@@ -227,8 +178,11 @@ export const getMovementById = async (id: number): Promise<Movement | null> => {
   return null;
 };
 
-export const insertMovement = async (movement: Movement) => {
+export const insertMovement = async (
+  movement: z.infer<typeof MovementSchema>,
+) => {
   const supabase = await createClient();
+
   return await supabase.from("movement").insert(movement);
 };
 
@@ -237,7 +191,10 @@ export const deleteMovement = async (id: number) => {
   return await supabase.from("movement").delete().eq("id", id);
 };
 
-export const updateMovement = async (movement: Movement, id: number) => {
+export const updateMovement = async (
+  movement: Partial<MovementApi>,
+  id: number,
+) => {
   const supabase = await createClient();
   return await supabase.from("movement").update(movement).eq("id", id);
 };
@@ -246,27 +203,14 @@ export const getExpenses = async (
   accountId: string,
   year?: number,
   month?: number,
-): Promise<Movement[]> => {
+): Promise<MovementApi[]> => {
   const supabase = await createClient();
   const { initialDate, finishDate } = getInitialAndFinalDate(year, month);
 
   let query = supabase
     .from("movement")
     .select(
-      `
-      from, 
-      amount,
-      description, 
-      done_at, 
-      type,
-      category,
-      fullCategory:category (
-        id,
-        title,
-        icon,
-        color
-      )
-    `,
+      `id, from, amount, description, category, type, done_at, where, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color)`,
     )
     .eq("type", "expense")
     .gte("done_at", initialDate)

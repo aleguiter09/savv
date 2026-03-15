@@ -1,15 +1,13 @@
-import type { EffectiveCategory } from "../types/global.types";
+import { CategoryView } from "@/modules/categories/types/types";
 
-export function adaptCategories(categories: EffectiveCategory[]) {
-  const INCOME_PARENT_ID = 60;
+export function adaptCategories(categories: CategoryView[]) {
+  const INCOME_PARENT_ID = "60";
 
   return {
-    incomeCategories: categories.filter(
-      (c) => c.parent_id === INCOME_PARENT_ID,
-    ),
+    incomeCategories: categories.filter((c) => c.parentId === INCOME_PARENT_ID),
     expenseCategories: categories.filter(
-      (c) => c.parent_id !== null && c.parent_id !== INCOME_PARENT_ID,
+      (c) => c.parentId !== null && c.parentId !== INCOME_PARENT_ID,
     ),
-    parentCategories: categories.filter((c) => c.parent_id === null),
+    parentCategories: categories.filter((c) => c.parentId === null),
   };
 }

@@ -1,37 +1,25 @@
-import { MovementTypes } from "@/modules/shared/types/global.types";
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
 import { cn } from "@/modules/shared/utils/cn";
 import { getFormatter, getTranslations } from "next-intl/server";
 import Link from "next/link";
-
-export type MovementDetailProps = {
-  id: number;
-  done_at: string;
-  amount: number;
-  description: string;
-  type: MovementTypes;
-  categoryTitle: string;
-  categoryIcon: string;
-  categoryColor: string;
-  accountName: string;
-};
+import type { MovementView } from "../../types/types";
 
 export async function MovementDetail({
   id,
-  done_at,
+  doneAt,
   amount,
   description,
   type,
-  categoryTitle,
-  categoryIcon,
-  categoryColor,
-  accountName,
-}: MovementDetailProps) {
+  category,
+  account,
+}: MovementView) {
   const [tMovements, tCategories, format] = await Promise.all([
     getTranslations("movements"),
     getTranslations("categories"),
     getFormatter(),
   ]);
+
+  const { icon, color, isGlobal, isCustomName, title } = category;
 
   const displayAmount = format.number(type === "expense" ? -amount : amount, {
     style: "currency",
@@ -39,7 +27,7 @@ export async function MovementDetail({
     signDisplay: "auto",
   });
 
-  const displayDate = format.dateTime(new Date(done_at), {
+  const displayDate = format.dateTime(new Date(doneAt), {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -49,8 +37,10 @@ export async function MovementDetail({
     <div className="rounded-md p-4 border bg-white">
       <div className="flex justify-between items-center mb-4">
         <div className="flex gap-3 items-center">
-          <CategoryIcon icon={categoryIcon} color={categoryColor} />
-          <span className="font-medium">{tCategories(categoryTitle)}</span>
+          <CategoryIcon icon={icon} color={color} />
+          <span className="font-medium">
+            {isGlobal && !isCustomName ? tCategories(title) : title}
+          </span>
         </div>
 
         <span
@@ -64,7 +54,7 @@ export async function MovementDetail({
       </div>
       <div className="rounded-md border py-2 px-3 flex flex-col gap-1 mb-3">
         <dt className=" text-gray-500 text-xs">{tMovements("account")}</dt>
-        <dd className="text-sm">{accountName}</dd>
+        <dd className="text-sm">{account.name}</dd>
       </div>
 
       <div className="rounded-md border py-2 px-3 flex flex-col gap-1 mb-3">

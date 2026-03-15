@@ -3,12 +3,12 @@
 import { useTranslations } from "next-intl";
 import { Trash2 } from "lucide-react";
 import { deleteMovementForm } from "../actions/movement-action";
-import type { Movement } from "@/modules/shared/types/global.types";
 import { ConfirmDialog } from "@/modules/shared/ui/common/ConfirmDialog";
+import type { MovementView } from "../types/types";
 
 const BrComponent = () => <br />;
 
-export function DeleteMovementButton({ movement }: { movement: Movement }) {
+export function DeleteMovementButton({ movement }: { movement: MovementView }) {
   const t = useTranslations("movements");
 
   const handleDelete = async () => {

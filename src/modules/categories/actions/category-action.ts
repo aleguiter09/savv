@@ -1,6 +1,5 @@
 "use server";
 
-import type { ServerActionResponse } from "@/modules/shared/types/general";
 import { CategorySchema } from "@/modules/shared/utils/schemas";
 import { setToastMessage } from "@/modules/shared/actions/toast";
 import {
@@ -13,6 +12,7 @@ import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import z from "zod";
+import type { ServerActionResponse } from "@/modules/shared/types/global.types";
 
 export async function createCategoryForm(
   data: z.infer<typeof CategorySchema>,

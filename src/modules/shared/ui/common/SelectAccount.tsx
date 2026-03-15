@@ -1,5 +1,4 @@
 "use client";
-import type { Account } from "@/modules/shared/types/global.types";
 import {
   Select,
   SelectContent,
@@ -37,7 +36,7 @@ export function SelectAccount({ accountId }: Props) {
       <SelectContent className="max-h-60">
         <SelectItem value="all">{t("allAccounts")}</SelectItem>
         <SelectGroup>
-          {accounts.map((account: Account) => (
+          {accounts.map((account) => (
             <SelectItem key={account.id} value={account.id?.toString() ?? ""}>
               {account.name}
             </SelectItem>

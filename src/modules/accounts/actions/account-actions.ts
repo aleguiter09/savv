@@ -1,7 +1,5 @@
 "use server";
-
-import type { ServerActionResponse } from "@/modules/shared/types/general";
-import type { Account } from "@/modules/shared/types/global.types";
+import type { ServerActionResponse } from "@/modules/shared/types/global.types";
 import { AccountSchema } from "@/modules/shared/utils/schemas";
 import { setToastMessage } from "@/modules/shared/actions/toast";
 import {
@@ -43,7 +41,7 @@ export async function createAccountForm(
 }
 
 export async function updateAccountForm(
-  account: Account,
+  accountId: number,
   data: z.infer<typeof AccountSchema>,
 ): Promise<ServerActionResponse> {
   const parsed = AccountSchema.safeParse(data);
@@ -56,7 +54,7 @@ export async function updateAccountForm(
   }
 
   try {
-    await updateAccount(parsed.data, account.id!);
+    await updateAccount(parsed.data, accountId);
   } catch (error) {
     return {
       success: false,
@@ -71,9 +69,17 @@ export async function updateAccountForm(
   redirect("/settings/accounts");
 }
 
-export const deleteAccountForm = async (account: Account) => {
-  if (!account.id) return;
-  await deleteAccount(account.id);
+export const deleteAccountForm = async (
+  accountId: number,
+): Promise<ServerActionResponse> => {
+  try {
+    await deleteAccount(accountId);
+  } catch (error) {
+    return {
+      success: false,
+      error: "Database error: failed to delete account: " + error,
+    };
+  }
 
   const t = await getTranslations("accounts");
 

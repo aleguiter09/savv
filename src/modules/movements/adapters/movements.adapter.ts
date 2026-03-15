@@ -1,9 +1,7 @@
-import { getDefaultAccountId } from "@/modules/accounts/services/accounts";
-import { Movement } from "@/modules/shared/types/global.types";
 import type { MovementsPageProps } from "../pages/MovementsPage";
-import type { MovementDetailProps } from "../ui/MovementDetail/MovementDetail";
 import type { MovementItemProps } from "../ui/MovementsList/MovementItem";
-import { MovementItemDetailProps } from "../ui/MovementsList/MovementItemDetail";
+import type { MovementApi, MovementView } from "../types/types";
+import { getDefaultAccountId } from "@/modules/accounts/services/accounts";
 
 export async function parseMovementsSearchParams(
   searchParams: MovementsPageProps,
@@ -30,22 +28,8 @@ export async function parseMovementsSearchParams(
   return { accountId, categoryId, from: parsedFrom, to: parsedTo };
 }
 
-export const parseMovementDetails = (
-  movement: Movement,
-): MovementDetailProps => ({
-  id: movement.id as number,
-  done_at: movement.done_at,
-  amount: movement.amount ?? 0,
-  description: movement.description ?? "",
-  type: movement.type,
-  categoryTitle: movement.fullCategory?.title ?? "transfer",
-  categoryIcon: movement.fullCategory?.icon ?? "transfer",
-  categoryColor: movement.fullCategory?.color ?? "gray",
-  accountName: movement.fullAccount?.name ?? "",
-});
-
 export const getMovementsByDay = (
-  movements: Movement[],
+  movements: MovementApi[],
 ): MovementItemProps[] => {
   const items: MovementItemProps[] = [];
 
@@ -72,14 +56,26 @@ export const getMovementsByDay = (
   );
 };
 
-const adaptMovementItem = (movement: Movement): MovementItemDetailProps => ({
-  id: movement.id as number,
-  done_at: movement.done_at,
+export const adaptMovementItem = (movement: MovementApi): MovementView => ({
+  id: movement.id,
+  doneAt: movement.done_at,
   amount: movement.amount ?? 0,
   description: movement.description ?? "",
   type: movement.type,
-  translateCategory: !movement.fullCategory?.user_id,
-  categoryTitle: movement.fullCategory?.title ?? "transfer",
-  categoryIcon: movement.fullCategory?.icon ?? "transfer",
-  categoryColor: movement.fullCategory?.color ?? "gray",
+  account: {
+    id: movement.fullAccount?.id.toString() ?? "",
+    name: movement.fullAccount?.name ?? "",
+    balance: movement.fullAccount?.balance ?? 0,
+    isDefault: movement.fullAccount?.is_default ?? false,
+  },
+  category: {
+    id: movement.fullCategory?.id?.toString() ?? "",
+    title: movement.fullCategory?.title ?? "transfer",
+    icon: movement.fullCategory?.icon ?? "transfer",
+    color: movement.fullCategory?.color ?? "gray",
+    isGlobal: movement.fullCategory?.is_global ?? false,
+    isCustomName: movement.fullCategory?.is_custom_name ?? false,
+    parentId: movement.fullCategory?.parent_id?.toString() ?? "",
+    isHidden: movement.fullCategory?.is_hidden ?? false,
+  },
 });

@@ -1,4 +1,3 @@
-import type { CategoryIcons } from "@/modules/shared/types/general";
 import {
   BusFront,
   CirclePercent,
@@ -26,6 +25,7 @@ import {
   TvMinimal,
   Wallet,
 } from "lucide-react";
+import { CategoryIcons } from "../types/global.types";
 
 export const CATEGORY_ICONS: CategoryIcons = {
   food: Hamburger,

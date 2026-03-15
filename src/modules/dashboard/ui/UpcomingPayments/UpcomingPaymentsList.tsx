@@ -1,6 +1,7 @@
 import { getUpcomingMovements } from "@/modules/movements/services/movements";
 import { getTranslations } from "next-intl/server";
 import { LastMovementDetail } from "../LastMovements/LastMovementDetail";
+import { adaptMovementItem } from "@/modules/movements/adapters/movements.adapter";
 
 type Props = Readonly<{
   accountId: string;
@@ -9,10 +10,11 @@ type Props = Readonly<{
 export async function UpcomingPaymentsList({ accountId }: Props) {
   const t = await getTranslations("dashboard");
   const upcomingMovements = await getUpcomingMovements(accountId);
+  const adaptedMovements = upcomingMovements.map(adaptMovementItem);
 
   return (
     <div className="flex flex-col gap-2 mt-3">
-      {upcomingMovements.map((item) => (
+      {adaptedMovements.map((item) => (
         <LastMovementDetail key={item.id} {...item} />
       ))}
       {upcomingMovements.length === 0 && (

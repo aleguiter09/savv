@@ -1,6 +1,7 @@
 import { getLastMovements } from "@/modules/movements/services/movements";
 import { getTranslations } from "next-intl/server";
 import { LastMovementDetail } from "./LastMovementDetail";
+import { adaptMovementItem } from "@/modules/movements/adapters/movements.adapter";
 
 type Props = Readonly<{
   accountId: string;
@@ -9,13 +10,14 @@ type Props = Readonly<{
 export async function LastMovementsList({ accountId }: Props) {
   const t = await getTranslations("dashboard");
   const movements = await getLastMovements(accountId);
+  const adaptedMovements = movements.map(adaptMovementItem);
 
   return (
     <div className="flex flex-col gap-2 mt-3">
-      {movements.map((item) => (
+      {adaptedMovements.map((item) => (
         <LastMovementDetail key={item.id} {...item} />
       ))}
-      {movements.length === 0 && (
+      {adaptedMovements.length === 0 && (
         <p className="pt-2 text-sm text-slate-500 text-center col-span-3">
           {t("noMovements")}
         </p>

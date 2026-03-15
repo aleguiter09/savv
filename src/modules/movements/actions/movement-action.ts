@@ -1,6 +1,4 @@
 "use server";
-import type { ServerActionResponse } from "@/modules/shared/types/general";
-import type { Movement } from "@/modules/shared/types/global.types";
 import { revalidatePath } from "next/cache";
 import {
   deleteMovement,
@@ -13,6 +11,8 @@ import { getTranslations } from "next-intl/server";
 import { MovementSchema } from "@/modules/shared/utils/schemas";
 import { updateAccountBalances } from "@/modules/accounts/services/accounts";
 import { z } from "zod";
+import { ServerActionResponse } from "@/modules/shared/types/global.types";
+import { MovementView } from "../types/types";
 
 export const createMovementForm = async (
   data: z.infer<typeof MovementSchema>,
@@ -27,20 +27,31 @@ export const createMovementForm = async (
   }
 
   try {
-    const data = parsed.data;
-    await insertMovement({ ...data, done_at: data.done_at.toISOString() });
+    await insertMovement(parsed.data);
 
     const updates = [];
 
-    if (data.type === "transfer") {
+    if (parsed.data.type === "transfer") {
       updates.push(
-        { account_id: data.from, amount_change: -data.amount },
-        { account_id: data.where, amount_change: data.amount },
+        {
+          account_id: parsed.data.from.toString(),
+          amount_change: -parsed.data.amount,
+        },
+        {
+          account_id: parsed.data.where.toString(),
+          amount_change: parsed.data.amount,
+        },
       );
-    } else if (data.type === "expense") {
-      updates.push({ account_id: data.from, amount_change: -data.amount });
-    } else if (data.type === "income") {
-      updates.push({ account_id: data.from, amount_change: data.amount });
+    } else if (parsed.data.type === "expense") {
+      updates.push({
+        account_id: parsed.data.from.toString(),
+        amount_change: -parsed.data.amount,
+      });
+    } else if (parsed.data.type === "income") {
+      updates.push({
+        account_id: parsed.data.from.toString(),
+        amount_change: parsed.data.amount,
+      });
     }
 
     if (updates.length > 0) {
@@ -60,8 +71,8 @@ export const createMovementForm = async (
   redirect("/");
 };
 
-export const deleteMovementForm = async (movement: Movement) => {
-  if (!movement.id || !movement.from) return;
+export const deleteMovementForm = async (movement: MovementView) => {
+  if (!movement.id || !movement.account?.id) return;
 
   await deleteMovement(movement.id);
 
@@ -69,21 +80,24 @@ export const deleteMovementForm = async (movement: Movement) => {
   if (movement.type === "transfer") {
     updates.push(
       {
-        account_id: movement.from,
+        account_id: movement.account.id,
         amount_change: -movement.amount,
       },
       {
-        account_id: movement.where ?? 0,
+        account_id: movement.where?.id ?? "0",
         amount_change: movement.amount,
       },
     );
   } else if (movement.type === "expense") {
     updates.push({
-      account_id: movement.from,
+      account_id: movement.account.id,
       amount_change: -movement.amount,
     });
   } else if (movement.type === "income") {
-    updates.push({ account_id: movement.from, amount_change: movement.amount });
+    updates.push({
+      account_id: movement.account.id,
+      amount_change: movement.amount,
+    });
   }
 
   if (updates.length > 0) {
@@ -98,7 +112,7 @@ export const deleteMovementForm = async (movement: Movement) => {
 };
 
 export const updateMovementForm = async (
-  previous: Movement,
+  previous: MovementView,
   data: z.infer<typeof MovementSchema>,
 ): Promise<ServerActionResponse> => {
   const parsed = MovementSchema.safeParse(data);
@@ -112,39 +126,36 @@ export const updateMovementForm = async (
 
   try {
     const data = parsed.data;
-    await updateMovement(
-      { ...data, done_at: data.done_at.toISOString() },
-      Number(previous.id),
-    );
+    await updateMovement(data, Number(previous.id));
 
-    const deltas: Record<number, number> = {};
-    const addDelta = (acc: number | undefined, amount: number) => {
+    const deltas: Record<string, number> = {};
+    const addDelta = (acc: string | undefined, amount: number) => {
       if (acc === undefined || Number.isNaN(acc)) return;
       deltas[acc] = (deltas[acc] ?? 0) + amount;
     };
 
     if (data.type === "transfer") {
-      addDelta(data.from, -data.amount);
-      addDelta(data.where, data.amount);
+      addDelta(data.from.toString(), -data.amount);
+      addDelta(data.where.toString(), data.amount);
     } else if (data.type === "expense") {
-      addDelta(data.from, -data.amount);
+      addDelta(data.from.toString(), -data.amount);
     } else if (data.type === "income") {
-      addDelta(data.from, data.amount);
+      addDelta(data.from.toString(), data.amount);
     }
 
     if (previous.type === "transfer") {
-      addDelta(previous.from, previous.amount);
-      addDelta(previous.where as number, -previous.amount);
+      addDelta(previous.account.id, previous.amount);
+      addDelta(previous.where?.id, -previous.amount);
     } else if (previous.type === "expense") {
-      addDelta(previous.from, previous.amount);
+      addDelta(previous.account.id, previous.amount);
     } else if (previous.type === "income") {
-      addDelta(previous.from, -previous.amount);
+      addDelta(previous.account.id, -previous.amount);
     }
 
-    const updates: { account_id: number; amount_change: number }[] = [];
+    const updates: { account_id: string; amount_change: number }[] = [];
     Object.entries(deltas).forEach(([accountId, diff]) => {
       if (diff === 0) return;
-      updates.push({ account_id: Number(accountId), amount_change: diff });
+      updates.push({ account_id: accountId, amount_change: diff });
     });
 
     if (updates.length > 0) {

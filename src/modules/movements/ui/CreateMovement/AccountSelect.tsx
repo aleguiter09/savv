@@ -1,4 +1,4 @@
-import type { Account } from "@/modules/shared/types/global.types";
+import { AccountView } from "@/modules/accounts/types/types";
 import { cn } from "@/modules/shared/utils/cn";
 import {
   Select,
@@ -12,7 +12,7 @@ import { useTranslations } from "next-intl";
 
 type Props = Readonly<{
   label: string;
-  accounts: Account[];
+  accounts: AccountView[];
   value?: string;
   setValue: (v: string) => void;
   error?: string;
@@ -40,7 +40,7 @@ export function AccountSelect({
         </SelectTrigger>
         <SelectContent className="max-h-56">
           <SelectGroup>
-            {accounts.map((account: Account) => (
+            {accounts.map((account: AccountView) => (
               <SelectItem key={account.id} value={account.id?.toString() ?? ""}>
                 {account.name}: ${account.balance.toFixed(2)}
               </SelectItem>

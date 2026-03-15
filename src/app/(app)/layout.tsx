@@ -1,4 +1,6 @@
+import { adaptAccount } from "@/modules/accounts/adapters/account.adapter.";
 import { getAccounts } from "@/modules/accounts/services/accounts";
+import { adaptCategory } from "@/modules/categories/adapters/categories.adapter";
 import { getCategories } from "@/modules/categories/services/categories";
 import { DataProvider } from "@/modules/shared/stores/DataProvider";
 
@@ -10,8 +12,11 @@ export default async function AppLayout({
     getCategories(),
   ]);
 
+  const adaptedAccounts = accounts.map(adaptAccount);
+  const adaptedCategories = categories.map(adaptCategory);
+
   return (
-    <DataProvider accounts={accounts} categories={categories}>
+    <DataProvider accounts={adaptedAccounts} categories={adaptedCategories}>
       {children}
     </DataProvider>
   );

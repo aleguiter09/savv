@@ -1,29 +1,33 @@
 import { Badge } from "@/ui/badge";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { cn } from "@/modules/shared/utils/cn";
-import {
-  MovementItemDetail,
-  type MovementItemDetailProps,
-} from "./MovementItemDetail";
+import { MovementItemDetail } from "./MovementItemDetail";
 import { getFormatter } from "next-intl/server";
+import type { MovementView } from "../../types/types";
 
 export type MovementItemProps = {
   date: string;
   amount: number;
-  items: MovementItemDetailProps[];
+  items: MovementView[];
 };
 
-export async function MovementItem({ date, items = [], amount }: MovementItemProps) {
-  const format = await getFormatter()
+export async function MovementItem({
+  date,
+  items = [],
+  amount,
+}: MovementItemProps) {
+  const format = await getFormatter();
 
   return (
     <div className="px-2 pb-1 pt-2 flex flex-col gap-2 text-gray-900 border-b border-gray-2 last:border-0">
       <div className="flex justify-between">
-        <h2 className="text-xs">{format.dateTime(new Date(date), {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })}</h2>
+        <h2 className="text-xs">
+          {format.dateTime(new Date(date), {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })}
+        </h2>
         <Badge
           className={cn(
             amount > 0

@@ -1,4 +1,4 @@
-import type { Movement } from "@/modules/shared/types/global.types";
+import { MovementView } from "@/modules/movements/types/types";
 
 export const getInitialAndFinalDate = (year?: number, month?: number) => {
   const initialDate = new Date(
@@ -32,21 +32,21 @@ type ParsedMovement = {
 };
 
 export const parseMovementsForChart = (
-  movements: Movement[],
+  movements: MovementView[],
 ): ParsedMovement[] => {
   const result: ParsedMovement[] = [];
 
   for (const movement of movements) {
-    const { amount, fullCategory, category } = movement;
-    const dataItem = result.find((item) => item.title === fullCategory?.title);
+    const { amount, category } = movement;
+    const dataItem = result.find((item) => item.title === category?.title);
 
     if (dataItem) {
       dataItem.amount += amount;
     } else {
       result.push({
-        title: fullCategory?.title ?? "Uncategorized",
-        color: fullCategory?.color ?? "gray",
-        category: category ? category.toString() : "uncategorized",
+        title: category?.title ?? "Uncategorized",
+        color: category?.color ?? "gray",
+        category: category?.id?.toString() ?? "uncategorized",
         amount: amount,
       });
     }

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { MovementForm } from "@/modules/movements/ui/CreateMovement/MovementForm";
+import { adaptMovementItem } from "@/modules/movements/adapters/movements.adapter";
 
 type EditMovementPageProps = { id: number };
 
@@ -17,6 +18,8 @@ export async function EditMovementPage({ id }: EditMovementPageProps) {
     notFound();
   }
 
+  const adaptedMovement = adaptMovementItem(movement);
+
   return (
     <>
       <div className="flex justify-between items-center mb-3">
@@ -27,7 +30,7 @@ export async function EditMovementPage({ id }: EditMovementPageProps) {
         <span></span>
       </div>
 
-      <MovementForm movement={movement} />
+      <MovementForm movement={adaptedMovement} />
     </>
   );
 }

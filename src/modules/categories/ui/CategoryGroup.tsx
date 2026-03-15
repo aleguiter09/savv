@@ -7,10 +7,9 @@ import { CategoryItem } from "./CategoryItem";
 import Link from "next/link";
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
 import { useTranslations } from "next-intl";
-import type { CategoryClient, ParsedCategory } from "./CategoryClient";
+import type { CategoryClient } from "./CategoryClient";
 
 export type CategoryGroupProps = CategoryClient & {
-  subcategories: ParsedCategory[];
   handleToggle: (id: number, is_hidden: boolean) => Promise<void>;
 };
 
@@ -38,7 +37,7 @@ export function CategoryGroup({
         )}
       >
         <button className="flex flex-1 items-center gap-3 text-left">
-          <CategoryIcon icon={icon ?? "transfer"} color={color ?? "gray"} />
+          <CategoryIcon icon={icon} color={color} />
           <div className="flex flex-col flex-1">
             <span
               className={cn(
@@ -65,7 +64,7 @@ export function CategoryGroup({
             <Button
               size="icon"
               variant="secondary"
-              onClick={() => handleToggle(id, !isHidden)}
+              onClick={() => handleToggle(Number(id), !isHidden)}
             >
               {isHidden ? (
                 <Eye className="size-3.5" />
@@ -74,7 +73,7 @@ export function CategoryGroup({
               )}
             </Button>
           ) : (
-            <DeleteCategoryButton id={id} title={title} />
+            <DeleteCategoryButton id={Number(id)} title={title} />
           )}
         </div>
       </div>
@@ -83,14 +82,8 @@ export function CategoryGroup({
         <ul className="border-t">
           {subcategories.map((child) => (
             <CategoryItem
+              {...child}
               key={child.id}
-              id={child.id}
-              title={child.title}
-              isHidden={child.isHidden}
-              isGlobal={child.isGlobal}
-              isCustomName={child.isCustomName}
-              color={child.color}
-              icon={child.icon}
               handleToggle={handleToggle}
             />
           ))}

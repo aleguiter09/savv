@@ -1,36 +1,23 @@
-import type { MovementTypes } from "@/modules/shared/types/global.types";
 import Link from "next/link";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
 import { cn } from "@/modules/shared/utils/cn";
-
-export type MovementItemDetailProps = {
-  id: number;
-  done_at: string;
-  amount: number;
-  description: string;
-  type: MovementTypes;
-  translateCategory: boolean;
-  categoryTitle: string;
-  categoryIcon: string;
-  categoryColor: string;
-};
+import type { MovementView } from "../../types/types";
 
 export async function MovementItemDetail({
   id,
-  done_at,
+  doneAt,
   amount,
   description,
   type,
-  translateCategory,
-  categoryTitle,
-  categoryIcon,
-  categoryColor,
-}: MovementItemDetailProps) {
+  category,
+}: MovementView) {
   const [t, format] = await Promise.all([
     getTranslations("categories"),
     getFormatter(),
   ]);
+
+  const { icon, color, isGlobal, isCustomName, title } = category;
 
   return (
     <Link
@@ -39,11 +26,11 @@ export async function MovementItemDetail({
       className="flex items-center justify-between px-1 pb-2 border-b border-gray-300 last:border-b-0 focus:ring-2 focus:ring-inset focus:ring-blue-600"
     >
       <div className="flex gap-3">
-        <CategoryIcon icon={categoryIcon} color={categoryColor} />
+        <CategoryIcon icon={icon} color={color} />
         <div className="flex flex-col">
           <span className="font-medium text-sm">{description}</span>
           <span className="text-xs text-gray-500">
-            {translateCategory ? t(categoryTitle) : categoryTitle}
+            {isGlobal && !isCustomName ? t(title) : title}
           </span>
         </div>
       </div>
@@ -57,7 +44,7 @@ export async function MovementItemDetail({
           )}
         >{`${type === "expense" ? "-" : ""} $${amount.toFixed(2)}`}</span>
         <span className="text-xs text-gray-500">
-          {format.dateTime(new Date(done_at), {
+          {format.dateTime(new Date(doneAt), {
             year: "numeric",
             month: "long",
             day: "numeric",
