@@ -13,7 +13,7 @@ export type Movement = {
   id?: MovementDB["id"];
   from: MovementDB["from"];
   amount: MovementDB["amount"];
-  comment: MovementDB["comment"];
+  description: MovementDB["description"];
   category?: MovementDB["category"];
   type: MovementDB["type"];
   done_at: MovementDB["done_at"];

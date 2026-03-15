@@ -90,39 +90,45 @@ export type Database = {
         Row: {
           amount: number
           applied: boolean
+          balance_after: number | null
           category: number | null
-          comment: string
           created_at: string
+          description: string
           done_at: string
           from: number
           id: number
           type: Database["public"]["Enums"]["movementType"]
+          updated_at: string | null
           user_id: string
           where: number | null
         }
         Insert: {
           amount: number
           applied?: boolean
+          balance_after?: number | null
           category?: number | null
-          comment: string
           created_at?: string
+          description: string
           done_at?: string
           from: number
           id?: number
           type: Database["public"]["Enums"]["movementType"]
+          updated_at?: string | null
           user_id?: string
           where?: number | null
         }
         Update: {
           amount?: number
           applied?: boolean
+          balance_after?: number | null
           category?: number | null
-          comment?: string
           created_at?: string
+          description?: string
           done_at?: string
           from?: number
           id?: number
           type?: Database["public"]["Enums"]["movementType"]
+          updated_at?: string | null
           user_id?: string
           where?: number | null
         }
@@ -159,34 +165,34 @@ export type Database = {
       }
       user_category: {
         Row: {
-          category_id: number | null
+          category_id: number
           created_at: string
           custom_color: Database["public"]["Enums"]["categoryColors"] | null
           custom_icon: string | null
           custom_name: string | null
           id: number
           is_hidden: boolean | null
-          user_id: string | null
+          user_id: string
         }
         Insert: {
-          category_id?: number | null
+          category_id: number
           created_at?: string
           custom_color?: Database["public"]["Enums"]["categoryColors"] | null
           custom_icon?: string | null
           custom_name?: string | null
           id?: number
           is_hidden?: boolean | null
-          user_id?: string | null
+          user_id?: string
         }
         Update: {
-          category_id?: number | null
+          category_id?: number
           created_at?: string
           custom_color?: Database["public"]["Enums"]["categoryColors"] | null
           custom_icon?: string | null
           custom_name?: string | null
           id?: number
           is_hidden?: boolean | null
-          user_id?: string | null
+          user_id?: string
         }
         Relationships: [
           {

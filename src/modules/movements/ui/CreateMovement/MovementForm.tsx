@@ -40,7 +40,7 @@ export function MovementForm({ movement }: { movement?: Movement }) {
     defaultValues: movement
       ? {
           amount: movement.amount,
-          comment: movement.comment,
+          description: movement.description,
           type: movement.type,
           done_at: new Date(movement.done_at),
           category: movement.category ?? undefined,
@@ -51,7 +51,7 @@ export function MovementForm({ movement }: { movement?: Movement }) {
           type: "expense",
           done_at: new Date(),
           from: defaultAcc?.id ?? undefined,
-          comment: "",
+          description: "",
         },
   });
 
@@ -218,18 +218,20 @@ export function MovementForm({ movement }: { movement?: Movement }) {
             )}
           />
 
-          {/* comment */}
+          {/* description */}
           <Controller
-            name="comment"
+            name="description"
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="comment">{t("enterComment")}</FieldLabel>
+                <FieldLabel htmlFor="description">
+                  {t("enterDescription")}
+                </FieldLabel>
                 <Input
                   {...field}
-                  id="comment"
+                  id="description"
                   aria-invalid={fieldState.invalid}
-                  placeholder={t("chooseComment")}
+                  placeholder={t("chooseDescription")}
                 />
                 {fieldState.invalid && (
                   <FieldError error={t(fieldState.error?.message as string)} />

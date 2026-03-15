@@ -1,7 +1,6 @@
 "use server";
 
 import type { ServerActionResponse } from "@/modules/shared/types/general";
-import type { UserCategory } from "@/modules/shared/types/global.types";
 import { CategorySchema } from "@/modules/shared/utils/schemas";
 import { setToastMessage } from "@/modules/shared/actions/toast";
 import {
@@ -59,7 +58,7 @@ export async function updateCategoryForm(
 
   try {
     if (isGlobal) {
-      const userCategory: Partial<UserCategory> = {
+      const userCategory = {
         category_id: categoryId,
         custom_name: parsed.data.title,
         custom_icon: parsed.data.icon,
@@ -99,7 +98,7 @@ export async function toggleCategoryVisibility(
   categoryId: number,
   is_hidden: boolean,
 ) {
-  const userCategory: Partial<UserCategory> = {
+  const userCategory = {
     category_id: categoryId,
     is_hidden: is_hidden,
   };

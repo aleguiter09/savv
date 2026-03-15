@@ -8,7 +8,7 @@ export type MovementDetailProps = {
   id: number;
   done_at: string;
   amount: number;
-  comment: string;
+  description: string;
   type: MovementTypes;
   categoryTitle: string;
   categoryIcon: string;
@@ -20,7 +20,7 @@ export async function MovementDetail({
   id,
   done_at,
   amount,
-  comment,
+  description,
   type,
   categoryTitle,
   categoryIcon,
@@ -49,10 +49,7 @@ export async function MovementDetail({
     <div className="rounded-md p-4 border bg-white">
       <div className="flex justify-between items-center mb-4">
         <div className="flex gap-3 items-center">
-          <CategoryIcon
-            icon={categoryIcon}
-            color={categoryColor}
-          />
+          <CategoryIcon icon={categoryIcon} color={categoryColor} />
           <span className="font-medium">{tCategories(categoryTitle)}</span>
         </div>
 
@@ -75,8 +72,8 @@ export async function MovementDetail({
         <dd className="text-sm">{displayDate}</dd>
       </div>
       <div className="rounded-md border py-2 px-3 flex flex-col gap-1">
-        <dt className=" text-gray-500 text-xs">{tMovements("comment")}</dt>
-        <dd className="text-sm">{comment}</dd>
+        <dt className=" text-gray-500 text-xs">{tMovements("description")}</dt>
+        <dd className="text-sm">{description}</dd>
       </div>
 
       <div className="mt-3 flex gap-2">

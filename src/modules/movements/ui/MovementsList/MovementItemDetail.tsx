@@ -8,7 +8,7 @@ export type MovementItemDetailProps = {
   id: number;
   done_at: string;
   amount: number;
-  comment: string;
+  description: string;
   type: MovementTypes;
   translateCategory: boolean;
   categoryTitle: string;
@@ -20,7 +20,7 @@ export async function MovementItemDetail({
   id,
   done_at,
   amount,
-  comment,
+  description,
   type,
   translateCategory,
   categoryTitle,
@@ -41,7 +41,7 @@ export async function MovementItemDetail({
       <div className="flex gap-3">
         <CategoryIcon icon={categoryIcon} color={categoryColor} />
         <div className="flex flex-col">
-          <span className="font-medium text-sm">{comment}</span>
+          <span className="font-medium text-sm">{description}</span>
           <span className="text-xs text-gray-500">
             {translateCategory ? t(categoryTitle) : categoryTitle}
           </span>

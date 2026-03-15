@@ -6,7 +6,10 @@ const BaseMovementSchema = z.object({
     .number("amountPositiveError")
     .positive("amountPositiveError")
     .max(999999, "amountTooLarge"),
-  comment: z.string().min(1, "noCommentError").max(500, "commentTooLong"),
+  description: z
+    .string()
+    .min(1, "noDescriptionError")
+    .max(500, "descriptionTooLong"),
   done_at: z.coerce.date({
     error: "noDateError",
   }),

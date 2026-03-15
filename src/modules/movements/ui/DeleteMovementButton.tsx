@@ -20,7 +20,7 @@ export function DeleteMovementButton({ movement }: { movement: Movement }) {
       trigger={<Trash2 className="cursor-pointer" />}
       title={t("areYouSure")}
       description={t.rich("deleteDialog", {
-        comment: movement.comment,
+        description: movement.description,
         br: BrComponent,
       })}
       confirmLabel={t("confirm")}

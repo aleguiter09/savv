@@ -7,7 +7,7 @@ export async function LastMovementDetail({
   id,
   done_at,
   amount,
-  comment,
+  description,
   type,
   fullCategory,
 }: Movement) {
@@ -33,7 +33,7 @@ export async function LastMovementDetail({
           color={fullCategory?.color ?? "gray"}
         />
         <div className="flex flex-col">
-          <span className="font-medium text-sm">{comment}</span>
+          <span className="font-medium text-sm">{description}</span>
           <span className="text-xs text-gray-500">
             {t(fullCategory?.title ?? "transfer")}
           </span>

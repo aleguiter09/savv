@@ -57,7 +57,7 @@ export const updateCategory = async (
 };
 
 export const upsertUserCategory = async (
-  userCategory: Partial<UserCategory>,
+  userCategory: Partial<UserCategory> & { category_id: number },
 ) => {
   const supabase = await createClient();
   return await supabase
