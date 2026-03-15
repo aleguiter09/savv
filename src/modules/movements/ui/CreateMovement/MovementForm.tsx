@@ -45,7 +45,10 @@ export function MovementForm({ movement }: { movement?: MovementView }) {
           done_at: new Date(movement.doneAt),
           category: movement.category?.id ?? undefined,
           from: movement.account?.id ?? undefined,
-          where: movement.where ?? undefined,
+          where:
+            movement.type === "transfer" && movement.where?.id
+              ? movement.where.id
+              : undefined,
         }
       : {
           type: "expense",

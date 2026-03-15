@@ -2,6 +2,7 @@ import { type MovementApi } from "../types/types";
 import { getInitialAndFinalDate } from "@/modules/shared/utils/common";
 import { createClient } from "@/infra/supabase/server";
 import { MovementSchema } from "@/modules/shared/utils/schemas";
+import { calculateBalanceAfter } from "../utils/balance-calculator";
 import z from "zod";
 
 export const getMovementsByFilters = async (
@@ -158,7 +159,7 @@ export const getMovementById = async (
   const { data } = await supabase
     .from("movement")
     .select(
-      `id, from, amount, description, category, type, done_at, where, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color), fullAccount:from(id, name, balance, is_default)`,
+      `id, from, amount, description, category, type, done_at, where, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color), fullAccount:from(id, name, balance, is_default), fullWhere:where(id, name, balance, is_default)`,
     )
     .eq("id", id)
     .single();
@@ -172,6 +173,9 @@ export const getMovementById = async (
       fullAccount: Array.isArray(data.fullAccount)
         ? data.fullAccount[0]
         : data.fullAccount,
+      fullWhere: Array.isArray(data.fullWhere)
+        ? data.fullWhere[0]
+        : data.fullWhere,
     };
   }
 
@@ -183,7 +187,18 @@ export const insertMovement = async (
 ) => {
   const supabase = await createClient();
 
-  return await supabase.from("movement").insert(movement);
+  const balanceAfter = await calculateBalanceAfter(
+    movement.from.toString(),
+    movement.type,
+    movement.amount,
+  );
+
+  const movementWithBalance = {
+    ...movement,
+    balance_after: balanceAfter,
+  };
+
+  return await supabase.from("movement").insert(movementWithBalance);
 };
 
 export const deleteMovement = async (id: number) => {

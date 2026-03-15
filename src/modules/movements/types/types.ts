@@ -4,30 +4,46 @@ import type {
   AccountDB,
   EffectiveCategoryDB,
   MovementDB,
-  MovementTypes,
 } from "@/modules/shared/types/global.types";
 
 export type MovementApi = {
   id: MovementDB["id"];
-  from: MovementDB["from"];
   amount: MovementDB["amount"];
   description: MovementDB["description"];
   balance_after: MovementDB["balance_after"];
   type: MovementDB["type"];
   done_at: MovementDB["done_at"];
+  from: MovementDB["from"];
   fullAccount?: AccountDB;
-  category?: MovementDB["category"];
   where?: MovementDB["where"];
+  fullWhere?: AccountDB;
+  category?: MovementDB["category"];
   fullCategory?: EffectiveCategoryDB;
 };
 
-export type MovementView = {
+type BaseMovementView = {
   id: number;
   account: AccountView;
   description: string;
   amount: number;
-  type: MovementTypes;
   doneAt: string;
-  category: CategoryView;
-  where?: AccountView;
+  balanceAfter: number;
 };
+
+type TransferView = BaseMovementView & {
+  type: "transfer";
+  where: AccountView;
+  category: CategoryView;
+};
+
+type ExpenseView = BaseMovementView & {
+  type: "expense";
+  category: CategoryView;
+};
+
+type IncomeView = BaseMovementView & {
+  type: "income";
+  category: CategoryView;
+};
+
+export type MovementView = TransferView | ExpenseView | IncomeView;

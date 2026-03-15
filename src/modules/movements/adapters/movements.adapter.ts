@@ -56,26 +56,62 @@ export const getMovementsByDay = (
   );
 };
 
-export const adaptMovementItem = (movement: MovementApi): MovementView => ({
-  id: movement.id,
-  doneAt: movement.done_at,
-  amount: movement.amount ?? 0,
-  description: movement.description ?? "",
-  type: movement.type,
-  account: {
-    id: movement.fullAccount?.id.toString() ?? "",
-    name: movement.fullAccount?.name ?? "",
-    balance: movement.fullAccount?.balance ?? 0,
-    isDefault: movement.fullAccount?.is_default ?? false,
-  },
-  category: {
-    id: movement.fullCategory?.id?.toString() ?? "",
-    title: movement.fullCategory?.title ?? "transfer",
-    icon: movement.fullCategory?.icon ?? "transfer",
-    color: movement.fullCategory?.color ?? "gray",
-    isGlobal: movement.fullCategory?.is_global ?? false,
-    isCustomName: movement.fullCategory?.is_custom_name ?? false,
-    parentId: movement.fullCategory?.parent_id?.toString() ?? "",
-    isHidden: movement.fullCategory?.is_hidden ?? false,
-  },
-});
+export const adaptMovementItem = (movement: MovementApi): MovementView => {
+  if (movement.type === "transfer") {
+    return {
+      id: movement.id,
+      doneAt: movement.done_at,
+      amount: movement.amount ?? 0,
+      description: movement.description ?? "",
+      type: movement.type,
+      balanceAfter: movement.balance_after ?? 0,
+      account: {
+        id: movement.fullAccount?.id.toString() ?? "",
+        name: movement.fullAccount?.name ?? "",
+        balance: movement.fullAccount?.balance ?? 0,
+        isDefault: movement.fullAccount?.is_default ?? false,
+      },
+      where: {
+        id: movement.fullWhere?.id.toString() ?? "",
+        name: movement.fullWhere?.name ?? "",
+        balance: movement.fullWhere?.balance ?? 0,
+        isDefault: movement.fullWhere?.is_default ?? false,
+      },
+      category: {
+        id: "",
+        title: "transfer",
+        icon: "transfer",
+        color: "gray",
+        isGlobal: true,
+        isCustomName: false,
+        parentId: "",
+        isHidden: false,
+      },
+    };
+  }
+
+  return {
+    id: movement.id,
+    doneAt: movement.done_at,
+    amount: movement.amount ?? 0,
+    description: movement.description ?? "",
+    type: movement.type,
+    balanceAfter: movement.balance_after ?? 0,
+    account: {
+      id: movement.fullAccount?.id.toString() ?? "",
+      name: movement.fullAccount?.name ?? "",
+      balance: movement.fullAccount?.balance ?? 0,
+      isDefault: movement.fullAccount?.is_default ?? false,
+    },
+    category: {
+      id: movement.fullCategory?.id?.toString() ?? "",
+      title: movement.fullCategory?.title ?? "transfer",
+      icon: movement.fullCategory?.icon ?? "transfer",
+      color: movement.fullCategory?.color ?? "gray",
+      isGlobal: movement.fullCategory?.is_global ?? false,
+      isCustomName: movement.fullCategory?.is_custom_name ?? false,
+      parentId: movement.fullCategory?.parent_id?.toString() ?? "",
+      isHidden: movement.fullCategory?.is_hidden ?? false,
+    },
+  };
+};
