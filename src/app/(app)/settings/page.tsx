@@ -2,6 +2,8 @@ import { ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
+export const dynamic = "force-static";
+
 const links = [
   { name: "accounts", href: "/settings/accounts " },
   { name: "languages", href: "/settings/languages " },

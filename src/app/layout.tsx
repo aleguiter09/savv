@@ -1,14 +1,9 @@
-import "server-only";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
-import { createClient } from "@/infra/supabase/server";
-import { Navbar } from "@/modules/shared/ui/Navbar/Navbar";
-
-export const dynamic = "force-dynamic";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -39,12 +34,7 @@ export const viewport = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const supabase = await createClient();
-
-  const [user, locale] = await Promise.all([
-    supabase.auth.getUser(),
-    getLocale(),
-  ]);
+  const locale = await getLocale();
 
   return (
     <html lang={locale} className="scroll-smooth">
@@ -62,7 +52,6 @@ export default async function RootLayout({
         />
         <NextIntlClientProvider locale={locale}>
           <main className="mx-6 sm:w-lg sm:mx-auto">{children}</main>
-          {!!user.data.user?.id && <Navbar />}
         </NextIntlClientProvider>
         <SpeedInsights />
       </body>
