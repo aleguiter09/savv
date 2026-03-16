@@ -1,7 +1,7 @@
 import { EditMovementPage } from "@/modules/movements/pages/EditMovementPage";
 
 type EditMovementPageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export default async function Page({ params }: EditMovementPageProps) {

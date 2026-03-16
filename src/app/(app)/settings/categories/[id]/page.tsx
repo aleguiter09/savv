@@ -1,7 +1,7 @@
 import EditCategoryPage from "@/modules/categories/pages/EditCategoryPage";
 
 type EditCategoryPageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export default async function Page({ params }: EditCategoryPageProps) {

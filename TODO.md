@@ -31,17 +31,18 @@
 [X] On add movement, when changing between tabs the category displayed is empty
 [] On date picker, add preestablished ranges (today, week, month, last30days)
 [X] When updating movement, movement is being inserted and eliminated. Not being updated.
-[] Verify translations for error messages in movements schemas
+[X] Verify translations for error messages in movements schemas
 [] Default account should be unique
 [X] Translate default errors
 [X] Review 'Category' page translations (based on new categories)
 
 # New Features
 
+[] Complete Balance After Logic (backdating)
 [X] Replace Tremor with Shadcn
 [X] Toaster for OK msgs
 [] Templates for movements
-[] Admin Categories/subcategories
+[X] Admin Categories/subcategories
 [] Dark theme
 [] Multiple Money types on expense
 [] Credit cards or quotas widget

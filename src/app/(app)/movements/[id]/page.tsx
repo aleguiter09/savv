@@ -1,9 +1,9 @@
 import { MovementDetailPage } from "@/modules/movements/pages/MovementDetailsPage";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export default async function Page({ params }: PageProps) {
