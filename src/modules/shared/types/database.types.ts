@@ -261,8 +261,29 @@ export type Database = {
       }
     }
     Functions: {
+      delete_movement_with_balance: {
+        Args: { p_movement_id: number }
+        Returns: undefined
+      }
       finish: { Args: never; Returns: string[] }
       pass: { Args: { "": string }; Returns: string }
+      recalculate_balance_after_for_account: {
+        Args: { p_account_id: number; p_user_id: string }
+        Returns: undefined
+      }
+      save_movement_with_balance: {
+        Args: {
+          p_amount: number
+          p_category?: number
+          p_description: string
+          p_done_at: string
+          p_from: number
+          p_movement_id: number
+          p_type: Database["public"]["Enums"]["movementType"]
+          p_where?: number
+        }
+        Returns: number
+      }
       update_account_balances: {
         Args: { account_id: number; amount_change: number }
         Returns: undefined

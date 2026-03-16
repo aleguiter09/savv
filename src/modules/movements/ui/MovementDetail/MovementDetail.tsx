@@ -9,6 +9,7 @@ export async function MovementDetail({
   id,
   doneAt,
   amount,
+  balanceAfter,
   description,
   type,
   category,
@@ -28,6 +29,7 @@ export async function MovementDetail({
     type === "expense" ? -amount : amount,
     2,
   );
+  const displayBalanceAfter = formatCurrency(locale, balanceAfter, 2);
 
   const displayDate = formatter.dateTime(new Date(doneAt), {
     year: "numeric",
@@ -62,6 +64,10 @@ export async function MovementDetail({
       <div className="rounded-md border py-2 px-3 flex flex-col gap-1 mb-3">
         <dt className="text-gray-500 text-xs">{tMovements("doneAt")}</dt>
         <dd className="text-sm">{displayDate}</dd>
+      </div>
+      <div className="rounded-md border py-2 px-3 flex flex-col gap-1 mb-3">
+        <dt className=" text-gray-500 text-xs">{tMovements("balanceAfter")}</dt>
+        <dd className="text-sm">{displayBalanceAfter}</dd>
       </div>
       <div className="rounded-md border py-2 px-3 flex flex-col gap-1">
         <dt className=" text-gray-500 text-xs">{tMovements("description")}</dt>

@@ -2,7 +2,6 @@ import { type MovementApi } from "../types/types";
 import { getInitialAndFinalDate } from "@/modules/shared/utils/common";
 import { createClient } from "@/infra/supabase/server";
 import { MovementSchema } from "@/modules/shared/utils/schemas";
-import { calculateBalanceAfter } from "../utils/balance-calculator";
 import z from "zod";
 
 export const getMovementsByFilters = async (
@@ -186,32 +185,54 @@ export const insertMovement = async (
   movement: z.infer<typeof MovementSchema>,
 ) => {
   const supabase = await createClient();
+  const { error } = await supabase.rpc("save_movement_with_balance", {
+    p_movement_id: 0,
+    p_amount: movement.amount,
+    p_description: movement.description,
+    p_done_at: movement.done_at,
+    p_type: movement.type,
+    p_from: movement.from,
+    ...(movement.type === "transfer"
+      ? { p_where: movement.where }
+      : { p_category: movement.category }),
+  });
 
-  const balanceAfter = await calculateBalanceAfter(
-    movement.from.toString(),
-    movement.type,
-    movement.amount,
-  );
-
-  const movementWithBalance = {
-    ...movement,
-    balance_after: balanceAfter,
-  };
-
-  return await supabase.from("movement").insert(movementWithBalance);
+  if (error) {
+    throw error;
+  }
 };
 
 export const deleteMovement = async (id: number) => {
   const supabase = await createClient();
-  return await supabase.from("movement").delete().eq("id", id);
+  const { error } = await supabase.rpc("delete_movement_with_balance", {
+    p_movement_id: id,
+  });
+
+  if (error) {
+    throw error;
+  }
 };
 
 export const updateMovement = async (
-  movement: Partial<MovementApi>,
+  movement: z.infer<typeof MovementSchema>,
   id: number,
 ) => {
   const supabase = await createClient();
-  return await supabase.from("movement").update(movement).eq("id", id);
+  const { error } = await supabase.rpc("save_movement_with_balance", {
+    p_movement_id: id,
+    p_amount: movement.amount,
+    p_description: movement.description,
+    p_done_at: movement.done_at,
+    p_type: movement.type,
+    p_from: movement.from,
+    ...(movement.type === "transfer"
+      ? { p_where: movement.where }
+      : { p_category: movement.category }),
+  });
+
+  if (error) {
+    throw error;
+  }
 };
 
 export const getExpenses = async (
