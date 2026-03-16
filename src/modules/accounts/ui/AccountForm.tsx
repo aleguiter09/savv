@@ -100,7 +100,13 @@ export function AccountForm({ account }: { account?: AccountView }) {
                   onChange={field.onChange}
                   step="0.01"
                   type="number"
+                  disabled={Boolean(account)}
                 />
+                {account && (
+                  <p className="text-xs text-gray-500 mt-1">
+                    {t("balanceManagedByMovements")}
+                  </p>
+                )}
                 {fieldState.invalid && (
                   <FieldError error={t(fieldState.error?.message as string)} />
                 )}

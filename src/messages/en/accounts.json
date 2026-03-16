@@ -18,5 +18,6 @@
   "deletedSuccess": "Account deleted successfully",
   "nameTooLong": "The name must be less than 100 characters",
   "balanceTooLow": "The balance must be greater than -999999999",
-  "balanceTooHigh": "The balance must be less than 999999999"
+  "balanceTooHigh": "The balance must be less than 999999999",
+  "balanceManagedByMovements": "Balance is updated automatically from your movements."
 }

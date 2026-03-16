@@ -77,7 +77,13 @@ export const updateAccount = async (
   accountId: number,
 ) => {
   const supabase = await createClient();
-  return await supabase.from("account").update(account).eq("id", accountId);
+  return await supabase
+    .from("account")
+    .update({
+      name: account.name,
+      is_default: account.is_default,
+    })
+    .eq("id", accountId);
 };
 
 export const updateAccountBalances = async (
