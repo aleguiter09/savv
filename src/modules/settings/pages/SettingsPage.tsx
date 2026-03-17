@@ -5,9 +5,9 @@ import Link from "next/link";
 export const dynamic = "force-static";
 
 const links = [
-  { name: "accounts", href: "/settings/accounts " },
-  { name: "languages", href: "/settings/languages " },
-  { name: "categories", href: "/settings/categories " },
+  { name: "accounts", href: "/settings/accounts" },
+  { name: "languages", href: "/settings/languages" },
+  { name: "categories", href: "/settings/categories" },
 ];
 
 export async function SettingsPage() {

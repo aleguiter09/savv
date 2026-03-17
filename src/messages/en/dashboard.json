@@ -11,5 +11,6 @@
   "expensesByCat": "Expenses by category",
   "noExpensesThisMonth": "No expenses this month",
   "totalWealth": "Total wealth",
-  "upcomingPayments": "Upcoming payments"
+  "upcomingPayments": "Upcoming payments",
+  "totalExpenses": "Total expenses"
 }

@@ -11,5 +11,6 @@
   "expensesByCat": "Gastos por categoría",
   "noExpensesThisMonth": "No hay gastos este mes",
   "totalWealth": "Riqueza total",
-  "upcomingPayments": "Pagos próximos"
+  "upcomingPayments": "Pagos próximos",
+  "totalExpenses": "Total de gastos"
 }

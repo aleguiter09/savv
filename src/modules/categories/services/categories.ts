@@ -1,9 +1,10 @@
 import type { CategoryApi } from "../types/types";
 import { createClient } from "@/infra/supabase/server";
 import { CategorySchema } from "@/modules/shared/utils/schemas";
+import { cache } from "react";
 import z from "zod";
 
-export const getCategories = async (): Promise<CategoryApi[]> => {
+export const getCategories = cache(async (): Promise<CategoryApi[]> => {
   const supabase = await createClient();
 
   const { data } = await supabase
@@ -12,7 +13,7 @@ export const getCategories = async (): Promise<CategoryApi[]> => {
     .throwOnError();
 
   return data ?? [];
-};
+});
 
 export const getCategoryById = async (
   categoryId: number,

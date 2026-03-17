@@ -3,7 +3,7 @@ import { parseMovementsForChart } from "@/modules/shared/utils/common";
 import Link from "next/link";
 import { Card } from "@/ui/card";
 import { adaptMovementItem } from "@/modules/movements/adapters/movements.adapter";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
 
 type Props = Readonly<{
@@ -13,9 +13,10 @@ type Props = Readonly<{
 }>;
 
 export async function ExpensesDataChart({ accountId, year, month }: Props) {
-  const [movements, locale] = await Promise.all([
+  const [movements, locale, t] = await Promise.all([
     getExpenses(accountId, year, month),
     getLocale(),
+    getTranslations("dashboard"),
   ]);
   const adaptedMovements = movements.map(adaptMovementItem);
 
@@ -45,12 +46,12 @@ export async function ExpensesDataChart({ accountId, year, month }: Props) {
         ))}
         <div className="flex mt-2 ml-auto col-span-2 md:col-span-3">
           <p className="text-sm">
-            Total expenses: {formatCurrency(locale, total, 0)}
+            {t("totalExpenses")}: {formatCurrency(locale, total, 0)}
           </p>
         </div>
         {data.length === 0 && (
           <p className="pt-2 text-sm text-slate-500 text-center col-span-3">
-            No expenses this month
+            {t("noExpensesThisMonth")}
           </p>
         )}
       </div>

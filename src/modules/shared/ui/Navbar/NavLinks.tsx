@@ -4,6 +4,7 @@ import { logout } from "@/modules/auth/actions/user-action";
 import { usePathname } from "next/navigation";
 import { Home, LogOutIcon, Settings } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { cn } from "../../utils/cn";
 
 const links = [
   { key: "home", href: "/", icon: <Home /> },
@@ -17,7 +18,9 @@ const links = [
 export function NavLinks() {
   const t = useTranslations("common.nav");
   const pathname = usePathname();
-  const activeLink = links.find((link) => link.href === pathname);
+  const activeLink =
+    links.find((link) => link.href !== "/" && pathname.startsWith(link.href))
+      ?.href ?? links[0].href;
 
   return (
     <>
@@ -28,9 +31,11 @@ export function NavLinks() {
             href={link.href}
             aria-label={t(link.key)}
             tabIndex={0}
-            className={`flex h-12 grow items-center justify-center focus:ring-2 focus:ring-inset focus:ring-blue-600 ${
-              activeLink?.href === link.href ? "text-blue-500" : ""
-            }`}
+            className={cn(
+              "flex h-12 grow items-center justify-center focus:ring-2 focus:ring-inset focus:ring-blue-600",
+              activeLink === link.href && "text-blue-500",
+            )}
+            aria-current={activeLink === link.href ? "page" : undefined}
           >
             {link.icon}
           </Link>

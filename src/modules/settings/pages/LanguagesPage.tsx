@@ -2,8 +2,6 @@ import { LangSelector } from "@/modules/settings/ui/LangSelector";
 import { Card } from "@/ui/card";
 import { getTranslations } from "next-intl/server";
 
-export const dynamic = "force-static";
-
 export async function LanguagesPage() {
   const t = await getTranslations("settings");
 
