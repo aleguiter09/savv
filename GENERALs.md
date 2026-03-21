@@ -1,15 +1,15 @@
-# AGENTS.md — Reglas de colaboración para este repo (`savv`)
+# GENERALs.md — Reglas generales de colaboración (plantilla reusable)
 
-## 1) Contexto del proyecto
+## 1) Contexto base del proyecto
 
-- Tipo de producto: app web para gestión de finanzas personales.
-- Stack base: `Next.js` (App Router), `TypeScript`, `TailwindCSS`, `Supabase`, `next-intl`.
-- UI: componentes `shadcn/ui` en `src/ui` y utilidades compartidas en `src/modules/shared`.
-- Base de datos: Supabase con tipos en `src/modules/shared/types/database.types.ts`.
+- Tipo de producto: app web modular (orientada a dominio).
+- Stack base recomendado: `Next.js` (App Router), `TypeScript`, `TailwindCSS`, `Supabase`, `next-intl`.
+- UI: componentes reutilizables en `src/ui` y utilidades compartidas en `src/modules/shared`.
+- Base de datos: Supabase con tipos TypeScript versionados en el repo.
 
 ## 2) Estructura y arquitectura esperada
 
-- Respetar arquitectura modular en `src/modules/<dominio>/`.
+- Mantener arquitectura modular en `src/modules/<dominio>/`.
 - Patrón habitual por módulo:
   - `actions/` → server actions y orquestación de flujo UI.
   - `services/` → acceso a datos y lógica de negocio.
@@ -19,10 +19,11 @@
   - `supabase/` para cliente server/browser/proxy.
   - `i18n/` para resolución de locale/mensajes.
 - Rutas y layouts en `src/app/`.
+- Mensajes i18n en `src/messages/<locale>/...`.
 
 ## 3) Convenciones de código
 
-- Mantener imports con alias `@/` (definido en `tsconfig.json`).
+- Mantener imports con alias `@/` (si está definido en `tsconfig.json`).
 - Preferir cambios mínimos y localizados; no refactorizar áreas no relacionadas.
 - Mantener nombres y estilo existente (funciones, tipos, estructura de carpetas).
 - No introducir librerías nuevas salvo petición explícita.
@@ -33,7 +34,7 @@
 - Validaciones de input con `zod` cuando aplique.
 - En server actions:
   - usar `"use server"` si corresponde.
-  - devolver errores consistentes con el patrón existente (`ServerActionResponse` cuando aplique).
+  - devolver errores consistentes con el patrón existente (`ServerActionResponse` u otro tipo común del repo).
   - usar `revalidatePath` y/o `redirect` siguiendo el flujo ya usado en el módulo.
 - En acceso a datos:
   - usar `createClient` desde `src/infra/supabase/server` para server-side.
@@ -42,21 +43,21 @@
 
 ## 5) Reglas de i18n y UX
 
-- Cualquier texto nuevo visible al usuario debe ir a mensajes de `next-intl` (`src/messages/<locale>/...`).
+- Cualquier texto nuevo visible al usuario debe ir a mensajes de `next-intl`.
 - Evitar strings mágicos en UI cuando el módulo ya usa traducciones.
-- Mantener consistencia visual con los componentes actuales (`shadcn/ui` + Tailwind existente).
+- Mantener consistencia visual con la librería de UI y patrones actuales del proyecto.
 
 ## 6) Performance y calidad
 
 - Evitar consultas duplicadas si ya hay datos disponibles en el flujo actual.
 - Priorizar joins y patrones ya usados en `services/` del dominio.
-- No romper comportamiento existente de cuentas, categorías, movimientos y settings.
+- No romper comportamiento existente en módulos críticos del negocio.
 - Antes de cerrar cambios de código: correr al menos `npm run lint`.
-- Si el cambio afecta lógica crítica, correr tests puntuales con `npm run test` (o filtrar por archivo si aplica).
+- Si el cambio afecta lógica crítica: correr tests puntuales con `npm run test` (o filtrados por archivo).
 
-## 7) Cómo debe trabajar el agente (muy importante)
+## 7) Flujo de trabajo del agente/equipo
 
-- Siempre explicar primero el plan corto antes de editar múltiples archivos.
+- Explicar primero un plan corto antes de editar múltiples archivos.
 - Para tareas no triviales, proponer pasos claros y luego ejecutar.
 - Antes de editar, revisar archivos reales del dominio afectado.
 - Si hay ambigüedad funcional, preguntar en vez de asumir.
@@ -66,18 +67,27 @@
   - en qué archivos,
   - cómo validarlo rápido.
 
-## 8) Preferencias de respuesta para ahorrar contexto
+## 8) Estándar tecnológico de referencia
 
-- Responder en español por defecto.
-- Ser directo y concreto; evitar explicaciones largas si no se piden.
-- Si hay varias opciones de implementación, listar opciones numeradas con trade-off corto.
-- Cuando falte contexto, pedirlo en formato checklist corto.
+- Framework: `next`.
+- UI: `react`, `tailwindcss`, `shadcn/ui` (o equivalente basado en Radix).
+- Forms/validación: `react-hook-form`, `@hookform/resolvers`, `zod`.
+- Backend BaaS: `@supabase/supabase-js`, `@supabase/ssr`.
+- i18n: `next-intl`.
+- Calidad: `eslint` + `next lint`.
+- Testing: `vitest` (si está habilitado en el proyecto).
 
-## 9) Checklist rápido por cada tarea
+## 9) Checklist rápido por tarea
 
 1. Identificar módulo(s) afectado(s) en `src/modules`.
 2. Revisar `actions/services/types` del dominio antes de editar.
 3. Mantener i18n y tipos consistentes.
 4. Aplicar cambio mínimo necesario.
-5. Ejecutar validación (`npm run build`).
+5. Ejecutar validación (`lint` y test si aplica).
 6. Reportar cambios y siguiente paso sugerido.
+
+## 10) Notas para reutilizar esta plantilla
+
+- Ajustar nombres de carpetas si el proyecto no usa exactamente `src/modules` o `src/infra`.
+- Mantener el contenido tecnológico alineado al `package.json` real de cada repo.
+- Si un proyecto no usa i18n o Supabase, reemplazar solo esas secciones, manteniendo la metodología de trabajo.

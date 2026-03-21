@@ -6,10 +6,12 @@ import { useState } from "react";
 import { Button } from "@/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/ui/radio-group";
 import { Label } from "@/ui/label";
+import { useRouter } from "next/navigation";
 
 export function LangSelector() {
   const t = useTranslations("settings");
   const locale = useLocale();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState<"en" | "es">(locale as "en" | "es");
 
@@ -19,7 +21,7 @@ export function LangSelector() {
 
     try {
       await updateLanguage(selected);
-      globalThis.location.reload();
+      router.refresh();
     } catch (error) {
       console.error("Error updating language:", error);
     } finally {
