@@ -12,5 +12,9 @@
   "noExpensesThisMonth": "No expenses this month",
   "totalWealth": "Total wealth",
   "upcomingPayments": "Upcoming payments",
-  "totalExpenses": "Total expenses"
+  "totalExpenses": "Total expenses",
+  "analyticsTitle": "Analytics",
+  "analyticsDescription": "Daily balance evolution per account",
+  "accountsBalanceTimeline": "Accounts balance evolution",
+  "noBalanceTimelineData": "There are not enough movements to display the evolution"
 }

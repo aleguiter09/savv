@@ -10,6 +10,7 @@
   "databaseError": "Database error, please try again later",
   "nav": {
     "home": "Home",
+    "analytics": "Analytics",
     "settings": "Settings",
     "logout": "Logout"
   },
