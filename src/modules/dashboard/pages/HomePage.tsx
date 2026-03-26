@@ -29,7 +29,6 @@ export async function HomePage(props: HomePageProps) {
         month={new Date().getMonth()}
       />
       <TotalWealth />
-      <NetWorth />
       <UpcomingPayments accountId={accountId} />
 
       <ToastManager />

@@ -2,12 +2,17 @@
 import Link from "next/link";
 import { logout } from "@/modules/auth/actions/user-action";
 import { usePathname } from "next/navigation";
-import { Home, LogOutIcon, Settings } from "lucide-react";
+import { ChartArea, Home, LogOutIcon, Settings } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "../../utils/cn";
 
 const links = [
   { key: "home", href: "/", icon: <Home /> },
+  {
+    key: "analytics",
+    href: "/analytics",
+    icon: <ChartArea />,
+  },
   {
     key: "settings",
     href: "/settings",
