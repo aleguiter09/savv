@@ -86,17 +86,3 @@ export const updateAccount = async (
     .eq("id", accountId);
 };
 
-export const updateAccountBalances = async (
-  updates: { account_id: string; amount_change: number }[],
-) => {
-  const supabase = await createClient();
-
-  const { error } = await supabase.rpc("update_multiple_account_balances", {
-    updates: updates,
-  });
-
-  if (error) {
-    console.error("Error updating account balances:", error);
-    throw new Error("Failed to update account balances");
-  }
-};

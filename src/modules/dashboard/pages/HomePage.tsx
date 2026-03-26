@@ -6,6 +6,7 @@ import { LastMovements } from "@/modules/dashboard/ui/LastMovements/LastMovement
 import { TotalWealth } from "@/modules/dashboard/ui/TotalWealth/TotalWealth";
 import { UpcomingPayments } from "@/modules/dashboard/ui/UpcomingPayments/UpcomingPayments";
 import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
+import { NetWorth } from "@/modules/dashboard/ui/NetWorth/NetWorth";
 
 export type HomePageProps = {
   account?: string;
@@ -28,6 +29,7 @@ export async function HomePage(props: HomePageProps) {
         month={new Date().getMonth()}
       />
       <TotalWealth />
+      <NetWorth />
       <UpcomingPayments accountId={accountId} />
 
       <ToastManager />

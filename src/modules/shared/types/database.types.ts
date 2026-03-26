@@ -266,6 +266,13 @@ export type Database = {
         Returns: undefined
       }
       finish: { Args: never; Returns: string[] }
+      get_accounts_balance_at: {
+        Args: { target_date: string }
+        Returns: {
+          balance: number
+          from: number
+        }[]
+      }
       pass: { Args: { "": string }; Returns: string }
       recalculate_balance_after_for_account: {
         Args: { p_account_id: number; p_user_id: string }
@@ -283,14 +290,6 @@ export type Database = {
           p_where?: number
         }
         Returns: number
-      }
-      update_account_balances: {
-        Args: { account_id: number; amount_change: number }
-        Returns: undefined
-      }
-      update_multiple_account_balances: {
-        Args: { updates: Json }
-        Returns: undefined
       }
     }
     Enums: {

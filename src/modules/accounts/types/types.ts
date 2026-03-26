@@ -1,7 +1,7 @@
 import { AccountDB } from "@/modules/shared/types/global.types";
 
 export type AccountApi = {
-  id?: AccountDB["id"];
+  id: AccountDB["id"];
   name: AccountDB["name"];
   balance: AccountDB["balance"];
   is_default?: AccountDB["is_default"];
