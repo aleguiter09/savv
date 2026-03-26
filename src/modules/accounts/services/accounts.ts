@@ -58,7 +58,7 @@ export const getDefaultAccountId = async (): Promise<string> => {
   return data?.id.toString() ?? "0";
 };
 
-export const createAccount = async (account: AccountApi) => {
+export const createAccount = async (account: Omit<AccountApi, "id">) => {
   const supabase = await createClient();
   return await supabase.from("account").insert(account).throwOnError();
 };
@@ -85,4 +85,3 @@ export const updateAccount = async (
     })
     .eq("id", accountId);
 };
-
