@@ -37,16 +37,12 @@ export const getMovementsByDay = (
     const currentDate = items.find((item) => item.date === m.done_at);
     if (currentDate) {
       currentDate.items.push(adaptMovementItem(m));
-      if (m.type === "expense") {
-        currentDate.amount -= m.amount;
-      } else {
-        currentDate.amount += m.amount;
-      }
+      currentDate.amount += m.amount;
     } else {
       items.push({
         date: m.done_at,
         items: [adaptMovementItem(m)],
-        amount: m.type === "expense" ? -m.amount : m.amount,
+        amount: m.amount,
       });
     }
   });
@@ -70,12 +66,6 @@ export const adaptMovementItem = (movement: MovementApi): MovementView => {
         name: movement.fullAccount?.name ?? "",
         balance: movement.fullAccount?.balance ?? 0,
         isDefault: movement.fullAccount?.is_default ?? false,
-      },
-      where: {
-        id: movement.fullWhere?.id.toString() ?? "",
-        name: movement.fullWhere?.name ?? "",
-        balance: movement.fullWhere?.balance ?? 0,
-        isDefault: movement.fullWhere?.is_default ?? false,
       },
       category: {
         id: "",

@@ -41,13 +41,13 @@ export const parseMovementsForChart = (
     const dataItem = result.find((item) => item.title === category?.title);
 
     if (dataItem) {
-      dataItem.amount += amount;
+      dataItem.amount -= amount;
     } else {
       result.push({
         title: category?.title ?? "Uncategorized",
         color: category?.color ?? "gray",
         category: category?.id?.toString() ?? "uncategorized",
-        amount: amount,
+        amount: -amount,
       });
     }
   }

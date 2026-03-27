@@ -25,14 +25,14 @@ const IncomeExpenseSchema = BaseMovementSchema.extend({
 
 const TransferSchema = BaseMovementSchema.extend({
   type: z.literal("transfer"),
-  where: z.coerce.number("noAccountError").positive("noAccountError"),
+  where: z.coerce.number("noAccountError").positive("noAccountError").optional(),
 });
 
 export const MovementSchema = z
   .discriminatedUnion("type", [IncomeExpenseSchema, TransferSchema])
   .refine(
     (data) => {
-      if (data.type === "transfer") {
+      if (data.type === "transfer" && data.where !== undefined) {
         return data.from !== data.where;
       }
       return true;

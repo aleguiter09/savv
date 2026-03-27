@@ -17,14 +17,14 @@ export const getMovementsByFilters = async (
   let query = supabase
     .from("movement")
     .select(
-      `id, from, amount, description, category, type, done_at, where, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color)`,
+      `id, from, amount, description, category, type, done_at, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color)`,
     )
     .gte("done_at", initialDate)
     .lte("done_at", finishDate)
     .order("done_at", { ascending: false });
 
   if (accountId !== "all") {
-    query = query.or(`from.eq.${accountId},where.eq.${accountId}`);
+    query = query.eq("from", Number(accountId));
   }
 
   if (!["all", "expenses", "incomes"].includes(categoryId)) {
@@ -59,14 +59,14 @@ export const getLastMovements = async (
   let query = supabase
     .from("movement")
     .select(
-      `id, from, amount, description, category, type, done_at, where, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color)`,
+      `id, from, amount, description, category, type, done_at, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color)`,
     )
     .lte("done_at", new Date().toISOString())
     .order("done_at", { ascending: false })
     .limit(5);
 
   if (accountId !== "all") {
-    query = query.or(`from.eq.${accountId},where.eq.${accountId}`);
+    query = query.eq("from", Number(accountId));
   }
 
   const { data } = await query;
@@ -91,14 +91,14 @@ export const getUpcomingMovements = async (
   let query = supabase
     .from("movement")
     .select(
-      `id, from, amount, description, category, type, done_at, where, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color)`,
+      `id, from, amount, description, category, type, done_at, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color)`,
     )
     .gt("done_at", new Date().toISOString())
     .order("done_at", { ascending: false })
     .limit(5);
 
   if (accountId !== "all") {
-    query = query.or(`from.eq.${accountId},where.eq.${accountId}`);
+    query = query.eq("from", Number(accountId));
   }
 
   const { data } = await query;
@@ -148,7 +148,7 @@ export const getMonthExpenses = async (accountId: string) => {
   }
 
   const { data } = await query;
-  return data?.reduce((a, b) => a + b.amount, 0) ?? 0;
+  return Math.abs(data?.reduce((a, b) => a + b.amount, 0) ?? 0);
 };
 
 export const getMovementById = async (
@@ -158,7 +158,7 @@ export const getMovementById = async (
   const { data } = await supabase
     .from("movement")
     .select(
-      `id, from, amount, description, category, type, done_at, where, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color), fullAccount:from(id, name, balance, is_default), fullWhere:where(id, name, balance, is_default)`,
+      `id, from, amount, description, category, type, done_at, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color), fullAccount:from(id, name, balance, is_default)`,
     )
     .eq("id", id)
     .single();
@@ -172,9 +172,6 @@ export const getMovementById = async (
       fullAccount: Array.isArray(data.fullAccount)
         ? data.fullAccount[0]
         : data.fullAccount,
-      fullWhere: Array.isArray(data.fullWhere)
-        ? data.fullWhere[0]
-        : data.fullWhere,
     };
   }
 
@@ -225,9 +222,7 @@ export const updateMovement = async (
     p_done_at: movement.done_at,
     p_type: movement.type,
     p_from: movement.from,
-    ...(movement.type === "transfer"
-      ? { p_where: movement.where }
-      : { p_category: movement.category }),
+    ...(movement.type === "transfer" ? {} : { p_category: movement.category }),
   });
 
   if (error) {
@@ -246,7 +241,7 @@ export const getExpenses = async (
   let query = supabase
     .from("movement")
     .select(
-      `id, from, amount, description, category, type, done_at, where, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color)`,
+      `id, from, amount, description, category, type, done_at, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color)`,
     )
     .eq("type", "expense")
     .gte("done_at", initialDate)

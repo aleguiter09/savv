@@ -39,16 +39,12 @@ export function MovementForm({ movement }: { movement?: MovementView }) {
     resolver: zodResolver(MovementSchema),
     defaultValues: movement
       ? {
-          amount: movement.amount,
+          amount: Math.abs(movement.amount),
           description: movement.description,
           type: movement.type,
           done_at: new Date(movement.doneAt),
           category: movement.category?.id ?? undefined,
           from: movement.account?.id ?? undefined,
-          where:
-            movement.type === "transfer" && movement.where?.id
-              ? movement.where.id
-              : undefined,
         }
       : {
           type: "expense",
@@ -190,7 +186,7 @@ export function MovementForm({ movement }: { movement?: MovementView }) {
                   </TabsContent>
                   <TabsContent value="transfer" className="flex flex-col gap-4">
                     {renderFrom()}
-                    {renderWhere()}
+                    {!movement && renderWhere()}
                   </TabsContent>
                 </Tabs>
               )}
