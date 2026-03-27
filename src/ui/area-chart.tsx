@@ -1,3 +1,4 @@
+// Tremor AreaChart [v1.0.0]
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client";
@@ -17,17 +18,16 @@ import {
   YAxis,
 } from "recharts";
 import type { AxisDomain } from "recharts/types/util/types";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-
 import {
   AvailableChartColors,
+  AvailableChartColorsKeys,
   constructCategoryColors,
   getColorClassName,
   getYAxisDomain,
   hasOnlyOneValueForKey,
-  type AvailableChartColorsKeys,
 } from "@/modules/shared/utils/chartUtils";
 import { cn } from "@/modules/shared/utils/cn";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useOnWindowResize } from "@/modules/shared/hooks/useOnWindowResize";
 
 //#region Legend
@@ -476,7 +476,6 @@ interface AreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   categories: string[];
   colors?: AvailableChartColorsKeys[];
   valueFormatter?: (value: number) => string;
-  tooltipValueFormatter?: (value: number) => string;
   startEndOnly?: boolean;
   showXAxis?: boolean;
   showYAxis?: boolean;
@@ -510,7 +509,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
       index,
       colors = AvailableChartColors,
       valueFormatter = (value: number) => value.toString(),
-      tooltipValueFormatter,
       startEndOnly = false,
       showXAxis = true,
       showYAxis = true,
@@ -775,7 +773,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                     label: label as string,
                   });
                   prevActiveRef.current = active;
-                  prevLabelRef.current = label as string;
+                  prevLabelRef.current = (label as string) || undefined;
                 }
 
                 return showTooltip && active ? (
@@ -790,7 +788,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                       active={active}
                       payload={cleanPayload}
                       label={label as string}
-                      valueFormatter={tooltipValueFormatter ?? valueFormatter}
+                      valueFormatter={valueFormatter}
                     />
                   )
                 ) : null;

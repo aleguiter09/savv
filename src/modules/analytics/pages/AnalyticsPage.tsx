@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
-import { AccountsBalanceTimelineWidget } from "@/modules/analytics/ui/AccountsBalanceTimelineWidget";
 import { NetWorth } from "@/modules/dashboard/ui/NetWorth/NetWorth";
+import { BalanceTimeline } from "../ui/BalanceTimeline";
 
 export async function AnalyticsPage() {
   const t = await getTranslations("dashboard");
@@ -12,8 +12,8 @@ export async function AnalyticsPage() {
         <p className="text-sm text-slate-500">{t("analyticsDescription")}</p>
       </div>
 
-      <AccountsBalanceTimelineWidget />
       <NetWorth />
+      <BalanceTimeline />
     </section>
   );
 }

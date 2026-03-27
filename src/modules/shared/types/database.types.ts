@@ -100,7 +100,6 @@ export type Database = {
           type: Database["public"]["Enums"]["movementType"]
           updated_at: string | null
           user_id: string
-          where: number | null
         }
         Insert: {
           amount: number
@@ -115,7 +114,6 @@ export type Database = {
           type: Database["public"]["Enums"]["movementType"]
           updated_at?: string | null
           user_id?: string
-          where?: number | null
         }
         Update: {
           amount?: number
@@ -130,7 +128,6 @@ export type Database = {
           type?: Database["public"]["Enums"]["movementType"]
           updated_at?: string | null
           user_id?: string
-          where?: number | null
         }
         Relationships: [
           {
@@ -150,13 +147,6 @@ export type Database = {
           {
             foreignKeyName: "movement_from_fkey"
             columns: ["from"]
-            isOneToOne: false
-            referencedRelation: "account"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "movement_where_fkey"
-            columns: ["where"]
             isOneToOne: false
             referencedRelation: "account"
             referencedColumns: ["id"]
@@ -273,6 +263,26 @@ export type Database = {
           from: number
         }[]
       }
+      get_balance_timeline:
+        | {
+            Args: { bucket: string; from_date: string; to_date: string }
+            Returns: {
+              balance: number
+              bucket_date: string
+            }[]
+          }
+        | {
+            Args: {
+              account_filter?: number
+              bucket: string
+              from_date: string
+              to_date: string
+            }
+            Returns: {
+              balance: number
+              bucket_date: string
+            }[]
+          }
       pass: { Args: { "": string }; Returns: string }
       recalculate_balance_after_for_account: {
         Args: { p_account_id: number; p_user_id: string }
