@@ -10,8 +10,8 @@ export function balanceTimelineAdapter(data: any[], bucket: string) {
       bucket === "month"
         ? format(new Date(d.bucket_date), "MMM yy")
         : bucket === "week"
-          ? format(new Date(d.bucket_date), "dd MMM")
-          : format(new Date(d.bucket_date), "dd MMM"),
+          ? format(new Date(d.bucket_date), "MMM dd")
+          : format(new Date(d.bucket_date), "MMM dd"),
     Balance: Number(d.balance).toFixed(2),
   }));
 }

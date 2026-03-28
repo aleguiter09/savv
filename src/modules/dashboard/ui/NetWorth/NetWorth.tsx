@@ -23,7 +23,7 @@ export async function NetWorth() {
   );
 
   return (
-    <Card className="mb-4 px-3 py-2 border-b-4 border-b-blue-500">
+    <Card className="px-3 py-2 border-b-4 border-b-blue-500">
       <div className="flex flex-col gap-2">
         <div className="flex justify-between items-center">
           <p className="text-xs font-semibold text-gray-600">NET WORTH</p>
@@ -38,8 +38,7 @@ export async function NetWorth() {
         <div className="flex gap-1 items-center text-xs text-gray-600">
           Comparado hace 30 días
           <p className={`${newWorth.pastMonth < 0 ? "text-red-600" : ""}`}>
-            ({isPositive ? "+" : "-"}
-            {formatCurrency(locale, newWorth.current - newWorth.pastMonth, 2)})
+            ({formatCurrency(locale, newWorth.current - newWorth.pastMonth, 2)})
           </p>
         </div>
       </div>

@@ -11,21 +11,19 @@ export const getNetWorth = async () => {
 
   if (accounts.length === 0) return { current: 0, pastMonth: 0 };
 
-  const { data } = await supabase
-  .rpc('get_accounts_balance_at', {
-    target_date: targetDate
-  })
+  const { data } = await supabase.rpc("get_accounts_balance_at", {
+    target_date: targetDate,
+  });
 
   const current = accounts?.reduce((a, b) => a + b.balance, 0) ?? 0;
-  
+
   if (!data) return { current, pastMonth: 0 };
 
-  const pastMap = new Map(data.map(d => [d.from, d.balance]))
+  const pastMap = new Map(data.map((d) => [d.from, d.balance]));
 
   const pastMonth = accounts.reduce((sum, acc) => {
-    return sum + (pastMap.get(acc.id) ?? 0)
-  }, 0)
-  
-  
+    return sum + (pastMap.get(acc.id) ?? 0);
+  }, 0);
+
   return { current, pastMonth };
 };

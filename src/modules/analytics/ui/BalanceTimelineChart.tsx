@@ -3,8 +3,6 @@
 import { AreaChart } from "@/ui/area-chart";
 
 export function BalanceTimelineChart({ data }: { data: any[] }) {
-  console.log("data", data);
-
   return (
     <AreaChart
       className="h-72"
@@ -13,8 +11,10 @@ export function BalanceTimelineChart({ data }: { data: any[] }) {
       categories={["Balance"]}
       colors={["blue"]}
       showLegend={false}
-      yAxisWidth={60}
-      showGridLines={false}
+      fill="solid"
+      showGridLines
+      tickGap={1}
+      allowDecimals
     />
   );
 }

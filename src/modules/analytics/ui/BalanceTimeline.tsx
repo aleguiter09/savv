@@ -5,12 +5,15 @@ import { BalanceTimelineChart } from "./BalanceTimelineChart";
 import { balanceTimelineAdapter } from "../adapters/balanceTimelineAdapter";
 
 export async function BalanceTimeline() {
+  const now = new Date();
+  const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
   const [t, locale, timeline] = await Promise.all([
     getTranslations("dashboard"),
     getLocale(),
     getBalanceTimeline({
-      from: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
-      to: new Date().toISOString(),
+      from: thirtyDaysAgo.toISOString(),
+      to: now.toISOString(),
       bucket: "day",
     }),
   ]);
@@ -18,8 +21,8 @@ export async function BalanceTimeline() {
   const data = balanceTimelineAdapter(timeline, "day");
 
   return (
-    <Card className="mb-4 px-4 py-3">
-      <p className="font-semibold mb-3">{t("accountsBalanceTimeline")}</p>
+    <Card className=" py-3">
+      <p className="pl-4 font-semibold mb-4">{t("accountsBalanceTimeline")}</p>
 
       <BalanceTimelineChart data={data} />
     </Card>
