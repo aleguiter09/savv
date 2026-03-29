@@ -251,6 +251,16 @@ export type Database = {
       }
     }
     Functions: {
+      category_vs_current_month: {
+        Args: never
+        Returns: {
+          category_id: number
+          category_name: string
+          current_month_total: number
+          delta_percent: number
+          monthly_avg: number
+        }[]
+      }
       delete_movement_with_balance: {
         Args: { p_movement_id: number }
         Returns: undefined
@@ -263,26 +273,18 @@ export type Database = {
           from: number
         }[]
       }
-      get_balance_timeline:
-        | {
-            Args: { bucket: string; from_date: string; to_date: string }
-            Returns: {
-              balance: number
-              bucket_date: string
-            }[]
-          }
-        | {
-            Args: {
-              account_filter?: number
-              bucket: string
-              from_date: string
-              to_date: string
-            }
-            Returns: {
-              balance: number
-              bucket_date: string
-            }[]
-          }
+      get_balance_timeline: {
+        Args: {
+          account_filter?: number
+          bucket: string
+          from_date: string
+          to_date: string
+        }
+        Returns: {
+          balance: number
+          bucket_date: string
+        }[]
+      }
       pass: { Args: { "": string }; Returns: string }
       recalculate_balance_after_for_account: {
         Args: { p_account_id: number; p_user_id: string }

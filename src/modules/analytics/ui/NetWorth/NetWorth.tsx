@@ -1,6 +1,6 @@
 import { getLocale } from "next-intl/server";
 import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
-import { getNetWorth } from "../../services/net-worth";
+import { getNetWorth } from "../../../dashboard/services/net-worth";
 import { Card } from "@/ui/card";
 
 export async function NetWorth() {
