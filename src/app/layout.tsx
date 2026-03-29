@@ -51,7 +51,14 @@ export default async function RootLayout({
           showSpinner={false}
         />
         <NextIntlClientProvider locale={locale}>
-          <main className="mx-6 sm:w-lg sm:mx-auto">{children}</main>
+          <main
+            className="mx-6 sm:w-lg sm:mx-auto"
+            style={{
+              paddingBottom: "env(safe-area-inset-bottom)",
+            }}
+          >
+            {children}
+          </main>
         </NextIntlClientProvider>
         <SpeedInsights />
       </body>
