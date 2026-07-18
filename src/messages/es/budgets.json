@@ -1,0 +1,20 @@
+{
+  "addTitle": "Añadir presupuesto",
+  "detailsTitle": "Detalles del presupuesto",
+  "createBudget": "Crear presupuesto",
+  "editBudget": "Guardar presupuesto",
+  "chooseCategory": "Elige una categoría",
+  "monthlyLimit": "Límite mensual",
+  "enterAmount": "Importe...",
+  "emptyState": "No tienes presupuestos configurados",
+  "noCategoriesAvailable": "Ya tienes presupuesto para todas las categorías de gasto",
+  "createdSuccess": "Presupuesto creado correctamente",
+  "updatedSuccess": "Presupuesto actualizado correctamente",
+  "deletedSuccess": "Presupuesto eliminado correctamente",
+  "dialogBudget": "Vas a eliminar el presupuesto de",
+  "dialogWarning": "Esta acción no se puede deshacer.",
+  "defaultError": "Ha ocurrido un error",
+  "noCategoryError": "Selecciona una categoría",
+  "amountPositiveError": "El importe debe ser mayor que 0",
+  "amountTooLarge": "El importe es demasiado alto"
+}

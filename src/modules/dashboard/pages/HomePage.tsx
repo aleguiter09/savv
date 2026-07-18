@@ -2,6 +2,7 @@ import { getDefaultAccountId } from "@/modules/accounts/services/accounts";
 import { ActionBar } from "@/modules/dashboard/ui/ActionBar/ActionBar";
 import { Balance } from "@/modules/dashboard/ui/Balance/Balance";
 import { ExpenseByCat } from "@/modules/dashboard/ui/ExpenseByCat/ExpenseByCat";
+import { BudgetWidget } from "@/modules/budgets/ui/BudgetWidget";
 import { LastMovements } from "@/modules/dashboard/ui/LastMovements/LastMovements";
 import { TotalWealth } from "@/modules/dashboard/ui/TotalWealth/TotalWealth";
 import { UpcomingPayments } from "@/modules/dashboard/ui/UpcomingPayments/UpcomingPayments";
@@ -27,6 +28,7 @@ export async function HomePage(props: HomePageProps) {
         year={new Date().getFullYear()}
         month={new Date().getMonth()}
       />
+      <BudgetWidget accountId={accountId} />
       <TotalWealth />
       <UpcomingPayments accountId={accountId} />
 
