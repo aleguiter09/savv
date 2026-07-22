@@ -31,14 +31,16 @@ function getBucket(range: "7d" | "30d" | "3m" | "1y") {
   if (range === "1y") return "month";
 }
 
-export async function getCategoryAverages() {
+export async function getCategoryComparison(accountId?: string) {
   const supabase = await createClient();
 
-  const { data, error } = await supabase.rpc("category_vs_current_month");
+  const { data, error } = await supabase.rpc("get_category_comparison", {
+    p_account_id: accountId ? Number.parseInt(accountId) : undefined,
+  });
 
   if (error) {
     console.error(error);
-    throw new Error("Error fetching category averages");
+    throw new Error("Error fetching category comparison");
   }
 
   return data;

@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { NetWorth } from "@/modules/analytics/ui/NetWorth/NetWorth";
 import { BalanceTimeline } from "../ui/BalanceTimeline";
-import { CategoryAverageWidget } from "../ui/CategoryAverages";
+import { CategoryComparisonTable } from "../ui/CategoryAverages";
 
 export async function AnalyticsPage() {
   const t = await getTranslations("dashboard");
@@ -15,6 +15,7 @@ export async function AnalyticsPage() {
 
       <NetWorth />
       <BalanceTimeline />
+      <CategoryComparisonTable />
     </section>
   );
 }

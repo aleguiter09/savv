@@ -1,75 +1,109 @@
 import { Card } from "@/ui/card";
-import { getCategoryAverages } from "../services/analytics";
+import { getCategoryComparison } from "../services/analytics";
 import { Badge } from "@/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/ui/table";
+import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
 
-type CategoryData = {
+type CategoryComparisonData = {
   category_id: number;
-  category_name: string;
-  monthly_avg: number;
-  current_month_total: number;
-  delta_percent: number;
+  category_title: string;
+  category_icon: string;
+  category_color: string;
+  current_month_spent: number;
+  six_month_avg: number;
+  budget_amount: number;
+  diff_vs_avg_percent: number;
+  diff_vs_budget_percent: number | null;
 };
 
-function getColor(delta: number) {
+function formatCurrency(value: number) {
+  return `€${value.toFixed(0)}`;
+}
+
+function formatPercent(value: number | null) {
+  if (value === null) return "-";
+  const sign = value > 0 ? "+" : "";
+  return `${sign}${value.toFixed(0)}%`;
+}
+
+function getAvgColor(delta: number) {
   if (delta > 20) return "destructive";
   if (delta > 5) return "info";
   if (delta < -10) return "success";
   return "secondary";
 }
 
-function formatCurrency(value: number) {
-  return `€ ${value.toFixed(0)}`;
+function getBudgetColor(percent: number | null) {
+  if (percent === null) return "secondary";
+  if (percent > 100) return "destructive";
+  if (percent > 80) return "info";
+  return "success";
 }
 
-function formatDelta(delta: number) {
-  const sign = delta > 0 ? "+" : "";
-  return `${sign}${delta.toFixed(0)}%`;
-}
+export async function CategoryComparisonTable({ accountId }: { accountId?: string }) {
+  const data = await getCategoryComparison(accountId);
 
-export async function CategoryAverageWidget() {
-  const data = await getCategoryAverages();
+  if (!data || data.length === 0) return null;
 
-  if (!data) return null;
-
-  const sorted = [...(data as CategoryData[])].sort(
-    (a, b) => b.delta_percent - a.delta_percent,
+  const sorted = [...data].sort(
+    (a, b) => b.current_month_spent - a.current_month_spent,
   );
 
-  const top = sorted[0];
-
   return (
-    <Card className="px-3 mb-4 py-2 border-b-4 border-b-blue-500">
-      <p className="text-xs font-semibold text-gray-600">
-        {"Expenses vs Average".toUpperCase()}
-      </p>
+    <Card className="p-4">
+      <h3 className="text-sm font-semibold text-gray-600 mb-4">
+        COMPARACIÓN DE GASTOS POR CATEGORÍA
+      </h3>
 
-      {top && (
-        <p className="mt-2">
-          Estás gastando <strong>{formatDelta(top.delta_percent)}</strong> en{" "}
-          <strong>{top.category_name}</strong> este mes
-        </p>
-      )}
-
-      <div className="mt-6 space-y-3">
-        {sorted.slice(0, 15).map((item) => (
-          <div key={item.category_id} className="flex justify-between">
-            <div>
-              <p className="font-medium">{item.category_name}</p>
-              <p className="text-xs text-gray-500">
-                {formatCurrency(Math.abs(item.current_month_total))} vs{" "}
-                {formatCurrency(Math.abs(item.monthly_avg))}
-              </p>
-            </div>
-
-            <Badge
-              className={`px-2 py-1 text-xs font-bold`}
-              variant={getColor(item.delta_percent)}
-            >
-              {formatDelta(item.delta_percent)}
-            </Badge>
-          </div>
-        ))}
-      </div>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="text-xs">Categoría</TableHead>
+            <TableHead className="text-right text-xs">Este mes</TableHead>
+            <TableHead className="text-right text-xs">Promedio 6 meses</TableHead>
+            <TableHead className="text-right text-xs">Diferencia</TableHead>
+            <TableHead className="text-right text-xs">Presupuesto</TableHead>
+            <TableHead className="text-right text-xs">% usado</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {sorted.map((item) => (
+            <TableRow key={item.category_id}>
+              <TableCell className="font-medium">
+                <div className="flex items-center gap-1.5">
+                  <CategoryIcon icon={item.category_icon} color={item.category_color} size={12} />
+                  <span className="text-sm">{item.category_title}</span>
+                </div>
+              </TableCell>
+              <TableCell className="text-right text-xs text-nowrap">
+                {formatCurrency(item.current_month_spent)}
+              </TableCell>
+              <TableCell className="text-right text-xs">
+                {formatCurrency(item.six_month_avg)}
+              </TableCell>
+              <TableCell className="text-right text-sm">
+                <Badge variant={getAvgColor(item.diff_vs_avg_percent)}>
+                  {formatPercent(item.diff_vs_avg_percent)}
+                </Badge>
+              </TableCell>
+              <TableCell className="text-right text-sm">
+                {item.budget_amount > 0 
+                  ? formatCurrency(item.budget_amount) 
+                  : <span className="text-gray-400">-</span>}
+              </TableCell>
+              <TableCell className="text-right text-sm">
+                {item.diff_vs_budget_percent === null ? (
+                  <span className="text-gray-400">-</span>
+                ) : (
+                  <Badge variant={getBudgetColor(item.diff_vs_budget_percent)}>
+                    {formatPercent(item.diff_vs_budget_percent)}
+                  </Badge>
+                )}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </Card>
   );
 }
