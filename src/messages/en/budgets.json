@@ -1,0 +1,20 @@
+{
+  "addTitle": "Add budget",
+  "detailsTitle": "Budget details",
+  "createBudget": "Create budget",
+  "editBudget": "Save budget",
+  "chooseCategory": "Choose a category",
+  "monthlyLimit": "Monthly limit",
+  "enterAmount": "Amount...",
+  "emptyState": "You have no budgets configured",
+  "noCategoriesAvailable": "You already have a budget for every expense category",
+  "createdSuccess": "Budget created successfully",
+  "updatedSuccess": "Budget updated successfully",
+  "deletedSuccess": "Budget deleted successfully",
+  "dialogBudget": "You are about to delete the budget for",
+  "dialogWarning": "This action cannot be undone.",
+  "defaultError": "Something went wrong",
+  "noCategoryError": "Please select a category",
+  "amountPositiveError": "Amount must be greater than 0",
+  "amountTooLarge": "Amount is too large"
+}

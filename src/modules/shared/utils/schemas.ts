@@ -60,6 +60,14 @@ export const CategorySchema = z.object({
   is_hidden: z.boolean().optional(),
 });
 
+export const BudgetSchema = z.object({
+  category_id: z.coerce.number("noCategoryError").positive("noCategoryError"),
+  amount: z.coerce
+    .number("amountPositiveError")
+    .positive("amountPositiveError")
+    .max(999999, "amountTooLarge"),
+});
+
 export const UserSchema = z
   .object({
     email: z.email({ message: "emailError" }),

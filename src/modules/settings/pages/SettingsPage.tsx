@@ -6,6 +6,7 @@ export const dynamic = "force-static";
 
 const links = [
   { name: "accounts", href: "/settings/accounts" },
+  { name: "budgets", href: "/settings/budgets" },
   { name: "languages", href: "/settings/languages" },
   { name: "categories", href: "/settings/categories" },
 ];
