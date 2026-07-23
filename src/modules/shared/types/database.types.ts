@@ -293,16 +293,6 @@ export type Database = {
       }
     }
     Functions: {
-      category_vs_current_month: {
-        Args: never
-        Returns: {
-          category_id: number
-          category_name: string
-          current_month_total: number
-          delta_percent: number
-          monthly_avg: number
-        }[]
-      }
       delete_movement_with_balance: {
         Args: { p_movement_id: number }
         Returns: undefined
