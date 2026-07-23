@@ -9,7 +9,7 @@ type Props = Readonly<{
   accountId: string;
 }>;
 
-function getCategoryLabel(
+export function getCategoryLabel(
   title: string,
   isGlobal: boolean,
   isCustomName: boolean,
@@ -60,7 +60,9 @@ export async function BudgetWidgetContent({ accountId }: Props) {
                   color={item.categoryColor}
                   size={14}
                 />
-                <p className="text-sm text-slate-700 truncate">{categoryLabel}</p>
+                <p className="text-sm text-slate-700 truncate">
+                  {categoryLabel}
+                </p>
               </div>
               <p
                 className={`text-sm font-medium whitespace-nowrap ${

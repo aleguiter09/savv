@@ -19,7 +19,7 @@ export async function HomePage(props: HomePageProps) {
   const accountId = account ?? (defaultAcc === "0" ? "all" : defaultAcc);
 
   return (
-    <>
+    <div className="max-w-lg mx-auto">
       <ActionBar accountId={accountId} />
       <Balance accountId={accountId} />
       <LastMovements accountId={accountId} />
@@ -33,6 +33,6 @@ export async function HomePage(props: HomePageProps) {
       <UpcomingPayments accountId={accountId} />
 
       <ToastManager />
-    </>
+    </div>
   );
 }

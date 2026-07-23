@@ -38,7 +38,8 @@ export async function NetWorth() {
         <div className="flex gap-1 items-center text-xs text-gray-600">
           Comparado hace 30 días
           <p className={`${newWorth.pastMonth < 0 ? "text-red-600" : ""}`}>
-            ({formatCurrency(locale, newWorth.current - newWorth.pastMonth, 2)})
+            ({isPositive ? "+" : "-"}
+            {formatCurrency(locale, newWorth.current - newWorth.pastMonth, 2)})
           </p>
         </div>
       </div>

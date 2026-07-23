@@ -1,8 +1,17 @@
 import { Card } from "@/ui/card";
 import { getCategoryComparison } from "../services/analytics";
 import { Badge } from "@/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/ui/table";
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
+import { getCategoryLabel } from "@/modules/budgets/ui/BudgetWidgetContent";
+import { getTranslations } from "next-intl/server";
 
 type CategoryComparisonData = {
   category_id: number;
@@ -40,8 +49,13 @@ function getBudgetColor(percent: number | null) {
   return "success";
 }
 
-export async function CategoryComparisonTable({ accountId }: { accountId?: string }) {
+export async function CategoryComparisonTable({
+  accountId,
+}: {
+  accountId?: string;
+}) {
   const data = await getCategoryComparison(accountId);
+  const t = await getTranslations();
 
   if (!data || data.length === 0) return null;
 
@@ -60,7 +74,9 @@ export async function CategoryComparisonTable({ accountId }: { accountId?: strin
           <TableRow>
             <TableHead className="text-xs">Categoría</TableHead>
             <TableHead className="text-right text-xs">Este mes</TableHead>
-            <TableHead className="text-right text-xs">Promedio 6 meses</TableHead>
+            <TableHead className="text-right text-xs">
+              Promedio 6 meses
+            </TableHead>
             <TableHead className="text-right text-xs">Diferencia</TableHead>
             <TableHead className="text-right text-xs">Presupuesto</TableHead>
             <TableHead className="text-right text-xs">% usado</TableHead>
@@ -71,8 +87,14 @@ export async function CategoryComparisonTable({ accountId }: { accountId?: strin
             <TableRow key={item.category_id}>
               <TableCell className="font-medium">
                 <div className="flex items-center gap-1.5">
-                  <CategoryIcon icon={item.category_icon} color={item.category_color} size={12} />
-                  <span className="text-sm">{item.category_title}</span>
+                  <CategoryIcon
+                    icon={item.category_icon}
+                    color={item.category_color}
+                    size={12}
+                  />
+                  <span className="text-sm font-normal">
+                    {getCategoryLabel(item.category_title, true, false, t)}
+                  </span>
                 </div>
               </TableCell>
               <TableCell className="text-right text-xs text-nowrap">
@@ -81,17 +103,19 @@ export async function CategoryComparisonTable({ accountId }: { accountId?: strin
               <TableCell className="text-right text-xs">
                 {formatCurrency(item.six_month_avg)}
               </TableCell>
-              <TableCell className="text-right text-sm">
+              <TableCell className="text-right text-xs">
                 <Badge variant={getAvgColor(item.diff_vs_avg_percent)}>
                   {formatPercent(item.diff_vs_avg_percent)}
                 </Badge>
               </TableCell>
-              <TableCell className="text-right text-sm">
-                {item.budget_amount > 0 
-                  ? formatCurrency(item.budget_amount) 
-                  : <span className="text-gray-400">-</span>}
+              <TableCell className="text-right text-xs">
+                {item.budget_amount > 0 ? (
+                  formatCurrency(item.budget_amount)
+                ) : (
+                  <span className="text-gray-400">-</span>
+                )}
               </TableCell>
-              <TableCell className="text-right text-sm">
+              <TableCell className="text-right text-xs">
                 {item.diff_vs_budget_percent === null ? (
                   <span className="text-gray-400">-</span>
                 ) : (

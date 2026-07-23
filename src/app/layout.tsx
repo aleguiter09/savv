@@ -52,7 +52,7 @@ export default async function RootLayout({
         />
         <NextIntlClientProvider locale={locale}>
           <main
-            className="mx-6 sm:w-lg sm:mx-auto"
+            className="mx-6 sm:w-lg sm:mx-auto lg:w-4xl"
             style={{
               paddingBottom: "env(safe-area-inset-bottom)",
             }}

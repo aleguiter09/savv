@@ -3,26 +3,33 @@ import { getAccounts } from "@/modules/accounts/services/accounts";
 
 export const getNetWorth = async () => {
   const supabase = await createClient();
-  const now = new Date();
-  const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-  const targetDate = thirtyDaysAgo.toISOString();
-
+  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
   const accounts = await getAccounts();
 
-  if (accounts.length === 0) return { current: 0, pastMonth: 0 };
+  if (!accounts || accounts.length === 0) {
+    return { current: 0, pastMonth: 0 };
+  }
 
-  const { data } = await supabase.rpc("get_accounts_balance_at", {
-    target_date: targetDate,
+  const { data, error } = await supabase.rpc("get_accounts_balance_at", {
+    target_date: thirtyDaysAgo.toISOString(),
   });
 
-  const current = accounts?.reduce((a, b) => a + b.balance, 0) ?? 0;
+  if (error) {
+    console.error("Error obteniendo balance histórico:", error);
+  }
 
-  if (!data) return { current, pastMonth: 0 };
+  const current = accounts.reduce(
+    (sum, acc) => sum + Number(acc.balance || 0),
+    0,
+  );
 
-  const pastMap = new Map(data.map((d) => [d.from, d.balance]));
+  if (!data) return { current, pastMonth: current };
+
+  const pastMap = new Map(data.map((d) => [d.from, Number(d.balance)]));
 
   const pastMonth = accounts.reduce((sum, acc) => {
-    return sum + (pastMap.get(acc.id) ?? 0);
+    const historicalBalance = pastMap.get(acc.id);
+    return sum + (historicalBalance ?? Number(acc.balance || 0));
   }, 0);
 
   return { current, pastMonth };

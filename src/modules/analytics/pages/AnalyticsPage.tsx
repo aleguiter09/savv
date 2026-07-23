@@ -13,9 +13,15 @@ export async function AnalyticsPage() {
         <p className="text-sm text-slate-500">{t("analyticsDescription")}</p>
       </div>
 
-      <NetWorth />
-      <BalanceTimeline />
-      <CategoryComparisonTable />
+      <div className="flex flex-col gap-4 lg:flex-row lg:gap-6">
+        <div className="flex-1 flex flex-col gap-4">
+          <NetWorth />
+          <BalanceTimeline />
+        </div>
+        <div className="flex-1">
+          <CategoryComparisonTable />
+        </div>
+      </div>
     </section>
   );
 }
