@@ -5,10 +5,6 @@ import { getLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { BudgetProgressBar } from "./BudgetProgressBar";
 
-type Props = Readonly<{
-  accountId: string;
-}>;
-
 export function getCategoryLabel(
   title: string,
   isGlobal: boolean,
@@ -22,9 +18,9 @@ export function getCategoryLabel(
   return title;
 }
 
-export async function BudgetWidgetContent({ accountId }: Props) {
+export async function BudgetWidgetContent() {
   const [items, t, locale] = await Promise.all([
-    getBudgetProgress(accountId),
+    getBudgetProgress("all"),
     getTranslations(),
     getLocale(),
   ]);
@@ -50,7 +46,7 @@ export async function BudgetWidgetContent({ accountId }: Props) {
         return (
           <Link
             key={item.budgetId}
-            href={`/movements?account=${accountId}&category=${item.categoryId}`}
+            href={`/movements?account=all&category=${item.categoryId}`}
             className="rounded-md border border-slate-200 bg-white px-2 py-2 hover:bg-slate-50"
           >
             <div className="flex items-center justify-between gap-2 mb-1.5">

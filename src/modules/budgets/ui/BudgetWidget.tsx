@@ -11,7 +11,7 @@ type Props = Readonly<{
   accountId: string;
 }>;
 
-export async function BudgetWidget({ accountId }: Props) {
+export async function BudgetWidget() {
   const t = await getTranslations("dashboard");
 
   return (
@@ -19,8 +19,8 @@ export async function BudgetWidget({ accountId }: Props) {
       <Link href="/settings/budgets" className="font-semibold">
         {t("budgets")}
       </Link>
-      <Suspense key={accountId} fallback={<BudgetWidgetSkeleton />}>
-        <BudgetWidgetContent accountId={accountId} />
+      <Suspense fallback={<BudgetWidgetSkeleton />}>
+        <BudgetWidgetContent />
       </Suspense>
     </Card>
   );

@@ -26,13 +26,13 @@ type CategoryComparisonData = {
 };
 
 function formatCurrency(value: number) {
+  if (!value) return "-";
   return `€${value.toFixed(0)}`;
 }
 
 function formatPercent(value: number | null) {
   if (value === null) return "-";
-  const sign = value > 0 ? "+" : "";
-  return `${sign}${value.toFixed(0)}%`;
+  return `${value.toFixed(0)}%`;
 }
 
 function getAvgColor(delta: number) {
@@ -40,13 +40,6 @@ function getAvgColor(delta: number) {
   if (delta > 5) return "info";
   if (delta < -10) return "success";
   return "secondary";
-}
-
-function getBudgetColor(percent: number | null) {
-  if (percent === null) return "secondary";
-  if (percent > 100) return "destructive";
-  if (percent > 80) return "info";
-  return "success";
 }
 
 export async function CategoryComparisonTable({
@@ -65,7 +58,7 @@ export async function CategoryComparisonTable({
 
   return (
     <Card className="p-4">
-      <h3 className="text-sm font-semibold text-gray-600 mb-4">
+      <h3 className="text-sm font-semibold mb-4">
         COMPARACIÓN DE GASTOS POR CATEGORÍA
       </h3>
 
@@ -79,7 +72,6 @@ export async function CategoryComparisonTable({
             </TableHead>
             <TableHead className="text-right text-xs">Diferencia</TableHead>
             <TableHead className="text-right text-xs">Presupuesto</TableHead>
-            <TableHead className="text-right text-xs">% usado</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -92,7 +84,7 @@ export async function CategoryComparisonTable({
                     color={item.category_color}
                     size={12}
                   />
-                  <span className="text-sm font-normal">
+                  <span className="text-xs font-normal">
                     {getCategoryLabel(item.category_title, true, false, t)}
                   </span>
                 </div>
@@ -109,20 +101,7 @@ export async function CategoryComparisonTable({
                 </Badge>
               </TableCell>
               <TableCell className="text-right text-xs">
-                {item.budget_amount > 0 ? (
-                  formatCurrency(item.budget_amount)
-                ) : (
-                  <span className="text-gray-400">-</span>
-                )}
-              </TableCell>
-              <TableCell className="text-right text-xs">
-                {item.diff_vs_budget_percent === null ? (
-                  <span className="text-gray-400">-</span>
-                ) : (
-                  <Badge variant={getBudgetColor(item.diff_vs_budget_percent)}>
-                    {formatPercent(item.diff_vs_budget_percent)}
-                  </Badge>
-                )}
+                {formatCurrency(item.budget_amount)}
               </TableCell>
             </TableRow>
           ))}

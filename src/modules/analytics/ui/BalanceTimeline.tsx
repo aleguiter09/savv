@@ -21,7 +21,7 @@ export async function BalanceTimeline() {
   const data = balanceTimelineAdapter(timeline, "day");
 
   return (
-    <Card className=" py-3">
+    <Card className="py-3">
       <p className="pl-4 font-semibold mb-4">{t("accountsBalanceTimeline")}</p>
 
       <BalanceTimelineChart data={data} />

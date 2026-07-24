@@ -28,7 +28,7 @@ export async function HomePage(props: HomePageProps) {
         year={new Date().getFullYear()}
         month={new Date().getMonth()}
       />
-      <BudgetWidget accountId={accountId} />
+      <BudgetWidget />
       <TotalWealth />
       <UpcomingPayments accountId={accountId} />
 
