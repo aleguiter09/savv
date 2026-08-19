@@ -6,8 +6,6 @@ import { BudgetWidget } from "@/modules/budgets/ui/BudgetWidget";
 import { LastMovements } from "@/modules/dashboard/ui/LastMovements/LastMovements";
 import { TotalWealth } from "@/modules/dashboard/ui/TotalWealth/TotalWealth";
 import { UpcomingPayments } from "@/modules/dashboard/ui/UpcomingPayments/UpcomingPayments";
-import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
-
 export type HomePageProps = {
   account?: string;
 };
@@ -31,8 +29,6 @@ export async function HomePage(props: HomePageProps) {
       <BudgetWidget />
       <TotalWealth />
       <UpcomingPayments accountId={accountId} />
-
-      <ToastManager />
     </div>
   );
 }

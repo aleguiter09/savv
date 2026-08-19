@@ -2,7 +2,6 @@ import { getCategories } from "@/modules/categories/services/categories";
 import { adaptCategory } from "@/modules/categories/adapters/categories.adapter";
 import { getBudgets } from "@/modules/budgets/services/budgets";
 import { BudgetForm } from "@/modules/budgets/ui/BudgetForm";
-import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 import { ArrowLeft } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -45,8 +44,6 @@ export async function CreateBudgetPage() {
       ) : (
         <BudgetForm categories={availableCategories} />
       )}
-
-      <ToastManager />
     </>
   );
 }

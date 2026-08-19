@@ -4,7 +4,6 @@ import { deleteBudgetForm } from "@/modules/budgets/actions/budget-actions";
 import { getBudgetById } from "@/modules/budgets/services/budgets";
 import { BudgetForm } from "@/modules/budgets/ui/BudgetForm";
 import { ConfirmDelete } from "@/modules/shared/ui/common/ConfirmDelete";
-import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 import { ArrowLeft } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -63,8 +62,6 @@ export async function EditBudgetPage({ id }: Readonly<EditBudgetPageProps>) {
       </div>
 
       <BudgetForm budget={budget} categories={expenseCategories} />
-
-      <ToastManager />
     </>
   );
 }

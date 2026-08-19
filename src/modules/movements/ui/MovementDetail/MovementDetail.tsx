@@ -1,20 +1,15 @@
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
 import { cn } from "@/modules/shared/utils/cn";
 import { getFormatter, getLocale, getTranslations } from "next-intl/server";
-import Link from "next/link";
 import type { MovementView } from "../../types/types";
 import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
+import { EditMovementButton } from "../EditMovementButton";
 
 export async function MovementDetail({
-  id,
-  doneAt,
-  amount,
-  balanceAfter,
-  description,
-  type,
-  category,
-  account,
-}: MovementView) {
+  movement,
+}: Readonly<{ movement: MovementView }>) {
+  const { doneAt, amount, balanceAfter, description, type, category, account } =
+    movement;
   const [tMovements, tCategories, formatter, locale] = await Promise.all([
     getTranslations("movements"),
     getTranslations("categories"),
@@ -75,12 +70,7 @@ export async function MovementDetail({
       </div>
 
       <div className="mt-3 flex gap-2">
-        <Link
-          href={`/movements/${id}/edit`}
-          className="w-full text-center rounded-md bg-blue-600 py-2 text-sm font-medium text-white"
-        >
-          {tMovements("edit")}
-        </Link>
+        <EditMovementButton movement={movement} />
       </div>
     </div>
   );

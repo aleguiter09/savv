@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/ui/button";
-import { Card } from "@/ui/card";
 import { DatePicker } from "@/ui/date-picker";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/ui/field";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
@@ -26,7 +25,15 @@ import { MovementView } from "../../types/types";
 type SchemaInput = z.input<typeof MovementSchema>;
 type SchemaOutput = z.infer<typeof MovementSchema>;
 
-export function MovementForm({ movement }: { movement?: MovementView }) {
+type MovementFormProps = {
+  movement?: MovementView;
+  onSuccess?: () => void;
+};
+
+export function MovementForm({
+  movement,
+  onSuccess,
+}: Readonly<MovementFormProps>) {
   const { accounts, incomeCategories, expenseCategories } = useData();
   const defaultAcc = accounts.find((a) => a.isDefault);
 
@@ -69,7 +76,13 @@ export function MovementForm({ movement }: { movement?: MovementView }) {
         res = await createMovementForm(data);
       }
 
-      if (!res.success) {
+      if (res.success) {
+        show({
+          type: "success",
+          message: t(movement?.id ? "updatedSuccess" : "createdSuccess"),
+        });
+        onSuccess?.();
+      } else {
         show({ type: "error", message: t(res.error ?? "defaultError") });
       }
     });
@@ -136,117 +149,115 @@ export function MovementForm({ movement }: { movement?: MovementView }) {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
-      <Card className="p-4">
-        <FieldGroup>
-          {/* done_at */}
+      <FieldGroup>
+        {/* done_at */}
+        <Controller
+          name="done_at"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel className="block text-sm font-medium">
+                {t("enterDate")}
+              </FieldLabel>
+              <DatePicker
+                value={field.value as Date | undefined}
+                onChange={field.onChange}
+                locale={locale.includes("es") ? es : enUS}
+                error={fieldState.error?.message}
+              />
+            </Field>
+          )}
+        />
+
+        {/* type/category */}
+        <div className="rounded-md ">
           <Controller
-            name="done_at"
+            name="type"
             control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel className="block text-sm font-medium">
-                  {t("enterDate")}
-                </FieldLabel>
-                <DatePicker
-                  value={field.value as Date | undefined}
-                  onChange={field.onChange}
-                  locale={locale.includes("es") ? es : enUS}
-                  error={fieldState.error?.message}
-                />
-              </Field>
+            render={({ field }) => (
+              <Tabs value={type} onValueChange={field.onChange}>
+                <TabsList className="w-full">
+                  <TabsTrigger value="expense" className="w-full">
+                    {t("expense")}
+                  </TabsTrigger>
+                  <TabsTrigger value="income" className="w-full">
+                    {t("income")}
+                  </TabsTrigger>
+                  <TabsTrigger value="transfer" className="w-full">
+                    {t("transfer")}
+                  </TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="expense" className="flex flex-col gap-4">
+                  {renderFrom()}
+                  {renderCategory("expense")}
+                </TabsContent>
+                <TabsContent value="income" className="flex flex-col gap-4">
+                  {renderFrom()}
+                  {renderCategory("income")}
+                </TabsContent>
+                <TabsContent value="transfer" className="flex flex-col gap-4">
+                  {renderFrom()}
+                  {!movement && renderWhere()}
+                </TabsContent>
+              </Tabs>
             )}
           />
-
-          {/* type/category */}
-          <div className="rounded-md ">
-            <Controller
-              name="type"
-              control={form.control}
-              render={({ field }) => (
-                <Tabs value={type} onValueChange={field.onChange}>
-                  <TabsList className="w-full">
-                    <TabsTrigger value="expense" className="w-full">
-                      {t("expense")}
-                    </TabsTrigger>
-                    <TabsTrigger value="income" className="w-full">
-                      {t("income")}
-                    </TabsTrigger>
-                    <TabsTrigger value="transfer" className="w-full">
-                      {t("transfer")}
-                    </TabsTrigger>
-                  </TabsList>
-
-                  <TabsContent value="expense" className="flex flex-col gap-4">
-                    {renderFrom()}
-                    {renderCategory("expense")}
-                  </TabsContent>
-                  <TabsContent value="income" className="flex flex-col gap-4">
-                    {renderFrom()}
-                    {renderCategory("income")}
-                  </TabsContent>
-                  <TabsContent value="transfer" className="flex flex-col gap-4">
-                    {renderFrom()}
-                    {!movement && renderWhere()}
-                  </TabsContent>
-                </Tabs>
-              )}
-            />
-          </div>
-
-          {/* amount */}
-          <Controller
-            name="amount"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="amount">{t("enterAmount")}</FieldLabel>
-                <Input
-                  {...field}
-                  value={(field.value as string | number) ?? ""}
-                  id="amount"
-                  type="number"
-                  aria-invalid={fieldState.invalid}
-                  placeholder={t("chooseAmount")}
-                  step="0.01"
-                  min="0"
-                />
-                {fieldState.invalid && (
-                  <FieldError error={t(fieldState.error?.message as string)} />
-                )}
-              </Field>
-            )}
-          />
-
-          {/* description */}
-          <Controller
-            name="description"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="description">
-                  {t("enterDescription")}
-                </FieldLabel>
-                <Input
-                  {...field}
-                  id="description"
-                  aria-invalid={fieldState.invalid}
-                  placeholder={t("chooseDescription")}
-                />
-                {fieldState.invalid && (
-                  <FieldError error={t(fieldState.error?.message as string)} />
-                )}
-              </Field>
-            )}
-          />
-        </FieldGroup>
-
-        {/* Actions */}
-        <div className="mt-3 flex flex-row gap-2">
-          <Button loading={pending} type="submit" className="w-full">
-            {t("confirm")}
-          </Button>
         </div>
-      </Card>
+
+        {/* amount */}
+        <Controller
+          name="amount"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="amount">{t("enterAmount")}</FieldLabel>
+              <Input
+                {...field}
+                value={(field.value as string | number) ?? ""}
+                id="amount"
+                type="number"
+                aria-invalid={fieldState.invalid}
+                placeholder={t("chooseAmount")}
+                step="0.01"
+                min="0"
+              />
+              {fieldState.invalid && (
+                <FieldError error={t(fieldState.error?.message as string)} />
+              )}
+            </Field>
+          )}
+        />
+
+        {/* description */}
+        <Controller
+          name="description"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="description">
+                {t("enterDescription")}
+              </FieldLabel>
+              <Input
+                {...field}
+                id="description"
+                aria-invalid={fieldState.invalid}
+                placeholder={t("chooseDescription")}
+              />
+              {fieldState.invalid && (
+                <FieldError error={t(fieldState.error?.message as string)} />
+              )}
+            </Field>
+          )}
+        />
+      </FieldGroup>
+
+      {/* Actions */}
+      <div className="mt-3 flex flex-row gap-2">
+        <Button loading={pending} type="submit" className="w-full">
+          {t("confirm")}
+        </Button>
+      </div>
     </form>
   );
 }

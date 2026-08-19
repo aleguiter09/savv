@@ -56,5 +56,15 @@
   "areYouSure": "¿Estas seguro? 🤔",
   "deleteDialog": "Usted está a punto de eliminar la siguiente categoría: \"{title}\"<br></br>Esta acción no se puede deshacer.",
   "deletedSuccess": "Categoría eliminada con éxito",
-  "customizeCategory": "Personalizar categoría"
+  "customizeCategory": "Personalizar categoría",
+  "analytics": {
+    "categoryComparison": {
+      "title": "Comparación de gastos por categoría",
+      "category": "Categoría",
+      "thisMonth": "Este mes",
+      "sixMonthAvg": "Promedio 6 meses",
+      "difference": "Diferencia",
+      "budget": "Presupuesto"
+    }
+  }
 }

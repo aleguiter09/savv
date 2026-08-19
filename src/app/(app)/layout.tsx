@@ -4,6 +4,7 @@ import { adaptCategory } from "@/modules/categories/adapters/categories.adapter"
 import { getCategories } from "@/modules/categories/services/categories";
 import { DataProvider } from "@/modules/shared/stores/DataProvider";
 import { Navbar } from "@/modules/shared/ui/Navbar/Navbar";
+import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 
 export default async function AppLayout({
   children,
@@ -20,6 +21,7 @@ export default async function AppLayout({
     <DataProvider accounts={adaptedAccounts} categories={adaptedCategories}>
       {children}
       <Navbar />
+      <ToastManager />
     </DataProvider>
   );
 }

@@ -1,6 +1,5 @@
 import { getBudgets } from "@/modules/budgets/services/budgets";
 import { AddButton } from "@/modules/dashboard/ui/ActionBar/AddButton";
-import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
 import { getLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -52,8 +51,6 @@ export async function BudgetsPage() {
           })}
         </ul>
       )}
-
-      <ToastManager />
     </>
   );
 }

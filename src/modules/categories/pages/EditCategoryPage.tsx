@@ -4,7 +4,6 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { getCategoryById } from "@/modules/categories/services/categories";
 import { CategoryForm } from "@/modules/categories/ui/CategoryForm";
-import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 import { adaptCategoryToForm } from "../adapters/categories.adapter";
 
 type EditCategoryPageProps = { id: number };
@@ -31,7 +30,6 @@ export default async function EditCategoryPage({ id }: EditCategoryPageProps) {
         <span></span>
       </div>
       <CategoryForm {...adaptedCategory} />
-      <ToastManager />
     </>
   );
 }

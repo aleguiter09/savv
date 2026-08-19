@@ -1,6 +1,5 @@
 import { getAccounts } from "@/modules/accounts/services/accounts";
 import { AddButton } from "@/modules/dashboard/ui/ActionBar/AddButton";
-import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
@@ -31,8 +30,6 @@ export async function AccountsPage() {
           </li>
         ))}
       </ul>
-
-      <ToastManager />
     </>
   );
 }

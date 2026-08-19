@@ -59,19 +59,27 @@ export async function CategoryComparisonTable({
   return (
     <Card className="p-4">
       <h3 className="text-sm font-semibold mb-4">
-        COMPARACIÓN DE GASTOS POR CATEGORÍA
+        {t("analytics.categoryComparison.title")}
       </h3>
 
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="text-xs">Categoría</TableHead>
-            <TableHead className="text-right text-xs">Este mes</TableHead>
-            <TableHead className="text-right text-xs">
-              Promedio 6 meses
+            <TableHead className="text-xs">
+              {t("analytics.categoryComparison.category")}
             </TableHead>
-            <TableHead className="text-right text-xs">Diferencia</TableHead>
-            <TableHead className="text-right text-xs">Presupuesto</TableHead>
+            <TableHead className="text-right text-xs">
+              {t("analytics.categoryComparison.thisMonth")}
+            </TableHead>
+            <TableHead className="text-right text-xs">
+              {t("analytics.categoryComparison.sixMonthAvg")}
+            </TableHead>
+            <TableHead className="text-right text-xs">
+              {t("analytics.categoryComparison.difference")}
+            </TableHead>
+            <TableHead className="text-right text-xs">
+              {t("analytics.categoryComparison.budget")}
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

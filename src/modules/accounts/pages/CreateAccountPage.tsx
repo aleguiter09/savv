@@ -1,5 +1,4 @@
 import { AccountForm } from "@/modules/accounts/ui/AccountForm";
-import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 import { ArrowLeft } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -17,7 +16,6 @@ export async function CreateAccountPage() {
         <span></span>
       </div>
       <AccountForm />
-      <ToastManager />
     </>
   );
 }

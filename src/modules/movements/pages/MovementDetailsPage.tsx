@@ -33,7 +33,7 @@ export async function MovementDetailPage({ id }: MovementDetailPageProps) {
         <DeleteMovementButton movement={parsedMovement} />
       </div>
 
-      <MovementDetail {...parsedMovement} />
+      <MovementDetail movement={parsedMovement} />
     </>
   );
 }

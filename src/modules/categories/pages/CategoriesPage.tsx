@@ -1,6 +1,5 @@
 import { getCategories } from "@/modules/categories/services/categories";
 import { getTranslations } from "next-intl/server";
-import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 import { AddButton } from "@/modules/dashboard/ui/ActionBar/AddButton";
 import { mapCategories } from "../adapters/categories.adapter";
 import { CategoryClient } from "../ui/CategoryClient";
@@ -25,8 +24,6 @@ export async function CategoriesPage() {
       </div>
 
       <CategoryClient initialCategories={mappedCategories} />
-
-      <ToastManager />
     </>
   );
 }

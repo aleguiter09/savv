@@ -6,7 +6,6 @@ import { deleteAccountForm } from "@/modules/accounts/actions/account-actions";
 import { ConfirmDelete } from "@/modules/shared/ui/common/ConfirmDelete";
 import Link from "next/link";
 import { AccountForm } from "@/modules/accounts/ui/AccountForm";
-import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 import { adaptAccount } from "@/modules/accounts/adapters/account.adapter.";
 
 type EditAccountPageProps = {
@@ -43,8 +42,6 @@ export async function EditAccountPage({ id }: Readonly<EditAccountPageProps>) {
         </ConfirmDelete>
       </div>
       <AccountForm account={adaptedAccount} />
-
-      <ToastManager />
     </>
   );
 }

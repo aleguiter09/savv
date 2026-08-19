@@ -1,7 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 import { CategoryForm } from "@/modules/categories/ui/CategoryForm";
 
 export async function CreateCategoryPage() {
@@ -17,7 +16,6 @@ export async function CreateCategoryPage() {
         <span></span>
       </div>
       <CategoryForm />
-      <ToastManager />
     </>
   );
 }
