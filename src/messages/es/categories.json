@@ -4,6 +4,7 @@
   "detailsTitle": "Detalles de la categoría",
   "titlePlaceholder": "Título...",
   "createCategory": "Crear categoría",
+  "editCategory": "Guardar categoría",
   "titleError": "Por favor, introduzca un título para la categoría",
   "titleTooLong": "El título de la categoría debe tener menos de 20 caracteres",
   "enterIcon": "Elija un icono",

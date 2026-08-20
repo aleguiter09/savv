@@ -2,7 +2,6 @@
 import { useTranslations } from "next-intl";
 import { Input } from "@/ui/input";
 import { Checkbox } from "@/ui/checkbox";
-import { Card } from "@/ui/card";
 import { Button } from "@/ui/button";
 import { AccountSchema } from "@/modules/shared/utils/schemas";
 import { z } from "zod";
@@ -20,7 +19,12 @@ import { AccountView } from "../types/types";
 type SchemaInput = z.input<typeof AccountSchema>;
 type SchemaOutput = z.infer<typeof AccountSchema>;
 
-export function AccountForm({ account }: { account?: AccountView }) {
+type AccountFormProps = {
+  account?: AccountView;
+  onSuccess?: () => void;
+};
+
+export function AccountForm({ account, onSuccess }: AccountFormProps) {
   const t = useTranslations("accounts");
   const show = useToastStore((store) => store.show);
   const [pending, startTransition] = useTransition();
@@ -45,103 +49,103 @@ export function AccountForm({ account }: { account?: AccountView }) {
         res = await createAccountForm(data);
       }
 
-      if (!res.success) {
+      if (res.success) {
+        show({
+          type: "success",
+          message: t(account?.id ? "updatedSuccess" : "createdSuccess"),
+        });
+        onSuccess?.();
+      } else {
         show({ type: "error", message: t(res.error ?? "defaultError") });
       }
     });
   }
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)}>
-      <Card className="rounded-md p-4 flex flex-col gap-2">
-        <FieldGroup className="mb-2">
-          {/* Account name */}
-          <Controller
-            name="name"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel
-                  htmlFor="name"
-                  className="block text-sm font-medium"
-                >
-                  {t("enterName")}
-                </FieldLabel>
-                <Input
-                  {...field}
-                  id="name"
-                  placeholder={t("enterAccountName")}
-                  value={field.value}
-                />
-                {fieldState.invalid && (
-                  <FieldError error={t(fieldState.error?.message as string)} />
-                )}
-              </Field>
-            )}
-          />
+    <form
+      onSubmit={form.handleSubmit(onSubmit)}
+      className="flex flex-col gap-2"
+    >
+      <FieldGroup className="mb-2">
+        <Controller
+          name="name"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="name" className="block text-sm font-medium">
+                {t("enterName")}
+              </FieldLabel>
+              <Input
+                {...field}
+                id="name"
+                placeholder={t("enterAccountName")}
+                value={field.value}
+              />
+              {fieldState.invalid && (
+                <FieldError error={t(fieldState.error?.message as string)} />
+              )}
+            </Field>
+          )}
+        />
 
-          {/* Account balance */}
-          <Controller
-            name="balance"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel
-                  htmlFor="balance"
-                  className="block text-sm font-medium"
-                >
-                  {t("currentBalance")}
-                </FieldLabel>
-                <Input
-                  {...field}
-                  id="balance"
-                  placeholder={t("enterBalance")}
-                  value={(field.value as string | number) ?? ""}
-                  onChange={field.onChange}
-                  step="0.01"
-                  type="number"
-                  disabled={Boolean(account)}
-                />
-                {account && (
-                  <p className="text-xs text-gray-500 mt-1">
-                    {t("balanceManagedByMovements")}
-                  </p>
-                )}
-                {fieldState.invalid && (
-                  <FieldError error={t(fieldState.error?.message as string)} />
-                )}
-              </Field>
-            )}
-          />
-
-          {/* Default account */}
-          <Controller
-            name="is_default"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field
-                className="gap-3"
-                orientation="horizontal"
-                data-invalid={fieldState.invalid}
+        <Controller
+          name="balance"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel
+                htmlFor="balance"
+                className="block text-sm font-medium"
               >
-                <Checkbox
-                  id="is_default"
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
+                {t("currentBalance")}
+              </FieldLabel>
+              <Input
+                {...field}
+                id="balance"
+                placeholder={t("enterBalance")}
+                value={(field.value as string | number) ?? ""}
+                onChange={field.onChange}
+                step="0.01"
+                type="number"
+                disabled={Boolean(account)}
+              />
+              {account && (
+                <p className="text-xs text-gray-500 mt-1">
+                  {t("balanceManagedByMovements")}
+                </p>
+              )}
+              {fieldState.invalid && (
+                <FieldError error={t(fieldState.error?.message as string)} />
+              )}
+            </Field>
+          )}
+        />
 
-                <FieldLabel htmlFor="is_default">
-                  {t("defaultAccount")}
-                </FieldLabel>
-              </Field>
-            )}
-          />
-        </FieldGroup>
+        <Controller
+          name="is_default"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field
+              className="gap-3"
+              orientation="horizontal"
+              data-invalid={fieldState.invalid}
+            >
+              <Checkbox
+                id="is_default"
+                checked={field.value}
+                onCheckedChange={field.onChange}
+              />
+              <FieldLabel htmlFor="is_default">
+                {t("defaultAccount")}
+              </FieldLabel>
+            </Field>
+          )}
+        />
+      </FieldGroup>
 
-        <Button loading={pending} type="submit">
-          {account ? t("editAccount") : t("createAccount")}
-        </Button>
-      </Card>
+      <Button loading={pending} type="submit">
+        {account ? t("editAccount") : t("createAccount")}
+      </Button>
     </form>
   );
 }

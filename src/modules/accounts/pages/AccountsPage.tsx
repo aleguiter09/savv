@@ -1,11 +1,13 @@
 import { getAccounts } from "@/modules/accounts/services/accounts";
-import { AddButton } from "@/modules/dashboard/ui/ActionBar/AddButton";
+import { adaptAccount } from "@/modules/accounts/adapters/account.adapter.";
+import { AccountDialog } from "@/modules/accounts/ui/AccountDialog";
+import { AccountsList } from "@/modules/accounts/ui/AccountsList";
+import { FloatingAddButton } from "@/modules/dashboard/ui/ActionBar/FloatingAddButton";
 import { getTranslations } from "next-intl/server";
-import Link from "next/link";
 
 export async function AccountsPage() {
   const t = await getTranslations("settings");
-  const accounts = await getAccounts();
+  const accounts = (await getAccounts()).map(adaptAccount);
 
   return (
     <>
@@ -15,21 +17,9 @@ export async function AccountsPage() {
           <span className="text-gray-500">/</span>
           <h3 className="font-semibold">{t("accounts")}</h3>
         </div>
-        <AddButton href="/settings/accounts/create" />
+        <AccountDialog trigger={<FloatingAddButton />} />
       </div>
-      <ul className="text-sm flex flex-col gap-2">
-        {accounts.map((account) => (
-          <li key={account.id}>
-            <Link
-              href={`/settings/accounts/${account.id}`}
-              tabIndex={0}
-              className="w-full px-4 py-2 border border-gray-200 bg-white focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:text-blue-500 rounded-lg flex justify-between"
-            >
-              <p>{account.name}</p>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <AccountsList accounts={accounts} />
     </>
   );
 }

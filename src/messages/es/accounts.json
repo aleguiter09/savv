@@ -1,5 +1,6 @@
 {
   "addTitle": "Añadir cuenta",
+  "editTitle": "Editar cuenta",
   "detailsTitle": "Detalles de la cuenta",
   "enterName": "Introduzca un nombre",
   "enterAccountName": "Introduzca el nombre de la cuenta",
@@ -11,6 +12,9 @@
   "nameError": "Por favor, elija un nombre para la cuenta",
   "balanceError": "Por favor, introduzca un balance",
   "areYouSure": "¿Está seguro? 🤔",
+  "confirm": "Confirmar",
+  "cancel": "Cancelar",
+  "defaultError": "Ha ocurrido un error",
   "dialogAccount": "Usted está a punto de eliminar la siguiente cuenta:",
   "dialogWarning": "Esta acción eliminará las transacciones asociadas y no se puede deshacer.",
   "createdSuccess": "Cuenta creada con éxito",

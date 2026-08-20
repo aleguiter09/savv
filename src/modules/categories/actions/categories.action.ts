@@ -1,16 +1,13 @@
 "use server";
 
 import { CategorySchema } from "@/modules/shared/utils/schemas";
-import { setToastMessage } from "@/modules/shared/actions/toast";
 import {
   createCategory,
   deleteCategory,
   updateCategory,
   upsertUserCategory,
 } from "@/modules/categories/services/categories";
-import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import z from "zod";
 import type { ServerActionResponse } from "@/modules/shared/types/global.types";
 
@@ -35,11 +32,8 @@ export async function createCategoryForm(
     };
   }
 
-  const t = await getTranslations("categories");
-
-  setToastMessage("success", t("createdSuccess"));
   revalidatePath("/settings/categories");
-  redirect("/settings/categories");
+  return { success: true };
 }
 
 export async function updateCategoryForm(
@@ -76,22 +70,28 @@ export async function updateCategoryForm(
     };
   }
 
-  const t = await getTranslations("categories");
-
-  setToastMessage("success", t("updatedSuccess"));
   revalidatePath("/settings/categories");
-  redirect("/settings/categories");
+  return { success: true };
 }
 
-export const deleteCategoryForm = async (id: number) => {
-  if (!id) return;
-  await deleteCategory(id);
+export const deleteCategoryForm = async (
+  id: number,
+): Promise<ServerActionResponse> => {
+  if (!id) {
+    return { success: false, error: "Missing category id." };
+  }
 
-  const t = await getTranslations("categories");
+  try {
+    await deleteCategory(id);
+  } catch (error) {
+    return {
+      success: false,
+      error: "Database error: failed to delete category: " + error,
+    };
+  }
 
-  setToastMessage("success", t("deletedSuccess"));
   revalidatePath("/settings/categories");
-  redirect("/settings/categories");
+  return { success: true };
 };
 
 export async function toggleCategoryVisibility(

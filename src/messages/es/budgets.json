@@ -1,5 +1,9 @@
 {
   "addTitle": "Añadir presupuesto",
+  "editTitle": "Editar presupuesto",
+  "areYouSure": "¿Estás seguro? 🤔",
+  "confirm": "Confirmar",
+  "cancel": "Cancelar",
   "detailsTitle": "Detalles del presupuesto",
   "createBudget": "Crear presupuesto",
   "editBudget": "Guardar presupuesto",

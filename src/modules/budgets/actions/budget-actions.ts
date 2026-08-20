@@ -5,12 +5,9 @@ import {
   deleteBudget,
   updateBudget,
 } from "@/modules/budgets/services/budgets";
-import { setToastMessage } from "@/modules/shared/actions/toast";
 import type { ServerActionResponse } from "@/modules/shared/types/global.types";
 import { BudgetSchema } from "@/modules/shared/utils/schemas";
-import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import z from "zod";
 
 export async function createBudgetForm(
@@ -34,12 +31,9 @@ export async function createBudgetForm(
     };
   }
 
-  const t = await getTranslations("budgets");
-
-  setToastMessage("success", t("createdSuccess"));
   revalidatePath("/");
   revalidatePath("/settings/budgets");
-  redirect("/settings/budgets");
+  return { success: true };
 }
 
 export async function updateBudgetForm(
@@ -64,12 +58,9 @@ export async function updateBudgetForm(
     };
   }
 
-  const t = await getTranslations("budgets");
-
-  setToastMessage("success", t("updatedSuccess"));
   revalidatePath("/");
   revalidatePath("/settings/budgets");
-  redirect("/settings/budgets");
+  return { success: true };
 }
 
 export const deleteBudgetForm = async (
@@ -84,10 +75,7 @@ export const deleteBudgetForm = async (
     };
   }
 
-  const t = await getTranslations("budgets");
-
-  setToastMessage("success", t("deletedSuccess"));
   revalidatePath("/");
   revalidatePath("/settings/budgets");
-  redirect("/settings/budgets");
+  return { success: true };
 };

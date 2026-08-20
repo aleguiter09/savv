@@ -1,5 +1,6 @@
 {
   "addTitle": "Create account",
+  "editTitle": "Edit account",
   "detailsTitle": "Account Details",
   "enterName": "Enter a name",
   "enterAccountName": "Enter the account name",
@@ -11,6 +12,9 @@
   "nameError": "Please choose a name for the account",
   "balanceError": "The balance must be a number",
   "areYouSure": "Are you sure? 🤔",
+  "confirm": "Confirm",
+  "cancel": "Cancel",
+  "defaultError": "Something went wrong",
   "dialogAccount": "You are about to delete the following account:",
   "dialogWarning": "This action will delete transactions associated and cannot be undone.",
   "createdSuccess": "Account created successfully",

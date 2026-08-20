@@ -1,5 +1,9 @@
 {
   "addTitle": "Add budget",
+  "editTitle": "Edit budget",
+  "areYouSure": "Are you sure? 🤔",
+  "confirm": "Confirm",
+  "cancel": "Cancel",
   "detailsTitle": "Budget details",
   "createBudget": "Create budget",
   "editBudget": "Save budget",

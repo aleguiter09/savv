@@ -12,10 +12,9 @@ import {
   createCategoryForm,
   updateCategoryForm,
 } from "@/modules/categories/actions/categories.action";
-import { Card } from "@/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/ui/field";
 import { Input } from "@/ui/input";
-import { CategorySelect } from "@/modules/movements/ui/CreateMovement/CategorySelect";
+import { CategorySelect } from "@/modules/shared/ui/common/CategorySelect";
 import { IconPicker } from "@/modules/shared/ui/common/IconPicker";
 import { ColorPicker } from "@/modules/shared/ui/common/ColorPicker";
 import { Button } from "@/ui/button";
@@ -30,6 +29,7 @@ export type CategoryFormProps = {
   color?: CategoryColors;
   parentId?: number;
   isGlobal?: boolean;
+  onSuccess?: () => void;
 };
 
 export const CategoryForm = ({
@@ -39,6 +39,7 @@ export const CategoryForm = ({
   color,
   parentId,
   isGlobal = false,
+  onSuccess,
 }: CategoryFormProps) => {
   const { parentCategories } = useData();
   const t = useTranslations("categories");
@@ -67,103 +68,107 @@ export const CategoryForm = ({
         res = await createCategoryForm(data);
       }
 
-      if (!res.success) {
+      if (res.success) {
+        show({
+          type: "success",
+          message: t(id ? "updatedSuccess" : "createdSuccess"),
+        });
+        onSuccess?.();
+      } else {
         show({ type: "error", message: t(res.error ?? "defaultError") });
       }
     });
   }
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)}>
-      <Card className="rounded-md p-4 flex flex-col gap-2">
-        <FieldGroup className="mb-2">
-          {/* Category Title */}
-          <Controller
-            name="title"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel
-                  htmlFor="title"
-                  className="block text-sm font-medium"
-                >
-                  {t("title")}
-                </FieldLabel>
-                <Input
-                  {...field}
-                  id="title"
-                  type="text"
-                  className="w-full"
-                  placeholder={t("titlePlaceholder")}
-                  value={field.value}
-                />
-                {fieldState.invalid && (
-                  <FieldError error={t(fieldState.error?.message as string)} />
-                )}
-              </Field>
-            )}
-          />
-
-          {/* Parent Category */}
-          <Controller
-            control={form.control}
-            name="parent_id"
-            render={({ field, fieldState }) => (
-              <CategorySelect
-                categories={parentCategories}
-                category={field.value?.toString() ?? ""}
-                setCategory={field.onChange}
-                label={"categories.chooseParentCategory"}
-                disabled={isGlobal}
-                allowNull
-                error={
-                  fieldState.invalid
-                    ? t(fieldState.error?.message as string)
-                    : undefined
-                }
+    <form
+      onSubmit={form.handleSubmit(onSubmit)}
+      className="flex flex-col gap-2"
+    >
+      <FieldGroup className="mb-2">
+        <Controller
+          name="title"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="title" className="block text-sm font-medium">
+                {t("title")}
+              </FieldLabel>
+              <Input
+                {...field}
+                id="title"
+                type="text"
+                className="w-full"
+                placeholder={t("titlePlaceholder")}
+                value={field.value}
               />
-            )}
-          />
+              {fieldState.invalid && (
+                <FieldError error={t(fieldState.error?.message as string)} />
+              )}
+            </Field>
+          )}
+        />
 
-          {/* Color */}
-          <Controller
-            name="color"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="color">{t("enterColor")}</FieldLabel>
-                <ColorPicker value={field.value} onChange={field.onChange} />
-                {fieldState.invalid && (
-                  <FieldError error={t(fieldState.error?.message as string)} />
-                )}
-              </Field>
-            )}
-          />
+        <Controller
+          control={form.control}
+          name="parent_id"
+          render={({ field, fieldState }) => (
+            <CategorySelect
+              categories={parentCategories}
+              category={field.value?.toString() ?? ""}
+              setCategory={field.onChange}
+              label={"categories.chooseParentCategory"}
+              disabled={isGlobal}
+              allowNull
+              error={
+                fieldState.invalid
+                  ? t(fieldState.error?.message as string)
+                  : undefined
+              }
+            />
+          )}
+        />
 
-          {/* Icon */}
-          <Controller
-            name="icon"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="icon">{t("enterIcon")}</FieldLabel>
-                <IconPicker
-                  color={formColor}
-                  value={field.value}
-                  onChange={field.onChange}
-                />
-                {fieldState.invalid && (
-                  <FieldError error={t(fieldState.error?.message as string)} />
-                )}
-              </Field>
-            )}
-          />
-        </FieldGroup>
+        <Controller
+          name="color"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="color">{t("enterColor")}</FieldLabel>
+              <ColorPicker value={field.value} onChange={field.onChange} />
+              {fieldState.invalid && (
+                <FieldError error={t(fieldState.error?.message as string)} />
+              )}
+            </Field>
+          )}
+        />
 
-        <Button loading={pending} type="submit">
-          {isGlobal ? t("customizeCategory") : t("createCategory")}
-        </Button>
-      </Card>
+        <Controller
+          name="icon"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="icon">{t("enterIcon")}</FieldLabel>
+              <IconPicker
+                color={formColor}
+                value={field.value}
+                onChange={field.onChange}
+              />
+              {fieldState.invalid && (
+                <FieldError error={t(fieldState.error?.message as string)} />
+              )}
+            </Field>
+          )}
+        />
+      </FieldGroup>
+
+      <Button loading={pending} type="submit">
+        {id
+          ? isGlobal
+            ? t("customizeCategory")
+            : t("editCategory")
+          : t("createCategory")}
+      </Button>
     </form>
   );
 };

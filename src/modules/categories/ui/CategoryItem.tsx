@@ -1,10 +1,11 @@
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
 import { DeleteCategoryButton } from "./DeleteCategoryButton";
+import { CategoryDialog } from "./CategoryDialog";
 import { Button } from "@/ui/button";
 import { Eye, EyeOff, Pencil } from "lucide-react";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { cn } from "tailwind-variants";
+import { cn } from "@/modules/shared/utils/cn";
+import type { CategoryColors } from "@/modules/shared/types/global.types";
 import { CategoryView } from "../types/types";
 
 export type CategoryItemProps = CategoryView & {
@@ -19,6 +20,7 @@ export function CategoryItem({
   isGlobal,
   isCustomName,
   isHidden,
+  parentId,
   handleToggle,
 }: CategoryItemProps) {
   const t = useTranslations("categories");
@@ -42,11 +44,19 @@ export function CategoryItem({
         </p>
       </div>
       <div className="flex items-center gap-2">
-        <Button asChild size="icon" variant="secondary">
-          <Link href={`/settings/categories/${id}`}>
-            <Pencil size={16} />
-          </Link>
-        </Button>
+        <CategoryDialog
+          id={Number(id)}
+          title={title}
+          icon={icon}
+          color={color as CategoryColors}
+          parentId={parentId ? Number(parentId) : undefined}
+          isGlobal={isGlobal}
+          trigger={
+            <Button size="icon" variant="secondary">
+              <Pencil size={16} />
+            </Button>
+          }
+        />
         {isGlobal ? (
           <Button
             size="icon"

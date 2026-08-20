@@ -4,6 +4,7 @@
   "detailsTitle": "Category Details",
   "titlePlaceholder": "Title...",
   "createCategory": "Create category",
+  "editCategory": "Save category",
   "titleError": "Please enter a category title",
   "titleTooLong": "The category title must be less than 20 characters",
   "enterIcon": "Choose an icon",

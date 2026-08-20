@@ -1,15 +1,12 @@
 "use server";
 import type { ServerActionResponse } from "@/modules/shared/types/global.types";
 import { AccountSchema } from "@/modules/shared/utils/schemas";
-import { setToastMessage } from "@/modules/shared/actions/toast";
 import {
   createAccount,
   deleteAccount,
   updateAccount,
 } from "@/modules/accounts/services/accounts";
-import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { z } from "zod";
 
 export async function createAccountForm(
@@ -33,11 +30,8 @@ export async function createAccountForm(
     };
   }
 
-  const t = await getTranslations("accounts");
-
-  setToastMessage("success", t("createdSuccess"));
   revalidatePath("/settings/accounts");
-  redirect("/settings/accounts");
+  return { success: true };
 }
 
 export async function updateAccountForm(
@@ -62,11 +56,8 @@ export async function updateAccountForm(
     };
   }
 
-  const t = await getTranslations("accounts");
-
-  setToastMessage("success", t("updatedSuccess"));
   revalidatePath("/settings/accounts");
-  redirect("/settings/accounts");
+  return { success: true };
 }
 
 export const deleteAccountForm = async (
@@ -81,9 +72,6 @@ export const deleteAccountForm = async (
     };
   }
 
-  const t = await getTranslations("accounts");
-
-  setToastMessage("success", t("deletedSuccess"));
   revalidatePath("/settings/accounts");
-  redirect("/settings/accounts");
+  return { success: true };
 };

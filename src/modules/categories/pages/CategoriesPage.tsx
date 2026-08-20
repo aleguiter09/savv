@@ -1,8 +1,9 @@
 import { getCategories } from "@/modules/categories/services/categories";
 import { getTranslations } from "next-intl/server";
-import { AddButton } from "@/modules/dashboard/ui/ActionBar/AddButton";
+import { FloatingAddButton } from "@/modules/dashboard/ui/ActionBar/FloatingAddButton";
 import { mapCategories } from "../adapters/categories.adapter";
 import { CategoryClient } from "../ui/CategoryClient";
+import { CategoryDialog } from "../ui/CategoryDialog";
 
 export async function CategoriesPage() {
   const [t, categories] = await Promise.all([
@@ -20,7 +21,7 @@ export async function CategoriesPage() {
           <span className="text-gray-500">/</span>
           <h3 className="font-semibold">{t("settings.categories")}</h3>
         </div>
-        <AddButton href="/settings/categories/create" />
+        <CategoryDialog trigger={<FloatingAddButton />} />
       </div>
 
       <CategoryClient initialCategories={mappedCategories} />

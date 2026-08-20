@@ -2,9 +2,10 @@ import { Button } from "@/ui/button";
 import { Card } from "@/ui/card";
 import { Eye, EyeOff, Pencil } from "lucide-react";
 import { DeleteCategoryButton } from "./DeleteCategoryButton";
+import { CategoryDialog } from "./CategoryDialog";
 import { cn } from "@/modules/shared/utils/cn";
+import type { CategoryColors } from "@/modules/shared/types/global.types";
 import { CategoryItem } from "./CategoryItem";
-import Link from "next/link";
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
 import { useTranslations } from "next-intl";
 import type { CategoryClient } from "./CategoryClient";
@@ -21,6 +22,7 @@ export function CategoryGroup({
   isHidden,
   isGlobal,
   isCustomName,
+  parentId,
   subcategories,
   handleToggle,
 }: CategoryGroupProps) {
@@ -54,11 +56,19 @@ export function CategoryGroup({
         </button>
 
         <div className="flex items-center gap-2">
-          <Button asChild size="icon" variant="secondary">
-            <Link href={`/settings/categories/${id}`}>
-              <Pencil size={16} />
-            </Link>
-          </Button>
+          <CategoryDialog
+            id={Number(id)}
+            title={title}
+            icon={icon}
+            color={color as CategoryColors}
+            parentId={parentId ? Number(parentId) : undefined}
+            isGlobal={isGlobal}
+            trigger={
+              <Button size="icon" variant="secondary">
+                <Pencil size={16} />
+              </Button>
+            }
+          />
 
           {isGlobal ? (
             <Button

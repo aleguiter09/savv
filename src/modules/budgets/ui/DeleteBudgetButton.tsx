@@ -3,24 +3,22 @@
 import { useTranslations } from "next-intl";
 import { Trash2 } from "lucide-react";
 import { ConfirmDialog } from "@/modules/shared/ui/common/ConfirmDialog";
-import { deleteCategoryForm } from "../actions/categories.action";
+import { deleteBudgetForm } from "@/modules/budgets/actions/budget-actions";
 import { useToastStore } from "@/modules/shared/ui/toast-store";
 import { Button } from "@/ui/button";
 
-const BrComponent = () => <br />;
-
-export function DeleteCategoryButton({
+export function DeleteBudgetButton({
   id,
-  title,
+  categoryLabel,
 }: {
   id: number;
-  title: string;
+  categoryLabel: string;
 }) {
-  const t = useTranslations("categories");
+  const t = useTranslations("budgets");
   const show = useToastStore((store) => store.show);
 
   const handleDelete = async () => {
-    const res = await deleteCategoryForm(id);
+    const res = await deleteBudgetForm(id);
 
     if (res.success) {
       show({ type: "success", message: t("deletedSuccess") });
@@ -39,10 +37,12 @@ export function DeleteCategoryButton({
     <ConfirmDialog
       trigger={trigger}
       title={t("areYouSure")}
-      description={t.rich("deleteDialog", {
-        title,
-        br: BrComponent,
-      })}
+      description={
+        <>
+          {t("dialogBudget")} {categoryLabel}. <br />
+          {t("dialogWarning")}
+        </>
+      }
       confirmLabel={t("confirm")}
       cancelLabel={t("cancel")}
       onConfirm={handleDelete}
