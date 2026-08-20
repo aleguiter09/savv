@@ -19,7 +19,14 @@ export default async function AppLayout({
 
   return (
     <DataProvider accounts={adaptedAccounts} categories={adaptedCategories}>
-      {children}
+      <main
+        className="mt-4 mx-6 pb-12 sm:w-lg sm:mx-auto lg:w-4xl"
+        style={{
+          paddingBottom: "env(safe-area-inset-bottom)",
+        }}
+      >
+        {children}
+      </main>
       <Navbar />
       <ToastManager />
     </DataProvider>

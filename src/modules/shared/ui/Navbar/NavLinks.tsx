@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { cn } from "../../utils/cn";
 
 const links = [
-  { key: "home", href: "/", icon: <Home /> },
+  { key: "home", href: "/home", icon: <Home /> },
   {
     key: "analytics",
     href: "/analytics",
@@ -24,8 +24,9 @@ export function NavLinks() {
   const t = useTranslations("common.nav");
   const pathname = usePathname();
   const activeLink =
-    links.find((link) => link.href !== "/" && pathname.startsWith(link.href))
-      ?.href ?? links[0].href;
+    links.find(
+      (link) => link.href !== "/home" && pathname.startsWith(link.href),
+    )?.href ?? links[0].href;
 
   return (
     <>

@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Savv Finances",
   description:
-    "Savv allows users to record & categorize their transactions and monitor their accounts to facilitate money management. Take control and start saving today!",
+    "Controlá tus cuentas, registrá ingresos y gastos, entendé en qué gastás y seguí la evolución de tu patrimonio — todo en un solo lugar.",
   icons: {
     icon: ["/favicon.ico"],
     apple: ["/apple-touch-icon.png"],
@@ -39,7 +39,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className="scroll-smooth">
       <body
-        className={`mt-4 pb-12 ${inter.className} antialiased bg-gray-100 text-gray-900`}
+        className={`${inter.className} mt-4 pb-12 min-h-screen antialiased bg-gray-100 text-gray-900`}
       >
         <NextTopLoader
           color="#3B82F6"
@@ -51,14 +51,7 @@ export default async function RootLayout({
           showSpinner={false}
         />
         <NextIntlClientProvider locale={locale}>
-          <main
-            className="mx-6 sm:w-lg sm:mx-auto lg:w-4xl"
-            style={{
-              paddingBottom: "env(safe-area-inset-bottom)",
-            }}
-          >
-            {children}
-          </main>
+          {children}
         </NextIntlClientProvider>
         <SpeedInsights />
       </body>

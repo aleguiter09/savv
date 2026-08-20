@@ -126,7 +126,7 @@ export function RegisterPage() {
 
           <p className="mt-2 text-center text-sm">
             {t("signInMessage")}
-            <Link href="/" className="font-medium text-blue-600">
+            <Link href="/login" className="font-medium text-blue-600">
               {t("signIn")}
             </Link>
           </p>

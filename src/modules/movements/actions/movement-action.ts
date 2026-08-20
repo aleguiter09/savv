@@ -34,7 +34,7 @@ export const createMovementForm = async (
     };
   }
 
-  revalidatePath("/");
+  revalidatePath("/home");
   return { success: true };
 };
 
@@ -46,8 +46,8 @@ export const deleteMovementForm = async (movement: MovementView) => {
   const t = await getTranslations("movements");
 
   setToastMessage("success", t("deletedSuccess"));
-  revalidatePath("/");
-  redirect("/");
+  revalidatePath("/home");
+  redirect("/home");
 };
 
 export const updateMovementForm = async (
@@ -72,6 +72,6 @@ export const updateMovementForm = async (
     };
   }
 
-  revalidatePath("/");
+  revalidatePath("/home");
   return { success: true };
 };

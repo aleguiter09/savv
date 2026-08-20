@@ -31,7 +31,7 @@ export async function createBudgetForm(
     };
   }
 
-  revalidatePath("/");
+  revalidatePath("/home");
   revalidatePath("/settings/budgets");
   return { success: true };
 }
@@ -58,7 +58,7 @@ export async function updateBudgetForm(
     };
   }
 
-  revalidatePath("/");
+  revalidatePath("/home");
   revalidatePath("/settings/budgets");
   return { success: true };
 }
@@ -75,7 +75,7 @@ export const deleteBudgetForm = async (
     };
   }
 
-  revalidatePath("/");
+  revalidatePath("/home");
   revalidatePath("/settings/budgets");
   return { success: true };
 };

@@ -33,7 +33,8 @@ export async function updateSession(request: NextRequest) {
   const user = data?.claims;
 
   const pathname = request.nextUrl.pathname;
-  const publicPaths = ["/login", "/register", "/reset", "/auth/confirm"];
+  const authPublicPaths = ["/login", "/register", "/reset"];
+  const publicPaths = ["/", ...authPublicPaths, "/auth/confirm"];
 
   if (!user && !publicPaths.includes(pathname)) {
     const url = request.nextUrl.clone();
@@ -41,9 +42,9 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  if (user && publicPaths.includes(pathname)) {
+  if (user && (pathname === "/" || authPublicPaths.includes(pathname))) {
     const url = request.nextUrl.clone();
-    url.pathname = "/";
+    url.pathname = "/home";
     return NextResponse.redirect(url);
   }
 

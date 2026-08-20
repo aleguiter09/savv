@@ -1,0 +1,180 @@
+{
+  "brand": "Savv",
+  "nav": {
+    "accounts": "Accounts",
+    "movements": "Movements",
+    "analytics": "Analytics",
+    "planning": "Planning",
+    "howItWorks": "How it works",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "cta": {
+    "login": "Sign in",
+    "register": "Get started free",
+    "createAccount": "Create account",
+    "seeHow": "See how it works"
+  },
+  "hero": {
+    "headline": "See every account, every movement, and where your money actually goes.",
+    "subtitle": "Savv brings your personal finances into one place: track balances, log income and expenses, organize with categories, and understand how your net worth evolves over time.",
+    "previewLabel": "Product preview"
+  },
+  "accounts": {
+    "id": "accounts",
+    "title": "All your money in one place",
+    "subtitle": "Manage multiple accounts and always know your overall financial position.",
+    "items": {
+      "multiple": {
+        "title": "Multiple accounts",
+        "description": "Cash, bank, savings — keep each balance updated without switching tools."
+      },
+      "balance": {
+        "title": "Current balance",
+        "description": "Check what you have available right now, account by account."
+      },
+      "netWorth": {
+        "title": "Net worth",
+        "description": "See the total of your accounts and how your wealth changes over time."
+      },
+      "timeline": {
+        "title": "Balance over time",
+        "description": "Follow the evolution of your money instead of guessing from memory."
+      }
+    }
+  },
+  "movements": {
+    "id": "movements",
+    "title": "Log every movement",
+    "subtitle": "Movements are the source of truth. They build a real picture of your finances.",
+    "items": {
+      "income": {
+        "title": "Income",
+        "description": "Record salaries, freelance work, and any money coming in."
+      },
+      "expense": {
+        "title": "Expenses",
+        "description": "Track daily spending and keep it organized with categories."
+      },
+      "transfer": {
+        "title": "Transfers",
+        "description": "Move money between accounts without treating it as income or expense."
+      },
+      "categories": {
+        "title": "Categories",
+        "description": "Group movements so you can later understand where money goes."
+      }
+    },
+    "transferNote": "A transfer between accounts is an internal money move — it does not count as real income or spending in your metrics."
+  },
+  "analytics": {
+    "id": "analytics",
+    "title": "Understand where you spend",
+    "subtitle": "You don’t just record movements — you see what is happening with your money.",
+    "items": {
+      "cashflow": {
+        "title": "Cashflow",
+        "description": "Compare money in versus money out for a clear monthly picture."
+      },
+      "byCategory": {
+        "title": "Spend by category",
+        "description": "See which categories take most of your budget."
+      },
+      "comparison": {
+        "title": "Income vs expenses",
+        "description": "Spot whether you are ahead, balanced, or overspending."
+      },
+      "evolution": {
+        "title": "Balance evolution",
+        "description": "Watch how balances move across time, not just today."
+      },
+      "averages": {
+        "title": "Category averages",
+        "description": "Understand your habits with average spend per category."
+      }
+    }
+  },
+  "planning": {
+    "id": "planning",
+    "title": "Plan ahead with clarity",
+    "subtitle": "Know what you have today — and start anticipating how your finances will evolve.",
+    "availableTitle": "Available today",
+    "available": {
+      "upcoming": {
+        "title": "Upcoming payments",
+        "description": "See future movements before they affect today’s balance."
+      },
+      "budgets": {
+        "title": "Category budgets",
+        "description": "Set limits and track progress as you spend."
+      }
+    },
+    "roadmapTitle": "Where Savv is heading",
+    "roadmapBadge": "Roadmap",
+    "roadmap": {
+      "recurring": {
+        "title": "Recurring & fixed expenses",
+        "description": "Rent, subscriptions, and other monthly commitments — without retyping them."
+      },
+      "installments": {
+        "title": "Installments",
+        "description": "Break large purchases into scheduled payments you can follow."
+      },
+      "projection": {
+        "title": "Balance projection",
+        "description": "Estimate how your balance may look after upcoming commitments."
+      }
+    },
+    "roadmapNote": "These capabilities are part of the product direction and may roll out gradually."
+  },
+  "howItWorks": {
+    "id": "how-it-works",
+    "title": "How it works",
+    "subtitle": "Four simple steps to get a clear view of your money.",
+    "steps": {
+      "1": {
+        "title": "Create your accounts",
+        "description": "Add the accounts you actually use and set their starting balances."
+      },
+      "2": {
+        "title": "Log income, expenses, and transfers",
+        "description": "Capture every movement so balances stay accurate."
+      },
+      "3": {
+        "title": "Organize with categories",
+        "description": "Classify spending and income to unlock useful insights."
+      },
+      "4": {
+        "title": "Analyze your situation",
+        "description": "Review cashflow, net worth, and category trends with confidence."
+      }
+    }
+  },
+  "finalCta": {
+    "title": "Start understanding your money better",
+    "subtitle": "Create a free account and bring your balances, movements, and spending habits into one clear view.",
+    "button": "Create account"
+  },
+  "footer": {
+    "tagline": "Personal finance, clearly organized.",
+    "product": "Product",
+    "account": "Account"
+  },
+  "mocks": {
+    "balance": "Balance",
+    "income": "Income",
+    "expense": "Expenses",
+    "netWorth": "Net worth",
+    "accounts": "Accounts",
+    "recent": "Recent movements",
+    "salary": "Salary",
+    "groceries": "Groceries",
+    "transfer": "Transfer",
+    "checking": "Checking",
+    "savings": "Savings",
+    "cash": "Cash",
+    "food": "Food",
+    "transport": "Transport",
+    "housing": "Housing"
+  }
+}

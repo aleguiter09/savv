@@ -29,6 +29,8 @@ export default getRequestConfig(async () => {
         dashboard: (
           await import(`../../messages/${data.language}/dashboard.json`)
         ).default,
+        landing: (await import(`../../messages/${data.language}/landing.json`))
+          .default,
         movements: (
           await import(`../../messages/${data.language}/movements.json`)
         ).default,
@@ -61,6 +63,7 @@ export default getRequestConfig(async () => {
       common: (await import(`../../messages/${locale}/common.json`)).default,
       dashboard: (await import(`../../messages/${locale}/dashboard.json`))
         .default,
+      landing: (await import(`../../messages/${locale}/landing.json`)).default,
       movements: (await import(`../../messages/${locale}/movements.json`))
         .default,
       settings: (await import(`../../messages/${locale}/settings.json`))

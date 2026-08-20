@@ -54,8 +54,8 @@ export const createUserForm = async (
     return { success: false, error: errorSettings.message };
   }
 
-  revalidatePath("/", "layout");
-  redirect("/");
+  revalidatePath("/home", "layout");
+  redirect("/home");
 };
 
 export const loginUserForm = async (
@@ -83,8 +83,8 @@ export const loginUserForm = async (
     }
   }
 
-  revalidatePath("/", "layout");
-  redirect("/");
+  revalidatePath("/home", "layout");
+  redirect("/home");
 };
 
 export const logout = async () => {
@@ -137,6 +137,6 @@ export const updatePasswordForm = async (
     }
   }
 
-  revalidatePath("/", "layout");
-  redirect("/");
+  revalidatePath("/home", "layout");
+  redirect("/home");
 };

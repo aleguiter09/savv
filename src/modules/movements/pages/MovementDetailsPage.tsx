@@ -26,7 +26,7 @@ export async function MovementDetailPage({ id }: MovementDetailPageProps) {
   return (
     <>
       <div className="flex justify-between items-center mb-3">
-        <Link href="/">
+        <Link href="/home">
           <ArrowLeft />
         </Link>
         <h4 className="font-medium">{t("detailsTitle")}</h4>
