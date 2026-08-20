@@ -10,6 +10,7 @@ export async function MovementDetail({
 }: Readonly<{ movement: MovementView }>) {
   const { doneAt, amount, balanceAfter, description, type, category, account } =
     movement;
+  const toAccount = type === "transfer" ? movement.toAccount : undefined;
   const [tMovements, tCategories, formatter, locale] = await Promise.all([
     getTranslations("movements"),
     getTranslations("categories"),
@@ -52,9 +53,17 @@ export async function MovementDetail({
         </span>
       </div>
       <div className="rounded-md border py-2 px-3 flex flex-col gap-1 mb-3">
-        <dt className=" text-gray-500 text-xs">{tMovements("account")}</dt>
+        <dt className=" text-gray-500 text-xs">
+          {type === "transfer" ? tMovements("chooseFrom") : tMovements("account")}
+        </dt>
         <dd className="text-sm">{account.name}</dd>
       </div>
+      {toAccount ? (
+        <div className="rounded-md border py-2 px-3 flex flex-col gap-1 mb-3">
+          <dt className=" text-gray-500 text-xs">{tMovements("chooseTo")}</dt>
+          <dd className="text-sm">{toAccount.name}</dd>
+        </div>
+      ) : null}
 
       <div className="rounded-md border py-2 px-3 flex flex-col gap-1 mb-3">
         <dt className="text-gray-500 text-xs">{tMovements("doneAt")}</dt>

@@ -14,7 +14,9 @@ export type MovementApi = {
   type: MovementDB["type"];
   done_at: MovementDB["done_at"];
   from: MovementDB["from"];
+  transfer_group_id?: MovementDB["transfer_group_id"];
   fullAccount?: AccountDB;
+  fullToAccount?: AccountDB;
   category?: MovementDB["category"];
   fullCategory?: EffectiveCategoryDB;
 };
@@ -31,6 +33,8 @@ type BaseMovementView = {
 type TransferView = BaseMovementView & {
   type: "transfer";
   category: CategoryView;
+  toAccount?: AccountView;
+  transferGroupId?: string | null;
 };
 
 type ExpenseView = BaseMovementView & {

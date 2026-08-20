@@ -4,15 +4,6 @@
 
 ---
 
-## P0 — Critical (data integrity)
-
-[] Transfer pairs: add `transfer_group_id` (or equivalent) to link both movement rows
-[] Transfer delete/update RPCs must operate atomically on both legs (create already inserts 2 rows)
-[] Transfer edit UI: show destination account when editing (`renderWhere()` is hidden on edit)
-[] Transfer delete leaves orphan row + wrong balance on the other account (current bug)
-
----
-
 ## P0 — Security
 
 [] Version RLS policies in supabase migrations (not auditable from repo today)
@@ -101,6 +92,7 @@
 
 ### Movements & transfers
 
+[X] Transfer integrity (P0): `transfer_group_id`, atomic update/delete RPCs, edit UI shows destination
 [X] Transfers related accounts and color.
 [X] Review 'fullCategory' and 'fullAccount' props in movement detail
 [X] Transfers are not being displayed in all movements

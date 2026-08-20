@@ -1,4 +1,4 @@
-export type Json =
+﻿export type Json =
   | string
   | number
   | boolean
@@ -139,6 +139,7 @@ export type Database = {
           done_at: string
           from: number
           id: number
+          transfer_group_id: string | null
           type: Database["public"]["Enums"]["movementType"]
           updated_at: string | null
           user_id: string
@@ -153,6 +154,7 @@ export type Database = {
           done_at?: string
           from: number
           id?: number
+          transfer_group_id?: string | null
           type: Database["public"]["Enums"]["movementType"]
           updated_at?: string | null
           user_id?: string
@@ -167,6 +169,7 @@ export type Database = {
           done_at?: string
           from?: number
           id?: number
+          transfer_group_id?: string | null
           type?: Database["public"]["Enums"]["movementType"]
           updated_at?: string | null
           user_id?: string

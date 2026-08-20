@@ -52,6 +52,9 @@ export function MovementForm({
           done_at: new Date(movement.doneAt),
           category: movement.category?.id ?? undefined,
           from: movement.account?.id ?? undefined,
+          ...(movement.type === "transfer"
+            ? { where: movement.toAccount?.id ?? undefined }
+            : {}),
         }
       : {
           type: "expense",
@@ -198,7 +201,7 @@ export function MovementForm({
                 </TabsContent>
                 <TabsContent value="transfer" className="flex flex-col gap-4">
                   {renderFrom()}
-                  {!movement && renderWhere()}
+                  {renderWhere()}
                 </TabsContent>
               </Tabs>
             )}

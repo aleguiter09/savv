@@ -158,24 +158,65 @@ export const getMovementById = async (
   const { data } = await supabase
     .from("movement")
     .select(
-      `id, from, amount, description, category, type, done_at, balance_after, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color), fullAccount:from(id, name, balance, is_default)`,
+      `id, from, amount, description, category, type, done_at, balance_after, transfer_group_id, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color), fullAccount:from(id, name, balance, is_default)`,
     )
     .eq("id", id)
     .single();
 
-  if (data) {
-    return {
-      ...data,
-      fullCategory: Array.isArray(data.fullCategory)
-        ? data.fullCategory[0]
-        : data.fullCategory,
-      fullAccount: Array.isArray(data.fullAccount)
-        ? data.fullAccount[0]
-        : data.fullAccount,
-    };
+  if (!data) {
+    return null;
   }
 
-  return null;
+  const base: MovementApi = {
+    ...data,
+    fullCategory: Array.isArray(data.fullCategory)
+      ? data.fullCategory[0]
+      : data.fullCategory,
+    fullAccount: Array.isArray(data.fullAccount)
+      ? data.fullAccount[0]
+      : data.fullAccount,
+  };
+
+  if (base.type !== "transfer" || !base.transfer_group_id) {
+    return base;
+  }
+
+  const { data: legs } = await supabase
+    .from("movement")
+    .select(
+      `id, from, amount, description, category, type, done_at, balance_after, transfer_group_id, fullAccount:from(id, name, balance, is_default)`,
+    )
+    .eq("transfer_group_id", base.transfer_group_id);
+
+  if (!legs || legs.length < 2) {
+    return base;
+  }
+
+  const outLeg = legs.find((leg) => leg.amount < 0);
+  const inLeg = legs.find((leg) => leg.amount > 0);
+
+  if (!outLeg || !inLeg) {
+    return base;
+  }
+
+  const outAccount = Array.isArray(outLeg.fullAccount)
+    ? outLeg.fullAccount[0]
+    : outLeg.fullAccount;
+  const inAccount = Array.isArray(inLeg.fullAccount)
+    ? inLeg.fullAccount[0]
+    : inLeg.fullAccount;
+
+  return {
+    ...base,
+    id: outLeg.id,
+    from: outLeg.from,
+    amount: outLeg.amount,
+    balance_after: outLeg.balance_after,
+    description: outLeg.description,
+    done_at: outLeg.done_at,
+    fullAccount: outAccount,
+    fullToAccount: inAccount,
+  };
 };
 
 export const insertMovement = async (
@@ -222,7 +263,9 @@ export const updateMovement = async (
     p_done_at: movement.done_at,
     p_type: movement.type,
     p_from: movement.from,
-    ...(movement.type === "transfer" ? {} : { p_category: movement.category }),
+    ...(movement.type === "transfer"
+      ? { p_where: movement.where }
+      : { p_category: movement.category }),
   });
 
   if (error) {

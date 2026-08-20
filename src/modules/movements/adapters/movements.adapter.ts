@@ -52,6 +52,13 @@ export const getMovementsByDay = (
   );
 };
 
+const adaptAccount = (account?: MovementApi["fullAccount"]) => ({
+  id: account?.id.toString() ?? "",
+  name: account?.name ?? "",
+  balance: account?.balance ?? 0,
+  isDefault: account?.is_default ?? false,
+});
+
 export const adaptMovementItem = (movement: MovementApi): MovementView => {
   if (movement.type === "transfer") {
     return {
@@ -61,12 +68,11 @@ export const adaptMovementItem = (movement: MovementApi): MovementView => {
       description: movement.description ?? "",
       type: movement.type,
       balanceAfter: movement.balance_after ?? 0,
-      account: {
-        id: movement.fullAccount?.id.toString() ?? "",
-        name: movement.fullAccount?.name ?? "",
-        balance: movement.fullAccount?.balance ?? 0,
-        isDefault: movement.fullAccount?.is_default ?? false,
-      },
+      account: adaptAccount(movement.fullAccount),
+      toAccount: movement.fullToAccount
+        ? adaptAccount(movement.fullToAccount)
+        : undefined,
+      transferGroupId: movement.transfer_group_id ?? null,
       category: {
         id: "",
         title: "transfer",
