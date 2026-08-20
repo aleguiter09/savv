@@ -44,16 +44,16 @@ export async function PlanningSection() {
   ];
 
   return (
-    <section id="planning" className="scroll-mt-20">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
-        <div className="max-w-2xl">
-          <h2 className="text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
+    <section id="planning" className="scroll-mt-20 border-t border-gray-200/80 bg-white">
+      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 lg:py-20">
+        <div className="max-w-xl">
+          <h2 className="font-[family-name:var(--font-landing-display)] text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
             {t("title")}
           </h2>
           <p className="mt-3 text-muted-foreground">{t("subtitle")}</p>
         </div>
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-2">
+        <div className="mt-10 space-y-10 lg:grid lg:grid-cols-2 lg:gap-10 lg:space-y-0">
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-blue-600">
               {t("availableTitle")}
@@ -64,7 +64,7 @@ export async function PlanningSection() {
                   <div className="mt-0.5">{item.icon}</div>
                   <div>
                     <p className="font-medium text-gray-900">{item.title}</p>
-                    <p className="mt-1 text-sm text-muted-foreground">
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                       {item.description}
                     </p>
                   </div>
@@ -74,7 +74,7 @@ export async function PlanningSection() {
           </div>
 
           <div>
-            <div className="mb-4 flex items-center gap-2">
+            <div className="mb-4 flex flex-wrap items-center gap-2">
               <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
                 {t("roadmapTitle")}
               </h3>
@@ -89,14 +89,16 @@ export async function PlanningSection() {
                   <div className="mt-0.5">{item.icon}</div>
                   <div>
                     <p className="font-medium text-gray-800">{item.title}</p>
-                    <p className="mt-1 text-sm text-muted-foreground">
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                       {item.description}
                     </p>
                   </div>
                 </Card>
               ))}
             </div>
-            <p className="mt-4 text-xs text-muted-foreground">{t("roadmapNote")}</p>
+            <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+              {t("roadmapNote")}
+            </p>
           </div>
         </div>
       </div>

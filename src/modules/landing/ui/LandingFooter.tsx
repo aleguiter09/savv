@@ -15,10 +15,10 @@ export async function LandingFooter({ navItems }: Props) {
   const t = await getTranslations("landing");
 
   return (
-    <footer className="border-t border-border/80 bg-white">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-3">
+    <footer className="border-t border-gray-200/80 bg-gray-50">
+      <div className="mx-auto grid max-w-5xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-3">
         <div>
-          <div className="flex items-center gap-2 font-semibold text-gray-900">
+          <div className="flex items-center gap-2 font-[family-name:var(--font-landing-display)] font-semibold text-gray-900">
             <Image
               src="/finance.png"
               alt=""
@@ -28,7 +28,9 @@ export async function LandingFooter({ navItems }: Props) {
             />
             <span>{t("brand")}</span>
           </div>
-          <p className="mt-2 text-sm text-muted-foreground">{t("footer.tagline")}</p>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            {t("footer.tagline")}
+          </p>
         </div>
 
         <div>
@@ -54,7 +56,7 @@ export async function LandingFooter({ navItems }: Props) {
             </li>
             <li>
               <Link href="/register" className="hover:text-gray-900">
-                {t("cta.createAccount")}
+                {t("cta.register")}
               </Link>
             </li>
           </ul>

@@ -1,9 +1,7 @@
 {
   "brand": "Savv",
   "nav": {
-    "accounts": "Cuentas",
-    "movements": "Movimientos",
-    "analytics": "Análisis",
+    "product": "Producto",
     "planning": "Planificación",
     "howItWorks": "Cómo funciona",
     "openMenu": "Abrir menú",
@@ -11,50 +9,74 @@
   },
   "cta": {
     "login": "Iniciar sesión",
-    "register": "Empezar gratis",
+    "register": "Registrarse",
     "createAccount": "Crear cuenta",
     "seeHow": "Ver cómo funciona"
   },
   "hero": {
-    "headline": "Ves todas tus cuentas, cada movimiento y en qué se va realmente tu dinero.",
-    "subtitle": "Savv concentra tus finanzas personales en un solo lugar: controlá saldos, registrá ingresos y gastos, organizá con categorías y seguí cómo evoluciona tu patrimonio.",
-    "previewLabel": "Vista previa del producto"
+    "eyebrow": "Finanzas personales",
+    "headline": "Tu dinero, claro y en un solo lugar.",
+    "subtitle": "Controlá saldos, registrá movimientos y entendé en qué se va tu dinero — desde el celular.",
+    "previewLabel": "Así se ve Savv"
+  },
+  "problems": {
+    "title": "El problema no es gastar. Es no ver.",
+    "subtitle": "Savv te ayuda a recuperar el control con lo que ya podés hacer hoy.",
+    "items": {
+      "scattered": {
+        "title": "Saldos repartidos",
+        "description": "Varias cuentas, una sola vista del total y de cada saldo."
+      },
+      "opaque": {
+        "title": "Gastos sin patrón",
+        "description": "Categorías y resúmenes para ver hacia dónde va el dinero."
+      },
+      "unplanned": {
+        "title": "Mes sin límites",
+        "description": "Presupuestos y pagos próximos para anticiparte, no solo reaccionar."
+      }
+    }
+  },
+  "product": {
+    "id": "product",
+    "title": "Todo lo que necesitás para seguir tus finanzas",
+    "subtitle": "Las mismas pantallas que usás en la app, pensadas para el día a día."
   },
   "accounts": {
     "id": "accounts",
-    "title": "Todo tu dinero en un solo lugar",
-    "subtitle": "Gestioná varias cuentas y conocé siempre tu situación financiera global.",
+    "title": "Todas tus cuentas, un patrimonio",
+    "subtitle": "Agregá las cuentas que usás, mirá cada saldo y el total juntos.",
     "items": {
       "multiple": {
-        "title": "Múltiples cuentas",
-        "description": "Efectivo, banco, ahorros — mantené cada saldo al día sin cambiar de herramienta."
+        "title": "Varias cuentas",
+        "description": "Mantené cada saldo al día sin cambiar de herramienta."
       },
       "balance": {
         "title": "Balance actual",
-        "description": "Sabé cuánto tenés disponible ahora, cuenta por cuenta."
+        "description": "Sabé cuánto tenés disponible, cuenta por cuenta."
       },
       "netWorth": {
-        "title": "Patrimonio / Net Worth",
-        "description": "Sumá el total de tus cuentas y mirá cómo cambia tu patrimonio en el tiempo."
+        "title": "Patrimonio",
+        "description": "Sumá el total de tus cuentas en un solo número."
       },
       "timeline": {
-        "title": "Evolución del dinero",
-        "description": "Seguí la trayectoria de tus saldos en lugar de adivinar de memoria."
+        "title": "Evolución del balance",
+        "description": "Seguí cómo cambia tu dinero en el tiempo."
       }
     }
   },
   "movements": {
     "id": "movements",
-    "title": "Registrá todos tus movimientos",
-    "subtitle": "Los movimientos son la fuente de verdad. Construyen una visión real de tus finanzas.",
+    "title": "Cada movimiento cuenta",
+    "subtitle": "Ingresos, gastos y transferencias construyen la foto real de tus finanzas.",
     "items": {
       "income": {
         "title": "Ingresos",
-        "description": "Registrá sueldos, trabajos freelance y cualquier dinero que entra."
+        "description": "Registrá sueldos, freelance y cualquier dinero que entra."
       },
       "expense": {
         "title": "Gastos",
-        "description": "Seguí el gasto diario y organizalo con categorías."
+        "description": "Anotá el gasto diario y organizalo con categorías."
       },
       "transfer": {
         "title": "Transferencias",
@@ -62,47 +84,47 @@
       },
       "categories": {
         "title": "Categorías",
-        "description": "Agrupá movimientos para después entender hacia dónde va el dinero."
+        "description": "Agrupá movimientos para entender hacia dónde va el dinero."
       }
     },
-    "transferNote": "Una transferencia entre cuentas es un movimiento interno del dinero: no representa un ingreso ni un gasto real en tus métricas."
+    "transferNote": "Una transferencia entre cuentas es un movimiento interno: no suma como ingreso ni como gasto en tus métricas."
   },
   "analytics": {
     "id": "analytics",
-    "title": "Entendé en qué gastás",
-    "subtitle": "No solo registrás movimientos: podés ver qué está pasando con tu dinero.",
+    "title": "Entendé qué está pasando",
+    "subtitle": "No solo registrás: ves ingresos del mes, gastos por categoría y cómo evoluciona tu balance.",
     "items": {
-      "cashflow": {
-        "title": "Cashflow",
-        "description": "Compará dinero que entra y sale para una foto clara del mes."
+      "month": {
+        "title": "Ingresos y gastos del mes",
+        "description": "Una foto clara de lo que entra y sale en el período."
       },
       "byCategory": {
         "title": "Gastos por categoría",
-        "description": "Identificá qué categorías se llevan la mayor parte del presupuesto."
+        "description": "Identificá qué categorías se llevan más dinero."
       },
       "comparison": {
-        "title": "Ingresos vs gastos",
-        "description": "Detectá si estás adelantado, equilibrado o gastando de más."
+        "title": "Comparación por categoría",
+        "description": "Contrastá el mes con tu promedio y tu presupuesto."
       },
       "evolution": {
         "title": "Evolución del balance",
-        "description": "Observá cómo se mueven los saldos en el tiempo, no solo hoy."
+        "description": "Observá la trayectoria de tus saldos, no solo el hoy."
       },
-      "averages": {
-        "title": "Promedios por categoría",
-        "description": "Entendé tus hábitos con el gasto promedio de cada categoría."
+      "budgets": {
+        "title": "Presupuestos",
+        "description": "Definí límites por categoría y seguí el progreso."
       }
     }
   },
   "planning": {
     "id": "planning",
-    "title": "Planificá tus finanzas",
-    "subtitle": "Sabé cuánto dinero tenés hoy y anticipá cómo van a evolucionar tus finanzas.",
+    "title": "Hoy disponible. Mañana en camino.",
+    "subtitle": "Usá lo que ya está listo y conocé hacia dónde va el producto.",
     "availableTitle": "Disponible hoy",
     "available": {
       "upcoming": {
         "title": "Pagos próximos",
-        "description": "Mirá movimientos futuros antes de que afecten el saldo de hoy."
+        "description": "Movimientos con fecha futura, visibles antes de que afecten el saldo de hoy."
       },
       "budgets": {
         "title": "Presupuestos por categoría",
@@ -110,7 +132,7 @@
       }
     },
     "roadmapTitle": "Hacia dónde va Savv",
-    "roadmapBadge": "Roadmap",
+    "roadmapBadge": "Próximamente",
     "roadmap": {
       "recurring": {
         "title": "Gastos recurrentes y fijos",
@@ -130,30 +152,30 @@
   "howItWorks": {
     "id": "how-it-works",
     "title": "Cómo funciona",
-    "subtitle": "Cuatro pasos simples para tener una visión clara de tu dinero.",
+    "subtitle": "Cuatro pasos para tener una visión clara de tu dinero.",
     "steps": {
       "1": {
         "title": "Creá tus cuentas",
         "description": "Agregá las cuentas que usás y definí sus saldos iniciales."
       },
       "2": {
-        "title": "Registrá ingresos, gastos y transferencias",
-        "description": "Capturá cada movimiento para que los balances se mantengan correctos."
+        "title": "Registrá movimientos",
+        "description": "Ingresos, gastos y transferencias para mantener los balances al día."
       },
       "3": {
-        "title": "Organizá con categorías",
-        "description": "Clasificá gastos e ingresos para desbloquear insights útiles."
+        "title": "Organizá y presupuestá",
+        "description": "Categorías y límites para entender y controlar el gasto."
       },
       "4": {
-        "title": "Analizá tu situación",
-        "description": "Revisá cashflow, patrimonio y tendencias por categoría con confianza."
+        "title": "Revisá tu situación",
+        "description": "Patrimonio, evolución del balance y gasto por categoría."
       }
     }
   },
   "finalCta": {
-    "title": "Empezá a entender mejor tu dinero",
-    "subtitle": "Creá una cuenta gratis y reuní saldos, movimientos y hábitos de gasto en una vista clara.",
-    "button": "Crear cuenta"
+    "title": "Empezá a ver tu dinero con claridad",
+    "subtitle": "Creá una cuenta gratis y reuní saldos, movimientos y hábitos de gasto en una vista pensada para el celular.",
+    "button": "Registrarse"
   },
   "footer": {
     "tagline": "Finanzas personales, claramente organizadas.",
@@ -167,10 +189,11 @@
     "netWorth": "Patrimonio",
     "accounts": "Cuentas",
     "recent": "Últimos movimientos",
+    "budgets": "Presupuestos",
     "salary": "Sueldo",
     "groceries": "Supermercado",
     "transfer": "Transferencia",
-    "checking": "Cuenta corriente",
+    "checking": "Principal",
     "savings": "Ahorros",
     "cash": "Efectivo",
     "food": "Comida",
