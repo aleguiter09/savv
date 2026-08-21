@@ -158,7 +158,7 @@ export const getMovementById = async (
   const { data } = await supabase
     .from("movement")
     .select(
-      `id, from, amount, description, category, type, done_at, balance_after, transfer_group_id, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color), fullAccount:from(id, name, balance, is_default)`,
+      `id, from, amount, description, category, type, done_at, balance_after, transfer_group_id, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color), fullAccount:from(id, name, balance)`,
     )
     .eq("id", id)
     .single();
@@ -184,7 +184,7 @@ export const getMovementById = async (
   const { data: legs } = await supabase
     .from("movement")
     .select(
-      `id, from, amount, description, category, type, done_at, balance_after, transfer_group_id, fullAccount:from(id, name, balance, is_default)`,
+      `id, from, amount, description, category, type, done_at, balance_after, transfer_group_id, fullAccount:from(id, name, balance)`,
     )
     .eq("transfer_group_id", base.transfer_group_id);
 

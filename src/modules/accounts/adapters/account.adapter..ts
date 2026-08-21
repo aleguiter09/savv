@@ -5,6 +5,5 @@ export function adaptAccount(account: AccountApi): AccountView {
     id: account.id?.toString() ?? "",
     name: account.name ?? "",
     balance: account.balance ?? 0,
-    isDefault: account.is_default ?? false,
   };
 }

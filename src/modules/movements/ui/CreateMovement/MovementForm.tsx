@@ -35,7 +35,6 @@ export function MovementForm({
   onSuccess,
 }: Readonly<MovementFormProps>) {
   const { accounts, incomeCategories, expenseCategories } = useData();
-  const defaultAcc = accounts.find((a) => a.isDefault);
 
   const t = useTranslations("movements");
   const locale = useLocale();
@@ -59,7 +58,7 @@ export function MovementForm({
       : {
           type: "expense",
           done_at: new Date(),
-          from: defaultAcc?.id ?? undefined,
+          from: accounts[0]?.id ?? undefined,
           description: "",
         },
   });

@@ -1,24 +1,15 @@
-import { getDefaultAccountId } from "@/modules/accounts/services/accounts";
-import { ActionBar } from "@/modules/dashboard/ui/ActionBar/ActionBar";
 import { Balance } from "@/modules/dashboard/ui/Balance/Balance";
 import { ExpenseByCat } from "@/modules/dashboard/ui/ExpenseByCat/ExpenseByCat";
 import { BudgetWidget } from "@/modules/budgets/ui/BudgetWidget";
 import { LastMovements } from "@/modules/dashboard/ui/LastMovements/LastMovements";
 import { TotalWealth } from "@/modules/dashboard/ui/TotalWealth/TotalWealth";
 import { UpcomingPayments } from "@/modules/dashboard/ui/UpcomingPayments/UpcomingPayments";
-export type HomePageProps = {
-  account?: string;
-};
 
-export async function HomePage(props: HomePageProps) {
-  const { account } = props;
-
-  const defaultAcc = await getDefaultAccountId();
-  const accountId = account ?? (defaultAcc === "0" ? "all" : defaultAcc);
+export async function HomePage() {
+  const accountId = "all";
 
   return (
     <div className="max-w-lg mx-auto">
-      <ActionBar accountId={accountId} />
       <Balance accountId={accountId} />
       <LastMovements accountId={accountId} />
       <ExpenseByCat

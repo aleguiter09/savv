@@ -1,7 +1,6 @@
 "use client";
 import { useTranslations } from "next-intl";
 import { Input } from "@/ui/input";
-import { Checkbox } from "@/ui/checkbox";
 import { Button } from "@/ui/button";
 import { AccountSchema } from "@/modules/shared/utils/schemas";
 import { z } from "zod";
@@ -35,7 +34,6 @@ export function AccountForm({ account, onSuccess }: AccountFormProps) {
     defaultValues: {
       name: account?.name ?? "",
       balance: account?.balance ?? undefined,
-      is_default: account?.isDefault ?? false,
     },
   });
 
@@ -117,27 +115,6 @@ export function AccountForm({ account, onSuccess }: AccountFormProps) {
               {fieldState.invalid && (
                 <FieldError error={t(fieldState.error?.message as string)} />
               )}
-            </Field>
-          )}
-        />
-
-        <Controller
-          name="is_default"
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field
-              className="gap-3"
-              orientation="horizontal"
-              data-invalid={fieldState.invalid}
-            >
-              <Checkbox
-                id="is_default"
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
-              <FieldLabel htmlFor="is_default">
-                {t("defaultAccount")}
-              </FieldLabel>
             </Field>
           )}
         />

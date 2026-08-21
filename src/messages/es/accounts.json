@@ -6,7 +6,6 @@
   "enterAccountName": "Introduzca el nombre de la cuenta",
   "currentBalance": "Saldo actual",
   "enterBalance": "Balance...",
-  "defaultAccount": "Cuenta por defecto",
   "createAccount": "Crear cuenta",
   "editAccount": "Editar cuenta",
   "nameError": "Por favor, elija un nombre para la cuenta",

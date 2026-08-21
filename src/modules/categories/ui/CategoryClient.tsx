@@ -1,7 +1,10 @@
 "use client";
 
 import { startTransition, useOptimistic } from "react";
+import { useTranslations } from "next-intl";
+import { Button } from "@/ui/button";
 import { CategoryGroup } from "./CategoryGroup";
+import { CategoryDialog } from "./CategoryDialog";
 import { toggleCategoryVisibility } from "../actions/categories.action";
 import { CategoryView } from "../types/types";
 
@@ -14,6 +17,7 @@ export function CategoryClient({
 }: {
   initialCategories: CategoryClient[];
 }) {
+  const t = useTranslations("categories");
   const [categories, setOptimistic] = useOptimistic(
     initialCategories,
     (state, { id, isHidden }) =>
@@ -67,6 +71,14 @@ export function CategoryClient({
           handleToggle={handleToggle}
         />
       ))}
+
+      <CategoryDialog
+        trigger={
+          <Button variant="outline" className="w-full">
+            {t("addTitle")}
+          </Button>
+        }
+      />
     </div>
   );
 }

@@ -10,7 +10,7 @@ export const getAccounts = cache(async (): Promise<AccountApi[]> => {
   try {
     const { data } = await supabase
       .from("account")
-      .select("id, name, balance, is_default")
+      .select("id, name, balance")
       .order("balance", { ascending: false });
 
     return data || [];
@@ -39,23 +39,11 @@ export const getAccountById = async (
 
   const { data } = await supabase
     .from("account")
-    .select("id, name, balance, is_default")
+    .select("id, name, balance")
     .eq("id", id)
     .single();
 
   return data;
-};
-
-export const getDefaultAccountId = async (): Promise<string> => {
-  const supabase = await createClient();
-
-  const { data } = await supabase
-    .from("account")
-    .select("id")
-    .eq("is_default", true)
-    .single();
-
-  return data?.id.toString() ?? "0";
 };
 
 export const createAccount = async (account: Omit<AccountApi, "id">) => {
@@ -81,7 +69,6 @@ export const updateAccount = async (
     .from("account")
     .update({
       name: account.name,
-      is_default: account.is_default,
     })
     .eq("id", accountId);
 };

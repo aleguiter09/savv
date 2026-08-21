@@ -1,7 +1,6 @@
 import type { MovementsPageProps } from "../pages/MovementsPage";
 import type { MovementItemProps } from "../ui/MovementsList/MovementItem";
 import type { MovementApi, MovementView } from "../types/types";
-import { getDefaultAccountId } from "@/modules/accounts/services/accounts";
 
 export async function parseMovementsSearchParams(
   searchParams: MovementsPageProps,
@@ -13,10 +12,7 @@ export async function parseMovementsSearchParams(
 }> {
   const { from, to, account, category } = searchParams;
 
-  const defaultAcc = await getDefaultAccountId();
-  const defaultAccountId = defaultAcc === "0" ? "all" : defaultAcc.toString();
-  const accountId = account ?? defaultAccountId;
-
+  const accountId = account ?? "all";
   const categoryId = category ?? "all";
 
   const parsedFrom = from
@@ -56,7 +52,6 @@ const adaptAccount = (account?: MovementApi["fullAccount"]) => ({
   id: account?.id.toString() ?? "",
   name: account?.name ?? "",
   balance: account?.balance ?? 0,
-  isDefault: account?.is_default ?? false,
 });
 
 export const adaptMovementItem = (movement: MovementApi): MovementView => {
@@ -93,12 +88,7 @@ export const adaptMovementItem = (movement: MovementApi): MovementView => {
     description: movement.description ?? "",
     type: movement.type,
     balanceAfter: movement.balance_after ?? 0,
-    account: {
-      id: movement.fullAccount?.id.toString() ?? "",
-      name: movement.fullAccount?.name ?? "",
-      balance: movement.fullAccount?.balance ?? 0,
-      isDefault: movement.fullAccount?.is_default ?? false,
-    },
+    account: adaptAccount(movement.fullAccount),
     category: {
       id: movement.fullCategory?.id?.toString() ?? "",
       title: movement.fullCategory?.title ?? "transfer",

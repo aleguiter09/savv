@@ -40,7 +40,6 @@ export const createUserForm = async (
   const { error: errorAcc } = await createAccount({
     name: t("defaultAccountName"),
     balance: 0,
-    is_default: true,
   });
 
   if (errorAcc) {

@@ -18,45 +18,56 @@ export function BudgetsList({ budgets, locale }: BudgetsListProps) {
   const budgetsT = useTranslations("budgets");
 
   return (
-    <ul className="text-sm flex flex-col gap-2">
-      {budgets.map((budget) => {
-        const categoryLabel =
-          budget.isGlobal && !budget.isCustomName
-            ? t(budget.categoryTitle)
-            : budget.categoryTitle;
+    <div className="flex flex-col gap-2">
+      <ul className="text-sm flex flex-col gap-2">
+        {budgets.map((budget) => {
+          const categoryLabel =
+            budget.isGlobal && !budget.isCustomName
+              ? t(budget.categoryTitle)
+              : budget.categoryTitle;
 
-        return (
-          <li
-            key={budget.id}
-            className="w-full px-4 py-2 border border-gray-200 bg-white rounded-lg flex justify-between items-center"
-          >
-            <div className="flex justify-between flex-1 min-w-0 mr-2">
-              <p className="truncate">{categoryLabel}</p>
-              <p className="font-medium ml-2 shrink-0">
-                {formatCurrency(locale, budget.amount, 0)}
-              </p>
-            </div>
-            <div className="flex items-center gap-2 shrink-0">
-              <BudgetDialog
-                budget={budget}
-                budgets={budgets}
-                trigger={
-                  <Button size="icon" variant="secondary">
-                    <Pencil size={16} />
-                  </Button>
-                }
-              />
-              <DeleteBudgetButton
-                id={Number(budget.id)}
-                categoryLabel={categoryLabel}
-              />
-            </div>
-          </li>
-        );
-      })}
-      {budgets.length === 0 && (
-        <p className="text-sm text-slate-500">{budgetsT("emptyState")}</p>
-      )}
-    </ul>
+          return (
+            <li
+              key={budget.id}
+              className="w-full px-4 py-2 border border-gray-200 bg-white rounded-lg flex justify-between items-center"
+            >
+              <div className="flex justify-between flex-1 min-w-0 mr-2">
+                <p className="truncate">{categoryLabel}</p>
+                <p className="font-medium ml-2 shrink-0">
+                  {formatCurrency(locale, budget.amount, 0)}
+                </p>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <BudgetDialog
+                  budget={budget}
+                  budgets={budgets}
+                  trigger={
+                    <Button size="icon" variant="secondary">
+                      <Pencil size={16} />
+                    </Button>
+                  }
+                />
+                <DeleteBudgetButton
+                  id={Number(budget.id)}
+                  categoryLabel={categoryLabel}
+                />
+              </div>
+            </li>
+          );
+        })}
+        {budgets.length === 0 && (
+          <p className="text-sm text-slate-500">{budgetsT("emptyState")}</p>
+        )}
+      </ul>
+
+      <BudgetDialog
+        budgets={budgets}
+        trigger={
+          <Button variant="outline" className="w-full">
+            {budgetsT("addTitle")}
+          </Button>
+        }
+      />
+    </div>
   );
 }

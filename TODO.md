@@ -16,9 +16,8 @@
 
 ## P1 — Safeguards & validation
 
-[] Validate account delete: block if movements exist or if it's the only/default account
+[] Validate account delete: block if movements exist or if it's the only account
 [] Validate category delete: block if movements or budgets reference it
-[] Enforce unique default account (unset others when marking one as default)
 [] UNIQUE constraint on `category_budget(user_id, category_id)` (UI filters dupes, API does not)
 [] Guard `deleteCategoryForm` on server for global categories (UI hides button, action does not)
 
@@ -51,6 +50,8 @@
 
 ## New Features (roadmap)
 
+[X] Remove `is_default` from accounts — does not add enough value; stop using it as home/filter scope and form prefill
+[] Account & category ordering heuristic per user: sort by most used (movement frequency); use top account/category as form prefill instead of `is_default`
 [] Complete Balance After Logic (backdating)
 [] Templates for movements
 [] Dark theme (`next-themes` installed, no ThemeProvider/toggle yet)
@@ -62,6 +63,7 @@
 [] Add types, icons and colors to accounts (cash, bank, card, savings, investments, crypto)
 [] Obtain message stats from RPC queries
 [] Allow multiple accounts on home
+[X] Home: default scope to all accounts; account filter as optional zoom (not driven by `is_default`)
 
 ---
 

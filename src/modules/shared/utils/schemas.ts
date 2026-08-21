@@ -49,7 +49,6 @@ export const AccountSchema = z.object({
     .number("balanceError")
     .min(-99999999, "balanceTooLow")
     .max(9999999, "balanceTooHigh"),
-  is_default: z.boolean(),
 });
 
 export const CategorySchema = z.object({

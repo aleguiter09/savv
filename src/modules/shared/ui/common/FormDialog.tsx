@@ -57,10 +57,7 @@ export function FormDialog({
           side="bottom"
           className={`max-w-full rounded-t-lg ${contentClassName}`}
         >
-          <SheetHeader>
-            <SheetTitle>{title}</SheetTitle>
-          </SheetHeader>
-          <div className="mt-4">{children({ onSuccess: handleSuccess })}</div>
+          {children({ onSuccess: handleSuccess })}
         </SheetContent>
       </Sheet>
     );

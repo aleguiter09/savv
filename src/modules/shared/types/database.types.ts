@@ -19,7 +19,6 @@ export type Database = {
           balance: number
           created_at: string
           id: number
-          is_default: boolean
           name: string
           user_id: string | null
         }
@@ -27,7 +26,6 @@ export type Database = {
           balance?: number
           created_at?: string
           id?: number
-          is_default?: boolean
           name?: string
           user_id?: string | null
         }
@@ -35,7 +33,6 @@ export type Database = {
           balance?: number
           created_at?: string
           id?: number
-          is_default?: boolean
           name?: string
           user_id?: string | null
         }

@@ -6,7 +6,6 @@
   "enterAccountName": "Enter the account name",
   "currentBalance": "Enter a balance",
   "enterBalance": "Balance...",
-  "defaultAccount": "Default account",
   "createAccount": "Create account",
   "editAccount": "Edit account",
   "nameError": "Please choose a name for the account",
