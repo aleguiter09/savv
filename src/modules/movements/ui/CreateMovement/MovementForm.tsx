@@ -58,7 +58,6 @@ export function MovementForm({
       : {
           type: "expense",
           done_at: new Date(),
-          from: accounts[0]?.id ?? undefined,
           description: "",
         },
   });
