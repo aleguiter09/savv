@@ -44,7 +44,7 @@ export function DatePicker({
 
   return (
     <div className={cn("flex flex-col gap-3 w-full", className)}>
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover modal open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             type="button"
@@ -128,7 +128,7 @@ export function DateRangePicker({
   return (
     <div className={cn("flex flex-col gap-3 w-full", className)}>
       <div className="flex gap-2">
-        <Popover open={open} onOpenChange={setOpen}>
+        <Popover modal open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button
               type="button"

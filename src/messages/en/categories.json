@@ -59,13 +59,11 @@
   "deletedSuccess": "Category deleted successfully",
   "customizeCategory": "Customize category",
   "analytics": {
-    "categoryComparison": {
-      "title": "Category spending comparison",
-      "category": "Category",
-      "thisMonth": "This month",
-      "sixMonthAvg": "6-month average",
-      "difference": "Difference",
-      "budget": "Budget"
-    }
+    "title": "Category spending comparison",
+    "category": "Category",
+    "thisMonth": "This month",
+    "sixMonthAvg": "6-month average",
+    "difference": "Difference",
+    "budget": "Budget"
   }
 }

@@ -59,13 +59,11 @@
   "deletedSuccess": "Categoría eliminada con éxito",
   "customizeCategory": "Personalizar categoría",
   "analytics": {
-    "categoryComparison": {
-      "title": "Comparación de gastos por categoría",
-      "category": "Categoría",
-      "thisMonth": "Este mes",
-      "sixMonthAvg": "Promedio 6 meses",
-      "difference": "Diferencia",
-      "budget": "Presupuesto"
-    }
+    "title": "Comparación de gastos por categoría",
+    "category": "Categoría",
+    "thisMonth": "Este mes",
+    "sixMonthAvg": "Promedio 6 meses",
+    "difference": "Diferencia",
+    "budget": "Presupuesto"
   }
 }

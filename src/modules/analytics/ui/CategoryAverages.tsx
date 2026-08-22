@@ -59,26 +59,26 @@ export async function CategoryComparisonTable({
   return (
     <Card className="p-4">
       <h3 className="text-sm font-semibold mb-4">
-        {t("analytics.categoryComparison.title")}
+        {t("categories.analytics.title")}
       </h3>
 
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead className="text-xs">
-              {t("analytics.categoryComparison.category")}
+              {t("categories.analytics.category")}
             </TableHead>
             <TableHead className="text-right text-xs">
-              {t("analytics.categoryComparison.thisMonth")}
+              {t("categories.analytics.thisMonth")}
             </TableHead>
             <TableHead className="text-right text-xs">
-              {t("analytics.categoryComparison.sixMonthAvg")}
+              {t("categories.analytics.sixMonthAvg")}
             </TableHead>
             <TableHead className="text-right text-xs">
-              {t("analytics.categoryComparison.difference")}
+              {t("categories.analytics.difference")}
             </TableHead>
             <TableHead className="text-right text-xs">
-              {t("analytics.categoryComparison.budget")}
+              {t("categories.analytics.budget")}
             </TableHead>
           </TableRow>
         </TableHeader>

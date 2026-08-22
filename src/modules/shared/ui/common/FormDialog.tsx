@@ -9,13 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/ui/dialog";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/ui/sheet";
 
 type FormDialogProps = {
   trigger: ReactNode;
@@ -25,6 +19,13 @@ type FormDialogProps = {
 
 const contentClassName =
   "max-h-[90dvh] overflow-y-auto rounded-lg sm:mx-auto sm:max-w-md!";
+
+function isPortaledOverlayTarget(target: EventTarget | null) {
+  return (
+    target instanceof Element &&
+    Boolean(target.closest("[data-radix-popper-content-wrapper]"))
+  );
+}
 
 export function FormDialog({
   trigger,
@@ -44,6 +45,21 @@ export function FormDialog({
     setOpen(nextOpen);
   };
 
+  const dismissGuards = {
+    onPointerDownOutside: (e: {
+      preventDefault: () => void;
+      target: EventTarget | null;
+    }) => {
+      if (isPortaledOverlayTarget(e.target)) e.preventDefault();
+    },
+    onInteractOutside: (e: {
+      preventDefault: () => void;
+      target: EventTarget | null;
+    }) => {
+      if (isPortaledOverlayTarget(e.target)) e.preventDefault();
+    },
+  };
+
   // Avoid SSR/client mismatch and Dialog↔Sheet remount before hydration.
   if (!mounted) {
     return <>{trigger}</>;
@@ -56,6 +72,7 @@ export function FormDialog({
         <SheetContent
           side="bottom"
           className={`max-w-full rounded-t-lg ${contentClassName}`}
+          {...dismissGuards}
         >
           {children({ onSuccess: handleSuccess })}
         </SheetContent>
@@ -66,7 +83,10 @@ export function FormDialog({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className={`max-w-[95%]! ${contentClassName}`}>
+      <DialogContent
+        className={`max-w-[95%]! ${contentClassName}`}
+        {...dismissGuards}
+      >
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
