@@ -2,7 +2,6 @@ import { Balance } from "@/modules/dashboard/ui/Balance/Balance";
 import { ExpenseByCat } from "@/modules/dashboard/ui/ExpenseByCat/ExpenseByCat";
 import { BudgetWidget } from "@/modules/budgets/ui/BudgetWidget";
 import { LastMovements } from "@/modules/dashboard/ui/LastMovements/LastMovements";
-import { TotalWealth } from "@/modules/dashboard/ui/TotalWealth/TotalWealth";
 import { UpcomingPayments } from "@/modules/dashboard/ui/UpcomingPayments/UpcomingPayments";
 
 export async function HomePage() {
@@ -18,7 +17,6 @@ export async function HomePage() {
         month={new Date().getMonth()}
       />
       <BudgetWidget />
-      <TotalWealth />
       <UpcomingPayments accountId={accountId} />
     </div>
   );

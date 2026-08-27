@@ -11,7 +11,7 @@ export async function Balance({ accountId }: Props) {
   const t = await getTranslations("common");
 
   return (
-    <Card className="mb-4 px-3 py-2 border-b-4 border-b-blue-600">
+    <Card className="mb-4 px-4 py-3 border-b-4 border-b-blue-600">
       <Suspense
         key={accountId}
         fallback={<BalanceSkeleton loadingText={t("loading")} />}
