@@ -1,16 +1,24 @@
 # TODO — Savv
 
-> Last audit: 2026-08-19
+> Last audit: 2026-08-29
 
 ---
 
 ## P0 — Security
 
-[] Version RLS policies in supabase migrations (not auditable from repo today)
-[] Add `auth.uid()` filter to `get_balance_timeline` (currently selects all accounts)
-[] Add `auth.uid()` filter to `get_accounts_balance_at` (same issue)
-[] Add `auth.uid()` filter to `get_category_budget_progress` (no user filter on budgets/spending)
-[] Add explicit `user_id` filters in services as defense in depth (accounts, movements, budgets)
+[X] Version RLS policies in supabase migrations (`009_version_rls_policies.sql`)
+
+---
+
+## Nice-to-have — Security hardening
+
+> Covered today by `SECURITY INVOKER` RPCs + table RLS (`auth.uid() = user_id`). Optional defense in depth.
+
+[] Add explicit `auth.uid()` filter to `get_balance_timeline` / `get_accounts_balance_at` / `get_category_budget_progress`
+[] Add explicit `user_id` filters in services (accounts, movements, budgets)
+[] Harden INSERT `WITH CHECK` on `account` / `movement` / `user_category` (today `true`)
+[] Make `account.user_id` NOT NULL (no null rows in prod today)
+[] Set fixed `search_path` on balance RPCs
 
 ---
 
@@ -18,7 +26,7 @@
 
 [] Validate account delete: block if movements exist or if it's the only account
 [] Validate category delete: block if movements or budgets reference it
-[] UNIQUE constraint on `category_budget(user_id, category_id)` (UI filters dupes, API does not)
+[X] UNIQUE constraint on `category_budget(user_id, category_id)` (exists in DB as `category_budget_user_category_unique`)
 [] Guard `deleteCategoryForm` on server for global categories (UI hides button, action does not)
 
 ---
@@ -32,7 +40,6 @@
 [] Decide fate of `movement.applied` field — use it or remove from schema (upcoming uses `done_at` instead)
 [] Sanitize error messages in actions (no raw DB errors exposed to user)
 [] Pagination on `getMovementsByFilters` (no limit, performance risk with many movements)
-[] Review `account.user_id` nullable in schema vs multi-tenant model
 
 ---
 
@@ -52,7 +59,7 @@
 
 [X] Remove `is_default` from accounts — does not add enough value; stop using it as home/filter scope and form prefill
 [] Account & category ordering heuristic per user: sort by most used (movement frequency); use top account/category as form prefill instead of `is_default`
-[] Complete Balance After Logic (backdating)
+[X] Complete Balance After Logic (backdating)
 [] Templates for movements
 [] Dark theme (`next-themes` installed, no ThemeProvider/toggle yet)
 [] Multiple money types on expense
