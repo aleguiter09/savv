@@ -1,0 +1,195 @@
+{
+  "title": "Elegí el mundo visual de Savv",
+  "question": "El sorteo asignó el sistema de sobres de efectivo. ¿Lo mantenemos, tomamos una alternativa o re-sorteamos?",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Sobres de efectivo",
+      "kicker": "THE ROLL",
+      "lineage": "sistema doméstico de sobres por categoría",
+      "thesis": "Cada peso vive en un sobre etiquetado: el dinero se entiende porque se ve asignado.",
+      "palette": ["#C4A574", "#F3E6D4", "#1C1917", "#2F6F4E", "#B33A3A"],
+      "materials": ["kraft paper", "rubber band", "hand-stamped labels"],
+      "viewport": "Fila de sobres a escala hero (Comida, Alquiler, Ahorro) con montos visibles y CTA Empezar gratis; Savv como sello del sobre.",
+      "risk": "Puede leerse como app de presupuestos solamente si el análisis y las cuentas no aparecen en el mismo primer scroll.",
+      "raised": [
+        {
+          "from": "challenger-indoor-sun",
+          "raise": "Cada categoría posee un campo de color saturado (no acentos sobre gris): el sobre es una placa de color, no una card."
+        },
+        {
+          "from": "challenger-chromatophore",
+          "raise": "El estado se lee en la superficie: el relleno del sobre sube con el gasto y el activo se engrosa como piel tensa."
+        },
+        {
+          "from": "challenger-zine",
+          "raise": "Un momento anotado enseña la regla de oro (transferencia ≠ gasto) con una flecha de diagrama, no con un párrafo."
+        }
+      ],
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "nav stamp", "x": 0, "y": 0, "w": 12, "h": 1 },
+          { "label": "Savv + offer", "x": 0, "y": 1, "w": 5, "h": 4, "accent": true },
+          { "label": "envelope row", "x": 5, "y": 1, "w": 7, "h": 4 },
+          { "label": "accounts strip", "x": 0, "y": 5, "w": 12, "h": 2 },
+          { "label": "movements truth", "x": 0, "y": 7, "w": 6, "h": 3 },
+          { "label": "analysis panel", "x": 6, "y": 7, "w": 6, "h": 3 }
+        ]
+      },
+      "comp": ".impeccable/mocks/decision/assigned.webp"
+    },
+    {
+      "id": "model-pick",
+      "label": "Ticket fiscal / recibo",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "ticket térmico de supermercado y rollos de caja",
+      "thesis": "La landing es un ticket largo: cada línea es un hecho de dinero; el total es el CTA.",
+      "palette": ["#111111", "#F5F0E6", "#E8E2D6", "#D64545"],
+      "materials": ["thermal paper", "dotted cut edge", "ink fade"],
+      "viewport": "Un ticket full-bleed con Savv en el encabezado, ítems de cuentas/movimientos y TOTAL como botón Empezar gratis.",
+      "risk": "Es la dirección más familiar en finanzas cotidianas; puede sentirse esperable si no lleva el ritmo tipográfico al extremo.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "ticket head", "x": 3, "y": 0, "w": 6, "h": 2, "accent": true },
+          { "label": "line items", "x": 3, "y": 2, "w": 6, "h": 5 },
+          { "label": "TOTAL CTA", "x": 3, "y": 7, "w": 6, "h": 2 },
+          { "label": "cut edge", "x": 3, "y": 9, "w": 6, "h": 1 }
+        ]
+      },
+      "comp": ".impeccable/mocks/decision/model-pick.webp"
+    },
+    {
+      "id": "challenger-seven-segment",
+      "label": "Display seven-segment",
+      "verdict": "wins",
+      "lineage": "relojes LED, surtidores y marcadores",
+      "thesis": "El dinero se lee como dígitos que se encienden: el saldo es el protagonista absoluto.",
+      "palette": ["#0B0D10", "#FF3B2F", "#3D1210", "#C4C8CE"],
+      "materials": ["LED segments", "matte bezel", "ghost unlit cells"],
+      "viewport": "Cuatro dígitos de patrimonio a escala de surtidor; debajo, filas de cuentas como máscaras de segmentos; CTA en placa opaca.",
+      "case": "Gana en identificación (todos leen precios LED) y en claridad de producto (cuánto tienes es inequívoco).",
+      "risk": "Puede caer en el cliché dark+neon si el glow no se disciplina a segmentos reales.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-seven-segment-alarm-clock-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/signals-instruments-seven-segment-alarm-clock.webp",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "LED net worth", "x": 1, "y": 1, "w": 10, "h": 4, "accent": true },
+          { "label": "account cells", "x": 1, "y": 5, "w": 10, "h": 3 },
+          { "label": "CTA plate", "x": 4, "y": 8, "w": 4, "h": 2 }
+        ]
+      },
+      "comp": ".impeccable/mocks/decision/challenger-seven-segment.webp"
+    },
+    {
+      "id": "challenger-timetable",
+      "label": "Horario de bolsillo",
+      "verdict": "competitive",
+      "lineage": "timetable 1971 en rack de acetatos",
+      "thesis": "Cuentas y movimientos como columnas de un horario: un solo tamaño de tipo, jerarquía por peso y reglas.",
+      "palette": ["#E8B84A", "#F7F1E1", "#1A1A1A", "#C41E3A", "#1F6B4A"],
+      "materials": ["goldenrod stock", "tinted acetate", "hairline rules"],
+      "viewport": "Rack inclinado de paneles: Cuentas | Movimientos | Análisis; tipografía monotamaño; CTA como celda invertida.",
+      "case": "Mantiene claridad extrema de datos; pierde algo de identificación emocional frente a objetos de dinero doméstico.",
+      "risk": "La inclinación y el monotamaño pueden sentirse rígidos en mobile si no se traduce bien.",
+      "hero": "https://impeccable.style/worlds/cards/rw-timetable-slide-rack-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/rw-timetable-slide-rack.webp",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "raked slides", "x": 0, "y": 0, "w": 12, "h": 7, "accent": true },
+          { "label": "tick rail", "x": 0, "y": 7, "w": 12, "h": 1 },
+          { "label": "reversed CTA", "x": 3, "y": 8, "w": 6, "h": 2 }
+        ]
+      },
+      "comp": ".impeccable/mocks/decision/challenger-timetable.webp"
+    },
+    {
+      "id": "challenger-leather",
+      "label": "Estantería de cuero",
+      "verdict": "competitive",
+      "lineage": "skeuomorph de objetos queridos (billetera, libreta)",
+      "thesis": "Savv como objetos físicos amados: billetera, libreta y estantería de cuentas que se abren.",
+      "palette": ["#8B5A2B", "#D4C4A8", "#3E2A1C", "#F5EFE4"],
+      "materials": ["tooled leather", "linen", "torn paper"],
+      "viewport": "Una billetera abierta con billetes-cuenta y un total cosido; CTA como cierre metálico.",
+      "case": "Fuerte identificación con dinero físico; pierde claridad si el material tapa la información.",
+      "risk": "El skeuomorph puede distraer del mecanismo (movimientos como verdad).",
+      "hero": "https://impeccable.style/worlds/cards/digital-design-canon-skeuomorph-leather-studio-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/digital-design-canon-skeuomorph-leather-studio.webp",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "wallet object", "x": 2, "y": 1, "w": 8, "h": 6, "accent": true },
+          { "label": "stitch total", "x": 2, "y": 7, "w": 8, "h": 1 },
+          { "label": "clasp CTA", "x": 4, "y": 8, "w": 4, "h": 2 }
+        ]
+      },
+      "comp": ".impeccable/mocks/decision/challenger-leather.webp"
+    },
+    {
+      "id": "challenger-zine",
+      "label": "Zine técnico a mano",
+      "verdict": "declined",
+      "lineage": "zine explicativo con marker y flechas",
+      "palette": ["#F7F0E4", "#111111", "#F5E04A", "#FF6BB5", "#2EC4B6"],
+      "materials": ["marker ink", "highlighter", "napkin sketch"],
+      "case": "Enseña bien, pero no identifica al usuario de finanzas con un objeto de dinero.",
+      "kept": "Un momento anotado que enseña la regla clave.",
+      "hero": "https://impeccable.style/worlds/cards/hand-drawn-zine-explainer-hero.webp"
+    },
+    {
+      "id": "challenger-indoor-sun",
+      "label": "Sol de sala",
+      "verdict": "declined",
+      "lineage": "instalación de sol interior monocromático",
+      "palette": ["#C47A16", "#F0A030", "#1A1208"],
+      "materials": ["sodium haze", "mirrored ceiling"],
+      "case": "Atmósfera fuerte, poca claridad de producto financiero.",
+      "kept": "Campos de color que poseen regiones enteras.",
+      "hero": "https://impeccable.style/worlds/cards/light-shadow-caustics-indoor-weather-sun-hero.webp"
+    },
+    {
+      "id": "challenger-chromatophore",
+      "label": "Piel de cefalópodo",
+      "verdict": "declined",
+      "lineage": "cromatòforos como display vivo",
+      "palette": ["#F2E6D8", "#8B3A2A", "#2A8F8A"],
+      "materials": ["living pigment", "texture ridges"],
+      "case": "Hermoso pero lejano al ritual cotidiano del dinero.",
+      "kept": "Estado leído en el cambio de la superficie.",
+      "hero": "https://impeccable.style/worlds/cards/reefs-bioluminescent-nocturnal-chromatophore-skin-language-hero.webp"
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "code", "toggle": true },
+  "canon": true,
+  "canonCard": {
+    "label": "El estándar de categoría",
+    "thesis": "Landing fintech limpia: hero + mock de dashboard + feature grid, ejecutada con oficio máximo.",
+    "palette": ["#FFFFFF", "#111827", "#2563EB"],
+    "materials": ["soft shadow cards", "product UI mock"],
+    "viewport": "Hero a dos columnas, mock de app, secciones de features, CTA final.",
+    "risk": "Indistinguible de la competencia por diseño.",
+    "wireframe": {
+      "cols": 12,
+      "rows": 10,
+      "regions": [
+        { "label": "nav", "x": 0, "y": 0, "w": 12, "h": 1 },
+        { "label": "headline+CTA", "x": 0, "y": 1, "w": 6, "h": 4, "accent": true },
+        { "label": "dashboard mock", "x": 6, "y": 1, "w": 6, "h": 4 },
+        { "label": "features", "x": 0, "y": 5, "w": 12, "h": 3 },
+        { "label": "final CTA", "x": 3, "y": 8, "w": 6, "h": 2 }
+      ]
+    },
+    "comp": ".impeccable/mocks/decision/canon.webp"
+  },
+  "steer": true
+}

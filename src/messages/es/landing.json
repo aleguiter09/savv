@@ -1,180 +1,89 @@
 {
   "brand": "Savv",
   "nav": {
-    "accounts": "Cuentas",
-    "movements": "Movimientos",
-    "analytics": "Análisis",
-    "planning": "Planificación",
+    "product": "Producto",
     "howItWorks": "Cómo funciona",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú"
   },
   "cta": {
     "login": "Iniciar sesión",
-    "register": "Empezar gratis",
-    "createAccount": "Crear cuenta",
-    "seeHow": "Ver cómo funciona"
+    "register": "Empezar gratis"
   },
   "hero": {
-    "headline": "Ves todas tus cuentas, cada movimiento y en qué se va realmente tu dinero.",
-    "subtitle": "Savv concentra tus finanzas personales en un solo lugar: controlá saldos, registrá ingresos y gastos, organizá con categorías y seguí cómo evoluciona tu patrimonio.",
-    "previewLabel": "Vista previa del producto"
+    "headline": "Tu dinero, claro desde el primer día.",
+    "subtitle": "Al iniciar sesión ves el mismo Home: saldo total, el mes y tus últimos movimientos.",
+    "previewLabel": "Así se ve tu Home"
   },
-  "accounts": {
-    "id": "accounts",
-    "title": "Todo tu dinero en un solo lugar",
-    "subtitle": "Gestioná varias cuentas y conocé siempre tu situación financiera global.",
+  "product": {
+    "id": "product",
+    "title": "Tres cosas que ya funcionan",
+    "subtitle": "Carga manual, sin conectar el banco. Claridad primero.",
     "items": {
-      "multiple": {
-        "title": "Múltiples cuentas",
-        "description": "Efectivo, banco, ahorros — mantené cada saldo al día sin cambiar de herramienta."
+      "accounts": {
+        "title": "Saldo de todas tus cuentas",
+        "description": "Efectivo, banco y ahorros sumados — y cada una por separado."
       },
-      "balance": {
-        "title": "Balance actual",
-        "description": "Sabé cuánto tenés disponible ahora, cuenta por cuenta."
+      "movements": {
+        "title": "Movimientos como fuente de verdad",
+        "description": "Ingresos, gastos y transferencias. Una transferencia no se cuenta como gasto."
       },
-      "netWorth": {
-        "title": "Patrimonio / Net Worth",
-        "description": "Sumá el total de tus cuentas y mirá cómo cambia tu patrimonio en el tiempo."
-      },
-      "timeline": {
-        "title": "Evolución del dinero",
-        "description": "Seguí la trayectoria de tus saldos en lugar de adivinar de memoria."
-      }
-    }
-  },
-  "movements": {
-    "id": "movements",
-    "title": "Registrá todos tus movimientos",
-    "subtitle": "Los movimientos son la fuente de verdad. Construyen una visión real de tus finanzas.",
-    "items": {
-      "income": {
-        "title": "Ingresos",
-        "description": "Registrá sueldos, trabajos freelance y cualquier dinero que entra."
-      },
-      "expense": {
-        "title": "Gastos",
-        "description": "Seguí el gasto diario y organizalo con categorías."
-      },
-      "transfer": {
-        "title": "Transferencias",
-        "description": "Mové dinero entre cuentas sin contarlo como ingreso o gasto."
-      },
-      "categories": {
-        "title": "Categorías",
-        "description": "Agrupá movimientos para después entender hacia dónde va el dinero."
+      "month": {
+        "title": "El mes, de un vistazo",
+        "description": "Categorías, presupuestos y pagos próximos en la misma Home."
       }
     },
-    "transferNote": "Una transferencia entre cuentas es un movimiento interno del dinero: no representa un ingreso ni un gasto real en tus métricas."
-  },
-  "analytics": {
-    "id": "analytics",
-    "title": "Entendé en qué gastás",
-    "subtitle": "No solo registrás movimientos: podés ver qué está pasando con tu dinero.",
-    "items": {
-      "cashflow": {
-        "title": "Cashflow",
-        "description": "Compará dinero que entra y sale para una foto clara del mes."
-      },
-      "byCategory": {
-        "title": "Gastos por categoría",
-        "description": "Identificá qué categorías se llevan la mayor parte del presupuesto."
-      },
-      "comparison": {
-        "title": "Ingresos vs gastos",
-        "description": "Detectá si estás adelantado, equilibrado o gastando de más."
-      },
-      "evolution": {
-        "title": "Evolución del balance",
-        "description": "Observá cómo se mueven los saldos en el tiempo, no solo hoy."
-      },
-      "averages": {
-        "title": "Promedios por categoría",
-        "description": "Entendé tus hábitos con el gasto promedio de cada categoría."
-      }
-    }
-  },
-  "planning": {
-    "id": "planning",
-    "title": "Planificá tus finanzas",
-    "subtitle": "Sabé cuánto dinero tenés hoy y anticipá cómo van a evolucionar tus finanzas.",
-    "availableTitle": "Disponible hoy",
-    "available": {
-      "upcoming": {
-        "title": "Pagos próximos",
-        "description": "Mirá movimientos futuros antes de que afecten el saldo de hoy."
-      },
-      "budgets": {
-        "title": "Presupuestos por categoría",
-        "description": "Definí límites y seguí el progreso a medida que gastás."
-      }
-    },
-    "roadmapTitle": "Hacia dónde va Savv",
-    "roadmapBadge": "Roadmap",
-    "roadmap": {
-      "recurring": {
-        "title": "Gastos recurrentes y fijos",
-        "description": "Alquiler, suscripciones y otros compromisos mensuales — sin volver a cargarlos."
-      },
-      "installments": {
-        "title": "Pagos en cuotas",
-        "description": "Dividí compras grandes en pagos programados que puedas seguir."
-      },
-      "projection": {
-        "title": "Proyección de saldo",
-        "description": "Estimá cómo puede quedar tu balance luego de los compromisos próximos."
-      }
-    },
-    "roadmapNote": "Estas capacidades forman parte de la dirección del producto y pueden llegar de forma gradual."
+    "transferNote": "Mover plata entre cuentas no cambia tu patrimonio: Savv lo registra como movimiento interno."
   },
   "howItWorks": {
     "id": "how-it-works",
-    "title": "Cómo funciona",
-    "subtitle": "Cuatro pasos simples para tener una visión clara de tu dinero.",
+    "title": "Cómo empezar",
+    "subtitle": "Tres pasos. Sin configuración eterna.",
     "steps": {
       "1": {
         "title": "Creá tus cuentas",
-        "description": "Agregá las cuentas que usás y definí sus saldos iniciales."
+        "description": "Definí saldos iniciales de lo que usás de verdad."
       },
       "2": {
-        "title": "Registrá ingresos, gastos y transferencias",
-        "description": "Capturá cada movimiento para que los balances se mantengan correctos."
+        "title": "Registrá lo que pasa",
+        "description": "Ingresos, gastos y transferencias mantienen el saldo al día."
       },
       "3": {
-        "title": "Organizá con categorías",
-        "description": "Clasificá gastos e ingresos para desbloquear insights útiles."
-      },
-      "4": {
-        "title": "Analizá tu situación",
-        "description": "Revisá cashflow, patrimonio y tendencias por categoría con confianza."
+        "title": "Leé la foto del mes",
+        "description": "Categorías, presupuestos y pagos próximos sin adivinar."
       }
     }
   },
   "finalCta": {
-    "title": "Empezá a entender mejor tu dinero",
-    "subtitle": "Creá una cuenta gratis y reuní saldos, movimientos y hábitos de gasto en una vista clara.",
-    "button": "Crear cuenta"
+    "title": "Empezá con la Home que vas a usar todos los días",
+    "subtitle": "Cuenta gratis. Saldo, movimientos y el mes — en una sola pantalla.",
+    "button": "Empezar gratis"
   },
   "footer": {
     "tagline": "Finanzas personales, claramente organizadas.",
     "product": "Producto",
-    "account": "Cuenta"
+    "account": "Cuenta",
+    "roadmapNote": "Más adelante: gastos recurrentes, cuotas y proyección de saldo."
   },
   "mocks": {
-    "balance": "Balance",
-    "income": "Ingresos",
-    "expense": "Gastos",
-    "netWorth": "Patrimonio",
+    "balanceAllAccounts": "Saldo total",
+    "monthIncomes": "Ingresos del mes",
+    "monthExpenses": "Gastos del mes",
     "accounts": "Cuentas",
-    "recent": "Últimos movimientos",
+    "lastMovements": "Últimos movimientos",
     "salary": "Sueldo",
+    "salaryCategory": "Salario",
     "groceries": "Supermercado",
-    "transfer": "Transferencia",
+    "transfer": "A efectivo",
+    "transferCategory": "Transferencia",
     "checking": "Cuenta corriente",
     "savings": "Ahorros",
     "cash": "Efectivo",
     "food": "Comida",
-    "transport": "Transporte",
-    "housing": "Vivienda"
+    "dates": {
+      "salary": "1 de agosto de 2026",
+      "groceries": "12 de agosto de 2026",
+      "transfer": "18 de agosto de 2026"
+    }
   }
 }
