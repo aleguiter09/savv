@@ -5,6 +5,7 @@ import {
   insertMovement,
   updateMovement,
 } from "@/modules/movements/services/movements";
+import { applyMovementNow } from "@/modules/movements/services/movement-series";
 import { redirect } from "next/navigation";
 import { setToastMessage } from "@/modules/shared/actions/toast";
 import { getTranslations } from "next-intl/server";
@@ -64,11 +65,33 @@ export const updateMovementForm = async (
   }
 
   try {
-    await updateMovement(parsed.data, Number(previous.id));
+    const shouldUpdateSeries =
+      Boolean(previous.seriesId) && previous.applied === false;
+
+    await updateMovement(parsed.data, Number(previous.id), {
+      seriesId: previous.seriesId,
+      updateSeries: shouldUpdateSeries,
+    });
   } catch (error) {
     return {
       success: false,
       error: "Database error: failed to update movement: " + error,
+    };
+  }
+
+  revalidatePath("/home");
+  return { success: true };
+};
+
+export const applyMovementNowForm = async (
+  movementId: number,
+): Promise<ServerActionResponse> => {
+  try {
+    await applyMovementNow(movementId);
+  } catch (error) {
+    return {
+      success: false,
+      error: "Database error: failed to apply movement: " + error,
     };
   }
 

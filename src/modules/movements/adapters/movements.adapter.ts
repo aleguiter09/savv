@@ -63,6 +63,9 @@ export const adaptMovementItem = (movement: MovementApi): MovementView => {
       description: movement.description ?? "",
       type: movement.type,
       balanceAfter: movement.balance_after ?? 0,
+      applied: movement.applied ?? true,
+      seriesId: movement.series_id ?? null,
+      installmentIndex: movement.installment_index ?? null,
       account: adaptAccount(movement.fullAccount),
       toAccount: movement.fullToAccount
         ? adaptAccount(movement.fullToAccount)
@@ -88,6 +91,9 @@ export const adaptMovementItem = (movement: MovementApi): MovementView => {
     description: movement.description ?? "",
     type: movement.type,
     balanceAfter: movement.balance_after ?? 0,
+    applied: movement.applied ?? true,
+    seriesId: movement.series_id ?? null,
+    installmentIndex: movement.installment_index ?? null,
     account: adaptAccount(movement.fullAccount),
     category: {
       id: movement.fullCategory?.id?.toString() ?? "",

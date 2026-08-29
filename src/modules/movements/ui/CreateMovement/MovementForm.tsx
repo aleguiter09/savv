@@ -13,8 +13,8 @@ import {
 } from "@/modules/movements/actions/movement-action";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocale, useTranslations } from "next-intl";
-import React, { useEffect, useTransition } from "react";
-import { Controller, useForm } from "react-hook-form";
+import React, { useEffect, useMemo, useTransition } from "react";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { AccountSelect } from "@/modules/shared/ui/common/AccountSelect";
 import { CategorySelect } from "@/modules/shared/ui/common/CategorySelect";
@@ -41,13 +41,14 @@ export function MovementForm({
   const show = useToastStore((store) => store.show);
   const [pending, startTransition] = useTransition();
 
-  const form = useForm<SchemaInput, any, SchemaOutput>({
+  const form = useForm<SchemaInput, unknown, SchemaOutput>({
     resolver: zodResolver(MovementSchema),
     defaultValues: movement
       ? {
           amount: Math.abs(movement.amount),
           description: movement.description,
           type: movement.type,
+          schedule: "once",
           done_at: new Date(movement.doneAt),
           category: movement.category?.id ?? undefined,
           from: movement.account?.id ?? undefined,
@@ -57,16 +58,37 @@ export function MovementForm({
         }
       : {
           type: "expense",
+          schedule: "once",
           done_at: new Date(),
           description: "",
+          end_date: null,
         },
   });
 
-  const [type, from, where] = form.watch(["type", "from", "where"]);
+  const type = useWatch({ control: form.control, name: "type" });
+  const from = useWatch({ control: form.control, name: "from" });
+  const where = useWatch({ control: form.control, name: "where" });
+  const schedule = useWatch({ control: form.control, name: "schedule" });
+  const amount = useWatch({ control: form.control, name: "amount" });
+  const installmentCount = useWatch({
+    control: form.control,
+    name: "installment_count",
+  });
 
   useEffect(() => {
     form.resetField("category");
+    if (type !== "expense") {
+      form.setValue("schedule", "once");
+    }
   }, [type, form]);
+
+  const installmentPreview = useMemo(() => {
+    const total = Number(amount);
+    const count = Number(installmentCount);
+    if (!total || !count || count < 2) return null;
+    const per = Math.floor((total * 100) / count) / 100;
+    return { count, per };
+  }, [amount, installmentCount]);
 
   function onSubmit(data: SchemaOutput) {
     startTransition(async () => {
@@ -129,13 +151,13 @@ export function MovementForm({
     />
   );
 
-  const renderCategory = (type: "income" | "expense") => (
+  const renderCategory = (kind: "income" | "expense") => (
     <Controller
       control={form.control}
       name="category"
       render={({ field, fieldState }) => (
         <CategorySelect
-          categories={type === "income" ? incomeCategories : expenseCategories}
+          categories={kind === "income" ? incomeCategories : expenseCategories}
           category={field.value?.toString() ?? ""}
           setCategory={field.onChange}
           error={
@@ -151,14 +173,17 @@ export function MovementForm({
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
       <FieldGroup>
-        {/* done_at */}
         <Controller
           name="done_at"
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel className="block text-sm font-medium">
-                {t("enterDate")}
+                {schedule === "installment"
+                  ? t("firstInstallmentDate")
+                  : schedule === "recurring"
+                    ? t("startDate")
+                    : t("enterDate")}
               </FieldLabel>
               <DatePicker
                 value={field.value as Date | undefined}
@@ -170,7 +195,6 @@ export function MovementForm({
           )}
         />
 
-        {/* type/category */}
         <div className="rounded-md ">
           <Controller
             name="type"
@@ -190,6 +214,135 @@ export function MovementForm({
                 </TabsList>
 
                 <TabsContent value="expense" className="flex flex-col gap-4">
+                  {!movement ? (
+                    <Controller
+                      name="schedule"
+                      control={form.control}
+                      render={({ field }) => (
+                        <Field>
+                          <FieldLabel>{t("scheduleType")}</FieldLabel>
+                          <Tabs
+                            value={field.value ?? "once"}
+                            onValueChange={field.onChange}
+                          >
+                            <TabsList className="w-full">
+                              <TabsTrigger value="once" className="w-full">
+                                {t("scheduleOnce")}
+                              </TabsTrigger>
+                              <TabsTrigger value="recurring" className="w-full">
+                                {t("scheduleRecurring")}
+                              </TabsTrigger>
+                              <TabsTrigger
+                                value="installment"
+                                className="w-full"
+                              >
+                                {t("scheduleInstallment")}
+                              </TabsTrigger>
+                            </TabsList>
+                          </Tabs>
+                        </Field>
+                      )}
+                    />
+                  ) : null}
+
+                  {schedule === "recurring" && !movement ? (
+                    <>
+                      <Controller
+                        name="frequency"
+                        control={form.control}
+                        defaultValue="monthly"
+                        render={({ field, fieldState }) => (
+                          <Field data-invalid={fieldState.invalid}>
+                            <FieldLabel htmlFor="frequency">
+                              {t("frequency")}
+                            </FieldLabel>
+                            <select
+                              {...field}
+                              id="frequency"
+                              className="border-input bg-background h-9 w-full rounded-md border px-3 text-sm"
+                              value={field.value ?? "monthly"}
+                            >
+                              <option value="weekly">{t("freqWeekly")}</option>
+                              <option value="biweekly">
+                                {t("freqBiweekly")}
+                              </option>
+                              <option value="monthly">{t("freqMonthly")}</option>
+                              <option value="yearly">{t("freqYearly")}</option>
+                            </select>
+                            {fieldState.invalid && (
+                              <FieldError
+                                error={t(fieldState.error?.message as string)}
+                              />
+                            )}
+                          </Field>
+                        )}
+                      />
+                      <Controller
+                        name="end_date"
+                        control={form.control}
+                        render={({ field, fieldState }) => (
+                          <Field data-invalid={fieldState.invalid}>
+                            <FieldLabel>{t("endDateOptional")}</FieldLabel>
+                            <DatePicker
+                              value={
+                                field.value instanceof Date &&
+                                !Number.isNaN(field.value.getTime())
+                                  ? field.value
+                                  : undefined
+                              }
+                              onChange={(date) =>
+                                field.onChange(date ?? null)
+                              }
+                              locale={locale.includes("es") ? es : enUS}
+                              error={
+                                fieldState.invalid
+                                  ? t(fieldState.error?.message as string)
+                                  : undefined
+                              }
+                            />
+                          </Field>
+                        )}
+                      />
+                    </>
+                  ) : null}
+
+                  {schedule === "installment" && !movement ? (
+                    <Controller
+                      name="installment_count"
+                      control={form.control}
+                      render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid}>
+                          <FieldLabel htmlFor="installment_count">
+                            {t("installmentCount")}
+                          </FieldLabel>
+                          <Input
+                            {...field}
+                            value={(field.value as string | number) ?? ""}
+                            id="installment_count"
+                            type="number"
+                            min={2}
+                            max={60}
+                            step={1}
+                            placeholder="12"
+                          />
+                          {installmentPreview ? (
+                            <p className="text-muted-foreground text-xs">
+                              {t("installmentPreview", {
+                                count: installmentPreview.count,
+                                amount: installmentPreview.per.toFixed(2),
+                              })}
+                            </p>
+                          ) : null}
+                          {fieldState.invalid && (
+                            <FieldError
+                              error={t(fieldState.error?.message as string)}
+                            />
+                          )}
+                        </Field>
+                      )}
+                    />
+                  ) : null}
+
                   {renderFrom()}
                   {renderCategory("expense")}
                 </TabsContent>
@@ -206,13 +359,16 @@ export function MovementForm({
           />
         </div>
 
-        {/* amount */}
         <Controller
           name="amount"
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="amount">{t("enterAmount")}</FieldLabel>
+              <FieldLabel htmlFor="amount">
+                {schedule === "installment" && !movement
+                  ? t("enterTotalAmount")
+                  : t("enterAmount")}
+              </FieldLabel>
               <Input
                 {...field}
                 value={(field.value as string | number) ?? ""}
@@ -230,7 +386,6 @@ export function MovementForm({
           )}
         />
 
-        {/* description */}
         <Controller
           name="description"
           control={form.control}
@@ -253,7 +408,6 @@ export function MovementForm({
         />
       </FieldGroup>
 
-      {/* Actions */}
       <div className="mt-3 flex flex-row gap-2">
         <Button loading={pending} type="submit" className="w-full">
           {t("confirm")}

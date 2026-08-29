@@ -6,7 +6,10 @@ create or replace function public.save_movement_with_balance(
   p_type public."movementType",
   p_from bigint,
   p_where bigint default null,
-  p_category bigint default null
+  p_category bigint default null,
+  p_applied boolean default true,
+  p_series_id bigint default null,
+  p_installment_index integer default null
 )
 returns integer
 language plpgsql
@@ -37,6 +40,16 @@ begin
     raise exception 'Invalid source account for current user';
   end if;
 
+  if p_series_id is not null then
+    perform 1
+    from public.movement_series s
+    where s.id = p_series_id and s.user_id = v_user_id;
+
+    if not found then
+      raise exception 'Invalid series for current user';
+    end if;
+  end if;
+
   if p_movement_id = 0 then
     -- CREATE
 
@@ -59,18 +72,31 @@ begin
       v_group_id := gen_random_uuid();
       v_abs_amount := abs(p_amount);
 
-      insert into public.movement (amount, description, done_at, type, "from", category, user_id, balance_after, transfer_group_id)
-      values (-v_abs_amount, p_description, p_done_at, p_type, p_from, null, v_user_id, null, v_group_id)
+      insert into public.movement (
+        amount, description, done_at, type, "from", category, user_id,
+        balance_after, transfer_group_id, applied, series_id, installment_index
+      )
+      values (
+        -v_abs_amount, p_description, p_done_at, p_type, p_from, null, v_user_id,
+        null, v_group_id, p_applied, p_series_id, p_installment_index
+      )
       returning id into v_target_movement_id;
 
-      insert into public.movement (amount, description, done_at, type, "from", category, user_id, balance_after, transfer_group_id)
-      values (v_abs_amount, p_description, p_done_at, p_type, p_where, null, v_user_id, null, v_group_id);
+      insert into public.movement (
+        amount, description, done_at, type, "from", category, user_id,
+        balance_after, transfer_group_id, applied, series_id, installment_index
+      )
+      values (
+        v_abs_amount, p_description, p_done_at, p_type, p_where, null, v_user_id,
+        null, v_group_id, p_applied, p_series_id, p_installment_index
+      );
 
-      update public.account set balance = balance - v_abs_amount where id = p_from and user_id = v_user_id;
-      update public.account set balance = balance + v_abs_amount where id = p_where and user_id = v_user_id;
-
-      perform public.recalculate_balance_after_for_account(v_user_id, p_from);
-      perform public.recalculate_balance_after_for_account(v_user_id, p_where);
+      if p_applied then
+        update public.account set balance = balance - v_abs_amount where id = p_from and user_id = v_user_id;
+        update public.account set balance = balance + v_abs_amount where id = p_where and user_id = v_user_id;
+        perform public.recalculate_balance_after_for_account(v_user_id, p_from);
+        perform public.recalculate_balance_after_for_account(v_user_id, p_where);
+      end if;
 
       return v_target_movement_id;
     end if;
@@ -81,12 +107,20 @@ begin
 
     v_signed_amount := case when p_type = 'expense' then -abs(p_amount) else abs(p_amount) end;
 
-    insert into public.movement (amount, description, done_at, type, "from", category, user_id, balance_after)
-    values (v_signed_amount, p_description, p_done_at, p_type, p_from, p_category, v_user_id, null)
+    insert into public.movement (
+      amount, description, done_at, type, "from", category, user_id,
+      balance_after, applied, series_id, installment_index
+    )
+    values (
+      v_signed_amount, p_description, p_done_at, p_type, p_from, p_category, v_user_id,
+      null, p_applied, p_series_id, p_installment_index
+    )
     returning id into v_target_movement_id;
 
-    update public.account set balance = balance + v_signed_amount where id = p_from and user_id = v_user_id;
-    perform public.recalculate_balance_after_for_account(v_user_id, p_from);
+    if p_applied then
+      update public.account set balance = balance + v_signed_amount where id = p_from and user_id = v_user_id;
+      perform public.recalculate_balance_after_for_account(v_user_id, p_from);
+    end if;
 
     return v_target_movement_id;
 
@@ -155,14 +189,16 @@ begin
       v_old_from := v_out_leg."from";
       v_old_where := v_in_leg."from";
 
-      -- Revert previous balances
-      update public.account
-      set balance = balance - v_out_leg.amount
-      where id = v_old_from and user_id = v_user_id;
+      -- Revert previous balances only if they were applied
+      if v_out_leg.applied then
+        update public.account
+        set balance = balance - v_out_leg.amount
+        where id = v_old_from and user_id = v_user_id;
 
-      update public.account
-      set balance = balance - v_in_leg.amount
-      where id = v_old_where and user_id = v_user_id;
+        update public.account
+        set balance = balance - v_in_leg.amount
+        where id = v_old_where and user_id = v_user_id;
+      end if;
 
       update public.movement
       set amount      = -v_abs_amount,
@@ -171,6 +207,7 @@ begin
           type        = 'transfer',
           "from"      = p_from,
           category    = null,
+          applied     = p_applied,
           updated_at  = now()
       where id = v_out_leg.id
         and user_id = v_user_id
@@ -183,18 +220,20 @@ begin
           type        = 'transfer',
           "from"      = p_where,
           category    = null,
+          applied     = p_applied,
           updated_at  = now()
       where id = v_in_leg.id
         and user_id = v_user_id;
 
-      -- Apply new balances
-      update public.account
-      set balance = balance - v_abs_amount
-      where id = p_from and user_id = v_user_id;
+      if p_applied then
+        update public.account
+        set balance = balance - v_abs_amount
+        where id = p_from and user_id = v_user_id;
 
-      update public.account
-      set balance = balance + v_abs_amount
-      where id = p_where and user_id = v_user_id;
+        update public.account
+        set balance = balance + v_abs_amount
+        where id = p_where and user_id = v_user_id;
+      end if;
 
       perform public.recalculate_balance_after_for_account(v_user_id, v_old_from);
       if v_old_where <> v_old_from then
@@ -224,6 +263,12 @@ begin
       raise exception 'p_category is required for income/expense';
     end if;
 
+    if v_previous.applied then
+      update public.account
+      set balance = balance - v_previous.amount
+      where id = v_previous."from" and user_id = v_user_id;
+    end if;
+
     update public.movement
     set amount      = v_signed_amount,
         description = p_description,
@@ -231,18 +276,17 @@ begin
         type        = p_type,
         "from"      = p_from,
         category    = p_category,
+        applied     = p_applied,
         updated_at  = now()
     where id = p_movement_id
       and user_id = v_user_id
     returning id into v_target_movement_id;
 
-    update public.account
-    set balance = balance - v_previous.amount
-    where id = v_previous."from" and user_id = v_user_id;
-
-    update public.account
-    set balance = balance + v_signed_amount
-    where id = p_from and user_id = v_user_id;
+    if p_applied then
+      update public.account
+      set balance = balance + v_signed_amount
+      where id = p_from and user_id = v_user_id;
+    end if;
 
     perform public.recalculate_balance_after_for_account(v_user_id, v_previous."from");
     if v_previous."from" != p_from then

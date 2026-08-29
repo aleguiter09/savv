@@ -29,6 +29,7 @@ as $$
     from public.movement m
     cross join month_bounds mb
     where m.type = 'expense'
+      and m.applied = true
       and m.done_at >= mb.start_at
       and m.done_at <= mb.end_at
       and (p_account_id is null or m."from" = p_account_id)

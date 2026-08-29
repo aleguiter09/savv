@@ -4,10 +4,17 @@ import { getFormatter, getLocale, getTranslations } from "next-intl/server";
 import type { MovementView } from "../../types/types";
 import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
 import { EditMovementButton } from "../EditMovementButton";
+import { ApplyMovementButton } from "../ApplyMovementButton";
+import { SeriesDetailExtras } from "./SeriesDetailExtras";
+import type { SeriesDetailContext } from "../../services/movement-series";
 
 export async function MovementDetail({
   movement,
-}: Readonly<{ movement: MovementView }>) {
+  series,
+}: Readonly<{
+  movement: MovementView;
+  series?: SeriesDetailContext | null;
+}>) {
   const { doneAt, amount, balanceAfter, description, type, category, account } =
     movement;
   const toAccount = type === "transfer" ? movement.toAccount : undefined;
@@ -71,14 +78,29 @@ export async function MovementDetail({
       </div>
       <div className="rounded-md border py-2 px-3 flex flex-col gap-1 mb-3">
         <dt className=" text-gray-500 text-xs">{tMovements("balanceAfter")}</dt>
-        <dd className="text-sm">{displayBalanceAfter}</dd>
+        <dd className="text-sm">
+          {movement.applied
+            ? displayBalanceAfter
+            : tMovements("pendingBalance")}
+        </dd>
       </div>
       <div className="rounded-md border py-2 px-3 flex flex-col gap-1">
         <dt className=" text-gray-500 text-xs">{tMovements("description")}</dt>
         <dd className="text-sm">{description}</dd>
       </div>
 
-      <div className="mt-3 flex gap-2">
+      {series ? (
+        <SeriesDetailExtras
+          series={series}
+          currentMovementId={movement.id}
+          locale={locale}
+        />
+      ) : null}
+
+      <div className="mt-3 flex flex-col gap-2">
+        {!movement.applied ? (
+          <ApplyMovementButton movementId={movement.id} />
+        ) : null}
         <EditMovementButton movement={movement} />
       </div>
     </div>

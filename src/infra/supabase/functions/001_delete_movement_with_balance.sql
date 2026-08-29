@@ -1,7 +1,8 @@
 CREATE OR REPLACE FUNCTION public.delete_movement_with_balance(p_movement_id bigint)
- RETURNS void
- LANGUAGE plpgsql
- SET search_path TO 'public'
+RETURNS void
+LANGUAGE plpgsql
+SECURITY INVOKER
+SET search_path TO 'public'
 AS $function$
 declare
   v_user_id uuid := auth.uid();
@@ -58,15 +59,17 @@ begin
     v_from_account := v_out_leg."from";
     v_where_account := v_in_leg."from";
 
-    update public.account
-    set balance = balance - v_out_leg.amount
-    where id = v_from_account
-      and user_id = v_user_id;
+    if v_out_leg.applied then
+      update public.account
+      set balance = balance - v_out_leg.amount
+      where id = v_from_account
+        and user_id = v_user_id;
 
-    update public.account
-    set balance = balance - v_in_leg.amount
-    where id = v_where_account
-      and user_id = v_user_id;
+      update public.account
+      set balance = balance - v_in_leg.amount
+      where id = v_where_account
+        and user_id = v_user_id;
+    end if;
 
     delete from public.movement
     where transfer_group_id = v_previous.transfer_group_id
@@ -80,10 +83,12 @@ begin
     return;
   end if;
 
-  update public.account
-  set balance = balance - v_previous.amount
-  where id = v_previous."from"
-    and user_id = v_user_id;
+  if v_previous.applied then
+    update public.account
+    set balance = balance - v_previous.amount
+    where id = v_previous."from"
+      and user_id = v_user_id;
+  end if;
 
   delete from public.movement
   where id = p_movement_id
@@ -91,4 +96,4 @@ begin
 
   perform public.recalculate_balance_after_for_account(v_user_id, v_previous."from");
 end;
-$function$
+$function$;

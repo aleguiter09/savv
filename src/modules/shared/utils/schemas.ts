@@ -1,6 +1,13 @@
 import { categoryColorsLiterals } from "@/modules/shared/utils/constants";
 import { z } from "zod";
 
+export const FrequencySchema = z.enum([
+  "weekly",
+  "biweekly",
+  "monthly",
+  "yearly",
+]);
+
 const BaseMovementSchema = z.object({
   amount: z.coerce
     .number("amountPositiveError")
@@ -18,30 +25,81 @@ const BaseMovementSchema = z.object({
   from: z.coerce.number("noAccountError").positive("noAccountError"),
 });
 
-const IncomeExpenseSchema = BaseMovementSchema.extend({
-  type: z.enum(["expense", "income"]),
+const OnceExpenseSchema = BaseMovementSchema.extend({
+  type: z.literal("expense"),
   category: z.coerce.number("noCategoryError").positive("noCategoryError"),
+  schedule: z.literal("once"),
+});
+
+const optionalEndDateSchema = z.any().transform((val): string | null => {
+  if (val == null || val === "") return null;
+  const date = val instanceof Date ? val : new Date(val);
+  if (Number.isNaN(date.getTime())) return null;
+  return date.toISOString();
+});
+
+const RecurringExpenseSchema = BaseMovementSchema.extend({
+  type: z.literal("expense"),
+  category: z.coerce.number("noCategoryError").positive("noCategoryError"),
+  schedule: z.literal("recurring"),
+  frequency: FrequencySchema,
+  end_date: optionalEndDateSchema.optional(),
+});
+
+const InstallmentExpenseSchema = BaseMovementSchema.extend({
+  type: z.literal("expense"),
+  category: z.coerce.number("noCategoryError").positive("noCategoryError"),
+  schedule: z.literal("installment"),
+  installment_count: z.coerce
+    .number("installmentCountError")
+    .int("installmentCountError")
+    .min(2, "installmentCountMin")
+    .max(60, "installmentCountMax"),
+});
+
+const IncomeSchema = BaseMovementSchema.extend({
+  type: z.literal("income"),
+  category: z.coerce.number("noCategoryError").positive("noCategoryError"),
+  schedule: z.literal("once").default("once"),
 });
 
 const TransferSchema = BaseMovementSchema.extend({
   type: z.literal("transfer"),
   where: z.coerce.number("noAccountError").positive("noAccountError"),
+  schedule: z.literal("once").default("once"),
 });
 
 export const MovementSchema = z
-  .discriminatedUnion("type", [IncomeExpenseSchema, TransferSchema])
-  .refine(
-    (data) => {
-      if (data.type === "transfer") {
-        return data.from !== data.where;
+  .union([
+    OnceExpenseSchema,
+    RecurringExpenseSchema,
+    InstallmentExpenseSchema,
+    IncomeSchema,
+    TransferSchema,
+  ])
+  .superRefine((data, ctx) => {
+    if (data.type === "transfer" && data.from === data.where) {
+      ctx.addIssue({
+        code: "custom",
+        message: "transferSameAccountError",
+        path: ["where"],
+      });
+    }
+
+    if (
+      data.type === "expense" &&
+      data.schedule === "recurring" &&
+      data.end_date
+    ) {
+      if (new Date(data.end_date) < new Date(data.done_at)) {
+        ctx.addIssue({
+          code: "custom",
+          message: "endDateBeforeStartError",
+          path: ["end_date"],
+        });
       }
-      return true;
-    },
-    {
-      message: "transferSameAccountError",
-      path: ["where"],
-    },
-  );
+    }
+  });
 
 export const AccountSchema = z.object({
   name: z.string().min(1, "nameError").max(100, "nameTooLong"),

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getMovementById } from "@/modules/movements/services/movements";
+import { getSeriesDetailContext } from "@/modules/movements/services/movement-series";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
@@ -11,7 +12,9 @@ type MovementDetailPageProps = {
   id: number;
 };
 
-export async function MovementDetailPage({ id }: MovementDetailPageProps) {
+export async function MovementDetailPage({
+  id,
+}: Readonly<MovementDetailPageProps>) {
   const [t, movement] = await Promise.all([
     getTranslations("movements"),
     getMovementById(id),
@@ -20,6 +23,10 @@ export async function MovementDetailPage({ id }: MovementDetailPageProps) {
   if (!movement) {
     notFound();
   }
+
+  const series = movement.series_id
+    ? await getSeriesDetailContext(movement.series_id)
+    : null;
 
   const parsedMovement = adaptMovementItem(movement);
 
@@ -33,7 +40,7 @@ export async function MovementDetailPage({ id }: MovementDetailPageProps) {
         <DeleteMovementButton movement={parsedMovement} />
       </div>
 
-      <MovementDetail movement={parsedMovement} />
+      <MovementDetail movement={parsedMovement} series={series} />
     </>
   );
 }

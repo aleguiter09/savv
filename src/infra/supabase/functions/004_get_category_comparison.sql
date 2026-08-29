@@ -45,6 +45,7 @@ as $$
     cross join month_bounds mb
     where m.user_id = auth.uid()
       and m.type = 'expense'
+      and m.applied = true
       and m.done_at >= mb.start_at
       and m.done_at <= mb.end_at
       and (p_account_id is null or m."from" = p_account_id)
@@ -58,6 +59,7 @@ as $$
     cross join six_month_bounds smb
     where m.user_id = auth.uid()
       and m.type = 'expense'
+      and m.applied = true
       and m.done_at >= smb.start_at
       and m.done_at <= smb.end_at
       and (p_account_id is null or m."from" = p_account_id)
@@ -69,15 +71,15 @@ as $$
     coalesce(ec.icon, c.icon) as category_icon,
     coalesce(ec.color, c.color) as category_color,
     coalesce(cs.total, 0) as current_month_spent,
-    round(coalesce(sms.total, 0) / 6.0, 2) as six_month_avg,
+    round((coalesce(sms.total, 0) / 6)::numeric, 2) as six_month_avg,
     coalesce(b.amount, 0) as budget_amount,
     case 
       when coalesce(sms.total, 0) = 0 then 0
-      else round(((coalesce(cs.total, 0) - (coalesce(sms.total, 0) / 6.0)) / (coalesce(sms.total, 0) / 6.0)) * 100, 1)
+      else round((((coalesce(cs.total, 0) - (coalesce(sms.total, 0) / 6)) / (coalesce(sms.total, 0) / 6)) * 100)::numeric, 1)
     end as diff_vs_avg_percent,
     case 
       when b.amount is null or b.amount = 0 then null
-      else round((coalesce(cs.total, 0) / b.amount) * 100, 1)
+      else round(((coalesce(cs.total, 0) / b.amount) * 100)::numeric, 1)
     end as diff_vs_budget_percent
   from public.category c
   left join public.effective_categories ec on ec.id = c.id
