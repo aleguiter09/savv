@@ -36,6 +36,11 @@ export async function updateSession(request: NextRequest) {
   const authPublicPaths = ["/login", "/register", "/reset"];
   const publicPaths = ["/", ...authPublicPaths, "/auth/confirm"];
 
+  // Cron routes authenticate via CRON_SECRET in the route handler, not session.
+  if (pathname.startsWith("/api/cron/")) {
+    return supabaseResponse;
+  }
+
   if (!user && !publicPaths.includes(pathname)) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
