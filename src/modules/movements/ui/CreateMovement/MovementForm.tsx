@@ -61,7 +61,6 @@ export function MovementForm({
           schedule: "once",
           done_at: new Date(),
           description: "",
-          end_date: null,
         },
   });
 
