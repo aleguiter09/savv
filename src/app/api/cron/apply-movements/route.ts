@@ -1,12 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceRoleClient } from "@/infra/supabase/admin";
+import { isCronAuthorized } from "../cron-auth";
 
 export async function GET(request: NextRequest) {
-  const authHeader = request.headers.get("authorization");
-  const cronSecret = process.env.CRON_SECRET;
+  const auth = isCronAuthorized(request);
 
-  if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!auth.authorized) {
+    const error =
+      auth.reason === "missing_secret"
+        ? "CRON_SECRET is not set on the server"
+        : auth.reason === "missing_header"
+          ? "Missing Authorization header (Vercel sends Bearer CRON_SECRET on cron runs)"
+          : "Invalid cron secret";
+
+    return NextResponse.json({ error }, { status: 401 });
   }
 
   try {
