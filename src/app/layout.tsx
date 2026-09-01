@@ -28,6 +28,7 @@ export const viewport = {
   initialScale: 1.0,
   maximumScale: 1.0,
   userScalable: "no",
+  viewportFit: "cover",
   themeColor: "#ffffff",
 };
 
@@ -39,7 +40,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className="scroll-smooth">
       <body
-        className={`${inter.className} mt-4 pb-12 min-h-screen antialiased bg-gray-100 text-gray-900`}
+        className={`${inter.className} antialiased bg-gray-100 text-gray-900`}
       >
         <NextTopLoader
           color="#3B82F6"

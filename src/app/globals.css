@@ -15,6 +15,7 @@
 @layer utilities {
   :root {
     --anchor-max-height: 310px;
+    --navbar-height: 3rem;
   }
 }
 

@@ -19,12 +19,7 @@ export default async function AppLayout({
 
   return (
     <DataProvider accounts={adaptedAccounts} categories={adaptedCategories}>
-      <main
-        className="mt-4 mx-6 pb-12 sm:w-lg sm:mx-auto lg:w-4xl"
-        style={{
-          paddingBottom: "env(safe-area-inset-bottom)",
-        }}
-      >
+      <main className="mx-6 mt-4 pb-[calc(var(--navbar-height)+env(safe-area-inset-bottom,0px))] sm:mx-auto sm:w-lg lg:w-4xl">
         {children}
       </main>
       <Navbar />
