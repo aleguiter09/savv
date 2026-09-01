@@ -14,8 +14,13 @@ export async function LastMovementsList({ accountId }: Props) {
 
   return (
     <div className="flex flex-col gap-2 mt-3">
-      {adaptedMovements.map((item) => (
-        <MovementItemDetail key={item.id} {...item} showDate />
+      {adaptedMovements.map((item, index) => (
+        <MovementItemDetail
+          key={item.id}
+          {...item}
+          showDate
+          isLast={index === adaptedMovements.length - 1}
+        />
       ))}
       {adaptedMovements.length === 0 && (
         <p className="pt-2 text-sm text-slate-500 text-center col-span-3">
