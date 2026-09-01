@@ -21,6 +21,18 @@ describe("movements.adapter", () => {
     }
   });
 
+  it("groups same calendar day movements with different times", () => {
+    const grouped = getMovementsByDay([
+      expenseMovementApi({ id: 1, amount: -30, done_at: "2026-08-10T10:00:00.000Z" }),
+      expenseMovementApi({ id: 2, amount: -15.5, done_at: "2026-08-10T18:30:00.000Z" }),
+    ]);
+
+    expect(grouped).toHaveLength(1);
+    expect(grouped[0]?.date).toBe("2026-08-10");
+    expect(grouped[0]?.amount).toBe(-45.5);
+    expect(grouped[0]?.items).toHaveLength(2);
+  });
+
   it("groups same-day expenses and sums their amounts", () => {
     const sameDay = "2026-08-10T10:00:00.000Z";
     const grouped = getMovementsByDay([
@@ -39,7 +51,7 @@ describe("movements.adapter", () => {
       expenseMovementApi({ id: 2, done_at: "2026-08-10T10:00:00.000Z" }),
     ]);
 
-    expect(grouped[0]?.date).toBe("2026-08-10T10:00:00.000Z");
-    expect(grouped[1]?.date).toBe("2026-08-05T10:00:00.000Z");
+    expect(grouped[0]?.date).toBe("2026-08-10");
+    expect(grouped[1]?.date).toBe("2026-08-05");
   });
 });

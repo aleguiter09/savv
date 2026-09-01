@@ -74,5 +74,10 @@
   "statusPaid": "Paid",
   "statusPending": "Pending",
   "nextOccurrence": "Next occurrence",
-  "seriesCompleted": "Series completed"
+  "seriesCompleted": "Series completed",
+  "applyFilters": "Apply filters",
+  "clearFilters": "Clear",
+  "pageOf": "Page {page} of {total}",
+  "previous": "Previous",
+  "next": "Next"
 }

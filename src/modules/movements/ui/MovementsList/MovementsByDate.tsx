@@ -1,13 +1,13 @@
 import { Suspense } from "react";
-import { Card } from "@/ui/card";
 import { MovementsList } from "./MovementsList";
-import { LastMovementsSkeleton } from "@/modules/dashboard/ui/LastMovements/LastMovementsList";
+import { MovementsListSkeleton } from "./MovementsListSkeleton";
 
 type Props = Readonly<{
   from: Date;
   to: Date;
   accountId: string;
   categoryId: string;
+  page: number;
 }>;
 
 export async function MovementsByDate({
@@ -15,20 +15,20 @@ export async function MovementsByDate({
   to,
   accountId,
   categoryId,
+  page,
 }: Props) {
   return (
-    <Card className="mb-4 px-3 py-2  border-b-4 border-b-blue-600">
-      <Suspense
-        key={`${from.getTime()}-${to.getTime()}-${accountId}-${categoryId}`}
-        fallback={<LastMovementsSkeleton />}
-      >
-        <MovementsList
-          from={from}
-          to={to}
-          accountId={accountId}
-          categoryId={categoryId}
-        />
-      </Suspense>
-    </Card>
+    <Suspense
+      key={`${from.getTime()}-${to.getTime()}-${accountId}-${categoryId}-${page}`}
+      fallback={<MovementsListSkeleton />}
+    >
+      <MovementsList
+        from={from}
+        to={to}
+        accountId={accountId}
+        categoryId={categoryId}
+        page={page}
+      />
+    </Suspense>
   );
 }

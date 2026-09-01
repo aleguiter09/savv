@@ -13,22 +13,37 @@ import { mergeTransferLegs } from "./transfer.utils";
 
 const movementSelect = `id, from, amount, description, category, type, done_at, balance_after, applied, series_id, installment_index, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color)`;
 
+function mapMovementRows(
+  data: Array<Record<string, unknown>> | null,
+): MovementApi[] {
+  if (!data) return [];
+
+  return data.map((item) => ({
+    ...item,
+    fullCategory: Array.isArray(item.fullCategory)
+      ? item.fullCategory[0]
+      : item.fullCategory,
+  })) as MovementApi[];
+}
+
 export const getMovementsByFilters = async (
   from: Date,
   to: Date,
   accountId: string,
   categoryId: string,
-): Promise<MovementApi[]> => {
+  page = 1,
+  pageSize = 30,
+): Promise<{ data: MovementApi[]; total: number }> => {
   const supabase = await createClient();
-  const initialDate = from.toISOString();
-  const finishDate = to.toISOString();
+  const fromIndex = (page - 1) * pageSize;
+  const toIndex = fromIndex + pageSize - 1;
 
   let query = supabase
     .from("movement")
-    .select(movementSelect)
+    .select(movementSelect, { count: "exact" })
     .eq("applied", true)
-    .gte("done_at", initialDate)
-    .lte("done_at", finishDate)
+    .gte("done_at", from.toISOString())
+    .lte("done_at", to.toISOString())
     .order("done_at", { ascending: false });
 
   if (accountId !== "all") {
@@ -45,18 +60,12 @@ export const getMovementsByFilters = async (
     query = query.eq("type", "income");
   }
 
-  const { data } = await query;
+  const { data, count } = await query.range(fromIndex, toIndex);
 
-  if (data) {
-    return data.map((item) => ({
-      ...item,
-      fullCategory: Array.isArray(item.fullCategory)
-        ? item.fullCategory[0]
-        : item.fullCategory,
-    }));
-  }
-
-  return [];
+  return {
+    data: mapMovementRows(data),
+    total: count ?? 0,
+  };
 };
 
 export const getLastMovements = async (

@@ -7,9 +7,10 @@ export type MovementsPageProps = {
   to?: string;
   account?: string;
   category?: string;
+  page?: string;
 };
 
-export async function MovementsPage(props: MovementsPageProps) {
+export async function MovementsPage(props: Readonly<MovementsPageProps>) {
   const params = await parseMovementsSearchParams(props);
 
   return (

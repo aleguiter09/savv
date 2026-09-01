@@ -1,6 +1,8 @@
 import type { MovementsPageProps } from "../pages/MovementsPage";
-import type { MovementItemProps } from "../ui/MovementsList/MovementItem";
+import type { MovementsDayGroupProps } from "../ui/MovementsList/MovementsDayGroup";
 import type { MovementApi, MovementView } from "../types/types";
+
+export const MOVEMENTS_PAGE_SIZE = 30;
 
 export async function parseMovementsSearchParams(
   searchParams: MovementsPageProps,
@@ -9,11 +11,13 @@ export async function parseMovementsSearchParams(
   categoryId: string;
   from: Date;
   to: Date;
+  page: number;
 }> {
-  const { from, to, account, category } = searchParams;
+  const { from, to, account, category, page } = searchParams;
 
   const accountId = account ?? "all";
   const categoryId = category ?? "all";
+  const parsedPage = Math.max(1, Number(page) || 1);
 
   const parsedFrom = from
     ? new Date(from)
@@ -21,22 +25,29 @@ export async function parseMovementsSearchParams(
 
   const parsedTo = to ? new Date(to) : new Date();
 
-  return { accountId, categoryId, from: parsedFrom, to: parsedTo };
+  return {
+    accountId,
+    categoryId,
+    from: parsedFrom,
+    to: parsedTo,
+    page: parsedPage,
+  };
 }
 
 export const getMovementsByDay = (
   movements: MovementApi[],
-): MovementItemProps[] => {
-  const items: MovementItemProps[] = [];
+): MovementsDayGroupProps[] => {
+  const items: MovementsDayGroupProps[] = [];
 
   movements.forEach((m) => {
-    const currentDate = items.find((item) => item.date === m.done_at);
+    const dateKey = m.done_at.slice(0, 10);
+    const currentDate = items.find((item) => item.date === dateKey);
     if (currentDate) {
       currentDate.items.push(adaptMovementItem(m));
       currentDate.amount += m.amount;
     } else {
       items.push({
-        date: m.done_at,
+        date: dateKey,
         items: [adaptMovementItem(m)],
         amount: m.amount,
       });
