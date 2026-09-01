@@ -8,7 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/ui/select";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
 
 type Props = Readonly<{
   label: string;
@@ -26,6 +27,7 @@ export function AccountSelect({
   error,
 }: Props) {
   const t = useTranslations("movements");
+  const locale = useLocale();
 
   return (
     <div className="flex flex-col gap-1.5">
@@ -42,7 +44,7 @@ export function AccountSelect({
           <SelectGroup>
             {accounts.map((account: AccountView) => (
               <SelectItem key={account.id} value={account.id?.toString() ?? ""}>
-                {account.name}: ${account.balance.toFixed(2)}
+                {account.name}: {formatCurrency(locale, account.balance, 2)}
               </SelectItem>
             ))}
           </SelectGroup>

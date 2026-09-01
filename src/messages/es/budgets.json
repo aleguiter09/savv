@@ -18,6 +18,8 @@
   "dialogBudget": "Vas a eliminar el presupuesto de",
   "dialogWarning": "Esta acción no se puede deshacer.",
   "defaultError": "Ha ocurrido un error",
+  "databaseError": "Error de base de datos, por favor inténtelo de nuevo más tarde",
+  "validationError": "Faltan campos. Revise el formulario e inténtelo de nuevo.",
   "noCategoryError": "Selecciona una categoría",
   "amountPositiveError": "El importe debe ser mayor que 0",
   "amountTooLarge": "El importe es demasiado alto"

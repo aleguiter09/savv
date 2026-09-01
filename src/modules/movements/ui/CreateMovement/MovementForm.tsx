@@ -6,7 +6,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/ui/field";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
 import { MovementSchema } from "@/modules/shared/utils/schemas";
 import { useData } from "@/modules/shared/stores/DataProvider";
-import { useToastStore } from "@/modules/shared/ui/toast-store";
+import { showToast } from "@/modules/shared/ui/toast";
 import {
   createMovementForm,
   updateMovementForm,
@@ -38,7 +38,6 @@ export function MovementForm({
 
   const t = useTranslations("movements");
   const locale = useLocale();
-  const show = useToastStore((store) => store.show);
   const [pending, startTransition] = useTransition();
 
   const form = useForm<SchemaInput, unknown, SchemaOutput>({
@@ -99,13 +98,13 @@ export function MovementForm({
       }
 
       if (res.success) {
-        show({
+        showToast({
           type: "success",
           message: t(movement?.id ? "updatedSuccess" : "createdSuccess"),
         });
         onSuccess?.();
       } else {
-        show({ type: "error", message: t(res.error ?? "defaultError") });
+        showToast({ type: "error", message: t(res.error ?? "defaultError") });
       }
     });
   }

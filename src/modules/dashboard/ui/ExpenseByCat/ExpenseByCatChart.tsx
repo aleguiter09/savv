@@ -1,6 +1,7 @@
 import { adaptMovementItem } from "@/modules/movements/adapters/movements.adapter";
 import { getExpenses } from "@/modules/movements/services/movements";
 import { parseMovementsForChart } from "@/modules/shared/utils/common";
+import { getCategoryBorderClass } from "@/modules/shared/utils/constants";
 import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
 import { getLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -34,7 +35,7 @@ function ExpensesCategoryGrid({
         <Link
           href={`/movements?account=${accountId}&category=${item.category}`}
           key={item.title}
-          className={`text-sm px-1.5 rounded-md py-2 border border-${item?.color}-500 border-s-4 bg-white`}
+          className={`text-sm px-1.5 rounded-md py-2 border ${getCategoryBorderClass(item.color)} border-s-4 bg-white`}
         >
           <div className="flex gap-1.5">
             <div className="w-full">

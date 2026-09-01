@@ -1,7 +1,8 @@
 import { Button } from "@/ui/button";
 import { Card } from "@/ui/card";
 import { Eye, EyeOff, Pencil } from "lucide-react";
-import { DeleteCategoryButton } from "./DeleteCategoryButton";
+import { ConfirmDeleteButton } from "@/modules/shared/ui/common/ConfirmDeleteButton";
+import { deleteCategoryForm } from "../actions/categories.action";
 import { CategoryDialog } from "./CategoryDialog";
 import { cn } from "@/modules/shared/utils/cn";
 import type { CategoryColors } from "@/modules/shared/types/global.types";
@@ -13,6 +14,8 @@ import type { CategoryClient } from "./CategoryClient";
 export type CategoryGroupProps = CategoryClient & {
   handleToggle: (id: number, is_hidden: boolean) => Promise<void>;
 };
+
+const BrComponent = () => <br />;
 
 export function CategoryGroup({
   id,
@@ -83,7 +86,18 @@ export function CategoryGroup({
               )}
             </Button>
           ) : (
-            <DeleteCategoryButton id={Number(id)} title={title} />
+            <ConfirmDeleteButton
+              title={t("areYouSure")}
+              description={t.rich("deleteDialog", {
+                title,
+                br: BrComponent,
+              })}
+              confirmLabel={t("confirm")}
+              cancelLabel={t("cancel")}
+              onConfirm={() => deleteCategoryForm(Number(id))}
+              successMessage={t("deletedSuccess")}
+              resolveErrorMessage={(error) => t(error ?? "databaseError")}
+            />
           )}
         </div>
       </div>

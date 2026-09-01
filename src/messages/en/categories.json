@@ -52,6 +52,8 @@
   "cancel": "Cancel",
   "selectPlaceholder": "Select category...",
   "databaseError": "Database error, please try again later",
+  "validationError": "Missing fields. Please check the form and try again.",
+  "missingIdError": "Missing category id.",
   "createdSuccess": "Category created successfully",
   "updatedSuccess": "Category updated successfully",
   "areYouSure": "Are you sure? 🤔",

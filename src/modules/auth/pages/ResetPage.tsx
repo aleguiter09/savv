@@ -6,7 +6,7 @@ import { resetPasswordForm } from "@/modules/auth/actions/user-action";
 import { useTranslations } from "next-intl";
 import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
-import { useToastStore } from "@/modules/shared/ui/toast-store";
+import { showToast } from "@/modules/shared/ui/toast";
 import { ResetUserSchema } from "@/modules/shared/utils/schemas";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,7 +18,6 @@ type Schema = z.infer<typeof ResetUserSchema>;
 
 export function ResetPage() {
   const t = useTranslations("auth");
-  const show = useToastStore((store) => store.show);
   const [pending, startTransition] = useTransition();
 
   const form = useForm<Schema>({
@@ -33,9 +32,9 @@ export function ResetPage() {
       const res = await resetPasswordForm(data);
 
       if (res.success) {
-        show({ type: "success", message: t("resetSent") });
+        showToast({ type: "success", message: t("resetSent") });
       } else {
-        show({ type: "error", message: t(res.error ?? "defaultError") });
+        showToast({ type: "error", message: t(res.error ?? "defaultError") });
       }
     });
   }

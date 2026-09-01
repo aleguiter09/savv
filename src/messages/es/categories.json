@@ -52,6 +52,8 @@
   "cancel": "Cancelar",
   "selectPlaceholder": "Seleccionar categoría...",
   "databaseError": "Error de base de datos, por favor inténtelo de nuevo más tarde",
+  "validationError": "Faltan campos. Revise el formulario e inténtelo de nuevo.",
+  "missingIdError": "Falta el id de la categoría.",
   "createdSuccess": "Categoría creada con éxito",
   "updatedSuccess": "Categoría actualizada con éxito",
   "areYouSure": "¿Estas seguro? 🤔",

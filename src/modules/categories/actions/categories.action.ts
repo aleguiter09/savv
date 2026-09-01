@@ -19,16 +19,16 @@ export async function createCategoryForm(
   if (!parsed.success) {
     return {
       success: false,
-      error: "Missing fields. Failed to create a category.",
+      error: "validationError",
     };
   }
 
   try {
     await createCategory(parsed.data);
-  } catch (error) {
+  } catch {
     return {
       success: false,
-      error: "databaseError" + error,
+      error: "databaseError",
     };
   }
 
@@ -46,7 +46,7 @@ export async function updateCategoryForm(
   if (!parsed.success) {
     return {
       success: false,
-      error: "Missing fields. Failed to update the category.",
+      error: "validationError",
     };
   }
 
@@ -63,10 +63,10 @@ export async function updateCategoryForm(
     } else {
       await updateCategory(categoryId, parsed.data);
     }
-  } catch (error) {
+  } catch {
     return {
       success: false,
-      error: "Database error: failed to update category: " + error,
+      error: "databaseError",
     };
   }
 
@@ -78,15 +78,15 @@ export const deleteCategoryForm = async (
   id: number,
 ): Promise<ServerActionResponse> => {
   if (!id) {
-    return { success: false, error: "Missing category id." };
+    return { success: false, error: "missingIdError" };
   }
 
   try {
     await deleteCategory(id);
-  } catch (error) {
+  } catch {
     return {
       success: false,
-      error: "Database error: failed to delete category: " + error,
+      error: "databaseError",
     };
   }
 

@@ -6,7 +6,7 @@ import { useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-import { useToastStore } from "@/modules/shared/ui/toast-store";
+import { showToast } from "@/modules/shared/ui/toast";
 import { useData } from "@/modules/shared/stores/DataProvider";
 import {
   createCategoryForm,
@@ -43,7 +43,6 @@ export const CategoryForm = ({
 }: CategoryFormProps) => {
   const { parentCategories } = useData();
   const t = useTranslations("categories");
-  const show = useToastStore((store) => store.show);
   const [pending, startTransition] = useTransition();
 
   const form = useForm<SchemaInput, any, SchemaOutput>({
@@ -69,13 +68,13 @@ export const CategoryForm = ({
       }
 
       if (res.success) {
-        show({
+        showToast({
           type: "success",
           message: t(id ? "updatedSuccess" : "createdSuccess"),
         });
         onSuccess?.();
       } else {
-        show({ type: "error", message: t(res.error ?? "defaultError") });
+        showToast({ type: "error", message: t(res.error ?? "defaultError") });
       }
     });
   }

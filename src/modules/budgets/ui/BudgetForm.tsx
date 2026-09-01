@@ -7,7 +7,7 @@ import {
 import type { BudgetView } from "@/modules/budgets/types/types";
 import { CategoryView } from "@/modules/categories/types/types";
 import { CategorySelect } from "@/modules/shared/ui/common/CategorySelect";
-import { useToastStore } from "@/modules/shared/ui/toast-store";
+import { showToast } from "@/modules/shared/ui/toast";
 import { BudgetSchema } from "@/modules/shared/utils/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -29,7 +29,6 @@ type Props = Readonly<{
 
 export function BudgetForm({ budget, categories, onSuccess }: Props) {
   const t = useTranslations("budgets");
-  const show = useToastStore((store) => store.show);
   const [pending, startTransition] = useTransition();
 
   const form = useForm<SchemaInput, any, SchemaOutput>({
@@ -52,13 +51,13 @@ export function BudgetForm({ budget, categories, onSuccess }: Props) {
       }
 
       if (res.success) {
-        show({
+        showToast({
           type: "success",
           message: t(budget?.id ? "updatedSuccess" : "createdSuccess"),
         });
         onSuccess?.();
       } else {
-        show({ type: "error", message: t(res.error ?? "defaultError") });
+        showToast({ type: "error", message: t(res.error ?? "defaultError") });
       }
     });
   }

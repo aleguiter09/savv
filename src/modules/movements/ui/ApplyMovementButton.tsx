@@ -2,7 +2,7 @@
 
 import { Button } from "@/ui/button";
 import { applyMovementNowForm } from "@/modules/movements/actions/movement-action";
-import { useToastStore } from "@/modules/shared/ui/toast-store";
+import { showToast } from "@/modules/shared/ui/toast";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
@@ -15,7 +15,6 @@ export function ApplyMovementButton({
   movementId,
 }: Readonly<ApplyMovementButtonProps>) {
   const t = useTranslations("movements");
-  const show = useToastStore((store) => store.show);
   const router = useRouter();
   const [pending, startTransition] = useTransition();
 
@@ -29,10 +28,10 @@ export function ApplyMovementButton({
         startTransition(async () => {
           const res = await applyMovementNowForm(movementId);
           if (res.success) {
-            show({ type: "success", message: t("appliedSuccess") });
+            showToast({ type: "success", message: t("appliedSuccess") });
             router.refresh();
           } else {
-            show({ type: "error", message: t(res.error ?? "defaultError") });
+            showToast({ type: "error", message: t(res.error ?? "defaultError") });
           }
         });
       }}

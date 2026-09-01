@@ -2,12 +2,11 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { useToastStore } from "@/modules/shared/ui/toast-store";
+import { showToast } from "@/modules/shared/ui/toast";
 import { Toaster } from "@/ui/sonner";
 
 export function ToastManager(props: React.ComponentProps<typeof Toaster>) {
   const pathname = usePathname();
-  const show = useToastStore((s) => s.show);
   const handled = useRef<string | null>(null);
 
   useEffect(() => {
@@ -22,13 +21,13 @@ export function ToastManager(props: React.ComponentProps<typeof Toaster>) {
     handled.current = raw;
 
     try {
-      show(JSON.parse(decodeURIComponent(raw)));
+      showToast(JSON.parse(decodeURIComponent(raw)));
     } catch (e) {
       console.error(e);
     }
 
     document.cookie = "toastMessage=; Max-Age=0; path=/";
-  }, [pathname, show]);
+  }, [pathname]);
 
   return (
     <Toaster

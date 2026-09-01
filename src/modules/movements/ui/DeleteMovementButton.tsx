@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Trash2 } from "lucide-react";
 import { deleteMovementForm } from "../actions/movement-action";
-import { ConfirmDialog } from "@/modules/shared/ui/common/ConfirmDialog";
+import { ConfirmDeleteButton } from "@/modules/shared/ui/common/ConfirmDeleteButton";
 import type { MovementView } from "../types/types";
 
 const BrComponent = () => <br />;
@@ -11,12 +11,8 @@ const BrComponent = () => <br />;
 export function DeleteMovementButton({ movement }: { movement: MovementView }) {
   const t = useTranslations("movements");
 
-  const handleDelete = async () => {
-    await deleteMovementForm(movement);
-  };
-
   return (
-    <ConfirmDialog
+    <ConfirmDeleteButton
       trigger={<Trash2 className="cursor-pointer" />}
       title={t("areYouSure")}
       description={t.rich("deleteDialog", {
@@ -25,7 +21,7 @@ export function DeleteMovementButton({ movement }: { movement: MovementView }) {
       })}
       confirmLabel={t("confirm")}
       cancelLabel={t("cancel")}
-      onConfirm={handleDelete}
+      onConfirm={() => deleteMovementForm(movement)}
     />
   );
 }

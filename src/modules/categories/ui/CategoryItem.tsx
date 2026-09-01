@@ -1,5 +1,6 @@
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
-import { DeleteCategoryButton } from "./DeleteCategoryButton";
+import { ConfirmDeleteButton } from "@/modules/shared/ui/common/ConfirmDeleteButton";
+import { deleteCategoryForm } from "../actions/categories.action";
 import { CategoryDialog } from "./CategoryDialog";
 import { Button } from "@/ui/button";
 import { Eye, EyeOff, Pencil } from "lucide-react";
@@ -11,6 +12,8 @@ import { CategoryView } from "../types/types";
 export type CategoryItemProps = CategoryView & {
   handleToggle: (id: number, is_hidden: boolean) => Promise<void>;
 };
+
+const BrComponent = () => <br />;
 
 export function CategoryItem({
   id,
@@ -70,7 +73,18 @@ export function CategoryItem({
             )}
           </Button>
         ) : (
-          <DeleteCategoryButton id={Number(id)} title={title} />
+          <ConfirmDeleteButton
+            title={t("areYouSure")}
+            description={t.rich("deleteDialog", {
+              title,
+              br: BrComponent,
+            })}
+            confirmLabel={t("confirm")}
+            cancelLabel={t("cancel")}
+            onConfirm={() => deleteCategoryForm(Number(id))}
+            successMessage={t("deletedSuccess")}
+            resolveErrorMessage={(error) => t(error ?? "databaseError")}
+          />
         )}
       </div>
     </li>

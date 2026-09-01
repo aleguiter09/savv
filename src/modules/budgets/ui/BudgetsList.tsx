@@ -5,7 +5,8 @@ import { useTranslations } from "next-intl";
 import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
 import { Button } from "@/ui/button";
 import { BudgetDialog } from "./BudgetDialog";
-import { DeleteBudgetButton } from "./DeleteBudgetButton";
+import { ConfirmDeleteButton } from "@/modules/shared/ui/common/ConfirmDeleteButton";
+import { deleteBudgetForm } from "@/modules/budgets/actions/budget-actions";
 import type { BudgetView } from "../types/types";
 
 type BudgetsListProps = {
@@ -47,9 +48,21 @@ export function BudgetsList({ budgets, locale }: BudgetsListProps) {
                     </Button>
                   }
                 />
-                <DeleteBudgetButton
-                  id={Number(budget.id)}
-                  categoryLabel={categoryLabel}
+                <ConfirmDeleteButton
+                  title={budgetsT("areYouSure")}
+                  description={
+                    <>
+                      {budgetsT("dialogBudget")} {categoryLabel}. <br />
+                      {budgetsT("dialogWarning")}
+                    </>
+                  }
+                  confirmLabel={budgetsT("confirm")}
+                  cancelLabel={budgetsT("cancel")}
+                  onConfirm={() => deleteBudgetForm(Number(budget.id))}
+                  successMessage={budgetsT("deletedSuccess")}
+                  resolveErrorMessage={(error) =>
+                    budgetsT(error ?? "defaultError")
+                  }
                 />
               </div>
             </li>
