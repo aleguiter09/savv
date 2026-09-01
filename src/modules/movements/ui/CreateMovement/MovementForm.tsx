@@ -291,15 +291,10 @@ export function MovementForm({
                                   ? field.value
                                   : undefined
                               }
-<<<<<<< HEAD
-                              onChange={(date) => field.onChange(date ?? null)}
-                              locale={locale.includes("es") ? es : enUS}
-=======
                               onChange={(date) =>
                                 field.onChange(date ?? null)
                               }
                               locale={getDateFnsLocale(locale)}
->>>>>>> eff1684 (refactor: bloque 4 de auditoría (M8, M9, L1, L7, L8))
                               error={
                                 fieldState.invalid
                                   ? t(fieldState.error?.message as string)
