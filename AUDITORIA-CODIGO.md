@@ -1,8 +1,66 @@
 # Auditoría de código — savv
 
-**Fecha:** septiembre 2026  
+**Fecha original:** septiembre 2026  
+**Última actualización:** septiembre 2026 (post-PR [#7](https://github.com/aleguiter09/savv/pull/7))  
 **Alcance:** revisión estática del código fuente (~183 archivos TS/TSX, ~9.200 LOC en módulos)  
 **Objetivo:** evaluar cumplimiento de principios SOLID, detectar sobreingeniería y proponer mejoras ordenadas por esfuerzo.
+
+> **Nota:** El cuerpo del documento conserva el análisis original como referencia histórica. Para el estado actual del refactor, usar la sección siguiente.
+
+---
+
+## Estado de implementación
+
+### Resumen
+
+| Bloque | Completado | Pendiente |
+|--------|:----------:|:---------:|
+| S (rápidas) | 11/12 | S9* |
+| M (medias) | 12/12 | — |
+| L (grandes) | 4/10 | L2, L3, L4, L5, L6, L9, L10 |
+| XL (estructurales) | 0/6 | Solo si el proyecto crece |
+
+\* **S9** — `CategorySelect.tsx` mantiene `useTranslations()` sin namespace **a propósito**: el `label` prop llega como ruta completa cross-módulo (`movements.chooseCategory`, `categories.chooseParentCategory`, etc.) desde budgets, categories y movements.
+
+### Completado ✅
+
+| ID | Qué se hizo |
+|----|-------------|
+| **S1–S4, S6–S8, S10–S12** | Código muerto eliminado, i18n movements, `formatCurrency`, errores DB, `uncategorized`, etc. |
+| **S5** | `account.adapter.ts` renombrado (sin doble punto) |
+| **M1** | `getCategoryLabel` en `categories/utils/` — **todos los consumidores migrados** (último commit: categories, movements, budgets) |
+| **M2** | Charts de gastos unificados en `ExpenseByCatChart.tsx` |
+| **M3** | `AccountFilterSelect` / `CategoryFilterSelect` compartidos |
+| **M4** | `ConfirmDeleteButton` genérico |
+| **M6** | `mapMovementApiRows` centralizado en adapter |
+| **M7** | RPC `saveMovementWithBalance` unificado en `movement-series.ts` |
+| **M8** | `deleteMovementForm(movementId)` con `ServerActionResponse` |
+| **M9** | `getDateFnsLocale` en `shared/utils/dateFnsLocale.ts` |
+| **M10** | Clases Tailwind estáticas en charts/iconos (safelist implícito) |
+| **M11** | `partitionCategories` — eliminado `shared/adapters/adaptCategories.ts` |
+| **M12** | Toast sin Zustand; Sonner directo |
+| **L1** | `movements` dividido en `movements-queries.ts`, `movements-mutations.ts`, `movements-aggregations.ts` |
+| **L7** | Navbar unificado en `shared/ui/Navbar/Navbar.tsx` (simplificación; sigue importando UI de movements/dashboard) |
+| **L8** | Tremor custom eliminado; analytics usa Recharts (`BalanceTimelineChart`) |
+| **Pulidos** | `unwrapJoin` en adapter, chart analytics tuneado, fix merge `MovementForm` |
+
+### Pendiente (opcional, no bloqueante)
+
+| ID | Descripción | Prioridad sugerida |
+|----|-------------|-------------------|
+| **L2** | Schemas Zod por dominio (sacar de `shared/utils/schemas.ts`) | Media |
+| **L3** | Service `category-update.ts` — lógica `isGlobal` global vs custom | Baja |
+| **L4** | Service `onboarding` en auth | Baja |
+| **L5** | Tipos mínimos en `updateMovementForm` (`{ id, seriesId, applied }`) | Baja |
+| **L6** | Tipos segregados `MovementListItem` / `MovementDetail` (fat types) | Baja |
+| **L9** | Tests para accounts, categories, budgets | Media |
+| **L10** | Naming unificado de actions (`*-actions.ts`) | Muy baja |
+| **M5** | Mover `CategoryClient` de UI a `categories/types/` | Baja |
+| **XL1–XL6** | Repositorios, strategy map, fusionar dashboard/analytics, etc. | Solo si escala |
+
+### Veredicto actual (post-refactor)
+
+La deuda más visible (código muerto, duplicación UI, god service movements, charts Tremor, labels de categoría) está **resuelta o muy reducida**. Lo pendiente es refinamiento arquitectónico y cobertura de tests — útil, pero no urgente para el tamaño actual del proyecto.
 
 ---
 
@@ -435,10 +493,12 @@ Impacto vs esfuerzo para decidir qué abordar primero:
 
 `savv` tiene una base arquitectónica sólida y pragmática. La modularización por dominio funciona bien para entidades CRUD (accounts, categories, budgets) y el uso de RPCs transaccionales en PostgreSQL es una decisión acertada.
 
-Los principios SOLID se cumplen de forma **parcial y consciente**: la inversión de dependencias es débil por diseño (Supabase directo), lo cual es aceptable a esta escala. Los problemas más urgentes son de **consistencia** (capas, naming, i18n) y **concentración** (movements como god module), no de sobreingeniería.
+Los principios SOLID se cumplen de forma **parcial y consciente**: la inversión de dependencias es débil por diseño (Supabase directo), lo cual es aceptable a esta escala. Los problemas más urgentes eran de **consistencia** (capas, naming, i18n) y **concentración** (movements como god module), no de sobreingeniería.
+
+**Tras el refactor de la rama `cursor/auditoria-solid-9162`:** la mayoría de quick wins y mejoras medias están aplicados. El backlog restante (L2–L6, L9, L10, XL) es incremental y puede abordarse solo si el proyecto o el equipo crecen.
 
 La mayoría de mejoras recomendadas son incrementales y de bajo riesgo. Las acciones estructurales (XL) solo tienen sentido si el proyecto crece en complejidad o equipo.
 
 ---
 
-*Documento generado como auditoría estática. No incluye análisis de rendimiento en runtime ni revisión de seguridad (RLS, auth flows).*
+*Documento generado como auditoría estática. La sección «Estado de implementación» refleja el progreso del refactor; el resto conserva el análisis original. No incluye análisis de rendimiento en runtime ni revisión de seguridad (RLS, auth flows).*
