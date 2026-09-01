@@ -2,6 +2,7 @@
 
 import { Pencil } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { getCategoryLabel } from "@/modules/categories/utils/getCategoryLabel";
 import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
 import { Button } from "@/ui/button";
 import { BudgetDialog } from "./BudgetDialog";
@@ -22,10 +23,12 @@ export function BudgetsList({ budgets, locale }: BudgetsListProps) {
     <div className="flex flex-col gap-2">
       <ul className="text-sm flex flex-col gap-2">
         {budgets.map((budget) => {
-          const categoryLabel =
-            budget.isGlobal && !budget.isCustomName
-              ? t(budget.categoryTitle)
-              : budget.categoryTitle;
+          const categoryLabel = getCategoryLabel(
+            budget.categoryTitle,
+            budget.isGlobal,
+            budget.isCustomName,
+            t,
+          );
 
           return (
             <li

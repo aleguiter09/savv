@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getFormatter, getLocale, getTranslations } from "next-intl/server";
+import { getCategoryLabel } from "@/modules/categories/utils/getCategoryLabel";
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
 import { cn } from "@/modules/shared/utils/cn";
 import type { MovementView } from "../../types/types";
@@ -53,7 +54,7 @@ export async function MovementRow({
         <div className="flex flex-col">
           <span className="font-medium text-sm">{description}</span>
           <span className="text-xs text-gray-500">
-            {isGlobal && !isCustomName ? t(title) : title}
+            {getCategoryLabel(title, isGlobal, isCustomName, t)}
           </span>
         </div>
       </div>

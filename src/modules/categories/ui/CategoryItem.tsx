@@ -5,6 +5,7 @@ import { CategoryDialog } from "./CategoryDialog";
 import { Button } from "@/ui/button";
 import { Eye, EyeOff, Pencil } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { getCategoryLabel } from "@/modules/categories/utils/getCategoryLabel";
 import { cn } from "@/modules/shared/utils/cn";
 import type { CategoryColors } from "@/modules/shared/types/global.types";
 import { CategoryView } from "../types/types";
@@ -43,7 +44,7 @@ export function CategoryItem({
             isHidden && "line-through text-muted-foreground",
           )}
         >
-          {isGlobal && !isCustomName ? t(title) : title}
+          {getCategoryLabel(title, isGlobal, isCustomName, t)}
         </p>
       </div>
       <div className="flex items-center gap-2">

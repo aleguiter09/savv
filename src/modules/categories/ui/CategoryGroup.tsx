@@ -9,6 +9,7 @@ import type { CategoryColors } from "@/modules/shared/types/global.types";
 import { CategoryItem } from "./CategoryItem";
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
 import { useTranslations } from "next-intl";
+import { getCategoryLabel } from "@/modules/categories/utils/getCategoryLabel";
 import type { CategoryClient } from "./CategoryClient";
 
 export type CategoryGroupProps = CategoryClient & {
@@ -50,7 +51,7 @@ export function CategoryGroup({
                 isHidden && "line-through text-muted-foreground",
               )}
             >
-              {isGlobal && !isCustomName ? t(title) : title}
+              {getCategoryLabel(title, isGlobal, isCustomName, t)}
             </span>
             <span className="text-xs text-muted-foreground">
               {visibleCount}/{totalCount} activas

@@ -6,7 +6,6 @@ import {
   updateMovement,
 } from "@/modules/movements/services/movements";
 import { applyMovementNow } from "@/modules/movements/services/movement-series";
-import { getTranslations } from "next-intl/server";
 import { MovementSchema } from "@/modules/shared/utils/schemas";
 import { z } from "zod";
 import { ServerActionResponse } from "@/modules/shared/types/global.types";
