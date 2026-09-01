@@ -4,19 +4,7 @@ import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
 import { getLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { BudgetProgressBar } from "./BudgetProgressBar";
-
-export function getCategoryLabel(
-  title: string,
-  isGlobal: boolean,
-  isCustomName: boolean,
-  t: Awaited<ReturnType<typeof getTranslations>>,
-) {
-  if (isGlobal && !isCustomName) {
-    return t(`categories.${title}`);
-  }
-
-  return title;
-}
+import { getCategoryLabel } from "@/modules/categories/utils/getCategoryLabel";
 
 export async function BudgetWidgetContent() {
   const [items, t, locale] = await Promise.all([

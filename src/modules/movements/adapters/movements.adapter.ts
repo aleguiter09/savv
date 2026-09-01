@@ -4,6 +4,41 @@ import type { MovementApi, MovementView } from "../types/types";
 
 export const MOVEMENTS_PAGE_SIZE = 30;
 
+function unwrapJoin<T>(value: T | T[] | null | undefined): T | undefined {
+  if (Array.isArray(value)) {
+    return value[0];
+  }
+
+  return value ?? undefined;
+}
+
+export function mapMovementApiRow(
+  item: Record<string, unknown>,
+): MovementApi {
+  return {
+    ...item,
+    fullCategory: unwrapJoin(
+      item.fullCategory as MovementApi["fullCategory"] | MovementApi["fullCategory"][],
+    ),
+    fullAccount: unwrapJoin(
+      item.fullAccount as MovementApi["fullAccount"] | MovementApi["fullAccount"][],
+    ),
+    fullToAccount: unwrapJoin(
+      item.fullToAccount as MovementApi["fullToAccount"] | MovementApi["fullToAccount"][],
+    ),
+  } as MovementApi;
+}
+
+export function mapMovementApiRows(
+  data: Array<Record<string, unknown>> | null,
+): MovementApi[] {
+  if (!data) {
+    return [];
+  }
+
+  return data.map(mapMovementApiRow);
+}
+
 export async function parseMovementsSearchParams(
   searchParams: MovementsPageProps,
 ): Promise<{

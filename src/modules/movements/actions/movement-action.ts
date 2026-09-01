@@ -22,16 +22,16 @@ export const createMovementForm = async (
   if (!parsed.success) {
     return {
       success: false,
-      error: "Missing fields. Failed to create the movement",
+      error: "validationError",
     };
   }
 
   try {
     await insertMovement(parsed.data);
-  } catch (error) {
+  } catch {
     return {
       success: false,
-      error: "Database error: failed to insert movement: " + error,
+      error: "createDatabaseError",
     };
   }
 
@@ -60,7 +60,7 @@ export const updateMovementForm = async (
   if (!parsed.success) {
     return {
       success: false,
-      error: "Missing fields. Failed to update movement",
+      error: "validationError",
     };
   }
 
@@ -72,10 +72,10 @@ export const updateMovementForm = async (
       seriesId: previous.seriesId,
       updateSeries: shouldUpdateSeries,
     });
-  } catch (error) {
+  } catch {
     return {
       success: false,
-      error: "Database error: failed to update movement: " + error,
+      error: "updateDatabaseError",
     };
   }
 
@@ -88,10 +88,10 @@ export const applyMovementNowForm = async (
 ): Promise<ServerActionResponse> => {
   try {
     await applyMovementNow(movementId);
-  } catch (error) {
+  } catch {
     return {
       success: false,
-      error: "Database error: failed to apply movement: " + error,
+      error: "applyDatabaseError",
     };
   }
 

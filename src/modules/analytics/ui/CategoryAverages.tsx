@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/ui/table";
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
-import { getCategoryLabel } from "@/modules/budgets/ui/BudgetWidgetContent";
+import { getCategoryLabel } from "@/modules/categories/utils/getCategoryLabel";
 import { getTranslations } from "next-intl/server";
 
 type CategoryComparisonData = {

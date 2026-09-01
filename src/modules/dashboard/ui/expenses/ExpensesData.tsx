@@ -1,5 +1,8 @@
 import { Suspense } from "react";
-import { ExpensesDataChart, ExpensesDataSkeleton } from "./ExpensesDataChart";
+import {
+  ExpensesDataChart,
+  ExpensesDataSkeleton,
+} from "../ExpenseByCat/ExpenseByCatChart";
 
 type Props = Readonly<{
   accountId: string;

@@ -1,4 +1,5 @@
 import { type MovementApi } from "../types/types";
+import { mapMovementApiRow, mapMovementApiRows } from "../adapters/movements.adapter";
 import { getInitialAndFinalDate } from "@/modules/shared/utils/common";
 import { createClient } from "@/infra/supabase/server";
 import { MovementSchema } from "@/modules/shared/utils/schemas";
@@ -12,19 +13,6 @@ import { isMovementAppliedByDate } from "./movement-series.utils";
 import { mergeTransferLegs } from "./transfer.utils";
 
 const movementSelect = `id, from, amount, description, category, type, done_at, balance_after, applied, series_id, installment_index, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color)`;
-
-function mapMovementRows(
-  data: Array<Record<string, unknown>> | null,
-): MovementApi[] {
-  if (!data) return [];
-
-  return data.map((item) => ({
-    ...item,
-    fullCategory: Array.isArray(item.fullCategory)
-      ? item.fullCategory[0]
-      : item.fullCategory,
-  })) as MovementApi[];
-}
 
 export const getMovementsByFilters = async (
   from: Date,
@@ -63,7 +51,7 @@ export const getMovementsByFilters = async (
   const { data, count } = await query.range(fromIndex, toIndex);
 
   return {
-    data: mapMovementRows(data),
+    data: mapMovementApiRows(data),
     total: count ?? 0,
   };
 };
@@ -86,16 +74,7 @@ export const getLastMovements = async (
 
   const { data } = await query;
 
-  if (data) {
-    return data.map((item) => ({
-      ...item,
-      fullCategory: Array.isArray(item.fullCategory)
-        ? item.fullCategory[0]
-        : item.fullCategory,
-    }));
-  }
-
-  return [];
+  return mapMovementApiRows(data);
 };
 
 export const getUpcomingMovements = async (
@@ -116,16 +95,7 @@ export const getUpcomingMovements = async (
 
   const { data } = await query;
 
-  if (data) {
-    return data.map((item) => ({
-      ...item,
-      fullCategory: Array.isArray(item.fullCategory)
-        ? item.fullCategory[0]
-        : item.fullCategory,
-    }));
-  }
-
-  return [];
+  return mapMovementApiRows(data);
 };
 
 export const getMonthIncomes = async (accountId: string) => {
@@ -182,15 +152,7 @@ export const getMovementById = async (
     return null;
   }
 
-  const base: MovementApi = {
-    ...data,
-    fullCategory: Array.isArray(data.fullCategory)
-      ? data.fullCategory[0]
-      : data.fullCategory,
-    fullAccount: Array.isArray(data.fullAccount)
-      ? data.fullAccount[0]
-      : data.fullAccount,
-  };
+  const base = mapMovementApiRow(data);
 
   if (base.type !== "transfer" || !base.transfer_group_id) {
     return base;
@@ -315,14 +277,5 @@ export const getExpenses = async (
 
   const { data } = await query;
 
-  if (data) {
-    return data.map((item) => ({
-      ...item,
-      fullCategory: Array.isArray(item.fullCategory)
-        ? item.fullCategory[0]
-        : item.fullCategory,
-    }));
-  }
-
-  return [];
+  return mapMovementApiRows(data);
 };
