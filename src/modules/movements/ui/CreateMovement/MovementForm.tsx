@@ -157,6 +157,7 @@ export function MovementForm({
         <CategorySelect
           categories={kind === "income" ? incomeCategories : expenseCategories}
           category={field.value?.toString() ?? ""}
+          label={t("movements.chooseCategory")}
           setCategory={field.onChange}
           error={
             fieldState.invalid
@@ -264,7 +265,9 @@ export function MovementForm({
                               <option value="biweekly">
                                 {t("freqBiweekly")}
                               </option>
-                              <option value="monthly">{t("freqMonthly")}</option>
+                              <option value="monthly">
+                                {t("freqMonthly")}
+                              </option>
                               <option value="yearly">{t("freqYearly")}</option>
                             </select>
                             {fieldState.invalid && (
@@ -288,9 +291,7 @@ export function MovementForm({
                                   ? field.value
                                   : undefined
                               }
-                              onChange={(date) =>
-                                field.onChange(date ?? null)
-                              }
+                              onChange={(date) => field.onChange(date ?? null)}
                               locale={locale.includes("es") ? es : enUS}
                               error={
                                 fieldState.invalid

@@ -28,10 +28,11 @@ export function CategorySelect({
   category,
   setCategory,
   error,
-  label = "chooseCategory",
+  label = "movements.chooseCategory",
   allowNull = false,
   disabled = false,
 }: Props) {
+  const t = useTranslations();
   const tMovements = useTranslations("movements");
   const tCategories = useTranslations("categories");
 
@@ -40,7 +41,7 @@ export function CategorySelect({
       <label
         className={cn("block text-sm font-medium", error && "text-red-500")}
       >
-        {tMovements(label)}
+        {t(label)}
       </label>
       <Select
         disabled={disabled}
