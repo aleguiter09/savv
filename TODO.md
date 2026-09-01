@@ -1,6 +1,6 @@
 # TODO — Savv
 
-> Last audit: 2026-08-31
+> Last audit: 2026-09-01
 
 ---
 
@@ -33,7 +33,8 @@
 
 ## P2 — Quality & tech debt
 
-[] Tests for balance RPCs and transfer flows (vitest configured, 0 test files)
+[X] Unit tests (vitest): 20 tests in `tests/` — schemas, `applied`/installments, transfer merge, adapters, budgets, cron auth; pure utils extracted (`movement-series.utils.ts`, `transfer.utils.ts`)
+[] Integration tests for balance RPCs and movement services (mocked Supabase)
 [] i18n: NetWorth hardcoded strings ("Comparado hace 30 días", "NET WORTH")
 [] Replace `INCOME_PARENT_ID = 60` magic number with category type/slug (3 files depend on it)
 [] Expand `revalidatePath` to `/movements`, `/analytics`, `/expenses` after movement changes
@@ -130,3 +131,10 @@
 [X] Accounts & Categories not always being settled.
 [X] Select Category in Movement form overlapped by navbar
 [X] Only default imports are allowed
+
+### Testing
+
+[X] Vitest setup: `tests/` mirrors `src/`, `tests/tsconfig.json` for `@/` alias, `npm run test` / `test:watch`
+[X] P0 unit tests: `MovementSchema` (transfer/recurring/installment), `isMovementAppliedByDate`, `splitInstallmentAmounts`, `isCronAuthorized`
+[X] P1 unit tests: `mergeTransferLegs`, `adaptMovementItem`, `getMovementsByDay`, `getAvailableBudgetCategories`, `parseMovementsForChart`
+[X] Extract pure logic from services: `movement-series.utils.ts`, `transfer.utils.ts`
