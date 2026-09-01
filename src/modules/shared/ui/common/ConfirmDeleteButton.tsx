@@ -2,34 +2,45 @@
 
 import { Trash2 } from "lucide-react";
 import type { ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import { ConfirmDialog } from "@/modules/shared/ui/common/ConfirmDialog";
 import { showToast } from "@/modules/shared/ui/toast";
 import type { ServerActionResponse } from "@/modules/shared/types/global.types";
 import { Button } from "@/ui/button";
 
+export type DeleteNamespace = "accounts" | "categories" | "budgets" | "movements";
+
+const DEFAULT_ERROR_KEYS: Record<DeleteNamespace, string> = {
+  accounts: "defaultError",
+  categories: "databaseError",
+  budgets: "defaultError",
+  movements: "defaultError",
+};
+
 type ConfirmDeleteButtonProps = {
-  title: string;
-  description: ReactNode;
-  confirmLabel: string;
-  cancelLabel: string;
+  namespace: DeleteNamespace;
+  descriptionValues: Record<string, string | number>;
+  descriptionKey?: string;
   onConfirm: () => Promise<ServerActionResponse | void>;
-  successMessage?: string;
-  resolveErrorMessage?: (errorKey?: string) => string;
+  successMessageKey?: string;
+  defaultErrorKey?: string;
   onSuccess?: () => void;
   trigger?: ReactNode;
 };
 
 export function ConfirmDeleteButton({
-  title,
-  description,
-  confirmLabel,
-  cancelLabel,
+  namespace,
+  descriptionValues,
+  descriptionKey = "deleteDialog",
   onConfirm,
-  successMessage,
-  resolveErrorMessage,
+  successMessageKey = "deletedSuccess",
+  defaultErrorKey,
   onSuccess,
   trigger,
 }: ConfirmDeleteButtonProps) {
+  const tCommon = useTranslations("common");
+  const t = useTranslations(namespace);
+
   const handleConfirm = async () => {
     const result = await onConfirm();
 
@@ -38,19 +49,13 @@ export function ConfirmDeleteButton({
     }
 
     if (result.success) {
-      if (successMessage) {
-        showToast({ type: "success", message: successMessage });
-      }
+      showToast({ type: "success", message: t(successMessageKey) });
       onSuccess?.();
       return;
     }
 
-    if (resolveErrorMessage) {
-      showToast({
-        type: "error",
-        message: resolveErrorMessage(result.error),
-      });
-    }
+    const errorKey = result.error ?? defaultErrorKey ?? DEFAULT_ERROR_KEYS[namespace];
+    showToast({ type: "error", message: t(errorKey) });
   };
 
   return (
@@ -62,10 +67,10 @@ export function ConfirmDeleteButton({
           </Button>
         )
       }
-      title={title}
-      description={description}
-      confirmLabel={confirmLabel}
-      cancelLabel={cancelLabel}
+      title={tCommon("areYouSure")}
+      description={t(descriptionKey, descriptionValues)}
+      confirmLabel={tCommon("confirm")}
+      cancelLabel={tCommon("cancel")}
       onConfirm={handleConfirm}
     />
   );

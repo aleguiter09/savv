@@ -34,18 +34,9 @@ export function AccountsList({ accounts }: AccountsListProps) {
                 }
               />
               <ConfirmDeleteButton
-                title={t("areYouSure")}
-                description={
-                  <>
-                    {t("dialogAccount")} {account.name}. <br />
-                    {t("dialogWarning")}
-                  </>
-                }
-                confirmLabel={t("confirm")}
-                cancelLabel={t("cancel")}
+                namespace="accounts"
+                descriptionValues={{ name: account.name }}
                 onConfirm={() => deleteAccountForm(Number(account.id))}
-                successMessage={t("deletedSuccess")}
-                resolveErrorMessage={(error) => t(error ?? "defaultError")}
               />
             </div>
           </li>

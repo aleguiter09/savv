@@ -52,20 +52,9 @@ export function BudgetsList({ budgets, locale }: BudgetsListProps) {
                   }
                 />
                 <ConfirmDeleteButton
-                  title={budgetsT("areYouSure")}
-                  description={
-                    <>
-                      {budgetsT("dialogBudget")} {categoryLabel}. <br />
-                      {budgetsT("dialogWarning")}
-                    </>
-                  }
-                  confirmLabel={budgetsT("confirm")}
-                  cancelLabel={budgetsT("cancel")}
+                  namespace="budgets"
+                  descriptionValues={{ category: categoryLabel }}
                   onConfirm={() => deleteBudgetForm(Number(budget.id))}
-                  successMessage={budgetsT("deletedSuccess")}
-                  resolveErrorMessage={(error) =>
-                    budgetsT(error ?? "defaultError")
-                  }
                 />
               </div>
             </li>

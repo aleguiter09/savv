@@ -16,8 +16,6 @@ export type CategoryGroupProps = CategoryClient & {
   handleToggle: (id: number, is_hidden: boolean) => Promise<void>;
 };
 
-const BrComponent = () => <br />;
-
 export function CategoryGroup({
   id,
   title,
@@ -88,16 +86,9 @@ export function CategoryGroup({
             </Button>
           ) : (
             <ConfirmDeleteButton
-              title={t("areYouSure")}
-              description={t.rich("deleteDialog", {
-                title,
-                br: BrComponent,
-              })}
-              confirmLabel={t("confirm")}
-              cancelLabel={t("cancel")}
+              namespace="categories"
+              descriptionValues={{ title }}
               onConfirm={() => deleteCategoryForm(Number(id))}
-              successMessage={t("deletedSuccess")}
-              resolveErrorMessage={(error) => t(error ?? "databaseError")}
             />
           )}
         </div>

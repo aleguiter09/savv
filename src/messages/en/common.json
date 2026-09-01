@@ -1,6 +1,10 @@
 {
   "cancel": "Cancel",
   "confirm": "Confirm",
+  "areYouSure": "Are you sure? 🤔",
+  "chooseCategory": "Choose a category",
+  "chooseParentCategory": "Choose a parent category (optional)",
+  "selectCategory": "Category...",
   "chooseDate": "Choose date",
   "quickSelect": "Quick Select",
   "today": "Today",

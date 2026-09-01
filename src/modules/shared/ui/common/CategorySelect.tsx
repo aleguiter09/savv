@@ -17,8 +17,8 @@ type Props = Readonly<{
   categories: CategoryView[];
   category?: string;
   setCategory: (v: string) => void;
+  labelKey?: string;
   error?: string;
-  label?: string;
   allowNull?: boolean;
   disabled?: boolean;
 }>;
@@ -27,13 +27,12 @@ export function CategorySelect({
   categories,
   category,
   setCategory,
+  labelKey = "chooseCategory",
   error,
-  label = "movements.chooseCategory",
   allowNull = false,
   disabled = false,
 }: Props) {
-  const t = useTranslations();
-  const tMovements = useTranslations("movements");
+  const tCommon = useTranslations("common");
   const tCategories = useTranslations("categories");
 
   return (
@@ -41,7 +40,7 @@ export function CategorySelect({
       <label
         className={cn("block text-sm font-medium", error && "text-red-500")}
       >
-        {t(label)}
+        {tCommon(labelKey)}
       </label>
       <Select
         disabled={disabled}
@@ -49,7 +48,7 @@ export function CategorySelect({
         onValueChange={setCategory}
       >
         <SelectTrigger className={error ? "border border-rose-500" : ""}>
-          <SelectValue placeholder={tMovements("selectCategory")} />
+          <SelectValue placeholder={tCommon("selectCategory")} />
         </SelectTrigger>
         <SelectContent className="max-h-56">
           <SelectGroup>

@@ -12,7 +12,6 @@
   "enterColor": "Elija un color",
   "colorError": "Por favor, seleccione un color",
   "editTitle": "Editar categoría",
-  "chooseParentCategory": "Elija una categoría padre (opcional)",
   "noCategory": "Sin categoría",
   "food": "Comida",
   "commissions": "Comisiones",
@@ -58,7 +57,7 @@
   "createdSuccess": "Categoría creada con éxito",
   "updatedSuccess": "Categoría actualizada con éxito",
   "areYouSure": "¿Estas seguro? 🤔",
-  "deleteDialog": "Usted está a punto de eliminar la siguiente categoría: \"{title}\"<br></br>Esta acción no se puede deshacer.",
+  "deleteDialog": "Estás a punto de eliminar la categoría \"{title}\". Esta acción no se puede deshacer.",
   "deletedSuccess": "Categoría eliminada con éxito",
   "customizeCategory": "Personalizar categoría",
   "analytics": {

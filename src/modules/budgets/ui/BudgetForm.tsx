@@ -76,7 +76,6 @@ export function BudgetForm({ budget, categories, onSuccess }: Props) {
               categories={categories}
               category={field.value?.toString() ?? ""}
               setCategory={(value) => field.onChange(Number(value))}
-              label="budgets.chooseCategory"
               disabled={Boolean(budget)}
               error={
                 fieldState.invalid

@@ -157,7 +157,6 @@ export function MovementForm({
         <CategorySelect
           categories={kind === "income" ? incomeCategories : expenseCategories}
           category={field.value?.toString() ?? ""}
-          label={t("movements.chooseCategory")}
           setCategory={field.onChange}
           error={
             fieldState.invalid

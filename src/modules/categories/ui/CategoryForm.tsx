@@ -116,7 +116,7 @@ export const CategoryForm = ({
               categories={parentCategories}
               category={field.value?.toString() ?? ""}
               setCategory={field.onChange}
-              label={"categories.chooseParentCategory"}
+              labelKey="chooseParentCategory"
               disabled={isGlobal}
               allowNull
               error={
