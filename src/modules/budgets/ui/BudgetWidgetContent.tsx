@@ -47,7 +47,9 @@ export async function BudgetWidgetContent() {
           <Link
             key={item.budgetId}
             href={`/movements?account=all&category=${item.categoryId}`}
-            className="rounded-md border border-slate-200 bg-white px-2 py-2 hover:bg-slate-50"
+            className={`rounded-sm border px-2 py-2 hover:bg-slate-50 ${
+              item.isOverBudget ? "border-red-500" : "border-slate-200"
+            }`}
           >
             <div className="flex items-center justify-between gap-2 mb-1.5">
               <div className="flex items-center gap-2 min-w-0">
@@ -78,11 +80,6 @@ export async function BudgetWidgetContent() {
               color={item.categoryColor}
               isOverBudget={item.isOverBudget}
             />
-            {item.isOverBudget && (
-              <p className="text-xs text-red-500 mt-1">
-                {t("dashboard.overBudget")}
-              </p>
-            )}
           </Link>
         );
       })}

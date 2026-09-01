@@ -22,5 +22,7 @@
   "analyticsTitle": "Analíticas",
   "analyticsDescription": "Evolución diaria del balance por cuenta",
   "accountsBalanceTimeline": "Evolución del balance de cuentas",
-  "noBalanceTimelineData": "No hay movimientos suficientes para mostrar la evolución"
+  "noBalanceTimelineData": "No hay movimientos suficientes para mostrar la evolución",
+  "netWorthTitle": "Patrimonio neto",
+  "netWorthComparedTo30Days": "Comparado hace 30 días"
 }

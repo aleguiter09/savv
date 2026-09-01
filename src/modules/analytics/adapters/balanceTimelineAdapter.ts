@@ -3,6 +3,7 @@ import { format } from "date-fns";
 export function balanceTimelineAdapter(
   data: any[],
   bucket: "day" | "week" | "month",
+  balanceKey: string,
 ) {
   const sorted = data.toSorted(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
@@ -10,7 +11,7 @@ export function balanceTimelineAdapter(
 
   return sorted.map((d) => ({
     date: formatDate(d.bucket_date, bucket),
-    Balance: Number(d.balance).toFixed(2),
+    [balanceKey]: Number(d.balance).toFixed(2),
   }));
 }
 

@@ -1,10 +1,14 @@
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
 import { getNetWorth } from "../../../dashboard/services/net-worth";
 import { Card } from "@/ui/card";
 
 export async function NetWorth() {
-  const [locale, newWorth] = await Promise.all([getLocale(), getNetWorth()]);
+  const [locale, newWorth, t] = await Promise.all([
+    getLocale(),
+    getNetWorth(),
+    getTranslations("dashboard"),
+  ]);
 
   const percentChange =
     newWorth.pastMonth !== 0
@@ -26,7 +30,9 @@ export async function NetWorth() {
     <Card className="px-3 py-2 border-b-4 border-b-blue-500">
       <div className="flex flex-col gap-2">
         <div className="flex justify-between items-center">
-          <p className="text-xs font-semibold text-gray-600">NET WORTH</p>
+          <p className="text-xs font-semibold text-gray-600">
+            {t("netWorthTitle")}
+          </p>
           {changeDisplay}
         </div>
         <p
@@ -36,10 +42,9 @@ export async function NetWorth() {
         </p>
 
         <div className="flex gap-1 items-center text-xs text-gray-600">
-          Comparado hace 30 días
+          {t("netWorthComparedTo30Days")}
           <p className={`${newWorth.pastMonth < 0 ? "text-red-600" : ""}`}>
-            ({isPositive ? "+" : "-"}
-            {formatCurrency(locale, newWorth.current - newWorth.pastMonth, 2)})
+            ({formatCurrency(locale, newWorth.current - newWorth.pastMonth, 2)})
           </p>
         </div>
       </div>

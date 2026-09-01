@@ -22,5 +22,7 @@
   "analyticsTitle": "Analytics",
   "analyticsDescription": "Daily balance evolution per account",
   "accountsBalanceTimeline": "Accounts balance evolution",
-  "noBalanceTimelineData": "There are not enough movements to display the evolution"
+  "noBalanceTimelineData": "There are not enough movements to display the evolution",
+  "netWorthTitle": "Net worth",
+  "netWorthComparedTo30Days": "Compared to 30 days ago"
 }
