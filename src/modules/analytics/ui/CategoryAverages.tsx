@@ -50,7 +50,7 @@ export async function CategoryComparisonTable({
 }) {
   const [data, t, locale] = await Promise.all([
     getCategoryComparison(accountId),
-    getTranslations(),
+    getTranslations("categories"),
     getLocale(),
   ]);
 
@@ -63,26 +63,24 @@ export async function CategoryComparisonTable({
   return (
     <Card className="p-4">
       <h3 className="text-sm font-semibold mb-4">
-        {t("categories.analytics.title")}
+        {t("analytics.title")}
       </h3>
 
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="text-xs">
-              {t("categories.analytics.category")}
+            <TableHead className="text-xs">{t("analytics.category")}</TableHead>
+            <TableHead className="text-right text-xs">
+              {t("analytics.thisMonth")}
             </TableHead>
             <TableHead className="text-right text-xs">
-              {t("categories.analytics.thisMonth")}
+              {t("analytics.sixMonthAvg")}
             </TableHead>
             <TableHead className="text-right text-xs">
-              {t("categories.analytics.sixMonthAvg")}
+              {t("analytics.difference")}
             </TableHead>
             <TableHead className="text-right text-xs">
-              {t("categories.analytics.difference")}
-            </TableHead>
-            <TableHead className="text-right text-xs">
-              {t("categories.analytics.budget")}
+              {t("analytics.budget")}
             </TableHead>
           </TableRow>
         </TableHeader>

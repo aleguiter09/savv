@@ -31,6 +31,8 @@ type ParsedMovement = {
   category: string;
 };
 
+export const UNCATEGORIZED_CATEGORY_KEY = "uncategorized";
+
 export const parseMovementsForChart = (
   movements: MovementView[],
 ): ParsedMovement[] => {
@@ -44,7 +46,7 @@ export const parseMovementsForChart = (
       dataItem.amount -= amount;
     } else {
       result.push({
-        title: category?.title ?? "Uncategorized",
+        title: category?.title ?? UNCATEGORIZED_CATEGORY_KEY,
         color: category?.color ?? "gray",
         category: category?.id?.toString() ?? "uncategorized",
         amount: -amount,

@@ -2,6 +2,18 @@ import { CategoryFormProps } from "../ui/CategoryForm";
 import { CategoryClient } from "../ui/CategoryClient";
 import { CategoryApi, CategoryView } from "../types/types";
 
+export const INCOME_PARENT_ID = "60";
+
+export function partitionCategories(categories: CategoryView[]) {
+  return {
+    incomeCategories: categories.filter((c) => c.parentId === INCOME_PARENT_ID),
+    expenseCategories: categories.filter(
+      (c) => c.parentId !== null && c.parentId !== INCOME_PARENT_ID,
+    ),
+    parentCategories: categories.filter((c) => c.parentId === null),
+  };
+}
+
 export function mapCategories(categories: CategoryApi[]): CategoryClient[] {
   const parentCategories = categories.filter(
     (category) => category.parent_id === null,

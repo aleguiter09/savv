@@ -13,7 +13,18 @@ type ChartProps = Readonly<{
   month?: number;
 }>;
 
-async function getExpensesChartData(accountId: string, year?: number, month?: number) {
+type CategoriesTranslator = Awaited<
+  ReturnType<typeof getTranslations<"categories">>
+>;
+type DashboardTranslator = Awaited<
+  ReturnType<typeof getTranslations<"dashboard">>
+>;
+
+async function getExpensesChartData(
+  accountId: string,
+  year?: number,
+  month?: number,
+) {
   const movements = await getExpenses(accountId, year, month);
   return parseMovementsForChart(movements.map(adaptMovementItem));
 }
@@ -22,12 +33,14 @@ function ExpensesCategoryGrid({
   data,
   accountId,
   locale,
-  t,
+  tCategories,
+  tDashboard,
 }: Readonly<{
   data: ReturnType<typeof parseMovementsForChart>;
   accountId: string;
   locale: string;
-  t: Awaited<ReturnType<typeof getTranslations>>;
+  tCategories: CategoriesTranslator;
+  tDashboard: DashboardTranslator;
 }>) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-2 pb-1">
@@ -41,7 +54,7 @@ function ExpensesCategoryGrid({
             <div className="w-full">
               <div className="flex justify-between px-[0.15rem]">
                 <p className="text-right text-slate-500">
-                  {t(`categories.${item.title}`)}
+                  {tCategories(item.title)}
                 </p>
                 <p className="font-medium text-right whitespace-nowrap">
                   {formatCurrency(locale, item.amount, 0)}
@@ -53,7 +66,7 @@ function ExpensesCategoryGrid({
       ))}
       {data.length === 0 && (
         <p className="pt-2 text-sm text-slate-500 text-center col-span-3">
-          {t("dashboard.noExpensesThisMonth")}
+          {tDashboard("noExpensesThisMonth")}
         </p>
       )}
     </div>
@@ -61,9 +74,10 @@ function ExpensesCategoryGrid({
 }
 
 export async function ExpenseByCatChart({ accountId, year, month }: ChartProps) {
-  const [data, t, locale] = await Promise.all([
+  const [data, tCategories, tDashboard, locale] = await Promise.all([
     getExpensesChartData(accountId, year, month),
-    getTranslations(),
+    getTranslations("categories"),
+    getTranslations("dashboard"),
     getLocale(),
   ]);
 
@@ -72,16 +86,18 @@ export async function ExpenseByCatChart({ accountId, year, month }: ChartProps) 
       data={data}
       accountId={accountId}
       locale={locale}
-      t={t}
+      tCategories={tCategories}
+      tDashboard={tDashboard}
     />
   );
 }
 
 export async function ExpensesDataChart({ accountId, year, month }: ChartProps) {
-  const [data, locale, t] = await Promise.all([
+  const [data, locale, tCategories, tDashboard] = await Promise.all([
     getExpensesChartData(accountId, year, month),
     getLocale(),
-    getTranslations(),
+    getTranslations("categories"),
+    getTranslations("dashboard"),
   ]);
   const total = data.reduce((acc, item) => acc + item.amount, 0);
 
@@ -91,12 +107,13 @@ export async function ExpensesDataChart({ accountId, year, month }: ChartProps) 
         data={data}
         accountId={accountId}
         locale={locale}
-        t={t}
+        tCategories={tCategories}
+        tDashboard={tDashboard}
       />
       {data.length > 0 && (
         <div className="flex mt-2 ml-auto col-span-2 md:col-span-3">
           <p className="text-sm">
-            {t("dashboard.totalExpenses")}: {formatCurrency(locale, total, 0)}
+            {tDashboard("totalExpenses")}: {formatCurrency(locale, total, 0)}
           </p>
         </div>
       )}

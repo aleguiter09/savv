@@ -7,6 +7,7 @@ import z from "zod";
 import {
   createInstallmentSeries,
   createRecurringSeries,
+  saveMovementWithBalance,
   updateFutureSeriesMovements,
 } from "./movement-series";
 import { isMovementAppliedByDate } from "./movement-series.utils";
@@ -186,23 +187,18 @@ export const insertMovement = async (
   }
 
   const applied = isMovementAppliedByDate(movement.done_at);
-  const supabase = await createClient();
-  const { error } = await supabase.rpc("save_movement_with_balance", {
-    p_movement_id: 0,
-    p_amount: movement.amount,
-    p_description: movement.description,
-    p_done_at: movement.done_at,
-    p_type: movement.type,
-    p_from: movement.from,
-    p_applied: applied,
+  await saveMovementWithBalance({
+    movementId: 0,
+    amount: movement.amount,
+    description: movement.description,
+    doneAt: movement.done_at,
+    type: movement.type,
+    from: movement.from,
+    applied,
     ...(movement.type === "transfer"
-      ? { p_where: movement.where }
-      : { p_category: movement.category }),
+      ? { where: movement.where }
+      : { category: movement.category }),
   });
-
-  if (error) {
-    throw error;
-  }
 };
 
 export const deleteMovement = async (id: number) => {
@@ -236,23 +232,18 @@ export const updateMovement = async (
   }
 
   const applied = isMovementAppliedByDate(movement.done_at);
-  const supabase = await createClient();
-  const { error } = await supabase.rpc("save_movement_with_balance", {
-    p_movement_id: id,
-    p_amount: movement.amount,
-    p_description: movement.description,
-    p_done_at: movement.done_at,
-    p_type: movement.type,
-    p_from: movement.from,
-    p_applied: applied,
+  await saveMovementWithBalance({
+    movementId: id,
+    amount: movement.amount,
+    description: movement.description,
+    doneAt: movement.done_at,
+    type: movement.type,
+    from: movement.from,
+    applied,
     ...(movement.type === "transfer"
-      ? { p_where: movement.where }
-      : { p_category: movement.category }),
+      ? { where: movement.where }
+      : { category: movement.category }),
   });
-
-  if (error) {
-    throw error;
-  }
 };
 
 export const getExpenses = async (

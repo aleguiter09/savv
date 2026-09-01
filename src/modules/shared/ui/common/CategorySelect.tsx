@@ -1,5 +1,6 @@
 "use client";
 import { CategoryView } from "@/modules/categories/types/types";
+import { getCategoryLabel } from "@/modules/categories/utils/getCategoryLabel";
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
 import { cn } from "@/modules/shared/utils/cn";
 import {
@@ -27,18 +28,19 @@ export function CategorySelect({
   category,
   setCategory,
   error,
-  label = "movements.chooseCategory",
+  label = "chooseCategory",
   allowNull = false,
   disabled = false,
 }: Props) {
-  const t = useTranslations();
+  const tMovements = useTranslations("movements");
+  const tCategories = useTranslations("categories");
 
   return (
     <div className="flex flex-col gap-1.5">
       <label
         className={cn("block text-sm font-medium", error && "text-red-500")}
       >
-        {t(label)}
+        {tMovements(label)}
       </label>
       <Select
         disabled={disabled}
@@ -46,14 +48,14 @@ export function CategorySelect({
         onValueChange={setCategory}
       >
         <SelectTrigger className={error ? "border border-rose-500" : ""}>
-          <SelectValue placeholder={t("movements.selectCategory")} />
+          <SelectValue placeholder={tMovements("selectCategory")} />
         </SelectTrigger>
         <SelectContent className="max-h-56">
           <SelectGroup>
             {allowNull && (
               <SelectItem value={null as unknown as string}>
                 <div className="flex items-center">
-                  <p>{t("categories.noCategory")}</p>
+                  <p>{tCategories("noCategory")}</p>
                 </div>
               </SelectItem>
             )}
@@ -66,9 +68,12 @@ export function CategorySelect({
                     size={14}
                   />
                   <p className="ml-2">
-                    {item.isGlobal && !item.isCustomName
-                      ? t(`categories.${item.title}`)
-                      : item.title}
+                    {getCategoryLabel(
+                      item.title,
+                      item.isGlobal,
+                      item.isCustomName,
+                      tCategories,
+                    )}
                   </p>
                 </div>
               </SelectItem>

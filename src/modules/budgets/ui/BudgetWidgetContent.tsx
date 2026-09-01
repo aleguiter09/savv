@@ -7,16 +7,17 @@ import { BudgetProgressBar } from "./BudgetProgressBar";
 import { getCategoryLabel } from "@/modules/categories/utils/getCategoryLabel";
 
 export async function BudgetWidgetContent() {
-  const [items, t, locale] = await Promise.all([
+  const [items, tDashboard, tCategories, locale] = await Promise.all([
     getBudgetProgress("all"),
-    getTranslations(),
+    getTranslations("dashboard"),
+    getTranslations("categories"),
     getLocale(),
   ]);
 
   if (items.length === 0) {
     return (
       <p className="pt-2 text-sm text-slate-500 text-center">
-        {t("dashboard.noBudgets")}
+        {tDashboard("noBudgets")}
       </p>
     );
   }
@@ -28,7 +29,7 @@ export async function BudgetWidgetContent() {
           item.categoryTitle,
           item.isGlobal,
           item.isCustomName,
-          t,
+          tCategories,
         );
 
         return (

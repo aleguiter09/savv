@@ -11,7 +11,7 @@ export type MovementPayload = z.infer<typeof MovementSchema>;
 
 export { isMovementAppliedByDate } from "./movement-series.utils";
 
-async function saveMovementRpc(params: {
+type SaveMovementParams = {
   movementId: number;
   amount: number;
   description: string;
@@ -23,7 +23,9 @@ async function saveMovementRpc(params: {
   applied: boolean;
   seriesId?: number;
   installmentIndex?: number;
-}) {
+};
+
+export async function saveMovementWithBalance(params: SaveMovementParams) {
   const supabase = await createClient();
   const { error } = await supabase.rpc("save_movement_with_balance", {
     p_movement_id: params.movementId,
@@ -76,7 +78,7 @@ export async function createRecurringSeries(movement: Extract<
 
   const firstApplied = isMovementAppliedByDate(movement.done_at);
 
-  await saveMovementRpc({
+  await saveMovementWithBalance({
     movementId: 0,
     amount: movement.amount,
     description: movement.description,
@@ -105,7 +107,7 @@ export async function createRecurringSeries(movement: Extract<
 
     if (nextDate && (!endDate || nextDate <= endDate)) {
       const nextDoneAt = new Date(`${nextDate}T12:00:00.000Z`).toISOString();
-      await saveMovementRpc({
+      await saveMovementWithBalance({
         movementId: 0,
         amount: movement.amount,
         description: movement.description,
@@ -162,7 +164,7 @@ export async function createInstallmentSeries(movement: Extract<
   for (let i = 0; i < movement.installment_count; i++) {
     const due = addMonths(start, i);
     const doneAt = due.toISOString();
-    await saveMovementRpc({
+    await saveMovementWithBalance({
       movementId: 0,
       amount: amounts[i]!,
       description: `${movement.description} (${i + 1}/${movement.installment_count})`,
@@ -215,7 +217,7 @@ export async function updateFutureSeriesMovements(
   }
 
   for (const row of pending ?? []) {
-    await saveMovementRpc({
+    await saveMovementWithBalance({
       movementId: row.id,
       amount: data.amount,
       description: data.description,
