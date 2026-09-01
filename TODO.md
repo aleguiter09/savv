@@ -1,6 +1,6 @@
 # TODO — Savv
 
-> Last audit: 2026-08-29
+> Last audit: 2026-09-01
 
 ---
 
@@ -33,11 +33,12 @@
 
 ## P2 — Quality & tech debt
 
-[] Tests for balance RPCs and transfer flows (vitest configured, 0 test files)
+[X] Unit tests (vitest): 20 tests in `tests/` — schemas, `applied`/installments, transfer merge, adapters, budgets, cron auth; pure utils extracted (`movement-series.utils.ts`, `transfer.utils.ts`)
+[] Integration tests for balance RPCs and movement services (mocked Supabase)
 [] i18n: NetWorth hardcoded strings ("Comparado hace 30 días", "NET WORTH")
 [] Replace `INCOME_PARENT_ID = 60` magic number with category type/slug (3 files depend on it)
 [] Expand `revalidatePath` to `/movements`, `/analytics`, `/expenses` after movement changes
-[] Decide fate of `movement.applied` field — use it or remove from schema (upcoming uses `done_at` instead)
+[X] Decide fate of `movement.applied` field — used for series: future rows stay `applied=false` until CRON or "Apply today"
 [] Sanitize error messages in actions (no raw DB errors exposed to user)
 [] Pagination on `getMovementsByFilters` (no limit, performance risk with many movements)
 
@@ -64,7 +65,7 @@
 [] Dark theme (`next-themes` installed, no ThemeProvider/toggle yet)
 [] Multiple money types on expense
 [] Credit cards or quotas widget
-[] Upcoming payments — partial (future `done_at` works; `applied` field unused; widget exists)
+[] Upcoming payments widget polish ("See all" link, clarify pending vs applied in UI)
 [] Loans widget
 [] Expenses/incomes 6-month bar chart (monthly chart exists on `/expenses`)
 [] Add types, icons and colors to accounts (cash, bank, card, savings, investments, crypto)
@@ -101,6 +102,10 @@
 
 ### Movements & transfers
 
+[X] Recurring & installment expenses: `movement_series`, pre-generated installments, hybrid recurring (template + next occurrence)
+[X] Deferred balance for series: `applied=false` until due; `apply_movement` + `apply_due_movements` RPCs; analytics filter `applied=true`
+[X] Vercel Cron (`0 5 * * *` → `/api/cron/apply-movements`): `CRON_SECRET` auth, proxy bypass for `/api/cron/*`, `SUPABASE_SERVICE_ROLE_KEY` admin client
+[X] MovementForm schedule (unique / recurring / installment), "Apply today" button, series detail badges
 [X] Transfer integrity (P0): `transfer_group_id`, atomic update/delete RPCs, edit UI shows destination
 [X] Transfers related accounts and color.
 [X] Review 'fullCategory' and 'fullAccount' props in movement detail
@@ -126,3 +131,10 @@
 [X] Accounts & Categories not always being settled.
 [X] Select Category in Movement form overlapped by navbar
 [X] Only default imports are allowed
+
+### Testing
+
+[X] Vitest setup: `tests/` mirrors `src/`, `tests/tsconfig.json` for `@/` alias, `npm run test` / `test:watch`
+[X] P0 unit tests: `MovementSchema` (transfer/recurring/installment), `isMovementAppliedByDate`, `splitInstallmentAmounts`, `isCronAuthorized`
+[X] P1 unit tests: `mergeTransferLegs`, `adaptMovementItem`, `getMovementsByDay`, `getAvailableBudgetCategories`, `parseMovementsForChart`
+[X] Extract pure logic from services: `movement-series.utils.ts`, `transfer.utils.ts`
