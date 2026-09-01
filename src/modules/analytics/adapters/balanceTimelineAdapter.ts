@@ -1,28 +1,33 @@
 import { format } from "date-fns";
 
+type BalanceTimelineBucket = "day" | "week" | "month";
+
+type BalanceTimelineRow = {
+  bucket_date: string;
+  balance: number | string;
+};
+
 export function balanceTimelineAdapter(
-  data: any[],
-  bucket: "day" | "week" | "month",
-  balanceKey: string,
+  data: BalanceTimelineRow[],
+  bucket: BalanceTimelineBucket,
 ) {
   const sorted = data.toSorted(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    (a, b) =>
+      new Date(a.bucket_date).getTime() - new Date(b.bucket_date).getTime(),
   );
 
   return sorted.map((d) => ({
     date: formatDate(d.bucket_date, bucket),
-    [balanceKey]: Number(d.balance).toFixed(2),
+    balance: Number(d.balance),
   }));
 }
 
-const formatDate = (date: string, bucket: "day" | "week" | "month") => {
+const formatDate = (date: string, bucket: BalanceTimelineBucket) => {
   const d = new Date(date);
 
   if (bucket === "month") {
     return format(d, "MMM yy");
-  } else if (bucket === "week") {
-    return format(d, "MMM dd");
-  } else {
-    return format(d, "MMM dd");
   }
+
+  return format(d, "MMM dd");
 };

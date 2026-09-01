@@ -44,6 +44,8 @@
   "createDatabaseError": "Could not create the transaction. Please try again.",
   "updateDatabaseError": "Could not update the transaction. Please try again.",
   "applyDatabaseError": "Could not apply the transaction. Please try again.",
+  "deleteDatabaseError": "Could not delete the transaction. Please try again.",
+  "defaultError": "Something went wrong",
   "createdSuccess": "Transaction created successfully",
   "updatedSuccess": "Transaction updated successfully",
   "deletedSuccess": "Transaction deleted successfully",

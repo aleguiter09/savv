@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Trash2 } from "lucide-react";
 import { deleteMovementForm } from "../actions/movement-action";
@@ -10,6 +11,7 @@ const BrComponent = () => <br />;
 
 export function DeleteMovementButton({ movement }: { movement: MovementView }) {
   const t = useTranslations("movements");
+  const router = useRouter();
 
   return (
     <ConfirmDeleteButton
@@ -21,7 +23,10 @@ export function DeleteMovementButton({ movement }: { movement: MovementView }) {
       })}
       confirmLabel={t("confirm")}
       cancelLabel={t("cancel")}
-      onConfirm={() => deleteMovementForm(movement)}
+      onConfirm={() => deleteMovementForm(movement.id)}
+      successMessage={t("deletedSuccess")}
+      resolveErrorMessage={(error) => t(error ?? "defaultError")}
+      onSuccess={() => router.push("/home")}
     />
   );
 }

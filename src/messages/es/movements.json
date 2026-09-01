@@ -44,6 +44,8 @@
   "createDatabaseError": "No se pudo crear el movimiento. Inténtelo de nuevo.",
   "updateDatabaseError": "No se pudo actualizar el movimiento. Inténtelo de nuevo.",
   "applyDatabaseError": "No se pudo aplicar el movimiento. Inténtelo de nuevo.",
+  "deleteDatabaseError": "No se pudo eliminar el movimiento. Inténtelo de nuevo.",
+  "defaultError": "Ha ocurrido un error",
   "createdSuccess": "Movimiento creado con éxito",
   "updatedSuccess": "Movimiento actualizado con éxito",
   "deletedSuccess": "Movimiento eliminado con éxito",

@@ -18,7 +18,7 @@ import { Controller, useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { AccountSelect } from "@/modules/shared/ui/common/AccountSelect";
 import { CategorySelect } from "@/modules/shared/ui/common/CategorySelect";
-import { enUS, es } from "date-fns/locale";
+import { getDateFnsLocale } from "@/modules/shared/utils/dateFnsLocale";
 import { Input } from "@/ui/input";
 import { MovementView } from "../../types/types";
 
@@ -187,7 +187,7 @@ export function MovementForm({
               <DatePicker
                 value={field.value as Date | undefined}
                 onChange={field.onChange}
-                locale={locale.includes("es") ? es : enUS}
+                locale={getDateFnsLocale(locale)}
                 error={fieldState.error?.message}
               />
             </Field>
@@ -291,8 +291,15 @@ export function MovementForm({
                                   ? field.value
                                   : undefined
                               }
+<<<<<<< HEAD
                               onChange={(date) => field.onChange(date ?? null)}
                               locale={locale.includes("es") ? es : enUS}
+=======
+                              onChange={(date) =>
+                                field.onChange(date ?? null)
+                              }
+                              locale={getDateFnsLocale(locale)}
+>>>>>>> eff1684 (refactor: bloque 4 de auditoría (M8, M9, L1, L7, L8))
                               error={
                                 fieldState.invalid
                                   ? t(fieldState.error?.message as string)

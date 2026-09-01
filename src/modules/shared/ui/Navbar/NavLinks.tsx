@@ -1,12 +1,12 @@
 "use client";
+
 import Link from "next/link";
 import { logout } from "@/modules/auth/actions/user-action";
 import { usePathname } from "next/navigation";
 import { ChartArea, Home, LogOutIcon, Settings } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "../../utils/cn";
-import { MovementDialog } from "@/modules/movements/ui/MovementDialog";
-import { FloatingAddButton } from "@/modules/dashboard/ui/ActionBar/FloatingAddButton";
+import type { ReactNode } from "react";
 
 const leftLinks = [
   { key: "home", href: "/home", icon: <Home /> },
@@ -15,9 +15,12 @@ const leftLinks = [
 
 const rightLinks = [{ key: "settings", href: "/settings", icon: <Settings /> }];
 
-export function NavLinks() {
+type NavLinksProps = Readonly<{
+  center: ReactNode;
+}>;
+
+export function NavLinks({ center }: NavLinksProps) {
   const t = useTranslations("common.nav");
-  const tMovements = useTranslations("movements");
   const pathname = usePathname();
   const allLinks = [...leftLinks, ...rightLinks];
   const activeLink =
@@ -45,16 +48,7 @@ export function NavLinks() {
     <>
       {leftLinks.map(renderLink)}
 
-      <div className="flex h-12 grow items-center justify-center">
-        <MovementDialog
-          trigger={
-            <FloatingAddButton
-              className="-translate-y-3 shadow-lg"
-              aria-label={tMovements("addTitle")}
-            />
-          }
-        />
-      </div>
+      <div className="flex h-12 grow items-center justify-center">{center}</div>
 
       {rightLinks.map(renderLink)}
 

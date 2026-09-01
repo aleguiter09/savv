@@ -15,6 +15,7 @@ type ConfirmDeleteButtonProps = {
   onConfirm: () => Promise<ServerActionResponse | void>;
   successMessage?: string;
   resolveErrorMessage?: (errorKey?: string) => string;
+  onSuccess?: () => void;
   trigger?: ReactNode;
 };
 
@@ -26,6 +27,7 @@ export function ConfirmDeleteButton({
   onConfirm,
   successMessage,
   resolveErrorMessage,
+  onSuccess,
   trigger,
 }: ConfirmDeleteButtonProps) {
   const handleConfirm = async () => {
@@ -39,6 +41,7 @@ export function ConfirmDeleteButton({
       if (successMessage) {
         showToast({ type: "success", message: successMessage });
       }
+      onSuccess?.();
       return;
     }
 

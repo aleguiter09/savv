@@ -1,7 +1,7 @@
 "use client";
 
 import { format } from "date-fns";
-import { enUS, es } from "date-fns/locale";
+import { getDateFnsLocale } from "@/modules/shared/utils/dateFnsLocale";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
@@ -95,7 +95,7 @@ export function MovementsFilters({
           if (val?.from) setDraftFrom(val.from);
           if (val?.to) setDraftTo(val.to);
         }}
-        locale={locale.includes("es") ? es : enUS}
+        locale={getDateFnsLocale(locale)}
       />
       <div className="flex items-center gap-2">
         <AccountFilterSelect

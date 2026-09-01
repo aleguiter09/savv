@@ -6,8 +6,6 @@ import {
   updateMovement,
 } from "@/modules/movements/services/movements";
 import { applyMovementNow } from "@/modules/movements/services/movement-series";
-import { redirect } from "next/navigation";
-import { setToastMessage } from "@/modules/shared/actions/toast";
 import { getTranslations } from "next-intl/server";
 import { MovementSchema } from "@/modules/shared/utils/schemas";
 import { z } from "zod";
@@ -39,16 +37,25 @@ export const createMovementForm = async (
   return { success: true };
 };
 
-export const deleteMovementForm = async (movement: MovementView) => {
-  if (!movement.id || !movement.account?.id) return;
+export const deleteMovementForm = async (
+  movementId: number,
+): Promise<ServerActionResponse> => {
+  if (!movementId) {
+    return { success: false, error: "validationError" };
+  }
 
-  await deleteMovement(movement.id);
+  try {
+    await deleteMovement(movementId);
+  } catch {
+    return {
+      success: false,
+      error: "deleteDatabaseError",
+    };
+  }
 
-  const t = await getTranslations("movements");
-
-  setToastMessage("success", t("deletedSuccess"));
   revalidatePath("/home");
-  redirect("/home");
+  revalidatePath("/movements");
+  return { success: true };
 };
 
 export const updateMovementForm = async (
