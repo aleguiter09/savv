@@ -6,9 +6,10 @@ import z from "zod";
 import {
   createInstallmentSeries,
   createRecurringSeries,
-  isMovementAppliedByDate,
   updateFutureSeriesMovements,
 } from "./movement-series";
+import { isMovementAppliedByDate } from "./movement-series.utils";
+import { mergeTransferLegs } from "./transfer.utils";
 
 const movementSelect = `id, from, amount, description, category, type, done_at, balance_after, applied, series_id, installment_index, fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color)`;
 
@@ -193,36 +194,11 @@ export const getMovementById = async (
     )
     .eq("transfer_group_id", base.transfer_group_id);
 
-  if (!legs || legs.length < 2) {
+  if (!legs) {
     return base;
   }
 
-  const outLeg = legs.find((leg) => leg.amount < 0);
-  const inLeg = legs.find((leg) => leg.amount > 0);
-
-  if (!outLeg || !inLeg) {
-    return base;
-  }
-
-  const outAccount = Array.isArray(outLeg.fullAccount)
-    ? outLeg.fullAccount[0]
-    : outLeg.fullAccount;
-  const inAccount = Array.isArray(inLeg.fullAccount)
-    ? inLeg.fullAccount[0]
-    : inLeg.fullAccount;
-
-  return {
-    ...base,
-    id: outLeg.id,
-    from: outLeg.from,
-    amount: outLeg.amount,
-    balance_after: outLeg.balance_after,
-    description: outLeg.description,
-    done_at: outLeg.done_at,
-    applied: outLeg.applied,
-    fullAccount: outAccount,
-    fullToAccount: inAccount,
-  };
+  return mergeTransferLegs(base, legs);
 };
 
 export const insertMovement = async (
