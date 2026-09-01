@@ -4,7 +4,8 @@ import { Pencil } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/ui/button";
 import { AccountDialog } from "./AccountDialog";
-import { DeleteAccountButton } from "./DeleteAccountButton";
+import { ConfirmDeleteButton } from "@/modules/shared/ui/common/ConfirmDeleteButton";
+import { deleteAccountForm } from "@/modules/accounts/actions/account-actions";
 import type { AccountView } from "../types/types";
 
 type AccountsListProps = {
@@ -32,9 +33,10 @@ export function AccountsList({ accounts }: AccountsListProps) {
                   </Button>
                 }
               />
-              <DeleteAccountButton
-                id={Number(account.id)}
-                name={account.name}
+              <ConfirmDeleteButton
+                namespace="accounts"
+                descriptionValues={{ name: account.name }}
+                onConfirm={() => deleteAccountForm(Number(account.id))}
               />
             </div>
           </li>

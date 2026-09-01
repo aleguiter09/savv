@@ -1,26 +1,141 @@
 "use client";
 
-import { AreaChart } from "@/ui/area-chart";
+import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
+import { useLocale } from "next-intl";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+
+type BalanceTimelinePoint = {
+  date: string;
+  balance: number;
+};
+
+function formatAxisBalance(value: number, locale: string) {
+  const abs = Math.abs(value);
+
+  if (abs >= 1_000_000) {
+    return new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency: "EUR",
+      notation: "compact",
+      maximumFractionDigits: 1,
+    }).format(value);
+  }
+
+  if (abs >= 10_000) {
+    return new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency: "EUR",
+      maximumFractionDigits: 0,
+    }).format(value);
+  }
+
+  return formatCurrency(locale, value, 0);
+}
+
+type TooltipProps = {
+  active?: boolean;
+  payload?: Array<{ value?: number }>;
+  label?: string;
+  balanceLabel: string;
+  locale: string;
+};
+
+function BalanceTimelineTooltip({
+  active,
+  payload,
+  label,
+  balanceLabel,
+  locale,
+}: TooltipProps) {
+  if (!active || !payload?.length) {
+    return null;
+  }
+
+  const value = payload[0]?.value;
+
+  if (value == null) {
+    return null;
+  }
+
+  return (
+    <div className="rounded-md border border-slate-200 bg-white px-2 py-1 shadow-sm">
+      <p className="text-[10px] leading-tight text-slate-500">{label}</p>
+      <p className="text-xs font-medium leading-tight tabular-nums text-slate-800">
+        {balanceLabel}: {formatCurrency(locale, value, 2)}
+      </p>
+    </div>
+  );
+}
 
 export function BalanceTimelineChart({
   data,
   balanceLabel,
 }: Readonly<{
-  data: any[];
+  data: BalanceTimelinePoint[];
   balanceLabel: string;
 }>) {
+  const locale = useLocale();
+
+  if (data.length === 0) {
+    return null;
+  }
+
   return (
-    <AreaChart
-      className="h-72"
-      data={data}
-      index="date"
-      categories={[balanceLabel]}
-      colors={["blue"]}
-      showLegend={false}
-      fill="solid"
-      showGridLines
-      tickGap={1}
-      allowDecimals
-    />
+    <div className="h-72 w-full px-4 pb-1">
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart
+          data={data}
+          margin={{ top: 8, right: 8, left: 4, bottom: 4 }}
+        >
+          <CartesianGrid
+            strokeDasharray="3 3"
+            vertical={false}
+            stroke="#e2e8f0"
+          />
+          <XAxis
+            dataKey="date"
+            tickLine={false}
+            axisLine={false}
+            tickCount={6}
+            interval="preserveStartEnd"
+            padding={{ left: 8, right: 8 }}
+            tick={{ fontSize: 11, fill: "#64748b" }}
+            dy={6}
+          />
+          <YAxis
+            tickLine={false}
+            axisLine={false}
+            width={48}
+            tickCount={4}
+            tick={{ fontSize: 11, fill: "#64748b" }}
+            tickFormatter={(value) => formatAxisBalance(Number(value), locale)}
+          />
+          <Tooltip
+            cursor={{ stroke: "#94a3b8", strokeWidth: 1 }}
+            content={
+              <BalanceTimelineTooltip balanceLabel={balanceLabel} locale={locale} />
+            }
+          />
+          <Area
+            type="monotone"
+            dataKey="balance"
+            stroke="#3b82f6"
+            fill="#3b82f6"
+            fillOpacity={0.12}
+            strokeWidth={2}
+            dot={false}
+            activeDot={{ r: 3, strokeWidth: 0, fill: "#3b82f6" }}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
   );
 }

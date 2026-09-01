@@ -1,4 +1,7 @@
 "use client";
+
+import { getCategoryLabel } from "@/modules/categories/utils/getCategoryLabel";
+import { useData } from "@/modules/shared/stores/DataProvider";
 import {
   Select,
   SelectContent,
@@ -8,29 +11,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/ui/select";
-import { useData } from "@/modules/shared/stores/DataProvider";
 import { useTranslations } from "next-intl";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
-type SelectCategoryProps = {
-  categoryId: string;
-};
+type Props = Readonly<{
+  value: string;
+  onValueChange: (value: string) => void;
+}>;
 
-export function SelectCategory({ categoryId }: Readonly<SelectCategoryProps>) {
+export function CategoryFilterSelect({ value, onValueChange }: Props) {
   const t = useTranslations("categories");
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
   const { incomeCategories, expenseCategories } = useData();
 
-  const handleSelect = (value: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("category", value);
-    replace(`${pathname}?${params.toString()}`);
-  };
-
   return (
-    <Select defaultValue={categoryId} onValueChange={handleSelect}>
+    <Select value={value} onValueChange={onValueChange}>
       <SelectTrigger className="w-full max-w-none bg-white">
         <SelectValue placeholder={t("selectPlaceholder")} />
       </SelectTrigger>
@@ -38,20 +31,19 @@ export function SelectCategory({ categoryId }: Readonly<SelectCategoryProps>) {
         <SelectItem value="all">{t("allCategories")}</SelectItem>
         <SelectGroup>
           <SelectLabel>{t("incomes")}</SelectLabel>
-          <SelectItem value="incomes">{t(`allIncomes`)}</SelectItem>
+          <SelectItem value="incomes">{t("allIncomes")}</SelectItem>
           {incomeCategories.map((item) => (
             <SelectItem key={item.id} value={item.id.toString()}>
-              {item.isGlobal && !item.isCustomName ? t(item.title) : item.title}
+              {getCategoryLabel(item.title, item.isGlobal, item.isCustomName, t)}
             </SelectItem>
           ))}
         </SelectGroup>
-
         <SelectGroup>
           <SelectLabel>{t("expenses")}</SelectLabel>
-          <SelectItem value="expenses">{t(`allExpenses`)}</SelectItem>
+          <SelectItem value="expenses">{t("allExpenses")}</SelectItem>
           {expenseCategories.map((item) => (
             <SelectItem key={item.id} value={item.id.toString()}>
-              {item.isGlobal && !item.isCustomName ? t(item.title) : item.title}
+              {getCategoryLabel(item.title, item.isGlobal, item.isCustomName, t)}
             </SelectItem>
           ))}
         </SelectGroup>

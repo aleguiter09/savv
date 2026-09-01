@@ -1,6 +1,7 @@
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
 import { cn } from "@/modules/shared/utils/cn";
 import { getFormatter, getLocale, getTranslations } from "next-intl/server";
+import { getCategoryLabel } from "@/modules/categories/utils/getCategoryLabel";
 import type { MovementView } from "../../types/types";
 import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
 import { EditMovementButton } from "../EditMovementButton";
@@ -46,7 +47,7 @@ export async function MovementDetail({
         <div className="flex gap-3 items-center">
           <CategoryIcon icon={icon} color={color} />
           <span className="font-medium">
-            {isGlobal && !isCustomName ? tCategories(title) : title}
+            {getCategoryLabel(title, isGlobal, isCustomName, tCategories)}
           </span>
         </div>
 

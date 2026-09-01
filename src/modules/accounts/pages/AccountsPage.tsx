@@ -1,5 +1,5 @@
 import { getAccounts } from "@/modules/accounts/services/accounts";
-import { adaptAccount } from "@/modules/accounts/adapters/account.adapter.";
+import { adaptAccount } from "@/modules/accounts/adapters/account.adapter";
 import { AccountsList } from "@/modules/accounts/ui/AccountsList";
 import { getTranslations } from "next-intl/server";
 

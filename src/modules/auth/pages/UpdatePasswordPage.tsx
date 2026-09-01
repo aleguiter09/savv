@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { updatePasswordForm } from "@/modules/auth/actions/user-action";
 import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
-import { useToastStore } from "@/modules/shared/ui/toast-store";
+import { showToast } from "@/modules/shared/ui/toast";
 import { UpdatePasswordSchema } from "@/modules/shared/utils/schemas";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,7 +17,6 @@ type Schema = z.infer<typeof UpdatePasswordSchema>;
 
 export function UpdatePasswordPage() {
   const t = useTranslations("auth");
-  const show = useToastStore((store) => store.show);
   const [pending, startTransition] = useTransition();
 
   const form = useForm<Schema>({
@@ -33,7 +32,7 @@ export function UpdatePasswordPage() {
       const res = await updatePasswordForm(data);
 
       if (!res.success) {
-        show({ type: "error", message: t("resetSent") });
+        showToast({ type: "error", message: t("resetSent") });
       }
     });
   }

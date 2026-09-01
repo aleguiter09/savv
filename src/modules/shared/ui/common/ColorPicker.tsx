@@ -1,7 +1,10 @@
 "use client";
 
-import { categoryColorsLiterals } from "@/modules/shared/utils/constants";
-
+import {
+  categoryColorsLiterals,
+  getCategoryBgClass,
+  getCategoryRingClass,
+} from "@/modules/shared/utils/constants";
 import { useTranslations } from "next-intl";
 
 interface ColorPickerProps {
@@ -11,6 +14,7 @@ interface ColorPickerProps {
 
 export function ColorPicker({ value, onChange }: ColorPickerProps) {
   const t = useTranslations("common");
+
   return (
     <div className="space-y-2">
       <div
@@ -26,7 +30,7 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
               shrink-0 size-10 rounded-full transition-all duration-200
               border cursor-pointer snap-center
               ${value === color ? "ring-2 ring-offset-2" : ""}
-              bg-${color}-500 ring-${color}-500
+              ${getCategoryBgClass(color)} ${getCategoryRingClass(color)}
             `}
             title={color}
             aria-label={t("colorLabel", { name: t(`colors.${color}`) })}

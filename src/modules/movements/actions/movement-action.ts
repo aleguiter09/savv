@@ -6,9 +6,6 @@ import {
   updateMovement,
 } from "@/modules/movements/services/movements";
 import { applyMovementNow } from "@/modules/movements/services/movement-series";
-import { redirect } from "next/navigation";
-import { setToastMessage } from "@/modules/shared/actions/toast";
-import { getTranslations } from "next-intl/server";
 import { MovementSchema } from "@/modules/shared/utils/schemas";
 import { z } from "zod";
 import { ServerActionResponse } from "@/modules/shared/types/global.types";
@@ -22,16 +19,16 @@ export const createMovementForm = async (
   if (!parsed.success) {
     return {
       success: false,
-      error: "Missing fields. Failed to create the movement",
+      error: "validationError",
     };
   }
 
   try {
     await insertMovement(parsed.data);
-  } catch (error) {
+  } catch {
     return {
       success: false,
-      error: "Database error: failed to insert movement: " + error,
+      error: "createDatabaseError",
     };
   }
 
@@ -39,16 +36,25 @@ export const createMovementForm = async (
   return { success: true };
 };
 
-export const deleteMovementForm = async (movement: MovementView) => {
-  if (!movement.id || !movement.account?.id) return;
+export const deleteMovementForm = async (
+  movementId: number,
+): Promise<ServerActionResponse> => {
+  if (!movementId) {
+    return { success: false, error: "validationError" };
+  }
 
-  await deleteMovement(movement.id);
+  try {
+    await deleteMovement(movementId);
+  } catch {
+    return {
+      success: false,
+      error: "deleteDatabaseError",
+    };
+  }
 
-  const t = await getTranslations("movements");
-
-  setToastMessage("success", t("deletedSuccess"));
   revalidatePath("/home");
-  redirect("/home");
+  revalidatePath("/movements");
+  return { success: true };
 };
 
 export const updateMovementForm = async (
@@ -60,7 +66,7 @@ export const updateMovementForm = async (
   if (!parsed.success) {
     return {
       success: false,
-      error: "Missing fields. Failed to update movement",
+      error: "validationError",
     };
   }
 
@@ -72,10 +78,10 @@ export const updateMovementForm = async (
       seriesId: previous.seriesId,
       updateSeries: shouldUpdateSeries,
     });
-  } catch (error) {
+  } catch {
     return {
       success: false,
-      error: "Database error: failed to update movement: " + error,
+      error: "updateDatabaseError",
     };
   }
 
@@ -88,10 +94,10 @@ export const applyMovementNowForm = async (
 ): Promise<ServerActionResponse> => {
   try {
     await applyMovementNow(movementId);
-  } catch (error) {
+  } catch {
     return {
       success: false,
-      error: "Database error: failed to apply movement: " + error,
+      error: "applyDatabaseError",
     };
   }
 

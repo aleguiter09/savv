@@ -18,16 +18,16 @@ export async function createBudgetForm(
   if (!parsed.success) {
     return {
       success: false,
-      error: "Missing fields. Failed to create a budget.",
+      error: "validationError",
     };
   }
 
   try {
     await createBudget(parsed.data);
-  } catch (error) {
+  } catch {
     return {
       success: false,
-      error: "databaseError" + error,
+      error: "databaseError",
     };
   }
 
@@ -45,16 +45,16 @@ export async function updateBudgetForm(
   if (!parsed.success) {
     return {
       success: false,
-      error: "Missing fields. Failed to update the budget.",
+      error: "validationError",
     };
   }
 
   try {
     await updateBudget(budgetId, parsed.data);
-  } catch (error) {
+  } catch {
     return {
       success: false,
-      error: "Database error: failed to update budget: " + error,
+      error: "databaseError",
     };
   }
 
@@ -68,10 +68,10 @@ export const deleteBudgetForm = async (
 ): Promise<ServerActionResponse> => {
   try {
     await deleteBudget(budgetId);
-  } catch (error) {
+  } catch {
     return {
       success: false,
-      error: "Database error: failed to delete budget: " + error,
+      error: "databaseError",
     };
   }
 

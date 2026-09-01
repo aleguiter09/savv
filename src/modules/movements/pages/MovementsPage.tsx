@@ -1,5 +1,5 @@
 import { MovementsByDate } from "../ui/MovementsList/MovementsByDate";
-import { MovementsFilter } from "../ui/MovementsFilter/MovementsFilter";
+import { MovementsFilters } from "../ui/MovementsFilter/MovementsFilters";
 import { parseMovementsSearchParams } from "../adapters/movements.adapter";
 
 export type MovementsPageProps = {
@@ -15,7 +15,7 @@ export async function MovementsPage(props: Readonly<MovementsPageProps>) {
 
   return (
     <>
-      <MovementsFilter {...params} />
+      <MovementsFilters {...params} />
       <MovementsByDate {...params} />
     </>
   );

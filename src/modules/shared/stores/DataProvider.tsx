@@ -1,7 +1,7 @@
 "use client";
 
 import { CategoryView } from "@/modules/categories/types/types";
-import { adaptCategories } from "../adapters/adaptCategories";
+import { partitionCategories } from "@/modules/categories/adapters/categories.adapter";
 import { createContext, useContext, useMemo } from "react";
 import { AccountView } from "@/modules/accounts/types/types";
 
@@ -28,7 +28,7 @@ export const DataProvider = ({
   categories: CategoryView[];
   children: React.ReactNode;
 }) => {
-  const derived = useMemo(() => adaptCategories(categories), [categories]);
+  const derived = useMemo(() => partitionCategories(categories), [categories]);
   const value = useMemo(() => ({ accounts, ...derived }), [accounts, derived]);
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

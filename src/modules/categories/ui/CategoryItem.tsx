@@ -1,9 +1,11 @@
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
-import { DeleteCategoryButton } from "./DeleteCategoryButton";
+import { ConfirmDeleteButton } from "@/modules/shared/ui/common/ConfirmDeleteButton";
+import { deleteCategoryForm } from "../actions/categories.action";
 import { CategoryDialog } from "./CategoryDialog";
 import { Button } from "@/ui/button";
 import { Eye, EyeOff, Pencil } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { getCategoryLabel } from "@/modules/categories/utils/getCategoryLabel";
 import { cn } from "@/modules/shared/utils/cn";
 import type { CategoryColors } from "@/modules/shared/types/global.types";
 import { CategoryView } from "../types/types";
@@ -40,7 +42,7 @@ export function CategoryItem({
             isHidden && "line-through text-muted-foreground",
           )}
         >
-          {isGlobal && !isCustomName ? t(title) : title}
+          {getCategoryLabel(title, isGlobal, isCustomName, t)}
         </p>
       </div>
       <div className="flex items-center gap-2">
@@ -70,7 +72,11 @@ export function CategoryItem({
             )}
           </Button>
         ) : (
-          <DeleteCategoryButton id={Number(id)} title={title} />
+          <ConfirmDeleteButton
+            namespace="categories"
+            descriptionValues={{ title }}
+            onConfirm={() => deleteCategoryForm(Number(id))}
+          />
         )}
       </div>
     </li>

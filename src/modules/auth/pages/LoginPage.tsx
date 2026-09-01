@@ -11,14 +11,13 @@ import { z } from "zod";
 import { LoginUserSchema } from "@/modules/shared/utils/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/ui/field";
-import { useToastStore } from "@/modules/shared/ui/toast-store";
+import { showToast } from "@/modules/shared/ui/toast";
 import { ToastManager } from "@/modules/shared/ui/Toast/toast-manager";
 
 type Schema = z.infer<typeof LoginUserSchema>;
 
 export function LoginPage() {
   const t = useTranslations("auth");
-  const show = useToastStore((store) => store.show);
   const [pending, startTransition] = useTransition();
 
   const form = useForm<Schema>({
@@ -34,7 +33,7 @@ export function LoginPage() {
       const res = await loginUserForm(data);
 
       if (!res.success) {
-        show({ type: "error", message: t(res.error ?? "defaultError") });
+        showToast({ type: "error", message: t(res.error ?? "defaultError") });
       }
     });
   }

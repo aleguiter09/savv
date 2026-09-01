@@ -10,8 +10,9 @@ import {
   TableRow,
 } from "@/ui/table";
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
-import { getCategoryLabel } from "@/modules/budgets/ui/BudgetWidgetContent";
-import { getTranslations } from "next-intl/server";
+import { getCategoryLabel } from "@/modules/categories/utils/getCategoryLabel";
+import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
+import { getLocale, getTranslations } from "next-intl/server";
 
 type CategoryComparisonData = {
   category_id: number;
@@ -25,9 +26,9 @@ type CategoryComparisonData = {
   diff_vs_budget_percent: number | null;
 };
 
-function formatCurrency(value: number) {
+function formatAmount(locale: string, value: number) {
   if (!value) return "-";
-  return `€${value.toFixed(0)}`;
+  return formatCurrency(locale, value, 0);
 }
 
 function formatPercent(value: number | null) {
@@ -47,8 +48,11 @@ export async function CategoryComparisonTable({
 }: {
   accountId?: string;
 }) {
-  const data = await getCategoryComparison(accountId);
-  const t = await getTranslations();
+  const [data, t, locale] = await Promise.all([
+    getCategoryComparison(accountId),
+    getTranslations("categories"),
+    getLocale(),
+  ]);
 
   if (!data || data.length === 0) return null;
 
@@ -59,26 +63,24 @@ export async function CategoryComparisonTable({
   return (
     <Card className="p-4">
       <h3 className="text-sm font-semibold mb-4">
-        {t("categories.analytics.title")}
+        {t("analytics.title")}
       </h3>
 
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="text-xs">
-              {t("categories.analytics.category")}
+            <TableHead className="text-xs">{t("analytics.category")}</TableHead>
+            <TableHead className="text-right text-xs">
+              {t("analytics.thisMonth")}
             </TableHead>
             <TableHead className="text-right text-xs">
-              {t("categories.analytics.thisMonth")}
+              {t("analytics.sixMonthAvg")}
             </TableHead>
             <TableHead className="text-right text-xs">
-              {t("categories.analytics.sixMonthAvg")}
+              {t("analytics.difference")}
             </TableHead>
             <TableHead className="text-right text-xs">
-              {t("categories.analytics.difference")}
-            </TableHead>
-            <TableHead className="text-right text-xs">
-              {t("categories.analytics.budget")}
+              {t("analytics.budget")}
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -98,10 +100,10 @@ export async function CategoryComparisonTable({
                 </div>
               </TableCell>
               <TableCell className="text-right text-xs text-nowrap">
-                {formatCurrency(item.current_month_spent)}
+                {formatAmount(locale, item.current_month_spent)}
               </TableCell>
               <TableCell className="text-right text-xs">
-                {formatCurrency(item.six_month_avg)}
+                {formatAmount(locale, item.six_month_avg)}
               </TableCell>
               <TableCell className="text-right text-xs">
                 <Badge variant={getAvgColor(item.diff_vs_avg_percent)}>
@@ -109,7 +111,7 @@ export async function CategoryComparisonTable({
                 </Badge>
               </TableCell>
               <TableCell className="text-right text-xs">
-                {formatCurrency(item.budget_amount)}
+                {formatAmount(locale, item.budget_amount)}
               </TableCell>
             </TableRow>
           ))}

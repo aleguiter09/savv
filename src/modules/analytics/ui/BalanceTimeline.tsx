@@ -18,7 +18,7 @@ export async function BalanceTimeline() {
   ]);
 
   const balanceLabel = t("balance");
-  const data = balanceTimelineAdapter(timeline, "day", balanceLabel);
+  const data = balanceTimelineAdapter(timeline, "day");
 
   return (
     <Card className="py-3">

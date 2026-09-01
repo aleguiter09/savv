@@ -1,4 +1,4 @@
-import { adaptAccount } from "@/modules/accounts/adapters/account.adapter.";
+import { adaptAccount } from "@/modules/accounts/adapters/account.adapter";
 import { getAccounts } from "@/modules/accounts/services/accounts";
 import { adaptCategory } from "@/modules/categories/adapters/categories.adapter";
 import { getCategories } from "@/modules/categories/services/categories";

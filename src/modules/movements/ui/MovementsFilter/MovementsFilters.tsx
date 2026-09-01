@@ -1,22 +1,14 @@
 "use client";
 
 import { format } from "date-fns";
-import { enUS, es } from "date-fns/locale";
+import { getDateFnsLocale } from "@/modules/shared/utils/dateFnsLocale";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { useData } from "@/modules/shared/stores/DataProvider";
 import { Button } from "@/ui/button";
 import { DateRangePicker } from "@/ui/date-picker";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/ui/select";
+import { AccountFilterSelect } from "@/modules/shared/ui/common/AccountFilterSelect";
+import { CategoryFilterSelect } from "@/modules/shared/ui/common/CategoryFilterSelect";
 
 type Props = Readonly<{
   from: Date;
@@ -41,11 +33,8 @@ export function MovementsFilters({
 }: Props) {
   const locale = useLocale();
   const t = useTranslations("movements");
-  const tDashboard = useTranslations("dashboard");
-  const tCategories = useTranslations("categories");
   const pathname = usePathname();
   const { replace } = useRouter();
-  const { accounts, incomeCategories, expenseCategories } = useData();
 
   const [draftFrom, setDraftFrom] = useState(from);
   const [draftTo, setDraftTo] = useState(to);
@@ -106,62 +95,17 @@ export function MovementsFilters({
           if (val?.from) setDraftFrom(val.from);
           if (val?.to) setDraftTo(val.to);
         }}
-        locale={locale.includes("es") ? es : enUS}
+        locale={getDateFnsLocale(locale)}
       />
       <div className="flex items-center gap-2">
-        <Select value={draftAccountId} onValueChange={setDraftAccountId}>
-          <SelectTrigger className="w-full max-w-none bg-white">
-            <SelectValue placeholder={tDashboard("selectPlaceholder")} />
-          </SelectTrigger>
-          <SelectContent className="max-h-60">
-            <SelectItem value="all">{tDashboard("allAccounts")}</SelectItem>
-            <SelectGroup>
-              {accounts.map((account) => (
-                <SelectItem
-                  key={account.id}
-                  value={account.id?.toString() ?? ""}
-                >
-                  {account.name}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-
-        <Select value={draftCategoryId} onValueChange={setDraftCategoryId}>
-          <SelectTrigger className="w-full max-w-none bg-white">
-            <SelectValue placeholder={tCategories("selectPlaceholder")} />
-          </SelectTrigger>
-          <SelectContent className="max-h-60">
-            <SelectItem value="all">{tCategories("allCategories")}</SelectItem>
-            <SelectGroup>
-              <SelectLabel>{tCategories("incomes")}</SelectLabel>
-              <SelectItem value="incomes">
-                {tCategories("allIncomes")}
-              </SelectItem>
-              {incomeCategories.map((item) => (
-                <SelectItem key={item.id} value={item.id.toString()}>
-                  {item.isGlobal && !item.isCustomName
-                    ? tCategories(item.title)
-                    : item.title}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-            <SelectGroup>
-              <SelectLabel>{tCategories("expenses")}</SelectLabel>
-              <SelectItem value="expenses">
-                {tCategories("allExpenses")}
-              </SelectItem>
-              {expenseCategories.map((item) => (
-                <SelectItem key={item.id} value={item.id.toString()}>
-                  {item.isGlobal && !item.isCustomName
-                    ? tCategories(item.title)
-                    : item.title}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <AccountFilterSelect
+          value={draftAccountId}
+          onValueChange={setDraftAccountId}
+        />
+        <CategoryFilterSelect
+          value={draftCategoryId}
+          onValueChange={setDraftCategoryId}
+        />
       </div>
       <div className="flex items-center gap-2">
         <Button

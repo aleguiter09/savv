@@ -4,6 +4,37 @@ import type { MovementApi, MovementView } from "../types/types";
 
 export const MOVEMENTS_PAGE_SIZE = 30;
 
+type JoinField<T> = T | T[] | null | undefined;
+
+function unwrapJoin<T>(value: JoinField<T> | unknown): T | undefined {
+  if (Array.isArray(value)) {
+    return value[0] as T;
+  }
+
+  return (value ?? undefined) as T | undefined;
+}
+
+export function mapMovementApiRow(
+  item: Record<string, unknown>,
+): MovementApi {
+  return {
+    ...item,
+    fullCategory: unwrapJoin(item.fullCategory),
+    fullAccount: unwrapJoin(item.fullAccount),
+    fullToAccount: unwrapJoin(item.fullToAccount),
+  } as MovementApi;
+}
+
+export function mapMovementApiRows(
+  data: Array<Record<string, unknown>> | null,
+): MovementApi[] {
+  if (!data) {
+    return [];
+  }
+
+  return data.map(mapMovementApiRow);
+}
+
 export async function parseMovementsSearchParams(
   searchParams: MovementsPageProps,
 ): Promise<{

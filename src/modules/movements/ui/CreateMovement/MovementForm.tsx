@@ -6,7 +6,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/ui/field";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
 import { MovementSchema } from "@/modules/shared/utils/schemas";
 import { useData } from "@/modules/shared/stores/DataProvider";
-import { useToastStore } from "@/modules/shared/ui/toast-store";
+import { showToast } from "@/modules/shared/ui/toast";
 import {
   createMovementForm,
   updateMovementForm,
@@ -18,7 +18,7 @@ import { Controller, useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { AccountSelect } from "@/modules/shared/ui/common/AccountSelect";
 import { CategorySelect } from "@/modules/shared/ui/common/CategorySelect";
-import { enUS, es } from "date-fns/locale";
+import { getDateFnsLocale } from "@/modules/shared/utils/dateFnsLocale";
 import { Input } from "@/ui/input";
 import { MovementView } from "../../types/types";
 
@@ -38,7 +38,6 @@ export function MovementForm({
 
   const t = useTranslations("movements");
   const locale = useLocale();
-  const show = useToastStore((store) => store.show);
   const [pending, startTransition] = useTransition();
 
   const form = useForm<SchemaInput, unknown, SchemaOutput>({
@@ -99,13 +98,13 @@ export function MovementForm({
       }
 
       if (res.success) {
-        show({
+        showToast({
           type: "success",
           message: t(movement?.id ? "updatedSuccess" : "createdSuccess"),
         });
         onSuccess?.();
       } else {
-        show({ type: "error", message: t(res.error ?? "defaultError") });
+        showToast({ type: "error", message: t(res.error ?? "defaultError") });
       }
     });
   }
@@ -187,7 +186,7 @@ export function MovementForm({
               <DatePicker
                 value={field.value as Date | undefined}
                 onChange={field.onChange}
-                locale={locale.includes("es") ? es : enUS}
+                locale={getDateFnsLocale(locale)}
                 error={fieldState.error?.message}
               />
             </Field>
@@ -265,7 +264,9 @@ export function MovementForm({
                               <option value="biweekly">
                                 {t("freqBiweekly")}
                               </option>
-                              <option value="monthly">{t("freqMonthly")}</option>
+                              <option value="monthly">
+                                {t("freqMonthly")}
+                              </option>
                               <option value="yearly">{t("freqYearly")}</option>
                             </select>
                             {fieldState.invalid && (
@@ -292,7 +293,7 @@ export function MovementForm({
                               onChange={(date) =>
                                 field.onChange(date ?? null)
                               }
-                              locale={locale.includes("es") ? es : enUS}
+                              locale={getDateFnsLocale(locale)}
                               error={
                                 fieldState.invalid
                                   ? t(fieldState.error?.message as string)
