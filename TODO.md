@@ -35,7 +35,7 @@
 
 [X] Unit tests (vitest): 20 tests in `tests/` — schemas, `applied`/installments, transfer merge, adapters, budgets, cron auth; pure utils extracted (`movement-series.utils.ts`, `transfer.utils.ts`)
 [] Integration tests for balance RPCs and movement services (mocked Supabase)
-[] i18n: NetWorth hardcoded strings ("Comparado hace 30 días", "NET WORTH")
+[X] i18n: NetWorth hardcoded strings ("Comparado hace 30 días", "NET WORTH")
 [] Replace `INCOME_PARENT_ID = 60` magic number with category type/slug (3 files depend on it)
 [] Expand `revalidatePath` to `/movements`, `/analytics`, `/expenses` after movement changes
 [X] Decide fate of `movement.applied` field — used for series: future rows stay `applied=false` until CRON or "Apply today"
