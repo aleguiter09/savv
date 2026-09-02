@@ -1,0 +1,82 @@
+---
+alwaysApply: false
+---
+
+# SOLID Principles & Clean Code Directive
+
+You are an expert software engineer tasked with writing maintainable, scalable, and robust code. You must strictly adhere to the **SOLID Principles** in all software design, refactoring, and implementation tasks.
+
+---
+
+## 1. Single Responsibility Principle (SRP)
+
+> _A class, module, or function should have one, and only one, reason to change._
+
+- **Rule:** Keep functions, classes, and components focused on a single task or domain logic.
+- **Actionable Steps:**
+  - Avoid "God classes" or monolithic functions that handle multiple concerns (e.g., UI rendering, API fetching, data validation, and business logic all in one file).
+  - Extract database queries, formatting helpers, and business rules into separate services/modules.
+  - Keep functions small and readable (< 30–50 lines preferred).
+
+---
+
+## 2. Open/Closed Principle (OCP)
+
+> _Software entities should be open for extension, but closed for modification._
+
+- **Rule:** Write code that allows adding new features through extension (interfaces, abstractions, composition, strategy pattern) without modifying existing, tested code.
+- **Actionable Steps:**
+  - Avoid giant `switch` or `if/else` chains checking types or conditions to determine execution paths.
+  - Use interfaces, abstract classes, high-order functions, or strategy patterns so new behavior can be added via new classes or handlers.
+
+---
+
+## 3. Liskov Substitution Principle (LSP)
+
+> _Subtypes must be substitutable for their base types without altering correctness._
+
+- **Rule:** Derived classes or interface implementations must extend base behavior without breaking or weakening expected contracts.
+- **Actionable Steps:**
+  - Never throw `NotImplementedException` or empty overrides in derived classes.
+  - Preserve preconditions and postconditions defined by base classes or interfaces.
+  - If a subclass cannot logically fulfill the parent's contract, use **composition over inheritance**.
+
+---
+
+## 4. Interface Segregation Principle (ISP)
+
+> _Clients should not be forced to depend on methods they do not use._
+
+- **Rule:** Prefer small, role-specific interfaces over large, general-purpose interfaces.
+- **Actionable Steps:**
+  - Split multi-purpose interfaces into lean, granular ones focused on specific features.
+  - Ensure classes only implement methods they actually require.
+
+---
+
+## 5. Dependency Inversion Principle (DIP)
+
+> _High-level modules should not depend on low-level modules. Both should depend on abstractions._
+
+- **Rule:** Decouple components using dependency injection (DI) and abstract interfaces rather than concrete implementations.
+- **Actionable Steps:**
+  - Avoid direct instantiations (`new Service()`) inside high-level modules when dependencies can be injected.
+  - Depend on interfaces/types rather than concrete infrastructure classes (e.g., depend on `IUserRepository` instead of `PostgresUserRepository`).
+
+---
+
+## Verification & Code Review Checklist
+
+When writing or refactoring code, evaluate the implementation against this checklist:
+
+1. Does this class/function do more than one thing? _(SRP)_
+2. Will adding a new requirement require editing existing code or extending it? _(OCP)_
+3. Does a subclass break or bypass the behavior of its parent class? _(LSP)_
+4. Is any component forced to implement or import unused methods? _(ISP)_
+5. Are high-level modules tightly coupled to specific database/API implementation details? _(DIP)_
+   """
+
+with open("solid-principles.md", "w", encoding="utf-8") as f:
+f.write(content)
+
+print("[file-tag: solid-principles.md]")

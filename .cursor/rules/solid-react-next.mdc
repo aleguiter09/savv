@@ -1,0 +1,79 @@
+---
+alwaysApply: true
+---
+
+---
+
+description: SOLID Principles & Best Practices for React and Next.js
+globs: \*_/_.{tsx,jsx,ts,js}
+
+---
+
+# SOLID Principles & Clean Code Directive (React & Next.js)
+
+You are an expert React and Next.js engineer. You must strictly apply the **SOLID principles** and Clean Code patterns across all components, custom hooks, and API routes.
+
+---
+
+## 1. Single Responsibility Principle (SRP)
+
+> _A component or hook should do only one thing._
+
+- **Rule:** Separate UI rendering, business logic, and data fetching.
+- **Actionable Steps:**
+  - **Containers vs. Presentational:** Do not mix complex state/fetching logic inside UI components. Move business logic and state side-effects into custom hooks (e.g., `useUserProfile()`).
+  - **Server Components (Next.js App Router):** Keep data fetching in Server Components (`page.tsx`) and delegate interactive UI logic to small Client Components (`'use client'`).
+  - **Small JSX:** If a JSX block exceeds ~100 lines, break sub-views into smaller, focused child components.
+
+---
+
+## 2. Open/Closed Principle (OCP)
+
+> _Components should be extendable without modifying their internal code._
+
+- **Rule:** Build UI components using Composition and Slot patterns rather than monolithic conditional flags.
+- **Actionable Steps:**
+  - Prefer `children` or explicit slots (e.g., `renderHeader`, `actions`) over passing dozens of boolean props like `isHeaderVisible`, `hasFooter`, etc.
+  - Use polymorphic components (`as` prop) or compound component patterns (e.g., `<Card>`, `<Card.Header>`, `<Card.Body>`) to allow extensibility without editing the base component.
+
+---
+
+## 3. Liskov Substitution Principle (LSP)
+
+> _Sub-components and UI extensions must adhere to expected prop contracts._
+
+- **Rule:** Component extensions must be safely interchangeable without breaking UI expectations or props contracts.
+- **Actionable Steps:**
+  - Extend HTML native attributes properly using TypeScript generics (e.g., `React.ComponentPropsWithoutRef<'button'>`).
+  - Ensure custom UI library overrides (like custom `Button` or `Input`) accept and correctly pass standard HTML/React props (`onClick`, `disabled`, `className`).
+
+---
+
+## 4. Interface Segregation Principle (ISP)
+
+> _Components should only depend on the props they actually use._
+
+- **Rule:** Avoid passing entire monolithic data objects to components that only need 1 or 2 fields.
+- **Actionable Steps:**
+  - Avoid passing whole entities like `<UserProfile user={user} />` if the component only needs the avatar. Use `<UserAvatar src={user.avatarUrl} alt={user.name} />`.
+  - Keep TypeScript `type` / `interface` prop definitions minimal and local to the component.
+
+---
+
+## 5. Dependency Inversion Principle (DIP)
+
+> _Depend on abstractions (React Context, Hooks, Interfaces), not hardcoded services._
+
+- **Rule:** Decouple components from global stores, direct API calls, or specific SDK implementations.
+- **Actionable Steps:**
+  - Inject data fetching functions or dependencies via Custom Hooks, Context Providers, or Props rather than calling `fetch()` or SDK instantiations directly inside deeply nested UI components.
+  - Wrap third-party libraries (e.g., analytics, notification services, HTTP clients) in custom hooks or abstraction layers so they can be swapped easily.
+
+---
+
+## Next.js Architecture Checklist
+
+1. Are Server Components used for data fetching and layout structure?
+2. Are `'use client'` directives placed strictly at the leaves of the component tree?
+3. Is data fetching separated from presentation logic using custom hooks or Server Actions?
+4. Are UI components composable (`children`) instead of heavy with conditional flags?
