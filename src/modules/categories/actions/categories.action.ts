@@ -2,11 +2,17 @@
 
 import { CategorySchema } from "@/modules/shared/utils/schemas";
 import {
+  countChildCategories,
+  countMovementsForCategory,
+  countSeriesForCategory,
   createCategory,
+  deleteBudgetsForCategory,
   deleteCategory,
+  getCategoryById,
   updateCategory,
   upsertUserCategory,
 } from "@/modules/categories/services/categories";
+import { getCategoryDeleteBlockReason } from "@/modules/categories/utils/category-delete.utils";
 import { revalidatePath } from "next/cache";
 import z from "zod";
 import type { ServerActionResponse } from "@/modules/shared/types/global.types";
@@ -82,6 +88,25 @@ export const deleteCategoryForm = async (
   }
 
   try {
+    const category = await getCategoryById(id);
+    const [movementCount, seriesCount, childCount] = await Promise.all([
+      countMovementsForCategory(id),
+      countSeriesForCategory(id),
+      countChildCategories(id),
+    ]);
+
+    const blockReason = getCategoryDeleteBlockReason({
+      isGlobal: category?.is_global ?? false,
+      movementCount,
+      seriesCount,
+      childCount,
+    });
+
+    if (blockReason) {
+      return { success: false, error: blockReason };
+    }
+
+    await deleteBudgetsForCategory(id);
     await deleteCategory(id);
   } catch {
     return {
@@ -91,6 +116,7 @@ export const deleteCategoryForm = async (
   }
 
   revalidatePath("/settings/categories");
+  revalidatePath("/settings/budgets");
   return { success: true };
 };
 

@@ -51,6 +51,42 @@ export const createAccount = async (account: Omit<AccountApi, "id">) => {
   return await supabase.from("account").insert(account).throwOnError();
 };
 
+export const countUserAccounts = async (): Promise<number> => {
+  const supabase = await createClient();
+  const { count } = await supabase
+    .from("account")
+    .select("id", { count: "exact", head: true })
+    .throwOnError();
+
+  return count ?? 0;
+};
+
+export const countMovementsForAccount = async (
+  accountId: number,
+): Promise<number> => {
+  const supabase = await createClient();
+  const { count } = await supabase
+    .from("movement")
+    .select("id", { count: "exact", head: true })
+    .eq("from", accountId)
+    .throwOnError();
+
+  return count ?? 0;
+};
+
+export const countSeriesForAccount = async (
+  accountId: number,
+): Promise<number> => {
+  const supabase = await createClient();
+  const { count } = await supabase
+    .from("movement_series")
+    .select("id", { count: "exact", head: true })
+    .eq("from", accountId)
+    .throwOnError();
+
+  return count ?? 0;
+};
+
 export const deleteAccount = async (accountId: number) => {
   const supabase = await createClient();
   return await supabase

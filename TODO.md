@@ -1,6 +1,6 @@
 # TODO — Savv
 
-> Last audit: 2026-09-01
+> Last audit: 2026-09-02
 
 ---
 
@@ -24,10 +24,10 @@
 
 ## P1 — Safeguards & validation
 
-[] Validate account delete: block if movements exist or if it's the only account
-[] Validate category delete: block if movements or budgets reference it
+[X] Validate account delete: block if movements/series exist or if it's the only account (`account-delete.utils.ts`, `deleteAccountForm`)
+[X] Validate category delete: block if movements/series/subcategories; cascade budgets when clean (`category-delete.utils.ts`, `deleteCategoryForm`)
 [X] UNIQUE constraint on `category_budget(user_id, category_id)` (exists in DB as `category_budget_user_category_unique`)
-[] Guard `deleteCategoryForm` on server for global categories (UI hides button, action does not)
+[X] Guard `deleteCategoryForm` on server for global categories (`globalCategoryError`)
 
 ---
 
@@ -39,8 +39,8 @@
 [] Replace `INCOME_PARENT_ID = 60` magic number with category type/slug (3 files depend on it)
 [] Expand `revalidatePath` to `/movements`, `/analytics`, `/expenses` after movement changes
 [X] Decide fate of `movement.applied` field — used for series: future rows stay `applied=false` until CRON or "Apply today"
-[] Sanitize error messages in actions (no raw DB errors exposed to user)
-[] Pagination on `getMovementsByFilters` (no limit, performance risk with many movements)
+[X] Sanitize error messages in actions (no raw DB errors exposed to user)
+[X] Pagination on `getMovementsByFilters` (no limit, performance risk with many movements)
 
 ---
 
@@ -70,7 +70,6 @@
 [] Expenses/incomes 6-month bar chart (monthly chart exists on `/expenses`)
 [] Add types, icons and colors to accounts (cash, bank, card, savings, investments, crypto)
 [] Obtain message stats from RPC queries
-[] Allow multiple accounts on home
 [X] Home: default scope to all accounts; account filter as optional zoom (not driven by `is_default`)
 
 ---

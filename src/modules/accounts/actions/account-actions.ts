@@ -2,10 +2,14 @@
 import type { ServerActionResponse } from "@/modules/shared/types/global.types";
 import { AccountSchema } from "@/modules/shared/utils/schemas";
 import {
+  countMovementsForAccount,
+  countSeriesForAccount,
+  countUserAccounts,
   createAccount,
   deleteAccount,
   updateAccount,
 } from "@/modules/accounts/services/accounts";
+import { getAccountDeleteBlockReason } from "@/modules/accounts/utils/account-delete.utils";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -64,11 +68,27 @@ export const deleteAccountForm = async (
   accountId: number,
 ): Promise<ServerActionResponse> => {
   try {
+    const [accountCount, movementCount, seriesCount] = await Promise.all([
+      countUserAccounts(),
+      countMovementsForAccount(accountId),
+      countSeriesForAccount(accountId),
+    ]);
+
+    const blockReason = getAccountDeleteBlockReason({
+      accountCount,
+      movementCount,
+      seriesCount,
+    });
+
+    if (blockReason) {
+      return { success: false, error: blockReason };
+    }
+
     await deleteAccount(accountId);
-  } catch (error) {
+  } catch {
     return {
       success: false,
-      error: "Database error: failed to delete account: " + error,
+      error: "defaultError",
     };
   }
 
