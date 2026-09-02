@@ -1,24 +1,31 @@
 import { getTranslations } from "next-intl/server";
 import { Card } from "@/ui/card";
 import { getBalanceTimeline } from "@/modules/analytics/services/analytics";
-import { BalanceTimelineChart } from "./BalanceTimelineChart";
+import type { AnalyticsFiltersParams } from "../types/analytics-filters.types";
+import { accountFilterToRpc } from "../utils/accountFilterToRpc";
+import { deriveTimelineBucket } from "../utils/deriveTimelineBucket";
 import { balanceTimelineAdapter } from "../adapters/balanceTimelineAdapter";
+import { BalanceTimelineChart } from "./BalanceTimelineChart";
 
-export async function BalanceTimeline() {
-  const now = new Date();
-  const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+export async function BalanceTimeline({
+  from,
+  to,
+  accountId,
+}: Readonly<AnalyticsFiltersParams>) {
+  const bucket = deriveTimelineBucket(from, to);
 
   const [t, timeline] = await Promise.all([
     getTranslations("dashboard"),
     getBalanceTimeline({
-      from: thirtyDaysAgo.toISOString(),
-      to: now.toISOString(),
-      bucket: "day",
+      from: from.toISOString(),
+      to: to.toISOString(),
+      bucket,
+      account_filter: accountFilterToRpc(accountId),
     }),
   ]);
 
   const balanceLabel = t("balance");
-  const data = balanceTimelineAdapter(timeline, "day");
+  const data = balanceTimelineAdapter(timeline, bucket);
 
   return (
     <Card className="py-3">

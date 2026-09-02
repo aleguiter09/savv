@@ -13,6 +13,7 @@ import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
 import { getCategoryLabel } from "@/modules/categories/utils/getCategoryLabel";
 import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
 import { getLocale, getTranslations } from "next-intl/server";
+import type { AnalyticsAccountFilter } from "../types/analytics-filters.types";
 
 type CategoryComparisonData = {
   category_id: number;
@@ -45,9 +46,7 @@ function getAvgColor(delta: number) {
 
 export async function CategoryComparisonTable({
   accountId,
-}: {
-  accountId?: string;
-}) {
+}: Readonly<AnalyticsAccountFilter>) {
   const [data, t, locale] = await Promise.all([
     getCategoryComparison(accountId),
     getTranslations("categories"),
@@ -62,9 +61,7 @@ export async function CategoryComparisonTable({
 
   return (
     <Card className="p-4">
-      <h3 className="text-sm font-semibold mb-4">
-        {t("analytics.title")}
-      </h3>
+      <h3 className="text-sm font-semibold mb-4">{t("analytics.title")}</h3>
 
       <Table>
         <TableHeader>

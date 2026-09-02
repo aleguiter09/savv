@@ -1,4 +1,5 @@
 import { createClient } from "@/infra/supabase/server";
+import { accountFilterToRpc } from "../utils/accountFilterToRpc";
 
 export interface BalanceTimelinePoint {
   bucket_date: string;
@@ -38,17 +39,11 @@ export async function getBalanceTimeline({
   }));
 }
 
-function getBucket(range: "7d" | "30d" | "3m" | "1y") {
-  if (range === "7d" || range === "30d") return "day";
-  if (range === "3m") return "week";
-  if (range === "1y") return "month";
-}
-
 export async function getCategoryComparison(accountId?: string) {
   const supabase = await createClient();
 
   const { data, error } = await supabase.rpc("get_category_comparison", {
-    p_account_id: accountId ? Number.parseInt(accountId) : undefined,
+    p_account_id: accountId ? accountFilterToRpc(accountId) : undefined,
   });
 
   if (error) {

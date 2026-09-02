@@ -1,36 +1,70 @@
 import { createClient } from "@/infra/supabase/server";
 import { getAccounts } from "@/modules/accounts/services/accounts";
+import type { AnalyticsFiltersParams } from "@/modules/analytics/types/analytics-filters.types";
 
-export const getNetWorth = async () => {
-  const supabase = await createClient();
-  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-  const accounts = await getAccounts();
+type NetWorthResult = {
+  current: number;
+  periodStart: number;
+};
 
-  if (!accounts || accounts.length === 0) {
-    return { current: 0, pastMonth: 0 };
+type AccountBalanceRow = {
+  from: number;
+  balance: number;
+};
+
+function filterAccountsById(
+  accounts: Awaited<ReturnType<typeof getAccounts>>,
+  accountId: string,
+) {
+  if (!accounts) return [];
+  if (accountId === "all") return accounts;
+  return accounts.filter((acc) => acc.id?.toString() === accountId);
+}
+
+function sumBalancesAtDate(
+  accounts: NonNullable<Awaited<ReturnType<typeof getAccounts>>>,
+  balanceRows: AccountBalanceRow[] | null,
+) {
+  if (!balanceRows) {
+    return accounts.reduce((sum, acc) => sum + Number(acc.balance || 0), 0);
   }
 
-  const { data, error } = await supabase.rpc("get_accounts_balance_at", {
-    target_date: thirtyDaysAgo.toISOString(),
-  });
+  const balanceMap = new Map(balanceRows.map((row) => [row.from, Number(row.balance)]));
 
-  if (error) {
-    console.error("Error obteniendo balance histórico:", error);
-  }
-
-  const current = accounts.reduce(
-    (sum, acc) => sum + Number(acc.balance || 0),
-    0,
-  );
-
-  if (!data) return { current, pastMonth: current };
-
-  const pastMap = new Map(data.map((d) => [d.from, Number(d.balance)]));
-
-  const pastMonth = accounts.reduce((sum, acc) => {
-    const historicalBalance = pastMap.get(acc.id);
+  return accounts.reduce((sum, acc) => {
+    const historicalBalance = balanceMap.get(acc.id);
     return sum + (historicalBalance ?? Number(acc.balance || 0));
   }, 0);
+}
 
-  return { current, pastMonth };
-};
+export async function getNetWorth({
+  from,
+  to,
+  accountId = "all",
+}: AnalyticsFiltersParams): Promise<NetWorthResult> {
+  const supabase = await createClient();
+  const accounts = await getAccounts();
+  const relevantAccounts = filterAccountsById(accounts, accountId);
+
+  if (relevantAccounts.length === 0) {
+    return { current: 0, periodStart: 0 };
+  }
+
+  const [startResult, endResult] = await Promise.all([
+    supabase.rpc("get_accounts_balance_at", { target_date: from.toISOString() }),
+    supabase.rpc("get_accounts_balance_at", { target_date: to.toISOString() }),
+  ]);
+
+  if (startResult.error) {
+    console.error("Error obteniendo balance al inicio del periodo:", startResult.error);
+  }
+
+  if (endResult.error) {
+    console.error("Error obteniendo balance al final del periodo:", endResult.error);
+  }
+
+  return {
+    periodStart: sumBalancesAtDate(relevantAccounts, startResult.data),
+    current: sumBalancesAtDate(relevantAccounts, endResult.data),
+  };
+}

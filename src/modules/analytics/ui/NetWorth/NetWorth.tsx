@@ -1,19 +1,24 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
+import type { AnalyticsFiltersParams } from "../../types/analytics-filters.types";
 import { getNetWorth } from "../../../dashboard/services/net-worth";
 import { Card } from "@/ui/card";
 
-export async function NetWorth() {
-  const [locale, newWorth, t] = await Promise.all([
+export async function NetWorth({
+  from,
+  to,
+  accountId,
+}: Readonly<AnalyticsFiltersParams>) {
+  const [locale, netWorth, t] = await Promise.all([
     getLocale(),
-    getNetWorth(),
+    getNetWorth({ from, to, accountId }),
     getTranslations("dashboard"),
   ]);
 
   const percentChange =
-    newWorth.pastMonth !== 0
-      ? ((newWorth.current - newWorth.pastMonth) /
-          Math.abs(newWorth.pastMonth)) *
+    netWorth.periodStart !== 0
+      ? ((netWorth.current - netWorth.periodStart) /
+          Math.abs(netWorth.periodStart)) *
         100
       : 0;
   const isPositive = percentChange >= 0;
@@ -36,15 +41,15 @@ export async function NetWorth() {
           {changeDisplay}
         </div>
         <p
-          className={`text-4xl font-bold ${newWorth.current < 0 ? "text-red-600" : ""}`}
+          className={`text-4xl font-bold ${netWorth.current < 0 ? "text-red-600" : ""}`}
         >
-          {formatCurrency(locale, newWorth.current, 2)}
+          {formatCurrency(locale, netWorth.current, 2)}
         </p>
 
         <div className="flex gap-1 items-center text-xs text-gray-600">
-          {t("netWorthComparedTo30Days")}
-          <p className={`${newWorth.pastMonth < 0 ? "text-red-600" : ""}`}>
-            ({formatCurrency(locale, newWorth.current - newWorth.pastMonth, 2)})
+          {t("netWorthComparedToPeriodStart")}
+          <p className={`${netWorth.periodStart < 0 ? "text-red-600" : ""}`}>
+            ({formatCurrency(locale, netWorth.current - netWorth.periodStart, 2)})
           </p>
         </div>
       </div>
