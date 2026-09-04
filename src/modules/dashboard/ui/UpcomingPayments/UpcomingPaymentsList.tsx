@@ -18,6 +18,7 @@ export async function UpcomingPaymentsList({ accountId }: Props) {
         <MovementItemDetail
           key={item.id}
           isLast={index === adaptedMovements.length - 1}
+          showDate
           {...item}
         />
       ))}
