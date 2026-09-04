@@ -1,4 +1,4 @@
-import { type MovementApi } from "../types/types";
+import { type MovementApi, type MovementsScope } from "../types/types";
 import { mapMovementApiRow, mapMovementApiRows } from "../adapters/movements.adapter";
 import { getInitialAndFinalDate } from "@/modules/shared/utils/common";
 import { createClient } from "@/infra/supabase/server";
@@ -12,18 +12,24 @@ export const getMovementsByFilters = async (
   categoryId: string,
   page = 1,
   pageSize = 30,
+  scope: MovementsScope = "applied",
 ): Promise<{ data: MovementApi[]; total: number }> => {
   const supabase = await createClient();
   const fromIndex = (page - 1) * pageSize;
   const toIndex = fromIndex + pageSize - 1;
+  const isUpcoming = scope === "upcoming";
 
   let query = supabase
     .from("movement")
     .select(MOVEMENT_SELECT, { count: "exact" })
-    .eq("applied", true)
-    .gte("done_at", from.toISOString())
-    .lte("done_at", to.toISOString())
-    .order("done_at", { ascending: false });
+    .eq("applied", !isUpcoming)
+    .order("done_at", { ascending: isUpcoming });
+
+  if (!isUpcoming) {
+    query = query
+      .gte("done_at", from.toISOString())
+      .lte("done_at", to.toISOString());
+  }
 
   if (accountId !== "all") {
     query = query.eq("from", Number(accountId));

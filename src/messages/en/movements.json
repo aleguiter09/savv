@@ -83,5 +83,8 @@
   "clearFilters": "Clear",
   "pageOf": "Page {page} of {total}",
   "previous": "Previous",
-  "next": "Next"
+  "next": "Next",
+  "scopeApplied": "Movements",
+  "scopeUpcoming": "Upcoming payments",
+  "noUpcomingMovements": "No upcoming payments"
 }

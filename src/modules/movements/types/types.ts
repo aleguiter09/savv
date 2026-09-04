@@ -54,3 +54,5 @@ type IncomeView = BaseMovementView & {
 };
 
 export type MovementView = TransferView | ExpenseView | IncomeView;
+
+export type MovementsScope = "applied" | "upcoming";

@@ -11,6 +11,7 @@ import {
   PaginationItem,
 } from "@/ui/pagination";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import type { MovementsScope } from "../../types/types";
 
 type Props = Readonly<{
   page: number;
@@ -20,6 +21,7 @@ type Props = Readonly<{
   to: Date;
   accountId: string;
   categoryId: string;
+  scope: MovementsScope;
 }>;
 
 function buildHref(
@@ -28,12 +30,19 @@ function buildHref(
   to: Date,
   accountId: string,
   categoryId: string,
+  scope: MovementsScope,
 ) {
   const params = new URLSearchParams();
-  params.set("from", format(from, "yyyy-MM-dd"));
-  params.set("to", format(to, "yyyy-MM-dd"));
   params.set("account", accountId);
   params.set("category", categoryId);
+
+  if (scope === "upcoming") {
+    params.set("scope", "upcoming");
+  } else {
+    params.set("from", format(from, "yyyy-MM-dd"));
+    params.set("to", format(to, "yyyy-MM-dd"));
+  }
+
   if (targetPage > 1) {
     params.set("page", String(targetPage));
   }
@@ -48,6 +57,7 @@ export function MovementsPagination({
   to,
   accountId,
   categoryId,
+  scope,
 }: Props) {
   const t = useTranslations("movements");
   const totalPages = Math.ceil(total / pageSize);
@@ -68,7 +78,14 @@ export function MovementsPagination({
           {page > 1 && (
             <PaginationItem>
               <Link
-                href={buildHref(page - 1, from, to, accountId, categoryId)}
+                href={buildHref(
+                  page - 1,
+                  from,
+                  to,
+                  accountId,
+                  categoryId,
+                  scope,
+                )}
                 className={cn(
                   buttonVariants({ variant: "ghost", size: "default" }),
                   "gap-1 pl-2.5",
@@ -83,7 +100,14 @@ export function MovementsPagination({
           {pages.map((pageNumber) => (
             <PaginationItem key={pageNumber}>
               <Link
-                href={buildHref(pageNumber, from, to, accountId, categoryId)}
+                href={buildHref(
+                  pageNumber,
+                  from,
+                  to,
+                  accountId,
+                  categoryId,
+                  scope,
+                )}
                 aria-current={pageNumber === page ? "page" : undefined}
                 className={cn(
                   buttonVariants({
@@ -99,7 +123,14 @@ export function MovementsPagination({
           {page < totalPages && (
             <PaginationItem>
               <Link
-                href={buildHref(page + 1, from, to, accountId, categoryId)}
+                href={buildHref(
+                  page + 1,
+                  from,
+                  to,
+                  accountId,
+                  categoryId,
+                  scope,
+                )}
                 className={cn(
                   buttonVariants({ variant: "ghost", size: "default" }),
                   "gap-1 pr-2.5",

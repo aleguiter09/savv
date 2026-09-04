@@ -1,8 +1,17 @@
 import type { MovementsPageProps } from "../pages/MovementsPage";
 import type { MovementsDayGroupProps } from "../ui/MovementsList/MovementsDayGroup";
-import type { MovementApi, MovementView } from "../types/types";
+import type { MovementApi, MovementView, MovementsScope } from "../types/types";
 
 export const MOVEMENTS_PAGE_SIZE = 30;
+
+export type ParsedMovementsSearchParams = {
+  accountId: string;
+  categoryId: string;
+  from: Date;
+  to: Date;
+  page: number;
+  scope: MovementsScope;
+};
 
 type JoinField<T> = T | T[] | null | undefined;
 
@@ -37,18 +46,14 @@ export function mapMovementApiRows(
 
 export async function parseMovementsSearchParams(
   searchParams: MovementsPageProps,
-): Promise<{
-  accountId: string;
-  categoryId: string;
-  from: Date;
-  to: Date;
-  page: number;
-}> {
-  const { from, to, account, category, page } = searchParams;
+): Promise<ParsedMovementsSearchParams> {
+  const { from, to, account, category, page, scope } = searchParams;
 
   const accountId = account ?? "all";
   const categoryId = category ?? "all";
   const parsedPage = Math.max(1, Number(page) || 1);
+  const parsedScope: MovementsScope =
+    scope === "upcoming" ? "upcoming" : "applied";
 
   const parsedFrom = from
     ? new Date(from)
@@ -62,11 +67,13 @@ export async function parseMovementsSearchParams(
     from: parsedFrom,
     to: parsedTo,
     page: parsedPage,
+    scope: parsedScope,
   };
 }
 
 export const getMovementsByDay = (
   movements: MovementApi[],
+  order: "asc" | "desc" = "desc",
 ): MovementsDayGroupProps[] => {
   const items: MovementsDayGroupProps[] = [];
 
@@ -85,9 +92,11 @@ export const getMovementsByDay = (
     }
   });
 
-  return items.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
+  return items.sort((a, b) => {
+    const diff =
+      new Date(a.date).getTime() - new Date(b.date).getTime();
+    return order === "asc" ? diff : -diff;
+  });
 };
 
 const adaptAccount = (account?: MovementApi["fullAccount"]) => ({

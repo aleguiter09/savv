@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 import { Card } from "@/ui/card";
@@ -19,11 +20,11 @@ export async function UpcomingPayments({ accountId }: Props) {
       <Suspense key={accountId} fallback={<UpcomingPaymentsSkeleton />}>
         <UpcomingPaymentsList accountId={accountId} />
       </Suspense>
-      {/*<Link href="/movements">
+      <Link href="/movements?scope=upcoming">
         <p className="text-blue-500 font-semibold text-center mb-1 mt-3">
           {t("seeAll")}
         </p>
-      </Link>*/}
+      </Link>
     </Card>
   );
 }

@@ -115,4 +115,18 @@ describe("getMovementsByFilters", () => {
     expect(queryMock.eq).toHaveBeenCalledWith("type", "expense");
     expect(queryMock.range).toHaveBeenCalledWith(0, 29);
   });
+
+  it("queries upcoming movements without date bounds and ascending order", async () => {
+    const from = new Date("2026-08-01T00:00:00.000Z");
+    const to = new Date("2026-08-31T23:59:59.999Z");
+
+    await getMovementsByFilters(from, to, "all", "all", 1, 30, "upcoming");
+
+    expect(queryMock.eq).toHaveBeenCalledWith("applied", false);
+    expect(queryMock.order).toHaveBeenCalledWith("done_at", {
+      ascending: true,
+    });
+    expect(queryMock.gte).not.toHaveBeenCalled();
+    expect(queryMock.lte).not.toHaveBeenCalled();
+  });
 });

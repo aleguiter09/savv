@@ -83,5 +83,8 @@
   "clearFilters": "Limpiar",
   "pageOf": "Página {page} de {total}",
   "previous": "Anterior",
-  "next": "Siguiente"
+  "next": "Siguiente",
+  "scopeApplied": "Movimientos",
+  "scopeUpcoming": "Pagos próximos",
+  "noUpcomingMovements": "No hay pagos próximos"
 }

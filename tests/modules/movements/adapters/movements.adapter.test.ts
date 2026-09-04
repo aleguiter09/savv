@@ -54,4 +54,17 @@ describe("movements.adapter", () => {
     expect(grouped[0]?.date).toBe("2026-08-10");
     expect(grouped[1]?.date).toBe("2026-08-05");
   });
+
+  it("sorts movement groups by date ascending when requested", () => {
+    const grouped = getMovementsByDay(
+      [
+        expenseMovementApi({ id: 1, done_at: "2026-08-05T10:00:00.000Z" }),
+        expenseMovementApi({ id: 2, done_at: "2026-08-10T10:00:00.000Z" }),
+      ],
+      "asc",
+    );
+
+    expect(grouped[0]?.date).toBe("2026-08-05");
+    expect(grouped[1]?.date).toBe("2026-08-10");
+  });
 });

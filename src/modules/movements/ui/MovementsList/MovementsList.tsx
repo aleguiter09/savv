@@ -1,4 +1,5 @@
 import { getMovementsByFilters } from "@/modules/movements/services/movements";
+import type { MovementsScope } from "@/modules/movements/types/types";
 import { getTranslations } from "next-intl/server";
 import {
   getMovementsByDay,
@@ -13,6 +14,7 @@ type Props = Readonly<{
   accountId: string;
   categoryId: string;
   page: number;
+  scope: MovementsScope;
 }>;
 
 export async function MovementsList({
@@ -21,8 +23,10 @@ export async function MovementsList({
   accountId,
   categoryId,
   page,
+  scope,
 }: Props) {
   const t = await getTranslations("movements");
+  const isUpcoming = scope === "upcoming";
   const { data, total } = await getMovementsByFilters(
     from,
     to,
@@ -30,8 +34,9 @@ export async function MovementsList({
     categoryId,
     page,
     MOVEMENTS_PAGE_SIZE,
+    scope,
   );
-  const movements = getMovementsByDay(data);
+  const movements = getMovementsByDay(data, isUpcoming ? "asc" : "desc");
 
   return (
     <div>
@@ -41,7 +46,7 @@ export async function MovementsList({
 
       {movements.length === 0 && (
         <p className="py-2 text-sm text-slate-500 text-center">
-          {t("noMovementsThisPeriod")}
+          {isUpcoming ? t("noUpcomingMovements") : t("noMovementsThisPeriod")}
         </p>
       )}
 
@@ -53,6 +58,7 @@ export async function MovementsList({
         to={to}
         accountId={accountId}
         categoryId={categoryId}
+        scope={scope}
       />
     </div>
   );

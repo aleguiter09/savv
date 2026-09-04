@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import type { MovementsScope } from "../../types/types";
 import { MovementsList } from "./MovementsList";
 import { MovementsListSkeleton } from "./MovementsListSkeleton";
 
@@ -8,6 +9,7 @@ type Props = Readonly<{
   accountId: string;
   categoryId: string;
   page: number;
+  scope: MovementsScope;
 }>;
 
 export async function MovementsByDate({
@@ -16,10 +18,11 @@ export async function MovementsByDate({
   accountId,
   categoryId,
   page,
+  scope,
 }: Props) {
   return (
     <Suspense
-      key={`${from.getTime()}-${to.getTime()}-${accountId}-${categoryId}-${page}`}
+      key={`${scope}-${from.getTime()}-${to.getTime()}-${accountId}-${categoryId}-${page}`}
       fallback={<MovementsListSkeleton />}
     >
       <MovementsList
@@ -28,6 +31,7 @@ export async function MovementsByDate({
         accountId={accountId}
         categoryId={categoryId}
         page={page}
+        scope={scope}
       />
     </Suspense>
   );
