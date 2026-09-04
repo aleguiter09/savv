@@ -15,7 +15,7 @@ export async function MovementsDayGroup({
   date,
   items = [],
   amount,
-}: MovementsDayGroupProps) {
+}: Readonly<MovementsDayGroupProps>) {
   const [format, locale] = await Promise.all([getFormatter(), getLocale()]);
 
   const displayTotal = formatCurrency(locale, amount, 2);
@@ -42,13 +42,8 @@ export async function MovementsDayGroup({
         </span>
       </div>
       <div className="flex flex-col">
-        {items.map((item, index) => (
-          <MovementRow
-            key={item.id}
-            {...item}
-            showDate={false}
-            isLast={index === items.length - 1}
-          />
+        {items.map((item) => (
+          <MovementRow {...item} key={item.id} />
         ))}
       </div>
     </Card>

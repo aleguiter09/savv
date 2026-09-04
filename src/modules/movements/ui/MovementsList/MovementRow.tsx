@@ -6,11 +6,6 @@ import { cn } from "@/modules/shared/utils/cn";
 import type { MovementView } from "../../types/types";
 import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
 
-type Props = MovementView & {
-  showDate?: boolean;
-  isLast?: boolean;
-};
-
 export async function MovementRow({
   id,
   doneAt,
@@ -18,9 +13,7 @@ export async function MovementRow({
   description,
   type,
   category,
-  showDate = false,
-  isLast = false,
-}: Props) {
+}: MovementView) {
   const [t, format, locale] = await Promise.all([
     getTranslations("categories"),
     getFormatter(),
@@ -44,10 +37,9 @@ export async function MovementRow({
   return (
     <Link
       href={`/movements/${id}`}
-      className={cn(
-        "flex items-center justify-between px-1 py-2 focus:ring-2 focus:ring-inset focus:ring-blue-600",
-        !isLast && "border-b border-gray-300",
-      )}
+      className={
+        "flex items-center justify-between px-1 py-2 focus:ring-2 focus:ring-inset focus:ring-blue-600 border-gray-300 border-b last:border-none"
+      }
     >
       <div className="flex items-center gap-3">
         <CategoryIcon icon={icon} color={color} />
@@ -69,9 +61,7 @@ export async function MovementRow({
         >
           {displayAmount}
         </span>
-        {showDate && (
-          <span className="text-xs text-gray-500">{displayDate}</span>
-        )}
+        <span className="text-xs text-gray-500">{displayDate}</span>
       </div>
     </Link>
   );

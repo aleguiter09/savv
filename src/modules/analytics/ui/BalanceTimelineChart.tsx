@@ -89,7 +89,7 @@ export function BalanceTimelineChart({
   }
 
   return (
-    <div className="h-72 w-full px-4 pb-1">
+    <div className="h-72 w-full px-2 pb-1">
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           data={data}
@@ -121,7 +121,10 @@ export function BalanceTimelineChart({
           <Tooltip
             cursor={{ stroke: "#94a3b8", strokeWidth: 1 }}
             content={
-              <BalanceTimelineTooltip balanceLabel={balanceLabel} locale={locale} />
+              <BalanceTimelineTooltip
+                balanceLabel={balanceLabel}
+                locale={locale}
+              />
             }
           />
           <Area
