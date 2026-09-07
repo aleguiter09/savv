@@ -1,4 +1,9 @@
 import { createClient } from "@/infra/supabase/server";
+import {
+  aggregateMonthlyCashflow,
+  getMonthlyCashflowRange,
+} from "../adapters/monthlyCashflowAdapter";
+import type { MonthlyCashflowRow } from "../types/monthly-cashflow.types";
 import { accountFilterToRpc } from "../utils/accountFilterToRpc";
 
 export interface BalanceTimelinePoint {
@@ -52,4 +57,34 @@ export async function getCategoryComparison(accountId?: string) {
   }
 
   return data;
+}
+
+export async function getMonthlyCashflow(
+  accountId = "all",
+  months = 6,
+): Promise<MonthlyCashflowRow[]> {
+  const supabase = await createClient();
+  const { from, to } = getMonthlyCashflowRange(months);
+  const accountFilter = accountFilterToRpc(accountId);
+
+  let query = supabase
+    .from("movement")
+    .select("amount, type, done_at")
+    .eq("applied", true)
+    .in("type", ["income", "expense"])
+    .gte("done_at", from)
+    .lte("done_at", to);
+
+  if (accountFilter !== undefined) {
+    query = query.eq("from", accountFilter);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error("Error fetching monthly cashflow:", error);
+    throw new Error("Error fetching monthly cashflow");
+  }
+
+  return aggregateMonthlyCashflow(data ?? [], months);
 }

@@ -24,5 +24,8 @@
   "accountsBalanceTimeline": "Accounts balance evolution",
   "noBalanceTimelineData": "There are not enough movements to display the evolution",
   "netWorthTitle": "Net worth",
-  "netWorthComparedToPeriodStart": "vs period start"
+  "netWorthComparedToPeriodStart": "vs period start",
+  "monthlyCashflowTitle": "Income and expenses (last 6 months)",
+  "month": "Month",
+  "difference": "Difference"
 }

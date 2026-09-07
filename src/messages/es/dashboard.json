@@ -24,5 +24,8 @@
   "accountsBalanceTimeline": "Evolución del balance de cuentas",
   "noBalanceTimelineData": "No hay movimientos suficientes para mostrar la evolución",
   "netWorthTitle": "Patrimonio neto",
-  "netWorthComparedToPeriodStart": "vs inicio del periodo"
+  "netWorthComparedToPeriodStart": "vs inicio del periodo",
+  "monthlyCashflowTitle": "Ingresos y gastos (últimos 6 meses)",
+  "month": "Mes",
+  "difference": "Diferencia"
 }
