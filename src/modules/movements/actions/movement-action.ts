@@ -5,7 +5,10 @@ import {
   insertMovement,
   updateMovement,
 } from "@/modules/movements/services/movements";
-import { applyMovementNow } from "@/modules/movements/services/movement-series";
+import {
+  applyMovementNow,
+  cancelSeries,
+} from "@/modules/movements/services/movement-series";
 import { MovementSchema } from "@/modules/shared/utils/schemas";
 import { z } from "zod";
 import { ServerActionResponse } from "@/modules/shared/types/global.types";
@@ -33,6 +36,7 @@ export const createMovementForm = async (
   }
 
   revalidatePath("/home");
+  revalidatePath("/analytics");
   return { success: true };
 };
 
@@ -54,6 +58,7 @@ export const deleteMovementForm = async (
 
   revalidatePath("/home");
   revalidatePath("/movements");
+  revalidatePath("/analytics");
   return { success: true };
 };
 
@@ -86,6 +91,7 @@ export const updateMovementForm = async (
   }
 
   revalidatePath("/home");
+  revalidatePath("/analytics");
   return { success: true };
 };
 
@@ -102,5 +108,28 @@ export const applyMovementNowForm = async (
   }
 
   revalidatePath("/home");
+  revalidatePath("/analytics");
+  return { success: true };
+};
+
+export const cancelSeriesForm = async (
+  seriesId: number,
+): Promise<ServerActionResponse> => {
+  if (!seriesId) {
+    return { success: false, error: "validationError" };
+  }
+
+  try {
+    await cancelSeries(seriesId);
+  } catch {
+    return {
+      success: false,
+      error: "cancelSeriesDatabaseError",
+    };
+  }
+
+  revalidatePath("/home");
+  revalidatePath("/movements");
+  revalidatePath("/analytics");
   return { success: true };
 };

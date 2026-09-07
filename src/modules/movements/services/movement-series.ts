@@ -315,3 +315,177 @@ export async function getSeriesDetailContext(
   };
 }
 
+export type SeriesSummaryCategory = {
+  id: string;
+  title: string;
+  icon: string;
+  color: string;
+  isGlobal: boolean;
+  isCustomName: boolean;
+};
+
+export type SeriesSummary = {
+  id: number;
+  kind: "recurring" | "installment";
+  frequency: SeriesDetailContext["frequency"];
+  description: string;
+  amount: number;
+  totalAmount: number | null;
+  installmentCount: number | null;
+  paidCount: number;
+  remainingAmount: number;
+  endDate: string | null;
+  accountName: string;
+  category: SeriesSummaryCategory;
+  nextPending: {
+    id: number;
+    doneAt: string;
+    amount: number;
+    installmentIndex: number | null;
+  } | null;
+};
+
+type JoinField<T> = T | T[] | null | undefined;
+
+function unwrapJoin<T>(value: JoinField<T>): T | undefined {
+  if (Array.isArray(value)) {
+    return value[0];
+  }
+  return value ?? undefined;
+}
+
+export async function getActiveSeriesSummaries(
+  kind: "recurring" | "installment",
+  accountId: string,
+): Promise<SeriesSummary[]> {
+  const supabase = await createClient();
+
+  let query = supabase
+    .from("movement_series")
+    .select(
+      `id, kind, frequency, amount, total_amount, installment_count, description, end_date, status,
+       fullCategory:effective_categories(id, is_global, is_custom_name, title, icon, color),
+       fullAccount:from(id, name)`,
+    )
+    .eq("kind", kind)
+    .eq("status", "active")
+    .order("start_date", { ascending: true });
+
+  if (accountId !== "all") {
+    query = query.eq("from", Number(accountId));
+  }
+
+  const { data: seriesRows, error: seriesError } = await query;
+
+  if (seriesError) {
+    throw seriesError;
+  }
+
+  if (!seriesRows?.length) {
+    return [];
+  }
+
+  const seriesIds = seriesRows.map((row) => row.id);
+
+  const { data: movements, error: movementsError } = await supabase
+    .from("movement")
+    .select("id, series_id, amount, done_at, applied, installment_index")
+    .in("series_id", seriesIds)
+    .order("done_at", { ascending: true })
+    .order("installment_index", { ascending: true });
+
+  if (movementsError) {
+    throw movementsError;
+  }
+
+  const bySeries = new Map<number, typeof movements>();
+  for (const movement of movements ?? []) {
+    if (movement.series_id == null) continue;
+    const list = bySeries.get(movement.series_id) ?? [];
+    list.push(movement);
+    bySeries.set(movement.series_id, list);
+  }
+
+  const summaries: SeriesSummary[] = seriesRows.map((row) => {
+    const occurrences = bySeries.get(row.id) ?? [];
+    const paidCount = occurrences.filter((o) => o.applied).length;
+    const pending = occurrences.filter((o) => !o.applied);
+    const remainingAmount = pending.reduce(
+      (sum, o) => sum + Math.abs(o.amount),
+      0,
+    );
+    const next = pending[0] ?? null;
+    const category = unwrapJoin(row.fullCategory);
+    const account = unwrapJoin(row.fullAccount);
+
+    return {
+      id: row.id,
+      kind: row.kind as SeriesSummary["kind"],
+      frequency: row.frequency as SeriesSummary["frequency"],
+      description: row.description,
+      amount: Math.abs(row.amount),
+      totalAmount: row.total_amount,
+      installmentCount: row.installment_count,
+      paidCount,
+      remainingAmount,
+      endDate: row.end_date,
+      accountName: account?.name ?? "",
+      category: {
+        id: category?.id?.toString() ?? "",
+        title: category?.title ?? "",
+        icon: category?.icon ?? "transfer",
+        color: category?.color ?? "gray",
+        isGlobal: category?.is_global ?? false,
+        isCustomName: category?.is_custom_name ?? false,
+      },
+      nextPending: next
+        ? {
+            id: next.id,
+            doneAt: next.done_at,
+            amount: Math.abs(next.amount),
+            installmentIndex: next.installment_index,
+          }
+        : null,
+    };
+  });
+
+  return summaries.sort((a, b) => {
+    const aDate = a.nextPending?.doneAt ?? "";
+    const bDate = b.nextPending?.doneAt ?? "";
+    return aDate.localeCompare(bDate);
+  });
+}
+
+export async function cancelSeries(seriesId: number) {
+  const supabase = await createClient();
+
+  const { data: pending, error: pendingError } = await supabase
+    .from("movement")
+    .select("id")
+    .eq("series_id", seriesId)
+    .eq("applied", false);
+
+  if (pendingError) {
+    throw pendingError;
+  }
+
+  for (const row of pending ?? []) {
+    const { error } = await supabase.rpc("delete_movement_with_balance", {
+      p_movement_id: row.id,
+    });
+    if (error) {
+      throw error;
+    }
+  }
+
+  const { error: seriesError } = await supabase
+    .from("movement_series")
+    .update({ status: "completed", updated_at: new Date().toISOString() })
+    .eq("id", seriesId)
+    .eq("status", "active");
+
+  if (seriesError) {
+    throw seriesError;
+  }
+}
+

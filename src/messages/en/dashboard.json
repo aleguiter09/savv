@@ -24,5 +24,21 @@
   "accountsBalanceTimeline": "Accounts balance evolution",
   "noBalanceTimelineData": "There are not enough movements to display the evolution",
   "netWorthTitle": "Net worth",
-  "netWorthComparedToPeriodStart": "vs period start"
+  "netWorthComparedToPeriodStart": "vs period start",
+  "installmentsTitle": "Future payments (installments)",
+  "installmentsDescription": "Review progress and remaining balance on your installment plans",
+  "installmentsRemaining": "Total remaining",
+  "noInstallments": "You have no active installments",
+  "recurringTitle": "Recurring payments",
+  "recurringDescription": "Manage active subscriptions and fixed expenses",
+  "recurringMonthlyEstimate": "Monthly estimate",
+  "noRecurring": "You have no active recurring payments",
+  "nextPayment": "Next",
+  "endsOn": "Ends",
+  "editSeries": "Edit",
+  "cancelSeries": "Stop",
+  "cancelSeriesTitle": "Stop recurring payment?",
+  "cancelSeriesDescription": "\"{description}\" will be stopped and pending payments removed. Applied payments stay unchanged.",
+  "cancelSeriesConfirm": "Stop series",
+  "cancelSeriesSuccess": "Recurring payment stopped"
 }

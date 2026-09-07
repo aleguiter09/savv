@@ -24,5 +24,21 @@
   "accountsBalanceTimeline": "Evolución del balance de cuentas",
   "noBalanceTimelineData": "No hay movimientos suficientes para mostrar la evolución",
   "netWorthTitle": "Patrimonio neto",
-  "netWorthComparedToPeriodStart": "vs inicio del periodo"
+  "netWorthComparedToPeriodStart": "vs inicio del periodo",
+  "installmentsTitle": "Pagos futuros (cuotas)",
+  "installmentsDescription": "Revisa el avance y el saldo pendiente de tus planes a plazos",
+  "installmentsRemaining": "Total pendiente",
+  "noInstallments": "No tienes cuotas activas",
+  "recurringTitle": "Pagos recurrentes",
+  "recurringDescription": "Gestiona suscripciones y gastos fijos activos",
+  "recurringMonthlyEstimate": "Estimado mensual",
+  "noRecurring": "No tienes pagos recurrentes activos",
+  "nextPayment": "Próximo",
+  "endsOn": "Termina",
+  "editSeries": "Editar",
+  "cancelSeries": "Detener",
+  "cancelSeriesTitle": "¿Detener pago recurrente?",
+  "cancelSeriesDescription": "Se detendrá \"{description}\" y se eliminarán los pagos pendientes. Los ya aplicados no se modifican.",
+  "cancelSeriesConfirm": "Detener serie",
+  "cancelSeriesSuccess": "Pago recurrente detenido"
 }
