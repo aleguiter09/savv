@@ -25,7 +25,14 @@
   "noBalanceTimelineData": "There are not enough movements to display the evolution",
   "netWorthTitle": "Net worth",
   "netWorthComparedToPeriodStart": "vs period start",
-<<<<<<< HEAD
+  "monthlyCashflowTitle": "Income and expenses",
+  "month": "Month",
+  "difference": "Difference",
+  "savings": "Savings",
+  "savingsRate": "%",
+  "average": "Average",
+  "monthsSelectLabel": "Cashflow period",
+  "monthsOption": "{count} months",
   "commitmentsTitle": "Future commitments",
   "commitmentsDescription": "Installments, recurring and upcoming payments in one place",
   "commitmentsTabInstallments": "Installments",
@@ -36,14 +43,4 @@
   "recurringMonthlyEstimate": "Monthly estimate",
   "noRecurring": "You have no active recurring payments",
   "nextPayment": "Next"
-=======
-  "monthlyCashflowTitle": "Income and expenses",
-  "month": "Month",
-  "difference": "Difference",
-  "savings": "Savings",
-  "savingsRate": "%",
-  "average": "Average",
-  "monthsSelectLabel": "Cashflow period",
-  "monthsOption": "{count} months"
->>>>>>> origin/master
 }

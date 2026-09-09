@@ -4,11 +4,8 @@ import type { AnalyticsPageProps } from "../types/analytics-filters.types";
 import { AnalyticsFilters } from "../ui/AnalyticsFilters/AnalyticsFilters";
 import { BalanceTimeline } from "../ui/BalanceTimeline";
 import { CategoryComparisonTable } from "../ui/CategoryAverages";
-<<<<<<< HEAD
 import { FutureCommitmentsWidget } from "../ui/FutureCommitments/FutureCommitmentsWidget";
-=======
 import { MonthlyCashflowTable } from "../ui/MonthlyCashflowTable";
->>>>>>> origin/master
 import { NetWorth } from "../ui/NetWorth/NetWorth";
 
 export type { AnalyticsPageProps };
