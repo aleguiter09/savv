@@ -76,6 +76,7 @@ export const getLastMovements = async (
 
 export const getUpcomingMovements = async (
   accountId: string,
+  limit = 5,
 ): Promise<MovementApi[]> => {
   const supabase = await createClient();
 
@@ -84,7 +85,7 @@ export const getUpcomingMovements = async (
     .select(MOVEMENT_SELECT)
     .eq("applied", false)
     .order("done_at", { ascending: true })
-    .limit(5);
+    .limit(limit);
 
   if (accountId !== "all") {
     query = query.eq("from", Number(accountId));

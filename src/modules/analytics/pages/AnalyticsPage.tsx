@@ -4,9 +4,8 @@ import type { AnalyticsPageProps } from "../types/analytics-filters.types";
 import { AnalyticsFilters } from "../ui/AnalyticsFilters/AnalyticsFilters";
 import { BalanceTimeline } from "../ui/BalanceTimeline";
 import { CategoryComparisonTable } from "../ui/CategoryAverages";
-import { InstallmentsWidget } from "../ui/InstallmentsWidget/InstallmentsWidget";
+import { FutureCommitmentsWidget } from "../ui/FutureCommitments/FutureCommitmentsWidget";
 import { NetWorth } from "../ui/NetWorth/NetWorth";
-import { RecurringPaymentsWidget } from "../ui/RecurringPaymentsWidget/RecurringPaymentsWidget";
 
 export type { AnalyticsPageProps };
 
@@ -33,10 +32,7 @@ export async function AnalyticsPage(props: Readonly<AnalyticsPageProps>) {
         </div>
       </div>
 
-      <div className="flex flex-col gap-4 lg:flex-row lg:gap-6">
-        <InstallmentsWidget accountId={params.accountId} />
-        <RecurringPaymentsWidget accountId={params.accountId} />
-      </div>
+      <FutureCommitmentsWidget accountId={params.accountId} />
     </section>
   );
 }
