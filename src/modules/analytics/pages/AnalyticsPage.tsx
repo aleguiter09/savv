@@ -4,7 +4,11 @@ import type { AnalyticsPageProps } from "../types/analytics-filters.types";
 import { AnalyticsFilters } from "../ui/AnalyticsFilters/AnalyticsFilters";
 import { BalanceTimeline } from "../ui/BalanceTimeline";
 import { CategoryComparisonTable } from "../ui/CategoryAverages";
+<<<<<<< HEAD
 import { FutureCommitmentsWidget } from "../ui/FutureCommitments/FutureCommitmentsWidget";
+=======
+import { MonthlyCashflowTable } from "../ui/MonthlyCashflowTable";
+>>>>>>> origin/master
 import { NetWorth } from "../ui/NetWorth/NetWorth";
 
 export type { AnalyticsPageProps };
@@ -27,7 +31,11 @@ export async function AnalyticsPage(props: Readonly<AnalyticsPageProps>) {
           <NetWorth {...params} />
           <BalanceTimeline {...params} />
         </div>
-        <div className="flex-1">
+        <div className="flex-1 flex flex-col gap-4">
+          <MonthlyCashflowTable
+            accountId={params.accountId}
+            months={params.months}
+          />
           <CategoryComparisonTable accountId={params.accountId} />
         </div>
       </div>

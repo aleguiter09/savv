@@ -25,6 +25,7 @@
   "noBalanceTimelineData": "No hay movimientos suficientes para mostrar la evolución",
   "netWorthTitle": "Patrimonio neto",
   "netWorthComparedToPeriodStart": "vs inicio del periodo",
+<<<<<<< HEAD
   "commitmentsTitle": "Compromisos futuros",
   "commitmentsDescription": "Cuotas, recurrentes y próximos pagos en un solo lugar",
   "commitmentsTabInstallments": "Cuotas",
@@ -35,4 +36,14 @@
   "recurringMonthlyEstimate": "Estimado mensual",
   "noRecurring": "No tienes pagos recurrentes activos",
   "nextPayment": "Próximo"
+=======
+  "monthlyCashflowTitle": "Ingresos y gastos",
+  "month": "Mes",
+  "difference": "Diferencia",
+  "savings": "Ahorro",
+  "savingsRate": "%",
+  "average": "Promedio",
+  "monthsSelectLabel": "Periodo del cashflow",
+  "monthsOption": "{count} meses"
+>>>>>>> origin/master
 }

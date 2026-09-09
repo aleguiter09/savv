@@ -5,11 +5,14 @@ export type Props = Readonly<{
     from?: string;
     to?: string;
     account?: string;
+    months?: string;
   }>;
 }>;
 
 export default async function AnayliticsPage({ searchParams }: Props) {
-  const { from, to, account } = await searchParams;
+  const { from, to, account, months } = await searchParams;
 
-  return <AnalyticsPage from={from} to={to} account={account} />;
+  return (
+    <AnalyticsPage from={from} to={to} account={account} months={months} />
+  );
 }
