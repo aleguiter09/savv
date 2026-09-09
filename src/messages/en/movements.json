@@ -86,5 +86,6 @@
   "next": "Next",
   "scopeApplied": "Movements",
   "scopeUpcoming": "Upcoming payments",
-  "noUpcomingMovements": "No upcoming payments"
+  "noUpcomingMovements": "No upcoming payments",
+  "cancelSeriesDatabaseError": "Could not cancel the series. Please try again."
 }

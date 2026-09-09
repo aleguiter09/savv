@@ -32,5 +32,15 @@
   "savingsRate": "%",
   "average": "Average",
   "monthsSelectLabel": "Cashflow period",
-  "monthsOption": "{count} months"
+  "monthsOption": "{count} months",
+  "commitmentsTitle": "Future commitments",
+  "commitmentsDescription": "Installments, recurring and upcoming payments in one place",
+  "commitmentsTabInstallments": "Installments",
+  "commitmentsTabRecurring": "Recurring",
+  "commitmentsTabUpcoming": "Upcoming",
+  "installmentsRemaining": "Total remaining",
+  "noInstallments": "You have no active installments",
+  "recurringMonthlyEstimate": "Monthly estimate",
+  "noRecurring": "You have no active recurring payments",
+  "nextPayment": "Next"
 }

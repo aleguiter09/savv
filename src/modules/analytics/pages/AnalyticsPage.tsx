@@ -4,6 +4,7 @@ import type { AnalyticsPageProps } from "../types/analytics-filters.types";
 import { AnalyticsFilters } from "../ui/AnalyticsFilters/AnalyticsFilters";
 import { BalanceTimeline } from "../ui/BalanceTimeline";
 import { CategoryComparisonTable } from "../ui/CategoryAverages";
+import { FutureCommitmentsWidget } from "../ui/FutureCommitments/FutureCommitmentsWidget";
 import { MonthlyCashflowTable } from "../ui/MonthlyCashflowTable";
 import { NetWorth } from "../ui/NetWorth/NetWorth";
 
@@ -35,6 +36,8 @@ export async function AnalyticsPage(props: Readonly<AnalyticsPageProps>) {
           <CategoryComparisonTable accountId={params.accountId} />
         </div>
       </div>
+
+      <FutureCommitmentsWidget accountId={params.accountId} />
     </section>
   );
 }

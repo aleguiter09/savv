@@ -32,5 +32,15 @@
   "savingsRate": "%",
   "average": "Promedio",
   "monthsSelectLabel": "Periodo del cashflow",
-  "monthsOption": "{count} meses"
+  "monthsOption": "{count} meses",
+  "commitmentsTitle": "Compromisos futuros",
+  "commitmentsDescription": "Cuotas, recurrentes y próximos pagos en un solo lugar",
+  "commitmentsTabInstallments": "Cuotas",
+  "commitmentsTabRecurring": "Recurrentes",
+  "commitmentsTabUpcoming": "Próximos",
+  "installmentsRemaining": "Total pendiente",
+  "noInstallments": "No tienes cuotas activas",
+  "recurringMonthlyEstimate": "Estimado mensual",
+  "noRecurring": "No tienes pagos recurrentes activos",
+  "nextPayment": "Próximo"
 }
