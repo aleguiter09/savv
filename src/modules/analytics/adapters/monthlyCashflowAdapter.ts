@@ -1,6 +1,7 @@
 import type {
   MonthlyCashflowMovement,
   MonthlyCashflowRow,
+  MonthlyCashflowSummary,
 } from "../types/monthly-cashflow.types";
 
 function toMonthKey(date: Date): string {
@@ -9,7 +10,10 @@ function toMonthKey(date: Date): string {
   return `${year}-${month}`;
 }
 
-function buildEmptyMonths(months: number, now = new Date()): MonthlyCashflowRow[] {
+function buildEmptyMonths(
+  months: number,
+  now = new Date(),
+): MonthlyCashflowRow[] {
   const rows: MonthlyCashflowRow[] = [];
 
   for (let offset = 0; offset < months; offset += 1) {
@@ -31,15 +35,14 @@ function buildEmptyMonths(months: number, now = new Date()): MonthlyCashflowRow[
 
 function withDifference(income: number, expenses: number) {
   const difference = income - expenses;
-  const differencePercent =
-    income > 0 ? (difference / income) * 100 : null;
+  const differencePercent = income > 0 ? (difference / income) * 100 : null;
 
   return { difference, differencePercent };
 }
 
 export function aggregateMonthlyCashflow(
   movements: MonthlyCashflowMovement[],
-  months = 6,
+  months = 12,
   now = new Date(),
 ): MonthlyCashflowRow[] {
   const rowsByMonth = new Map(
@@ -73,7 +76,33 @@ export function aggregateMonthlyCashflow(
   });
 }
 
-export function getMonthlyCashflowRange(months = 6, now = new Date()) {
+export function summarizeMonthlyCashflow(
+  rows: MonthlyCashflowRow[],
+): MonthlyCashflowSummary {
+  if (rows.length === 0) {
+    return {
+      income: 0,
+      expenses: 0,
+      difference: 0,
+      differencePercent: null,
+    };
+  }
+
+  const income =
+    rows.reduce((sum, row) => sum + row.income, 0) / rows.length;
+  const expenses =
+    rows.reduce((sum, row) => sum + row.expenses, 0) / rows.length;
+  const { difference, differencePercent } = withDifference(income, expenses);
+
+  return {
+    income,
+    expenses,
+    difference,
+    differencePercent,
+  };
+}
+
+export function getMonthlyCashflowRange(months = 12, now = new Date()) {
   const start = new Date(
     Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - (months - 1), 1),
   );

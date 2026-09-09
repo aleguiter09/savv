@@ -1,8 +1,10 @@
 import { createClient } from "@/infra/supabase/server";
+import { parseCashflowMonths } from "../adapters/analytics.adapter";
 import {
   aggregateMonthlyCashflow,
   getMonthlyCashflowRange,
 } from "../adapters/monthlyCashflowAdapter";
+import type { CashflowMonthsOption } from "../types/analytics-filters.types";
 import type { MonthlyCashflowRow } from "../types/monthly-cashflow.types";
 import { accountFilterToRpc } from "../utils/accountFilterToRpc";
 
@@ -61,10 +63,11 @@ export async function getCategoryComparison(accountId?: string) {
 
 export async function getMonthlyCashflow(
   accountId = "all",
-  months = 6,
+  months: CashflowMonthsOption | number = 12,
 ): Promise<MonthlyCashflowRow[]> {
+  const validatedMonths = parseCashflowMonths(String(months));
   const supabase = await createClient();
-  const { from, to } = getMonthlyCashflowRange(months);
+  const { from, to } = getMonthlyCashflowRange(validatedMonths);
   const accountFilter = accountFilterToRpc(accountId);
 
   let query = supabase
@@ -86,5 +89,5 @@ export async function getMonthlyCashflow(
     throw new Error("Error fetching monthly cashflow");
   }
 
-  return aggregateMonthlyCashflow(data ?? [], months);
+  return aggregateMonthlyCashflow(data ?? [], validatedMonths);
 }

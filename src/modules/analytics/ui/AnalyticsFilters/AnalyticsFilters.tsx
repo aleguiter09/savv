@@ -8,9 +8,9 @@ import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/ui/button";
 import { DateRangePicker } from "@/ui/date-picker";
 import { AccountFilterSelect } from "@/modules/shared/ui/common/AccountFilterSelect";
-import type { AnalyticsFiltersParams } from "../../types/analytics-filters.types";
+import type { AnalyticsPageParams } from "../../types/analytics-filters.types";
 
-type Props = Readonly<AnalyticsFiltersParams>;
+type Props = Readonly<AnalyticsPageParams>;
 
 function getDefaultFrom() {
   return new Date(new Date().getFullYear(), new Date().getMonth(), 1);
@@ -20,7 +20,7 @@ function getDefaultTo() {
   return new Date();
 }
 
-export function AnalyticsFilters({ from, to, accountId }: Props) {
+export function AnalyticsFilters({ from, to, accountId, months }: Props) {
   const locale = useLocale();
   const t = useTranslations("movements");
   const pathname = usePathname();
@@ -54,6 +54,7 @@ export function AnalyticsFilters({ from, to, accountId }: Props) {
     params.set("from", format(draftFrom, "yyyy-MM-dd"));
     params.set("to", format(draftTo, "yyyy-MM-dd"));
     params.set("account", draftAccountId);
+    params.set("months", String(months));
     replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
 

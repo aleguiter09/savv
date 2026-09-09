@@ -25,7 +25,12 @@
   "noBalanceTimelineData": "There are not enough movements to display the evolution",
   "netWorthTitle": "Net worth",
   "netWorthComparedToPeriodStart": "vs period start",
-  "monthlyCashflowTitle": "Income and expenses (last 6 months)",
+  "monthlyCashflowTitle": "Income and expenses",
   "month": "Month",
-  "difference": "Difference"
+  "difference": "Difference",
+  "savings": "Savings",
+  "savingsRate": "%",
+  "average": "Average",
+  "monthsSelectLabel": "Cashflow period",
+  "monthsOption": "{count} months"
 }

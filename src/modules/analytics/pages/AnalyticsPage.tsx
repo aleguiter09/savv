@@ -28,7 +28,10 @@ export async function AnalyticsPage(props: Readonly<AnalyticsPageProps>) {
           <BalanceTimeline {...params} />
         </div>
         <div className="flex-1 flex flex-col gap-4">
-          <MonthlyCashflowTable accountId={params.accountId} />
+          <MonthlyCashflowTable
+            accountId={params.accountId}
+            months={params.months}
+          />
           <CategoryComparisonTable accountId={params.accountId} />
         </div>
       </div>
