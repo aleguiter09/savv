@@ -3,6 +3,7 @@ import { getFormatter, getLocale, getTranslations } from "next-intl/server";
 import { getCategoryLabel } from "@/modules/categories/utils/getCategoryLabel";
 import { CategoryIcon } from "@/modules/shared/ui/common/CategoryIcon";
 import { cn } from "@/modules/shared/utils/cn";
+import { getMovementAmountClass } from "@/modules/shared/utils/movement-amount-class";
 import type { MovementView } from "../../types/types";
 import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
 
@@ -38,30 +39,23 @@ export async function MovementRow({
     <Link
       href={`/movements/${id}`}
       className={
-        "flex items-center justify-between px-1 py-2 focus:ring-2 focus:ring-inset focus:ring-blue-600 border-gray-300 border-b last:border-none"
+        "flex items-center justify-between px-1 py-2 focus:ring-2 focus:ring-inset focus:ring-ring border-border border-b last:border-none"
       }
     >
       <div className="flex items-center gap-3">
         <CategoryIcon icon={icon} color={color} />
         <div className="flex flex-col">
           <span className="font-medium text-sm">{description}</span>
-          <span className="text-xs text-gray-500">
+          <span className="text-xs text-muted-foreground">
             {getCategoryLabel(title, isGlobal, isCustomName, t)}
           </span>
         </div>
       </div>
       <div className="flex flex-col gap-1 text-right">
-        <span
-          className={cn(
-            "font-medium text-sm",
-            type === "expense" && "text-red-500",
-            type === "income" && "text-green-500",
-            type === "transfer" && "text-gray-500",
-          )}
-        >
+        <span className={cn("font-medium text-sm", getMovementAmountClass(type))}>
           {displayAmount}
         </span>
-        <span className="text-xs text-gray-500">{displayDate}</span>
+        <span className="text-xs text-muted-foreground">{displayDate}</span>
       </div>
     </Link>
   );

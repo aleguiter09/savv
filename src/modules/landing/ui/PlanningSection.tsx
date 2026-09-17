@@ -14,12 +14,12 @@ export async function PlanningSection() {
 
   const available = [
     {
-      icon: <CalendarClock className="h-5 w-5 text-blue-600" />,
+      icon: <CalendarClock className="h-5 w-5 text-primary" />,
       title: t("available.upcoming.title"),
       description: t("available.upcoming.description"),
     },
     {
-      icon: <Target className="h-5 w-5 text-blue-600" />,
+      icon: <Target className="h-5 w-5 text-primary" />,
       title: t("available.budgets.title"),
       description: t("available.budgets.description"),
     },
@@ -47,7 +47,7 @@ export async function PlanningSection() {
     <section id="planning" className="scroll-mt-20">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
         <div className="max-w-2xl">
-          <h2 className="text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
             {t("title")}
           </h2>
           <p className="mt-3 text-muted-foreground">{t("subtitle")}</p>
@@ -55,7 +55,7 @@ export async function PlanningSection() {
 
         <div className="mt-10 grid gap-8 lg:grid-cols-2">
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-blue-600">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-primary">
               {t("availableTitle")}
             </h3>
             <div className="space-y-3">
@@ -63,7 +63,7 @@ export async function PlanningSection() {
                 <Card key={item.title} className="flex gap-3 p-4 shadow-sm">
                   <div className="mt-0.5">{item.icon}</div>
                   <div>
-                    <p className="font-medium text-gray-900">{item.title}</p>
+                    <p className="font-medium text-foreground">{item.title}</p>
                     <p className="mt-1 text-sm text-muted-foreground">
                       {item.description}
                     </p>
@@ -88,7 +88,7 @@ export async function PlanningSection() {
                 >
                   <div className="mt-0.5">{item.icon}</div>
                   <div>
-                    <p className="font-medium text-gray-800">{item.title}</p>
+                    <p className="font-medium text-foreground">{item.title}</p>
                     <p className="mt-1 text-sm text-muted-foreground">
                       {item.description}
                     </p>

@@ -219,10 +219,10 @@ export async function FutureCommitmentsContent({ accountId }: Props) {
 export function FutureCommitmentsSkeleton() {
   return (
     <div className="animate-pulse flex flex-col gap-3">
-      <div className="h-9 rounded-lg bg-slate-200" />
-      <div className="h-10 rounded-md bg-slate-200" />
-      <div className="h-16 rounded-md bg-slate-200" />
-      <div className="h-16 rounded-md bg-slate-200" />
+      <div className="h-9 rounded-lg bg-muted" />
+      <div className="h-10 rounded-md bg-muted" />
+      <div className="h-16 rounded-md bg-muted" />
+      <div className="h-16 rounded-md bg-muted" />
     </div>
   );
 }

@@ -31,7 +31,7 @@ export function MonthlyCashflowMonthsSelect({ months }: Props) {
   return (
     <Select value={String(months)} onValueChange={handleChange}>
       <SelectTrigger
-        className="h-8 w-[7.5rem] bg-white text-xs"
+        className="h-8 w-[7.5rem] bg-card text-xs"
         aria-label={t("monthsSelectLabel")}
       >
         <SelectValue />

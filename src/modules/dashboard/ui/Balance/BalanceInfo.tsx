@@ -33,7 +33,7 @@ export async function BalanceInfo({ accountId }: Props) {
         </p>
         <p
           className={`text-2xl font-bold tabular-nums ${
-            accountBalance < 0 ? "text-red-600" : ""
+            accountBalance < 0 ? "text-expense" : ""
           }`}
         >
           {formatCurrency(locale, accountBalance, 2)}
@@ -43,13 +43,13 @@ export async function BalanceInfo({ accountId }: Props) {
       <div className="grid grid-cols-2 gap-4 py-2">
         <div>
           <p className="text-xs text-muted-foreground">{t("monthIncomes")}</p>
-          <p className="text-base font-semibold tabular-nums text-green-600">
+          <p className="text-base font-semibold tabular-nums text-income">
             {formatCurrency(locale, incomes, 2)}
           </p>
         </div>
         <div>
           <p className="text-xs text-muted-foreground">{t("monthExpenses")}</p>
-          <p className="text-base font-semibold tabular-nums text-red-500">
+          <p className="text-base font-semibold tabular-nums text-expense">
             {formatCurrency(locale, expenses, 2)}
           </p>
         </div>
@@ -73,7 +73,7 @@ export function BalanceSkeleton({ loadingText }: { loadingText: string }) {
         <div className="h-3 w-36 rounded bg-muted animate-pulse" />
         <div className="mt-2 flex items-center py-1">
           <output
-            className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent text-blue-600"
+            className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent text-primary"
             aria-label={loadingText}
           />
         </div>

@@ -33,8 +33,8 @@ export function Navbar() {
       aria-label={t(link.key)}
       tabIndex={0}
       className={cn(
-        "flex h-12 grow items-center justify-center focus:ring-2 focus:ring-inset focus:ring-blue-600",
-        activeLink === link.href && "text-blue-500",
+        "flex h-12 grow items-center justify-center text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-ring",
+        activeLink === link.href && "text-primary",
       )}
       aria-current={activeLink === link.href ? "page" : undefined}
     >
@@ -43,7 +43,7 @@ export function Navbar() {
   );
 
   return (
-    <nav className="fixed bottom-0 left-0 z-50 w-full border-t border-t-gray-400 bg-white pb-[env(safe-area-inset-bottom,0px)]">
+    <nav className="fixed bottom-0 left-0 z-50 w-full border-t border-border bg-card pb-[env(safe-area-inset-bottom,0px)]">
       <div className="mx-5 max-w-lg sm:mx-auto flex">
         {leftLinks.map(renderLink)}
 
@@ -51,7 +51,7 @@ export function Navbar() {
           <MovementDialog
             trigger={
               <FloatingAddButton
-                className="-translate-y-3 shadow-lg"
+                className="-translate-y-3 shadow-sm"
                 aria-label={tMovements("addTitle")}
               />
             }
@@ -68,7 +68,7 @@ export function Navbar() {
             type="submit"
             tabIndex={0}
             aria-label={t("logout")}
-            className="grow cursor-pointer h-full flex items-center justify-center focus:ring-2 focus:ring-inset focus:ring-blue-600"
+            className="grow cursor-pointer h-full flex items-center justify-center text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-ring"
           >
             <LogOutIcon />
           </button>

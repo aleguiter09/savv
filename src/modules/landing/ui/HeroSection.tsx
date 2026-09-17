@@ -10,7 +10,7 @@ export async function HeroSection() {
     <section className="mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-6 sm:pt-14 lg:pb-20">
       <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
+          <h1 className="font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
             {t("hero.headline")}
           </h1>
           <p className="mt-4 max-w-xl text-base text-muted-foreground sm:text-lg">

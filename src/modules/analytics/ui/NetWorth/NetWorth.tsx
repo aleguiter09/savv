@@ -25,30 +25,30 @@ export async function NetWorth({
 
   const changeDisplay = (
     <div
-      className={`text-sm font-medium ${isPositive ? "text-green-600" : "text-red-600"}`}
+      className={`text-sm font-medium ${isPositive ? "text-income" : "text-expense"}`}
     >
       {isPositive ? "▲" : "▼"} {Math.abs(percentChange).toFixed(1)}%
     </div>
   );
 
   return (
-    <Card className="px-3 py-2 border-b-4 border-b-blue-500">
+    <Card className="px-3 py-2 border-b-4 border-b-primary">
       <div className="flex flex-col gap-2">
         <div className="flex justify-between items-center">
-          <p className="text-xs font-semibold text-gray-600">
+          <p className="text-xs font-semibold text-muted-foreground">
             {t("netWorthTitle")}
           </p>
           {changeDisplay}
         </div>
         <p
-          className={`text-4xl font-bold ${netWorth.current < 0 ? "text-red-600" : ""}`}
+          className={`text-4xl font-bold ${netWorth.current < 0 ? "text-expense" : ""}`}
         >
           {formatCurrency(locale, netWorth.current, 2)}
         </p>
 
-        <div className="flex gap-1 items-center text-xs text-gray-600">
+        <div className="flex gap-1 items-center text-xs text-muted-foreground">
           {t("netWorthComparedToPeriodStart")}
-          <p className={`${netWorth.periodStart < 0 ? "text-red-600" : ""}`}>
+          <p className={`${netWorth.periodStart < 0 ? "text-expense" : ""}`}>
             ({formatCurrency(locale, netWorth.current - netWorth.periodStart, 2)})
           </p>
         </div>

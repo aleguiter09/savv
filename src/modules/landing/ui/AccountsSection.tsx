@@ -13,32 +13,32 @@ export async function AccountsSection() {
 
   const items = [
     {
-      icon: <Wallet className="h-5 w-5 text-blue-600" />,
+      icon: <Wallet className="h-5 w-5 text-primary" />,
       title: t("items.multiple.title"),
       description: t("items.multiple.description"),
     },
     {
-      icon: <Scale className="h-5 w-5 text-blue-600" />,
+      icon: <Scale className="h-5 w-5 text-primary" />,
       title: t("items.balance.title"),
       description: t("items.balance.description"),
     },
     {
-      icon: <Landmark className="h-5 w-5 text-blue-600" />,
+      icon: <Landmark className="h-5 w-5 text-primary" />,
       title: t("items.netWorth.title"),
       description: t("items.netWorth.description"),
     },
     {
-      icon: <TrendingUp className="h-5 w-5 text-blue-600" />,
+      icon: <TrendingUp className="h-5 w-5 text-primary" />,
       title: t("items.timeline.title"),
       description: t("items.timeline.description"),
     },
   ];
 
   return (
-    <section id="accounts" className="scroll-mt-20 border-t border-border/70 bg-white">
+    <section id="accounts" className="scroll-mt-20 border-t border-border/70 bg-card">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-center lg:py-20">
         <div>
-          <h2 className="text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
             {t("title")}
           </h2>
           <p className="mt-3 text-muted-foreground">{t("subtitle")}</p>

@@ -15,7 +15,7 @@ export async function CategoriesPage() {
     <>
       <div className="mb-2 flex items-center gap-1 text-sm">
         <h3>{t("title")}</h3>
-        <span className="text-gray-500">/</span>
+        <span className="text-muted-foreground">/</span>
         <h3 className="font-semibold">{t("categories")}</h3>
       </div>
 

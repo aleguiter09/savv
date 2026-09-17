@@ -1,6 +1,7 @@
 "use client";
 
 import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
+import { chartColors } from "@/modules/shared/utils/chart-colors";
 import { useLocale } from "next-intl";
 import {
   Area,
@@ -66,9 +67,9 @@ function BalanceTimelineTooltip({
   }
 
   return (
-    <div className="rounded-md border border-slate-200 bg-white px-2 py-1 shadow-sm">
-      <p className="text-[10px] leading-tight text-slate-500">{label}</p>
-      <p className="text-xs font-medium leading-tight tabular-nums text-slate-800">
+    <div className="rounded-md border border-border bg-card px-2 py-1 shadow-sm">
+      <p className="text-[10px] leading-tight text-muted-foreground">{label}</p>
+      <p className="text-xs font-medium leading-tight tabular-nums text-foreground">
         {balanceLabel}: {formatCurrency(locale, value, 2)}
       </p>
     </div>
@@ -98,7 +99,7 @@ export function BalanceTimelineChart({
           <CartesianGrid
             strokeDasharray="3 3"
             vertical={false}
-            stroke="#e2e8f0"
+            stroke={chartColors.grid}
           />
           <XAxis
             dataKey="date"
@@ -107,7 +108,7 @@ export function BalanceTimelineChart({
             tickCount={6}
             interval="preserveStartEnd"
             padding={{ left: 8, right: 8 }}
-            tick={{ fontSize: 11, fill: "#64748b" }}
+            tick={{ fontSize: 11, fill: chartColors.muted }}
             dy={6}
           />
           <YAxis
@@ -115,11 +116,11 @@ export function BalanceTimelineChart({
             axisLine={false}
             width={48}
             tickCount={4}
-            tick={{ fontSize: 11, fill: "#64748b" }}
+            tick={{ fontSize: 11, fill: chartColors.muted }}
             tickFormatter={(value) => formatAxisBalance(Number(value), locale)}
           />
           <Tooltip
-            cursor={{ stroke: "#94a3b8", strokeWidth: 1 }}
+            cursor={{ stroke: chartColors.mutedLight, strokeWidth: 1 }}
             content={
               <BalanceTimelineTooltip
                 balanceLabel={balanceLabel}
@@ -130,12 +131,12 @@ export function BalanceTimelineChart({
           <Area
             type="monotone"
             dataKey="balance"
-            stroke="#3b82f6"
-            fill="#3b82f6"
+            stroke={chartColors.primary}
+            fill={chartColors.primary}
             fillOpacity={0.12}
             strokeWidth={2}
             dot={false}
-            activeDot={{ r: 3, strokeWidth: 0, fill: "#3b82f6" }}
+            activeDot={{ r: 3, strokeWidth: 0, fill: chartColors.primary }}
           />
         </AreaChart>
       </ResponsiveContainer>

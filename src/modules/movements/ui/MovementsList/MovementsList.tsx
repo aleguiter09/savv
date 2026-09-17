@@ -45,7 +45,7 @@ export async function MovementsList({
       ))}
 
       {movements.length === 0 && (
-        <p className="py-2 text-sm text-slate-500 text-center">
+        <p className="py-2 text-sm text-muted-foreground text-center">
           {isUpcoming ? t("noUpcomingMovements") : t("noMovementsThisPeriod")}
         </p>
       )}

@@ -14,37 +14,37 @@ export async function AnalyticsSection() {
 
   const items = [
     {
-      icon: <BarChart3 className="h-5 w-5 text-blue-600" />,
+      icon: <BarChart3 className="h-5 w-5 text-primary" />,
       title: t("items.cashflow.title"),
       description: t("items.cashflow.description"),
     },
     {
-      icon: <PieChart className="h-5 w-5 text-blue-600" />,
+      icon: <PieChart className="h-5 w-5 text-primary" />,
       title: t("items.byCategory.title"),
       description: t("items.byCategory.description"),
     },
     {
-      icon: <Scale className="h-5 w-5 text-blue-600" />,
+      icon: <Scale className="h-5 w-5 text-primary" />,
       title: t("items.comparison.title"),
       description: t("items.comparison.description"),
     },
     {
-      icon: <LineChart className="h-5 w-5 text-blue-600" />,
+      icon: <LineChart className="h-5 w-5 text-primary" />,
       title: t("items.evolution.title"),
       description: t("items.evolution.description"),
     },
     {
-      icon: <ChartColumn className="h-5 w-5 text-blue-600" />,
+      icon: <ChartColumn className="h-5 w-5 text-primary" />,
       title: t("items.averages.title"),
       description: t("items.averages.description"),
     },
   ];
 
   return (
-    <section id="analytics" className="scroll-mt-20 border-t border-border/70 bg-white">
+    <section id="analytics" className="scroll-mt-20 border-t border-border/70 bg-card">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-center lg:py-20">
         <div>
-          <h2 className="text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
             {t("title")}
           </h2>
           <p className="mt-3 text-muted-foreground">{t("subtitle")}</p>

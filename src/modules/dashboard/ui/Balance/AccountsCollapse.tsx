@@ -48,7 +48,7 @@ export function AccountsCollapse({ accounts, label, locale }: Props) {
               <p
                 className={cn(
                   "text-xs font-medium tabular-nums",
-                  account.balance < 0 && "text-red-500",
+                  account.balance < 0 && "text-expense",
                 )}
               >
                 {formatCurrency(locale, account.balance, 2)}

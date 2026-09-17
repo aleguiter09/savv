@@ -9,7 +9,7 @@ export async function LanguagesPage() {
     <div className="mb-4 flex flex-col">
       <div className="flex items-center gap-1 text-sm">
         <h3>{t("title")}</h3>
-        <span className="text-gray-500">/</span>
+        <span className="text-muted-foreground">/</span>
         <h3 className="font-semibold">{t("languages")}</h3>
       </div>
       <Card className="p-5 mt-4">

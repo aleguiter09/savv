@@ -33,7 +33,7 @@ export function BudgetsList({ budgets, locale }: BudgetsListProps) {
           return (
             <li
               key={budget.id}
-              className="w-full px-4 py-2 border border-gray-200 bg-white rounded-lg flex justify-between items-center"
+              className="w-full px-4 py-2 border border-border bg-card rounded-lg flex justify-between items-center"
             >
               <div className="flex justify-between flex-1 min-w-0 mr-2">
                 <p className="truncate">{categoryLabel}</p>
@@ -61,7 +61,7 @@ export function BudgetsList({ budgets, locale }: BudgetsListProps) {
           );
         })}
         {budgets.length === 0 && (
-          <p className="text-sm text-slate-500">{budgetsT("emptyState")}</p>
+          <p className="text-sm text-muted-foreground">{budgetsT("emptyState")}</p>
         )}
       </ul>
 

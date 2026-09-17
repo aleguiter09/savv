@@ -58,7 +58,7 @@ export function UpdatePasswordPage() {
                     aria-invalid={fieldState.invalid}
                     type="password"
                     autoComplete="current-password"
-                    className="bg-white shadow-xs"
+                    className="bg-card shadow-xs"
                   />
                   {fieldState.invalid && (
                     <FieldError
@@ -83,7 +83,7 @@ export function UpdatePasswordPage() {
                     aria-invalid={fieldState.invalid}
                     type="password"
                     autoComplete="current-password"
-                    className="bg-white shadow-xs"
+                    className="bg-card shadow-xs"
                   />
                   {fieldState.invalid && (
                     <FieldError
@@ -101,7 +101,7 @@ export function UpdatePasswordPage() {
 
           <p className="mt-2 text-center text-sm">
             {t("signInMessage")}
-            <Link href="/login" className="font-medium text-blue-600">
+            <Link href="/login" className="font-medium text-primary">
               {t("signIn")}
             </Link>
           </p>

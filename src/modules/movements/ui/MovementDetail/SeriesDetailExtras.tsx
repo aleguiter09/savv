@@ -63,7 +63,7 @@ export async function SeriesDetailExtras({
 
       {series.kind === "recurring" && nextPending ? (
         <div className="rounded-md border py-2 px-3 flex flex-col gap-1">
-          <dt className="text-gray-500 text-xs">{t("nextOccurrence")}</dt>
+          <dt className="text-muted-foreground text-xs">{t("nextOccurrence")}</dt>
           <dd className="text-sm">
             {formatter.dateTime(new Date(nextPending.doneAt), {
               year: "numeric",
@@ -88,9 +88,9 @@ export async function SeriesDetailExtras({
             </span>
           </div>
 
-          <div className="mb-3 h-1.5 overflow-hidden rounded-full bg-gray-100">
+          <div className="mb-3 h-1.5 overflow-hidden rounded-full bg-muted">
             <div
-              className="h-full rounded-full bg-gray-800"
+              className="h-full rounded-full bg-foreground"
               style={{
                 width: `${Math.min(
                   100,
@@ -107,7 +107,7 @@ export async function SeriesDetailExtras({
                 <div
                   className={cn(
                     "flex items-center justify-between gap-3 rounded-md px-2 py-2 text-sm",
-                    isCurrent && "bg-gray-50 ring-1 ring-gray-200",
+                    isCurrent && "bg-muted ring-1 ring-border",
                   )}
                 >
                   <div className="flex min-w-0 flex-col">
@@ -126,14 +126,14 @@ export async function SeriesDetailExtras({
                     </span>
                   </div>
                   <div className="flex shrink-0 flex-col items-end gap-0.5">
-                    <span className="text-red-500">
+                    <span className="text-expense">
                       {formatCurrency(locale, -occurrence.amount, 2)}
                     </span>
                     <span
                       className={cn(
                         "text-xs",
                         occurrence.applied
-                          ? "text-green-600"
+                          ? "text-income"
                           : "text-amber-600",
                       )}
                     >
@@ -153,7 +153,7 @@ export async function SeriesDetailExtras({
                 <li key={occurrence.id}>
                   <Link
                     href={`/movements/${occurrence.id}`}
-                    className="block rounded-md hover:bg-gray-50"
+                    className="block rounded-md hover:bg-accent"
                   >
                     {row}
                   </Link>

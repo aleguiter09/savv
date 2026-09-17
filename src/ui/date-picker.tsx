@@ -51,11 +51,11 @@ export function DatePicker({
             variant="outline"
             id="date"
             className={cn(
-              "justify-start font-normal flex gap-3 px-2 bg-white hover:bg-gray-50 w-full",
-              error && "border-red-500",
+              "justify-start font-normal flex gap-3 px-2 bg-background hover:bg-accent w-full",
+              error && "border-destructive",
             )}
           >
-            <Calendar1 className="text-gray-600" />
+            <Calendar1 className="text-muted-foreground" />
             {value ? value.toLocaleDateString() : t("chooseDate")}
           </Button>
         </PopoverTrigger>
@@ -135,10 +135,10 @@ export function DateRangePicker({
               variant="outline"
               id="date"
               className={cn(
-                "justify-start font-normal flex gap-3 px-2 bg-white hover:bg-gray-50 flex-1",
+                "justify-start font-normal flex gap-3 px-2 bg-background hover:bg-accent flex-1",
               )}
             >
-              <Calendar1 className="text-gray-600" />
+              <Calendar1 className="text-muted-foreground" />
               {value?.from && value?.to
                 ? value.from.toLocaleDateString() +
                   " - " +
@@ -168,7 +168,7 @@ export function DateRangePicker({
             }
           }}
         >
-          <SelectTrigger className="w-45 bg-white hover:bg-gray-50">
+          <SelectTrigger className="w-45 bg-background hover:bg-accent">
             <SelectValue placeholder={t("quickSelect")} />
           </SelectTrigger>
           <SelectContent>

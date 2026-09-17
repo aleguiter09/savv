@@ -16,7 +16,7 @@ export async function BudgetWidgetContent() {
 
   if (items.length === 0) {
     return (
-      <p className="pt-2 text-sm text-slate-500 text-center">
+      <p className="pt-2 text-sm text-muted-foreground text-center">
         {tDashboard("noBudgets")}
       </p>
     );
@@ -36,8 +36,8 @@ export async function BudgetWidgetContent() {
           <Link
             key={item.budgetId}
             href={`/movements?account=all&category=${item.categoryId}`}
-            className={`rounded-sm border px-2 py-2 hover:bg-slate-50 ${
-              item.isOverBudget ? "border-red-500" : "border-slate-200"
+            className={`rounded-sm border px-2 py-2 hover:bg-accent ${
+              item.isOverBudget ? "border-destructive" : "border-border"
             }`}
           >
             <div className="flex items-center justify-between gap-2 mb-1.5">
@@ -47,17 +47,17 @@ export async function BudgetWidgetContent() {
                   color={item.categoryColor}
                   size={14}
                 />
-                <p className="text-sm text-slate-700 truncate">
+                <p className="text-sm text-foreground truncate">
                   {categoryLabel}
                 </p>
               </div>
               <p
                 className={`text-sm font-medium whitespace-nowrap ${
-                  item.isOverBudget ? "text-red-500" : "text-slate-700"
+                  item.isOverBudget ? "text-expense" : "text-foreground"
                 }`}
               >
                 {formatCurrency(locale, item.spentAmount, 0)}
-                <span className="text-slate-400 font-normal">
+                <span className="text-text-muted font-normal">
                   {" / "}
                   {formatCurrency(locale, item.budgetAmount, 0)}
                 </span>
@@ -82,7 +82,7 @@ export function BudgetWidgetSkeleton() {
       {Array.from({ length: 3 }).map((_, index) => (
         <div
           key={index}
-          className="h-16 rounded-md bg-slate-300 animate-pulse"
+          className="h-16 rounded-md bg-muted animate-pulse"
         />
       ))}
     </div>

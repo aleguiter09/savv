@@ -30,7 +30,7 @@ export function CategoryItem({
   return (
     <li
       className={cn(
-        "flex items-center py-2 pl-2 justify-between border-b border-gray-200 last:border-b-0",
+        "flex items-center py-2 pl-2 justify-between border-b border-border last:border-b-0",
         isHidden && "opacity-50",
       )}
     >

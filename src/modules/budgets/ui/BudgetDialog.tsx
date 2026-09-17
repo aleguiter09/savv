@@ -33,7 +33,7 @@ export function BudgetDialog({
     <FormDialog trigger={trigger} title={title}>
       {({ onSuccess }) =>
         availableCategories.length === 0 && !budget ? (
-          <p className="text-sm text-slate-500">{t("noCategoriesAvailable")}</p>
+          <p className="text-sm text-muted-foreground">{t("noCategoriesAvailable")}</p>
         ) : (
           <BudgetForm
             budget={budget}
