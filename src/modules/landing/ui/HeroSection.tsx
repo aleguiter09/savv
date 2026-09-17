@@ -1,24 +1,24 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { Button } from "@/ui/button";
-import { HeroDashboardMock } from "./mocks/HeroDashboardMock";
+import { HeroBrandMark } from "./HeroBrandMark";
 
 export async function HeroSection() {
   const t = await getTranslations("landing");
 
   return (
-    <section className="mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-6 sm:pt-14 lg:pb-20">
-      <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
-        <div>
-          <h1 className="font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
+    <section className="mx-auto max-w-6xl px-4 pb-20 pt-16 sm:px-6 sm:pt-20 lg:pb-28 lg:pt-24">
+      <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="order-2 text-center lg:order-1 lg:text-left">
+          <h1 className="font-display text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl lg:leading-[1.08]">
             {t("hero.headline")}
           </h1>
-          <p className="mt-4 max-w-xl text-base text-muted-foreground sm:text-lg">
+          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0">
             {t("hero.subtitle")}
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
             <Button size="lg" asChild>
-              <Link href="/register">{t("cta.register")}</Link>
+              <Link href="/register">{t("hero.cta")}</Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
               <a href="#how-it-works">{t("cta.seeHow")}</a>
@@ -26,11 +26,8 @@ export async function HeroSection() {
           </div>
         </div>
 
-        <div>
-          <p className="mb-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            {t("hero.previewLabel")}
-          </p>
-          <HeroDashboardMock />
+        <div className="order-1 flex justify-center lg:order-2 lg:justify-end">
+          <HeroBrandMark />
         </div>
       </div>
     </section>

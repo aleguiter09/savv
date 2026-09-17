@@ -1,11 +1,9 @@
 {
-  "brand": "Savv",
+  "brand": "Margo",
   "nav": {
-    "accounts": "Accounts",
-    "movements": "Movements",
-    "analytics": "Analytics",
-    "planning": "Planning",
-    "howItWorks": "How it works",
+    "value": "How it works",
+    "product": "Product",
+    "margin": "Margin",
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
   },
@@ -16,147 +14,67 @@
     "seeHow": "See how it works"
   },
   "hero": {
-    "headline": "See every account, every movement, and where your money actually goes.",
-    "subtitle": "Savv brings your personal finances into one place: track balances, log income and expenses, organize with categories, and understand how your net worth evolves over time.",
+    "headline": "Know where your money goes.",
+    "subtitle": "Margo helps you track spending, understand your habits, and create more financial margin.",
+    "cta": "Get started",
     "previewLabel": "Product preview"
   },
-  "accounts": {
-    "id": "accounts",
-    "title": "All your money in one place",
-    "subtitle": "Manage multiple accounts and always know your overall financial position.",
-    "items": {
-      "multiple": {
-        "title": "Multiple accounts",
-        "description": "Cash, bank, savings — keep each balance updated without switching tools."
-      },
-      "balance": {
-        "title": "Current balance",
-        "description": "Check what you have available right now, account by account."
-      },
-      "netWorth": {
-        "title": "Net worth",
-        "description": "See the total of your accounts and how your wealth changes over time."
-      },
-      "timeline": {
-        "title": "Balance over time",
-        "description": "Follow the evolution of your money instead of guessing from memory."
-      }
-    }
-  },
-  "movements": {
-    "id": "movements",
-    "title": "Log every movement",
-    "subtitle": "Movements are the source of truth. They build a real picture of your finances.",
-    "items": {
-      "income": {
-        "title": "Income",
-        "description": "Record salaries, freelance work, and any money coming in."
-      },
-      "expense": {
-        "title": "Expenses",
-        "description": "Track daily spending and keep it organized with categories."
-      },
-      "transfer": {
-        "title": "Transfers",
-        "description": "Move money between accounts without treating it as income or expense."
-      },
-      "categories": {
-        "title": "Categories",
-        "description": "Group movements so you can later understand where money goes."
-      }
-    },
-    "transferNote": "A transfer between accounts is an internal money move — it does not count as real income or spending in your metrics."
-  },
-  "analytics": {
-    "id": "analytics",
-    "title": "Understand where you spend",
-    "subtitle": "You don’t just record movements — you see what is happening with your money.",
-    "items": {
-      "cashflow": {
-        "title": "Cashflow",
-        "description": "Compare money in versus money out for a clear monthly picture."
-      },
-      "byCategory": {
-        "title": "Spend by category",
-        "description": "See which categories take most of your budget."
-      },
-      "comparison": {
-        "title": "Income vs expenses",
-        "description": "Spot whether you are ahead, balanced, or overspending."
-      },
-      "evolution": {
-        "title": "Balance evolution",
-        "description": "Watch how balances move across time, not just today."
-      },
-      "averages": {
-        "title": "Category averages",
-        "description": "Understand your habits with average spend per category."
-      }
-    }
-  },
-  "planning": {
-    "id": "planning",
-    "title": "Plan ahead with clarity",
-    "subtitle": "Know what you have today — and start anticipating how your finances will evolve.",
-    "availableTitle": "Available today",
-    "available": {
-      "upcoming": {
-        "title": "Upcoming payments",
-        "description": "See future movements before they affect today’s balance."
-      },
-      "budgets": {
-        "title": "Category budgets",
-        "description": "Set limits and track progress as you spend."
-      }
-    },
-    "roadmapTitle": "Where Savv is heading",
-    "roadmapBadge": "Roadmap",
-    "roadmap": {
-      "recurring": {
-        "title": "Recurring & fixed expenses",
-        "description": "Rent, subscriptions, and other monthly commitments — without retyping them."
-      },
-      "installments": {
-        "title": "Installments",
-        "description": "Break large purchases into scheduled payments you can follow."
-      },
-      "projection": {
-        "title": "Balance projection",
-        "description": "Estimate how your balance may look after upcoming commitments."
-      }
-    },
-    "roadmapNote": "These capabilities are part of the product direction and may roll out gradually."
-  },
-  "howItWorks": {
+  "value": {
     "id": "how-it-works",
-    "title": "How it works",
-    "subtitle": "Four simple steps to get a clear view of your money.",
-    "steps": {
-      "1": {
-        "title": "Create your accounts",
-        "description": "Add the accounts you actually use and set their starting balances."
+    "title": "Track. Understand. Improve.",
+    "subtitle": "Three simple moves that turn everyday spending into clearer financial decisions.",
+    "pillars": {
+      "track": {
+        "title": "Track",
+        "description": "Log income, expenses, and transfers across your accounts in one calm place."
       },
-      "2": {
-        "title": "Log income, expenses, and transfers",
-        "description": "Capture every movement so balances stay accurate."
+      "understand": {
+        "title": "Understand",
+        "description": "See cashflow and category patterns so you know where money actually goes."
       },
-      "3": {
-        "title": "Organize with categories",
-        "description": "Classify spending and income to unlock useful insights."
+      "improve": {
+        "title": "Improve",
+        "description": "Spot habits early, free up room, and steadily grow your financial margin."
+      }
+    }
+  },
+  "showcase": {
+    "id": "product",
+    "title": "Your finances, clearly organized",
+    "subtitle": "Dashboard, accounts, movements, and analytics — designed to stay readable, not cluttered.",
+    "labels": {
+      "dashboard": "Dashboard",
+      "accounts": "Accounts",
+      "movements": "Movements",
+      "analytics": "Analytics"
+    }
+  },
+  "margin": {
+    "id": "margin",
+    "title": "More clarity. More financial margin.",
+    "body": "When spending is visible, you can choose where to cut back and where to keep room. Margo turns daily movements into a clear picture of your real margin — so you improve with intention, not guesswork.",
+    "points": {
+      "clarity": {
+        "title": "See spending without noise",
+        "description": "Balances, categories, and cashflow stay in one view you can trust."
       },
-      "4": {
-        "title": "Analyze your situation",
-        "description": "Review cashflow, net worth, and category trends with confidence."
+      "habits": {
+        "title": "Recognize habits faster",
+        "description": "Patterns show up early enough to change before the month runs away."
+      },
+      "room": {
+        "title": "Create room to breathe",
+        "description": "Small adjustments compound into more margin over time."
       }
     }
   },
   "finalCta": {
-    "title": "Start understanding your money better",
+    "title": "Start creating more financial margin",
     "subtitle": "Create a free account and bring your balances, movements, and spending habits into one clear view.",
-    "button": "Create account"
+    "button": "Get started"
   },
   "footer": {
-    "tagline": "Personal finance, clearly organized.",
+    "tagline": "Personal finance with more margin.",
     "product": "Product",
     "account": "Account"
   },

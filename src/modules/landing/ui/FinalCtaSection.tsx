@@ -6,13 +6,13 @@ export async function FinalCtaSection() {
   const t = await getTranslations("landing");
 
   return (
-    <section className="border-t border-border/70">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
-        <div className="rounded-2xl border border-primary-muted bg-card px-6 py-10 text-center shadow-sm sm:px-10">
-          <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+    <section className="border-t border-border/70 bg-surface">
+      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
             {t("finalCta.title")}
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+          <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
             {t("finalCta.subtitle")}
           </p>
           <Button size="lg" className="mt-8" asChild>

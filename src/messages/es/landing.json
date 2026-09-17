@@ -1,11 +1,9 @@
 {
-  "brand": "Savv",
+  "brand": "Margo",
   "nav": {
-    "accounts": "Cuentas",
-    "movements": "Movimientos",
-    "analytics": "Análisis",
-    "planning": "Planificación",
-    "howItWorks": "Cómo funciona",
+    "value": "Cómo funciona",
+    "product": "Producto",
+    "margin": "Margen",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú"
   },
@@ -16,147 +14,67 @@
     "seeHow": "Ver cómo funciona"
   },
   "hero": {
-    "headline": "Ves todas tus cuentas, cada movimiento y en qué se va realmente tu dinero.",
-    "subtitle": "Savv concentra tus finanzas personales en un solo lugar: controlá saldos, registrá ingresos y gastos, organizá con categorías y seguí cómo evoluciona tu patrimonio.",
+    "headline": "Sabé a dónde va tu dinero.",
+    "subtitle": "Margo te ayuda a registrar gastos, entender tus hábitos y crear más margen financiero.",
+    "cta": "Empezar",
     "previewLabel": "Vista previa del producto"
   },
-  "accounts": {
-    "id": "accounts",
-    "title": "Todo tu dinero en un solo lugar",
-    "subtitle": "Gestioná varias cuentas y conocé siempre tu situación financiera global.",
-    "items": {
-      "multiple": {
-        "title": "Múltiples cuentas",
-        "description": "Efectivo, banco, ahorros — mantené cada saldo al día sin cambiar de herramienta."
-      },
-      "balance": {
-        "title": "Balance actual",
-        "description": "Sabé cuánto tenés disponible ahora, cuenta por cuenta."
-      },
-      "netWorth": {
-        "title": "Patrimonio / Net Worth",
-        "description": "Sumá el total de tus cuentas y mirá cómo cambia tu patrimonio en el tiempo."
-      },
-      "timeline": {
-        "title": "Evolución del dinero",
-        "description": "Seguí la trayectoria de tus saldos en lugar de adivinar de memoria."
-      }
-    }
-  },
-  "movements": {
-    "id": "movements",
-    "title": "Registrá todos tus movimientos",
-    "subtitle": "Los movimientos son la fuente de verdad. Construyen una visión real de tus finanzas.",
-    "items": {
-      "income": {
-        "title": "Ingresos",
-        "description": "Registrá sueldos, trabajos freelance y cualquier dinero que entra."
-      },
-      "expense": {
-        "title": "Gastos",
-        "description": "Seguí el gasto diario y organizalo con categorías."
-      },
-      "transfer": {
-        "title": "Transferencias",
-        "description": "Mové dinero entre cuentas sin contarlo como ingreso o gasto."
-      },
-      "categories": {
-        "title": "Categorías",
-        "description": "Agrupá movimientos para después entender hacia dónde va el dinero."
-      }
-    },
-    "transferNote": "Una transferencia entre cuentas es un movimiento interno del dinero: no representa un ingreso ni un gasto real en tus métricas."
-  },
-  "analytics": {
-    "id": "analytics",
-    "title": "Entendé en qué gastás",
-    "subtitle": "No solo registrás movimientos: podés ver qué está pasando con tu dinero.",
-    "items": {
-      "cashflow": {
-        "title": "Cashflow",
-        "description": "Compará dinero que entra y sale para una foto clara del mes."
-      },
-      "byCategory": {
-        "title": "Gastos por categoría",
-        "description": "Identificá qué categorías se llevan la mayor parte del presupuesto."
-      },
-      "comparison": {
-        "title": "Ingresos vs gastos",
-        "description": "Detectá si estás adelantado, equilibrado o gastando de más."
-      },
-      "evolution": {
-        "title": "Evolución del balance",
-        "description": "Observá cómo se mueven los saldos en el tiempo, no solo hoy."
-      },
-      "averages": {
-        "title": "Promedios por categoría",
-        "description": "Entendé tus hábitos con el gasto promedio de cada categoría."
-      }
-    }
-  },
-  "planning": {
-    "id": "planning",
-    "title": "Planificá tus finanzas",
-    "subtitle": "Sabé cuánto dinero tenés hoy y anticipá cómo van a evolucionar tus finanzas.",
-    "availableTitle": "Disponible hoy",
-    "available": {
-      "upcoming": {
-        "title": "Pagos próximos",
-        "description": "Mirá movimientos futuros antes de que afecten el saldo de hoy."
-      },
-      "budgets": {
-        "title": "Presupuestos por categoría",
-        "description": "Definí límites y seguí el progreso a medida que gastás."
-      }
-    },
-    "roadmapTitle": "Hacia dónde va Savv",
-    "roadmapBadge": "Roadmap",
-    "roadmap": {
-      "recurring": {
-        "title": "Gastos recurrentes y fijos",
-        "description": "Alquiler, suscripciones y otros compromisos mensuales — sin volver a cargarlos."
-      },
-      "installments": {
-        "title": "Pagos en cuotas",
-        "description": "Dividí compras grandes en pagos programados que puedas seguir."
-      },
-      "projection": {
-        "title": "Proyección de saldo",
-        "description": "Estimá cómo puede quedar tu balance luego de los compromisos próximos."
-      }
-    },
-    "roadmapNote": "Estas capacidades forman parte de la dirección del producto y pueden llegar de forma gradual."
-  },
-  "howItWorks": {
+  "value": {
     "id": "how-it-works",
-    "title": "Cómo funciona",
-    "subtitle": "Cuatro pasos simples para tener una visión clara de tu dinero.",
-    "steps": {
-      "1": {
-        "title": "Creá tus cuentas",
-        "description": "Agregá las cuentas que usás y definí sus saldos iniciales."
+    "title": "Registrar. Entender. Mejorar.",
+    "subtitle": "Tres pasos simples para convertir el gasto diario en decisiones financieras más claras.",
+    "pillars": {
+      "track": {
+        "title": "Registrar",
+        "description": "Anotá ingresos, gastos y transferencias de todas tus cuentas en un solo lugar."
       },
-      "2": {
-        "title": "Registrá ingresos, gastos y transferencias",
-        "description": "Capturá cada movimiento para que los balances se mantengan correctos."
+      "understand": {
+        "title": "Entender",
+        "description": "Mirá cashflow y patrones por categoría para saber a dónde va realmente el dinero."
       },
-      "3": {
-        "title": "Organizá con categorías",
-        "description": "Clasificá gastos e ingresos para desbloquear insights útiles."
+      "improve": {
+        "title": "Mejorar",
+        "description": "Detectá hábitos a tiempo, liberá espacio y hacé crecer tu margen financiero."
+      }
+    }
+  },
+  "showcase": {
+    "id": "product",
+    "title": "Tus finanzas, claramente organizadas",
+    "subtitle": "Dashboard, cuentas, movimientos y análisis — pensados para verse claros, no saturados.",
+    "labels": {
+      "dashboard": "Dashboard",
+      "accounts": "Cuentas",
+      "movements": "Movimientos",
+      "analytics": "Análisis"
+    }
+  },
+  "margin": {
+    "id": "margin",
+    "title": "Más claridad. Más margen financiero.",
+    "body": "Cuando el gasto se ve con claridad, podés elegir dónde recortar y dónde dejar aire. Margo convierte tus movimientos diarios en una imagen real de tu margen — para mejorar con intención, no a ciegas.",
+    "points": {
+      "clarity": {
+        "title": "Ver el gasto sin ruido",
+        "description": "Saldos, categorías y cashflow viven en una vista en la que podés confiar."
       },
-      "4": {
-        "title": "Analizá tu situación",
-        "description": "Revisá cashflow, patrimonio y tendencias por categoría con confianza."
+      "habits": {
+        "title": "Reconocer hábitos antes",
+        "description": "Los patrones aparecen a tiempo para cambiar antes de que se cierre el mes."
+      },
+      "room": {
+        "title": "Crear espacio para respirar",
+        "description": "Ajustes chicos se acumulan y crean más margen con el tiempo."
       }
     }
   },
   "finalCta": {
-    "title": "Empezá a entender mejor tu dinero",
+    "title": "Empezá a crear más margen financiero",
     "subtitle": "Creá una cuenta gratis y reuní saldos, movimientos y hábitos de gasto en una vista clara.",
-    "button": "Crear cuenta"
+    "button": "Empezar"
   },
   "footer": {
-    "tagline": "Finanzas personales, claramente organizadas.",
+    "tagline": "Finanzas personales con más margen.",
     "product": "Producto",
     "account": "Cuenta"
   },

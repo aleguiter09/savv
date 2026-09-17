@@ -38,15 +38,15 @@ export function LandingHeader({
   return (
     <header className="sticky top-0 z-40 border-b border-border/80 bg-background/95 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2 font-semibold text-foreground">
+        <Link href="/" className="flex items-center">
           <Image
-            src="/finance.png"
-            alt=""
-            width={28}
-            height={28}
-            className="h-7 w-7 object-contain"
+            src="/margo-logo.png"
+            alt={brand}
+            width={170}
+            height={56}
+            className="h-7 w-auto"
+            priority
           />
-          <span>{brand}</span>
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm text-muted-foreground lg:flex">

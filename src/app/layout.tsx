@@ -16,18 +16,22 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata = {
-  title: "Savv Finances",
+  title: "Margo Finances",
   description:
     "Controlá tus cuentas, registrá ingresos y gastos, entendé en qué gastás y seguí la evolución de tu patrimonio — todo en un solo lugar.",
   icons: {
-    icon: ["/favicon.ico"],
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
     apple: ["/apple-touch-icon.png"],
   },
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Savv",
+    title: "Margo",
   },
   metadataBase: new URL("https://savv-finances.vercel.app/"),
 };
