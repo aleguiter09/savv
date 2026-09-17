@@ -32,8 +32,8 @@ function formatPercent(value: number | null) {
 }
 
 function savingsClassName(difference: number) {
-  if (difference > 0) return "text-green-600";
-  if (difference < 0) return "text-red-600";
+  if (difference > 0) return "text-income";
+  if (difference < 0) return "text-expense";
   return "text-muted-foreground";
 }
 

@@ -18,7 +18,7 @@ export async function AnalyticsPage(props: Readonly<AnalyticsPageProps>) {
     <section className="flex flex-col gap-4">
       <div>
         <h1 className="text-lg font-semibold">{t("analyticsTitle")}</h1>
-        <p className="text-sm text-slate-500">{t("analyticsDescription")}</p>
+        <p className="text-sm text-muted-foreground">{t("analyticsDescription")}</p>
       </div>
 
       <AnalyticsFilters {...params} />

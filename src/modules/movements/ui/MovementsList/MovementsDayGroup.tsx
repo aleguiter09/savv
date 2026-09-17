@@ -1,5 +1,5 @@
 import { getFormatter, getLocale } from "next-intl/server";
-import { cn } from "@/modules/shared/utils/cn";
+import { getSignedAmountClass } from "@/modules/shared/utils/movement-amount-class";
 import { Card } from "@/ui/card";
 import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
 import { MovementRow } from "./MovementRow";
@@ -21,23 +21,16 @@ export async function MovementsDayGroup({
   const displayTotal = formatCurrency(locale, amount, 2);
 
   return (
-    <Card className="mb-4 px-3 py-2 border-b-4 border-b-blue-600">
+    <Card className="mb-4 px-3 py-2 border-b-4 border-b-primary">
       <div className="flex items-center justify-between px-2 pb-2 pt-1">
-        <h2 className="text-xs font-medium text-gray-900">
+        <h2 className="text-xs font-medium text-foreground">
           {format.dateTime(new Date(date), {
             year: "numeric",
             month: "short",
             day: "numeric",
           })}
         </h2>
-        <span
-          className={cn(
-            "text-xs font-semibold",
-            amount > 0 && "text-green-600",
-            amount < 0 && "text-red-600",
-            amount === 0 && "text-muted-foreground",
-          )}
-        >
+        <span className={`text-xs font-semibold ${getSignedAmountClass(amount)}`}>
           {displayTotal}
         </span>
       </div>

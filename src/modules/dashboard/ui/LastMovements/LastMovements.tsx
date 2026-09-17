@@ -12,13 +12,13 @@ export async function LastMovements({ accountId }: Props) {
   const t = await getTranslations("dashboard");
 
   return (
-    <Card className="shadow-md mb-4 pl-4 pr-3 py-2">
+    <Card className="shadow-sm mb-4 pl-4 pr-3 py-2">
       <p className="font-semibold mb-2">{t("lastMovements")}</p>
       <Suspense key={accountId} fallback={<LastMovementsSkeleton />}>
         <LastMovementsList accountId={accountId} />
       </Suspense>
       <Link href="/movements">
-        <p className="text-blue-500 font-semibold text-center mb-1 mt-3">
+        <p className="text-primary font-semibold text-center mb-1 mt-3">
           {t("seeAll")}
         </p>
       </Link>

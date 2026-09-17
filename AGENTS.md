@@ -44,7 +44,7 @@
 
 - Cualquier texto nuevo visible al usuario debe ir a mensajes de `next-intl` (`src/messages/<locale>/...`).
 - Evitar strings mágicos en UI cuando el módulo ya usa traducciones.
-- Mantener consistencia visual con los componentes actuales (`shadcn/ui` + Tailwind existente).
+- **Design system:** seguir `.cursor/rules/design-system.mdc` y tokens en `src/app/globals.css`. Usar clases semánticas (`bg-primary`, `text-income`, `bg-surface`, etc.); no hardcodear `blue-*` / `gray-*` / hex de marca. Tipografía: Inter global; Space Grotesk solo en hero/headings de marketing (`font-display`).
 
 ## 6) Performance y calidad
 

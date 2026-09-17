@@ -19,7 +19,7 @@ export function FeatureGrid({ items, className }: Props) {
         <li key={item.title} className="flex gap-3">
           <div className="mt-0.5 shrink-0">{item.icon}</div>
           <div>
-            <p className="font-medium text-gray-900">{item.title}</p>
+            <p className="font-medium text-foreground">{item.title}</p>
             <p className="mt-1 text-sm text-muted-foreground">
               {item.description}
             </p>

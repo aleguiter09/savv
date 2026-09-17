@@ -17,7 +17,7 @@ export async function FutureCommitmentsWidget({ accountId }: Props) {
     <Card className="flex flex-col gap-3 p-4">
       <div>
         <h3 className="text-sm font-semibold">{t("commitmentsTitle")}</h3>
-        <p className="text-xs text-slate-500">{t("commitmentsDescription")}</p>
+        <p className="text-xs text-muted-foreground">{t("commitmentsDescription")}</p>
       </div>
       <Suspense key={accountId} fallback={<FutureCommitmentsSkeleton />}>
         <FutureCommitmentsContent accountId={accountId} />

@@ -13,7 +13,7 @@ export async function BudgetsPage() {
     <>
       <div className="mb-4 flex items-center gap-1 text-sm">
         <h3>{settingsT("title")}</h3>
-        <span className="text-gray-500">/</span>
+        <span className="text-muted-foreground">/</span>
         <h3 className="font-semibold">{settingsT("budgets")}</h3>
       </div>
 

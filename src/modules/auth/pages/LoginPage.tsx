@@ -59,7 +59,7 @@ export function LoginPage() {
                     aria-invalid={fieldState.invalid}
                     type="email"
                     autoComplete="email"
-                    className="bg-white shadow-xs"
+                    className="bg-card shadow-xs"
                   />
                   {fieldState.invalid && (
                     <FieldError
@@ -82,7 +82,7 @@ export function LoginPage() {
                     aria-invalid={fieldState.invalid}
                     type="password"
                     autoComplete="current-password"
-                    className="bg-white shadow-xs"
+                    className="bg-card shadow-xs"
                   />
                   {fieldState.invalid && (
                     <FieldError
@@ -100,14 +100,14 @@ export function LoginPage() {
 
           <p className="mt-3 text-center text-sm">
             {t("signUpMessage")}
-            <Link href="/register" className="font-medium text-blue-600">
+            <Link href="/register" className="font-medium text-primary">
               {t("signUp")}
             </Link>
           </p>
 
           <p className="text-center text-sm">
             {t("forgotPassword")}
-            <Link href="/reset" className="font-medium text-blue-600">
+            <Link href="/reset" className="font-medium text-primary">
               {t("resetPassword")}
             </Link>
           </p>

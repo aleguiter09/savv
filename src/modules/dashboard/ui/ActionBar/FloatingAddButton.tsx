@@ -1,13 +1,13 @@
 "use client";
 
-import clsx from "clsx";
+import { cn } from "@/modules/shared/utils/cn";
 import { PlusIcon } from "lucide-react";
 import { forwardRef } from "react";
 
 const iconClasses =
-  "rounded-full bg-blue-600 p-2.5 text-white shadow-md hover:bg-blue-700";
+  "rounded-full bg-primary p-2.5 text-primary-foreground shadow-sm hover:bg-primary-hover";
 const wrapperClasses =
-  "cursor-pointer rounded-full focus:outline-1 focus:outline-blue-600 focus:outline-offset-2 transition-all";
+  "cursor-pointer rounded-full focus:outline-1 focus:outline-ring focus:outline-offset-2 transition-all";
 
 export const FloatingAddButton = forwardRef<
   HTMLButtonElement,
@@ -17,7 +17,7 @@ export const FloatingAddButton = forwardRef<
     <button
       ref={ref}
       type={type}
-      className={clsx(wrapperClasses, className)}
+      className={cn(wrapperClasses, className)}
       {...props}
     >
       <PlusIcon size={36} className={iconClasses} />

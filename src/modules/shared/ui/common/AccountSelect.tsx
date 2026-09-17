@@ -32,12 +32,12 @@ export function AccountSelect({
   return (
     <div className="flex flex-col gap-1.5">
       <label
-        className={cn("block text-sm font-medium", error && "text-red-500")}
+        className={cn("block text-sm font-medium", error && "text-destructive")}
       >
         {label}
       </label>
       <Select value={value ?? ""} onValueChange={setValue}>
-        <SelectTrigger className={cn(error && "border-red-500")}>
+        <SelectTrigger className={cn(error && "border-destructive")}>
           <SelectValue placeholder={t("selectAccount")} />
         </SelectTrigger>
         <SelectContent className="max-h-56">
@@ -52,7 +52,7 @@ export function AccountSelect({
       </Select>
       {error && (
         <div id="account-error" aria-live="polite" aria-atomic="true">
-          <p className="text-xs text-red-500">{error}</p>
+          <p className="text-xs text-destructive">{error}</p>
         </div>
       )}
     </div>

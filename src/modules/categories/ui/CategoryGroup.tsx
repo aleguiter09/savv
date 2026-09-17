@@ -33,7 +33,7 @@ export function CategoryGroup({
   const totalCount = subcategories.length;
 
   return (
-    <Card className="shadow-md px-4 py-2">
+    <Card className="shadow-sm px-4 py-2">
       <div
         className={cn(
           "flex items-center justify-between py-3",

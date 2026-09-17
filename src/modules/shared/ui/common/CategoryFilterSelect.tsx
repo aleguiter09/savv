@@ -24,7 +24,7 @@ export function CategoryFilterSelect({ value, onValueChange }: Props) {
 
   return (
     <Select value={value} onValueChange={onValueChange}>
-      <SelectTrigger className="w-full max-w-none bg-white">
+      <SelectTrigger className="w-full max-w-none bg-card">
         <SelectValue placeholder={t("selectPlaceholder")} />
       </SelectTrigger>
       <SelectContent className="max-h-60">

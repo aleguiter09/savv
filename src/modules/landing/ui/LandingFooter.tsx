@@ -15,10 +15,10 @@ export async function LandingFooter({ navItems }: Props) {
   const t = await getTranslations("landing");
 
   return (
-    <footer className="border-t border-border/80 bg-white">
+    <footer className="border-t border-border/80 bg-card">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-3">
         <div>
-          <div className="flex items-center gap-2 font-semibold text-gray-900">
+          <div className="flex items-center gap-2 font-semibold text-foreground">
             <Image
               src="/finance.png"
               alt=""
@@ -32,11 +32,11 @@ export async function LandingFooter({ navItems }: Props) {
         </div>
 
         <div>
-          <p className="text-sm font-medium text-gray-900">{t("footer.product")}</p>
+          <p className="text-sm font-medium text-foreground">{t("footer.product")}</p>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
             {navItems.map((item) => (
               <li key={item.href}>
-                <a href={item.href} className="hover:text-gray-900">
+                <a href={item.href} className="hover:text-foreground">
                   {item.label}
                 </a>
               </li>
@@ -45,15 +45,15 @@ export async function LandingFooter({ navItems }: Props) {
         </div>
 
         <div>
-          <p className="text-sm font-medium text-gray-900">{t("footer.account")}</p>
+          <p className="text-sm font-medium text-foreground">{t("footer.account")}</p>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
             <li>
-              <Link href="/login" className="hover:text-gray-900">
+              <Link href="/login" className="hover:text-foreground">
                 {t("cta.login")}
               </Link>
             </li>
             <li>
-              <Link href="/register" className="hover:text-gray-900">
+              <Link href="/register" className="hover:text-foreground">
                 {t("cta.createAccount")}
               </Link>
             </li>

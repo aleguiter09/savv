@@ -36,9 +36,9 @@ export function LandingHeader({
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/80 bg-gray-100/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-border/80 bg-background/95 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2 font-semibold text-gray-900">
+        <Link href="/" className="flex items-center gap-2 font-semibold text-foreground">
           <Image
             src="/finance.png"
             alt=""
@@ -54,7 +54,7 @@ export function LandingHeader({
             <a
               key={item.href}
               href={item.href}
-              className="transition-colors hover:text-gray-900"
+              className="transition-colors hover:text-foreground"
             >
               {item.label}
             </a>
@@ -90,7 +90,7 @@ export function LandingHeader({
                 <a
                   key={item.href}
                   href={item.href}
-                  className="rounded-md px-3 py-2 text-sm text-gray-700 hover:bg-accent"
+                  className="rounded-md px-3 py-2 text-sm text-foreground hover:bg-accent"
                   onClick={() => setOpen(false)}
                 >
                   {item.label}

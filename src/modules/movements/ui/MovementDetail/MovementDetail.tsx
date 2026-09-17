@@ -4,6 +4,7 @@ import { getFormatter, getLocale, getTranslations } from "next-intl/server";
 import { getCategoryLabel } from "@/modules/categories/utils/getCategoryLabel";
 import type { MovementView } from "../../types/types";
 import { formatCurrency } from "@/modules/shared/utils/formatCurrency";
+import { getMovementAmountClass } from "@/modules/shared/utils/movement-amount-class";
 import { EditMovementButton } from "../EditMovementButton";
 import { ApplyMovementButton } from "../ApplyMovementButton";
 import { SeriesDetailExtras } from "./SeriesDetailExtras";
@@ -42,7 +43,7 @@ export async function MovementDetail({
   });
 
   return (
-    <div className="rounded-md p-4 border bg-white">
+    <div className="rounded-md p-4 border bg-card">
       <div className="flex justify-between items-center mb-4">
         <div className="flex gap-3 items-center">
           <CategoryIcon icon={icon} color={color} />
@@ -52,33 +53,30 @@ export async function MovementDetail({
         </div>
 
         <span
-          className={cn("text-lg font-medium", {
-            "text-green-500": type === "income",
-            "text-red-500": type === "expense",
-          })}
+          className={cn("text-lg font-medium", getMovementAmountClass(type))}
         >
           {displayAmount}
         </span>
       </div>
       <div className="rounded-md border py-2 px-3 flex flex-col gap-1 mb-3">
-        <dt className=" text-gray-500 text-xs">
+        <dt className=" text-muted-foreground text-xs">
           {type === "transfer" ? tMovements("chooseFrom") : tMovements("account")}
         </dt>
         <dd className="text-sm">{account.name}</dd>
       </div>
       {toAccount ? (
         <div className="rounded-md border py-2 px-3 flex flex-col gap-1 mb-3">
-          <dt className=" text-gray-500 text-xs">{tMovements("chooseTo")}</dt>
+          <dt className=" text-muted-foreground text-xs">{tMovements("chooseTo")}</dt>
           <dd className="text-sm">{toAccount.name}</dd>
         </div>
       ) : null}
 
       <div className="rounded-md border py-2 px-3 flex flex-col gap-1 mb-3">
-        <dt className="text-gray-500 text-xs">{tMovements("doneAt")}</dt>
+        <dt className="text-muted-foreground text-xs">{tMovements("doneAt")}</dt>
         <dd className="text-sm">{displayDate}</dd>
       </div>
       <div className="rounded-md border py-2 px-3 flex flex-col gap-1 mb-3">
-        <dt className=" text-gray-500 text-xs">{tMovements("balanceAfter")}</dt>
+        <dt className=" text-muted-foreground text-xs">{tMovements("balanceAfter")}</dt>
         <dd className="text-sm">
           {movement.applied
             ? displayBalanceAfter
@@ -86,7 +84,7 @@ export async function MovementDetail({
         </dd>
       </div>
       <div className="rounded-md border py-2 px-3 flex flex-col gap-1">
-        <dt className=" text-gray-500 text-xs">{tMovements("description")}</dt>
+        <dt className=" text-muted-foreground text-xs">{tMovements("description")}</dt>
         <dd className="text-sm">{description}</dd>
       </div>
 

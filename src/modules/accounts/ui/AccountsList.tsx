@@ -21,7 +21,7 @@ export function AccountsList({ accounts }: AccountsListProps) {
         {accounts.map((account) => (
           <li
             key={account.id}
-            className="w-full px-4 py-2 border border-gray-200 bg-white rounded-lg flex justify-between items-center"
+            className="w-full px-4 py-2 border border-border bg-card rounded-lg flex justify-between items-center"
           >
             <p>{account.name}</p>
             <div className="flex items-center gap-2">

@@ -13,22 +13,22 @@ export async function MovementsSection() {
 
   const items = [
     {
-      icon: <ArrowDownLeft className="h-5 w-5 text-green-600" />,
+      icon: <ArrowDownLeft className="h-5 w-5 text-income" />,
       title: t("items.income.title"),
       description: t("items.income.description"),
     },
     {
-      icon: <ArrowUpRight className="h-5 w-5 text-red-600" />,
+      icon: <ArrowUpRight className="h-5 w-5 text-expense" />,
       title: t("items.expense.title"),
       description: t("items.expense.description"),
     },
     {
-      icon: <ArrowLeftRight className="h-5 w-5 text-blue-600" />,
+      icon: <ArrowLeftRight className="h-5 w-5 text-transfer" />,
       title: t("items.transfer.title"),
       description: t("items.transfer.description"),
     },
     {
-      icon: <Tags className="h-5 w-5 text-blue-600" />,
+      icon: <Tags className="h-5 w-5 text-primary" />,
       title: t("items.categories.title"),
       description: t("items.categories.description"),
     },
@@ -41,12 +41,12 @@ export async function MovementsSection() {
           <MovementsPreviewMock />
         </div>
         <div className="order-1 lg:order-2">
-          <h2 className="text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
             {t("title")}
           </h2>
           <p className="mt-3 text-muted-foreground">{t("subtitle")}</p>
           <FeatureGrid items={items} className="mt-8" />
-          <p className="mt-6 rounded-xl border border-blue-100 bg-blue-50/70 px-4 py-3 text-sm text-gray-700">
+          <p className="mt-6 rounded-xl border border-primary-muted bg-primary-muted/70 px-4 py-3 text-sm text-foreground">
             {t("transferNote")}
           </p>
         </div>

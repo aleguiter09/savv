@@ -11,14 +11,14 @@ export async function AccountsPreviewMock() {
   ];
 
   return (
-    <div aria-hidden="true" className="rounded-2xl border bg-gray-50 p-4">
+    <div aria-hidden="true" className="rounded-2xl border bg-surface p-4">
       <Card className="px-4 py-3">
         <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
           {t("netWorth")}
         </p>
         <p className="mt-1 text-2xl font-semibold tabular-nums">18.920,00</p>
       </Card>
-      <Card className="mt-3 px-4 py-3 shadow-md">
+      <Card className="mt-3 px-4 py-3 shadow-sm">
         <p className="mb-3 text-sm font-semibold">{t("accounts")}</p>
         <ul className="space-y-3 text-sm">
           {accounts.map((account) => (
@@ -26,7 +26,7 @@ export async function AccountsPreviewMock() {
               key={account.name}
               className="flex items-center justify-between border-b border-border/60 pb-2 last:border-0 last:pb-0"
             >
-              <span className="text-gray-700">{account.name}</span>
+              <span className="text-foreground">{account.name}</span>
               <span className="font-medium tabular-nums">{account.amount}</span>
             </li>
           ))}

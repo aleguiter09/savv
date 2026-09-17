@@ -107,7 +107,7 @@ export function AccountForm({ account, onSuccess }: AccountFormProps) {
                 disabled={Boolean(account)}
               />
               {account && (
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   {t("balanceManagedByMovements")}
                 </p>
               )}

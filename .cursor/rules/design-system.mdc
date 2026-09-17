@@ -1,0 +1,58 @@
+---
+description: Savv financial SaaS design system — brand tokens, typography, and UI conventions
+alwaysApply: true
+---
+
+# Savv Design System
+
+Source of truth: `src/app/globals.css` (`:root` / `.dark` + `@theme`). Prefer semantic Tailwind tokens over hardcoded palette colors (`blue-600`, `gray-900`, hex, etc.).
+
+## Brand & neutrals
+
+| Token | Use |
+|-------|-----|
+| `primary` / `primary-hover` / `primary-muted` / `primary-highlight` | Brand #155DFC, hover, subtle fills |
+| `background` | Elevated white surfaces / cards |
+| `surface` | Page chrome (`body`) |
+| `foreground` / `muted-foreground` / `text-muted` | Text hierarchy |
+| `border` / `input` / `ring` | Borders and focus |
+
+## Financial semantics
+
+| Token | Meaning |
+|-------|---------|
+| `income` / `success` | Income, positive, success (#16A34A) |
+| `expense` / `destructive` | Expenses, errors, destructive (#EF4444) |
+| `transfer` | Transfers (#8B5CF6) |
+| `warning` | Warnings (#F59E0B) |
+
+Amounts: use `getMovementAmountClass(type)` or `getSignedAmountClass(amount)` from `@/modules/shared/utils/movement-amount-class`.
+
+Charts (Recharts hex): `@/modules/shared/utils/chart-colors` — blue scale from brand; reserve green/red/purple/amber for semantics only.
+
+## Typography
+
+- **Inter** (`font-sans`): default everywhere
+- **Space Grotesk** (`font-display`): landing hero + prominent marketing brand headings only
+
+## UI conventions
+
+- Radius ~8–12px (`--radius: 0.625rem`); cards may use `rounded-xl`
+- Subtle 1px borders, soft shadows (`shadow-xs` / `shadow-sm`); flat UI — no heavy gradients/glass/glow
+- Buttons: `bg-primary hover:bg-primary-hover`; focus rings: `ring-ring`
+- Skeletons: `bg-muted`; page bg: `bg-surface`; cards: `bg-card`
+- shadcn lives in `src/ui` — extend via tokens, don’t invent parallel color systems
+
+## Exceptions (do not “fix” these)
+
+- Category user colors in `constants.ts` / `IconPicker.tsx` (multi-color swatches)
+- Dark: keep `.dark` tokens coherent; don’t remove dark variables. No ThemeProvider required unless asked
+
+## ❌ Avoid
+
+```tsx
+// BAD
+className="bg-blue-600 text-gray-900 text-green-600"
+// GOOD
+className="bg-primary text-foreground text-income"
+```

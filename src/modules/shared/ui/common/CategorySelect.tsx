@@ -38,7 +38,7 @@ export function CategorySelect({
   return (
     <div className="flex flex-col gap-1.5">
       <label
-        className={cn("block text-sm font-medium", error && "text-red-500")}
+        className={cn("block text-sm font-medium", error && "text-destructive")}
       >
         {tCommon(labelKey)}
       </label>
@@ -47,7 +47,7 @@ export function CategorySelect({
         value={category ?? ""}
         onValueChange={setCategory}
       >
-        <SelectTrigger className={error ? "border border-rose-500" : ""}>
+        <SelectTrigger className={error ? "border border-destructive" : ""}>
           <SelectValue placeholder={tCommon("selectCategory")} />
         </SelectTrigger>
         <SelectContent className="max-h-56">
@@ -83,7 +83,7 @@ export function CategorySelect({
       </Select>
       {error && (
         <div id="category-error" aria-live="polite" aria-atomic="true">
-          <p className="text-xs text-red-500">{error}</p>
+          <p className="text-xs text-destructive">{error}</p>
         </div>
       )}
     </div>
