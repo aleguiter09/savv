@@ -24,7 +24,7 @@ export async function ValuePillarsSection() {
       id={t("id")}
       className="scroll-mt-20 border-t border-border/70 bg-background"
     >
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-24">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
             {t("title")}

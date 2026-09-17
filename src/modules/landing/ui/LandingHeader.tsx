@@ -13,14 +13,8 @@ import {
   SheetTrigger,
 } from "@/ui/sheet";
 
-type NavItem = {
-  href: string;
-  label: string;
-};
-
 type Props = Readonly<{
   brand: string;
-  navItems: NavItem[];
   loginLabel: string;
   registerLabel: string;
   openMenuLabel: string;
@@ -28,7 +22,6 @@ type Props = Readonly<{
 
 export function LandingHeader({
   brand,
-  navItems,
   loginLabel,
   registerLabel,
   openMenuLabel,
@@ -37,35 +30,23 @@ export function LandingHeader({
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/80 bg-background/95 backdrop-blur">
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link href="/" className="flex items-center">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+        <a href="#top">
           <Image
             src="/margo-logo.png"
             alt={brand}
-            width={170}
-            height={56}
-            className="h-7 w-auto"
+            width={140}
+            height={36}
+            className="h-9 w-auto"
             priority
           />
-        </Link>
-
-        <nav className="hidden items-center gap-6 text-sm text-muted-foreground lg:flex">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="transition-colors hover:text-foreground"
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
+        </a>
 
         <div className="hidden items-center gap-2 lg:flex">
-          <Button variant="outline" size="sm" asChild>
+          <Button variant="outline" asChild>
             <Link href="/login">{loginLabel}</Link>
           </Button>
-          <Button size="sm" asChild>
+          <Button asChild>
             <Link href="/register">{registerLabel}</Link>
           </Button>
         </div>
@@ -85,18 +66,6 @@ export function LandingHeader({
             <SheetHeader>
               <SheetTitle>{brand}</SheetTitle>
             </SheetHeader>
-            <nav className="mt-6 flex flex-col gap-1">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className="rounded-md px-3 py-2 text-sm text-foreground hover:bg-accent"
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
             <div className="mt-6 flex flex-col gap-2">
               <Button variant="outline" asChild>
                 <Link href="/login" onClick={() => setOpen(false)}>

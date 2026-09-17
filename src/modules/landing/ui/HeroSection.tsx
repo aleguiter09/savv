@@ -7,7 +7,7 @@ export async function HeroSection() {
   const t = await getTranslations("landing");
 
   return (
-    <section className="mx-auto max-w-6xl px-4 pb-20 pt-16 sm:px-6 sm:pt-20 lg:pb-28 lg:pt-24">
+    <section className="mx-auto max-w-6xl px-4 py-20  sm:px-6">
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         <div className="order-2 text-center lg:order-1 lg:text-left">
           <h1 className="font-display text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl lg:leading-[1.08]">

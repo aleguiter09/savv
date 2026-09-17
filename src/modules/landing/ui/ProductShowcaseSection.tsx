@@ -12,7 +12,7 @@ export async function ProductShowcaseSection() {
       id={t("id")}
       className="scroll-mt-20 border-t border-border/70 bg-surface"
     >
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-24">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
             {t("title")}
@@ -22,34 +22,10 @@ export async function ProductShowcaseSection() {
           </p>
         </div>
 
-        <div className="mt-14 space-y-8">
-          <figure className="mx-auto max-w-3xl">
-            <figcaption className="mb-3 text-center text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              {t("labels.dashboard")}
-            </figcaption>
-            <HeroDashboardMock />
-          </figure>
-
-          <div className="grid gap-6 md:grid-cols-3">
-            <figure>
-              <figcaption className="mb-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                {t("labels.accounts")}
-              </figcaption>
-              <AccountsPreviewMock />
-            </figure>
-            <figure>
-              <figcaption className="mb-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                {t("labels.movements")}
-              </figcaption>
-              <MovementsPreviewMock />
-            </figure>
-            <figure>
-              <figcaption className="mb-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                {t("labels.analytics")}
-              </figcaption>
-              <AnalyticsPreviewMock />
-            </figure>
-          </div>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <AccountsPreviewMock />
+          <MovementsPreviewMock />
+          <AnalyticsPreviewMock />
         </div>
       </div>
     </section>

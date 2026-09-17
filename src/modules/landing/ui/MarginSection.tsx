@@ -10,7 +10,7 @@ export async function MarginSection() {
       id={t("id")}
       className="scroll-mt-20 border-t border-border/70 bg-background"
     >
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-24">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
           <div>
             <h2 className="max-w-lg text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">

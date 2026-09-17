@@ -20,7 +20,6 @@ export async function LandingPage() {
     <>
       <LandingHeader
         brand={t("brand")}
-        navItems={[...navItems]}
         loginLabel={t("cta.login")}
         registerLabel={t("cta.register")}
         openMenuLabel={t("nav.openMenu")}
